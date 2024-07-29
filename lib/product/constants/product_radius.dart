@@ -5,6 +5,6 @@ import 'package:flutter/widgets.dart';
 final class ProductRadius extends BorderRadius {
   const ProductRadius.ten()
       : super.all(
-          const Radius.circular(10.0),
+          const Radius.circular(10),
         );
 }

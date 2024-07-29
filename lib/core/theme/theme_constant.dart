@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/product/constants/product_radius.dart';
+import 'package:myapp/core/index.dart';
 
 @immutable
 abstract final class ThemeConstants {

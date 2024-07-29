@@ -1,17 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/core/theme/theme_constant.dart';
-import 'package:myapp/product/constants/product_radius.dart';
+import 'package:injectable/injectable.dart';
+import 'package:myapp/core/index.dart';
 
-abstract base class BaseTheme {
-  Brightness get brightness;
-  Iterable<ThemeExtension<ThemeExtension>> get extensions;
 
+@lazySingleton
+final class BaseTheme {
+  
   ThemeData get theme {
     return ThemeData(
-      fontFamily: 'Poppins',
-      brightness: brightness,
-      extensions: extensions,
-      colorSchemeSeed: Colors.deepPurple,
+      colorSchemeSeed: ProductColor().seedColor,
+      useMaterial3: true,
       appBarTheme: _appBarTheme,
       cardTheme: _cardTheme,
       dialogTheme: _dialogTheme,

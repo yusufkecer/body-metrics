@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:myapp/core/theme/base_theme.dart';
+import 'package:myapp/locator.dart';
 
-void main() {
+Future<void> main() async {
+  await Locator.locateServices();
   runApp(const MyApp());
 }
 
@@ -11,7 +13,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'Flutter Demo',
-      theme: BaseTheme.th
+      theme: Locator.instance.get<BaseTheme>().theme,
     );
   }
 }
