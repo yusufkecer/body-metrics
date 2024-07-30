@@ -8,3 +8,5 @@ linter:
     sort_pub_dependencies: false
     public_member_api_docs: false
     lines_longer_than_80_chars: false
+    sort_constructors_first: false
+

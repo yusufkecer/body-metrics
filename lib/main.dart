@@ -1,19 +1,29 @@
 import 'package:flutter/material.dart';
-import 'package:myapp/core/theme/base_theme.dart';
-import 'package:myapp/locator.dart';
+import 'package:myapp/core/index.dart';
 
 Future<void> main() async {
-  await Locator.locateServices();
   runApp(const MyApp());
 }
 
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
+
   @override
   Widget build(BuildContext context) {
+    InitApp.init();
     return MaterialApp.router(
-      title: 'Flutter Demo',
+      title: 'BMI Calculator',
       theme: Locator.instance.get<BaseTheme>().theme,
+      routerConfig: Locator.instance.get<AppRouter>().config(),
+      debugShowCheckedModeBanner: false,
+      // localizationsDelegates: const [
+      //   GlobalMaterialLocalizations.delegate,
+      //   GlobalWidgetsLocalizations.delegate,
+      //   GlobalCupertinoLocalizations.delegate,
+      // ],
+      // supportedLocales: const [
+      //   Locale('en', 'US'),
+      // ],
     );
   }
 }
