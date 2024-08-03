@@ -4,7 +4,9 @@ import 'package:json_annotation/json_annotation.dart';
 part 'user.g.dart';
 
 @JsonSerializable()
-final class User extends Equatable implements BaseModel<User> {
+final class User extends Equatable implements BaseModel<User>, IdModel {
+  @override
+  final int? id;
   final String? name;
   final String? surname;
   final String? date;
@@ -14,6 +16,7 @@ final class User extends Equatable implements BaseModel<User> {
   final List<BMI>? bmi;
 
   const User({
+    this.id,
     this.name,
     this.surname,
     this.date,
@@ -24,6 +27,7 @@ final class User extends Equatable implements BaseModel<User> {
   });
 
   const User.copyWith({
+    this.id,
     this.name,
     this.surname,
     this.date,
