@@ -1,7 +1,4 @@
-import 'package:flutter/material.dart';
-
-@immutable
 abstract interface class BaseModel<T> {
-  T fromJson(Map<String, dynamic> json);
+  BaseModel.fromJson();
   Map<String, dynamic> toJson();
 }

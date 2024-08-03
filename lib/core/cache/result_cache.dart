@@ -1,6 +1,6 @@
 import 'package:bmicalculator/core/cache/imp_cache.dart';
-import 'package:bmicalculator/domain/models/user.dart';
+import 'package:bmicalculator/core/index.dart';
 
-final class ResultCache extends ImpCache<User> {
+final class ResultCache<T extends BaseModel<T>> extends ImpCache {
   ResultCache({required super.path});
 }

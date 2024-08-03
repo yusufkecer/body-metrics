@@ -1,7 +1,7 @@
 import 'package:bmicalculator/core/index.dart';
 import 'package:sqflite/sqflite.dart';
 
-base class ImpCache<T extends BaseModel<T>> implements BaseCache {
+base class ImpCache implements BaseCache {
   @override
   String? path;
 
