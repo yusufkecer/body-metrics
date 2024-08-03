@@ -1,4 +1,4 @@
-name: myapp
+name: bmicalculator
 description: "A new Flutter project."
 publish_to: 'none'
 
@@ -36,6 +36,7 @@ flutter:
     - assets/
     - assets/images/
     - assets/lotties/
+    - assets/language/
 
 
 

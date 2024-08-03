@@ -1,5 +1,5 @@
+import 'package:bmicalculator/core/index.dart';
 import 'package:flutter/material.dart';
-import 'package:myapp/core/index.dart';
 
 @immutable
 abstract final class ThemeConstants {

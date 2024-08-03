@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:bmicalculator/feature/gender/gender.dart';
 import 'package:injectable/injectable.dart';
-import 'package:myapp/feature/gender/gender.dart';
 part 'router.gr.dart';
 
 @lazySingleton

@@ -1,3 +1,0 @@
-base class BaseCache<T> {
-    
-}

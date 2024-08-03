@@ -1,11 +1,9 @@
+import 'package:bmicalculator/core/index.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
-import 'package:myapp/core/index.dart';
-
 
 @lazySingleton
 final class BaseTheme {
-  
   ThemeData get theme {
     return ThemeData(
       colorSchemeSeed: ProductColor().seedColor,
