@@ -6,38 +6,22 @@ base class ImpCache<T extends BaseModel<T>> implements BaseCache {
   String? path;
 
   @override
-  String? columnAge;
-
-  @override
-  String? columnId;
-
-  @override
-  String? columnName;
-
-  @override
-  String? table;
-
-  @override
   int get version => 1;
 
   @override
-  Future<void> createDatabase() async {}
-
-  @override
-  Future<Database> initDatabase() async {
+  Future<Database> createDatabase() async {
     final path = await getDatabasesPath();
     return openDatabase(
       '$path/${this.path}',
       version: version,
-      onCreate: (db, version) async {},
+      onCreate: initDatabase,
     );
   }
 
+  @override
+  Future<void> initDatabase(Database db, int version) async {}
+
   ImpCache({
     required this.path,
-    required this.table,
-    required this.columnId,
-    required this.columnName,
-    required this.columnAge,
   });
 }
