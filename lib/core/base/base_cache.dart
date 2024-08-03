@@ -1,7 +1,7 @@
 import 'package:sqflite/sqflite.dart';
 
-abstract interface class BaseCache<T> {
-  final String databaseName = 'bmi_calculator.db';
+abstract interface class BaseCache {
+  String? path;
 
   String? table;
   String? columnId;
@@ -9,10 +9,6 @@ abstract interface class BaseCache<T> {
   String? columnAge;
 
   final int version = 1;
-  Future<void> init();
-
-  T read(String key);
-  bool write(String key, T value);
 
   Future<Database> initDatabase();
   Future<void> createDatabase();
