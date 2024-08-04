@@ -3,6 +3,7 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 Future<void> main() async {
+  await InitApp.init();
   runApp(
     EasyLocalization(
       supportedLocales: [Locale(Lang.en.name), Locale(Lang.tr.name)],
@@ -13,7 +14,6 @@ Future<void> main() async {
       child: const BMICalculator(),
     ),
   );
-  await InitApp.init();
 }
 
 class BMICalculator extends StatelessWidget {

@@ -4,13 +4,13 @@ import 'package:bmicalculator/core/index.dart';
 import 'package:sqflite/sqflite.dart';
 
 base class ImpCache<T extends BaseModel<T>> implements BaseDatabase {
-  ImpCache({required this.path, required this.initDatabase});
+  ImpCache({required this.initDatabase});
 
   Database? _db;
   Database? get db => _db;
 
   @override
-  String? path;
+  String? path = 'bmi.db';
 
   @override
   int get version => 1;
@@ -18,8 +18,7 @@ base class ImpCache<T extends BaseModel<T>> implements BaseDatabase {
   final FutureOr<void> Function(Database db, int version)? initDatabase;
 
   @override
-  Future<void> createDatabase() async {
-    print("create db");
+  Future<Database?> createDatabase() async {
     final path = await getDatabasesPath();
     _db = await openDatabase(
       '$path/${this.path}',
@@ -28,7 +27,8 @@ base class ImpCache<T extends BaseModel<T>> implements BaseDatabase {
         initDatabase!(db, version);
       },
     );
-    'database created'.logInfo();
+    'database created'.log;
+    return _db;
   }
 
   @override
@@ -36,7 +36,7 @@ base class ImpCache<T extends BaseModel<T>> implements BaseDatabase {
     if (_db != null) {
       await _db?.close();
       _db = null;
-      'database closed'.logInfo();
+      'database closed'.log;
     }
   }
 
@@ -44,6 +44,6 @@ base class ImpCache<T extends BaseModel<T>> implements BaseDatabase {
   Future<void> deleteDb() async {
     final path = await getDatabasesPath();
     await deleteDatabase('$path/${this.path}');
-    'database deleted'.logInfo();
+    'database deleted'.log;
   }
 }

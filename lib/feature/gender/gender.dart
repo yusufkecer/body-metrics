@@ -1,4 +1,5 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:bmicalculator/core/index.dart';
 
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,9 @@ class _GenderState extends State<Gender> {
       appBar: AppBar(
         actions: [
           IconButton(
-            onPressed: () {},
+            onPressed: () async {
+              await Locator.instance.get<UserCache>().createDatabase();
+            },
             icon: const Icon(Icons.abc),
           ),
         ],

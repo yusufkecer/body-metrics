@@ -4,12 +4,11 @@ import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
 @injectable
-final class BMICache extends ImpCache<User> {
-  BMICache() : super(path: 'result.db', initDatabase: BMICache().onCreate);
+final class BMICache extends ImpCache<BMI> {
+  BMICache() : super(initDatabase: onCreate);
 
-  final String table = 'user';
-
-  FutureOr<void> onCreate(Database db, int version) async {
+  static FutureOr<void> onCreate(Database db, int version) async {
+    const table = 'result';
     await db.execute('''
         CREATE TABLE $table (
           id INTEGER PRIMARY KEY AUTOINCREMENT,

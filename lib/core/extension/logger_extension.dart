@@ -1,11 +1,6 @@
 import 'package:logger/logger.dart';
 
 extension LoggerExtension on dynamic {
-
-  void logInfo([String? info]) {
-    Logger().i(this, error: info);
-  }
-
   void logWarning([String? warning]) {
     Logger().w(this, error: warning);
   }
@@ -14,7 +9,6 @@ extension LoggerExtension on dynamic {
     Logger().e(this, error: error);
   }
 
-  void wtf([String? wtf]) {
-    Logger().f(this, error: wtf);
-  }
+  dynamic get log => Logger().i(this);
+  dynamic get wtf => Logger().w(this);
 }
