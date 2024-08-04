@@ -4,6 +4,6 @@ abstract interface class BaseDatabase {
   final int version = 1;
 
   Future<void> createDatabase();
-  //close
-  Future<void> close();
+  Future<void> closeDb();
+  Future<void> deleteDb();
 }

@@ -18,5 +18,7 @@ final class UserCache extends ImpCache<User> {
           gender int NOT NULL 
         )
       ''');
+
+    'init database'.logInfo();
   }
 }

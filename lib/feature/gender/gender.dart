@@ -13,6 +13,16 @@ class Gender extends StatefulWidget {
 class _GenderState extends State<Gender> {
   @override
   Widget build(BuildContext context) {
-    return const Placeholder();
+    return Scaffold(
+      appBar: AppBar(
+        actions: [
+          IconButton(
+            onPressed: () {},
+            icon: const Icon(Icons.abc),
+          ),
+        ],
+        title: const Text('Gender'),
+      ),
+    );
   }
 }

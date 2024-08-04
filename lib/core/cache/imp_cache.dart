@@ -19,20 +19,31 @@ base class ImpCache<T extends BaseModel<T>> implements BaseDatabase {
 
   @override
   Future<void> createDatabase() async {
+    print("create db");
     final path = await getDatabasesPath();
     _db = await openDatabase(
       '$path/${this.path}',
       version: version,
       onCreate: (db, version) {
-        initDatabase!(db,version);
+        initDatabase!(db, version);
       },
     );
+    'database created'.logInfo();
   }
 
   @override
-  Future<void> close() async {
-    if (path != null) {
+  Future<void> closeDb() async {
+    if (_db != null) {
       await _db?.close();
+      _db = null;
+      'database closed'.logInfo();
     }
+  }
+
+  @override
+  Future<void> deleteDb() async {
+    final path = await getDatabasesPath();
+    await deleteDatabase('$path/${this.path}');
+    'database deleted'.logInfo();
   }
 }
