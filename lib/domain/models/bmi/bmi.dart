@@ -7,11 +7,13 @@ part 'bmi.g.dart';
 
 @JsonSerializable()
 class BMI extends Equatable implements BaseModel<BMI> {
-  const BMI({this.date, this.bmiResult});
+  const BMI({this.date, this.height, this.weight, this.bmiResult});
 
-  const BMI.copyWith({this.date, this.bmiResult});
+  const BMI.copyWith({this.date, this.height, this.weight, this.bmiResult});
 
   final String? date;
+  final String? height;
+  final String? weight;
   final BMIResult? bmiResult;
 
   @override

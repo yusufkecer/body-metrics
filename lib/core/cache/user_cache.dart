@@ -4,17 +4,18 @@ import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
 @injectable
-final class ResultCache extends ImpCache<User> {
-  ResultCache()
-      : super(path: 'result.db', initDatabase: ResultCache().onCreate);
+final class UserCache extends ImpCache<User> {
+  UserCache() : super(path: 'BMI.db', initDatabase: UserCache().onCreate);
+
+  final String table = 'user';
 
   FutureOr<void> onCreate(Database db, int version) async {
-    return await db.execute('''
-        CREATE TABLE notes (
+    await db.execute('''
+        CREATE TABLE $table (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
-          title TEXT NOT NULL,
-          content TEXT NOT NULL,
-          created_time INTEGER NOT NULL
+          name TEXT NOT NULL,
+          surname TEXT NULL,
+          gender int NOT NULL 
         )
       ''');
   }

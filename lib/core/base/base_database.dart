@@ -1,9 +1,9 @@
-import 'package:sqflite/sqflite.dart';
-
 abstract interface class BaseDatabase {
   String? path;
 
   final int version = 1;
 
-  Future<Database> createDatabase();
+  Future<void> createDatabase();
+  //close
+  Future<void> close();
 }

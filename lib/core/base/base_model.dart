@@ -1,8 +1,12 @@
+import 'package:flutter/foundation.dart';
+
+@immutable
 abstract interface class BaseModel<T> {
-  BaseModel.fromJson();
+  const BaseModel.fromJson();
   Map<String, dynamic> toJson();
 }
 
+@immutable
 abstract interface class IdModel {
   int? get id;
 }

@@ -9,20 +9,15 @@ final class User extends Equatable implements BaseModel<User>, IdModel {
   final int? id;
   final String? name;
   final String? surname;
-  final String? date;
   final String? gender;
-  final String? height;
-  final String? weight;
+
   final List<BMI>? bmi;
 
   const User({
     this.id,
     this.name,
     this.surname,
-    this.date,
     this.gender,
-    this.height,
-    this.weight,
     this.bmi,
   });
 
@@ -30,15 +25,12 @@ final class User extends Equatable implements BaseModel<User>, IdModel {
     this.id,
     this.name,
     this.surname,
-    this.date,
     this.gender,
-    this.height,
-    this.weight,
     this.bmi,
   });
 
   @override
-  List<Object?> get props => [name, surname, date, gender, height, weight];
+  List<Object?> get props => [name, surname, gender];
 
   @override
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

@@ -6,6 +6,9 @@ import 'package:sqflite/sqflite.dart';
 base class ImpCache<T extends BaseModel<T>> implements BaseDatabase {
   ImpCache({required this.path, required this.initDatabase});
 
+  Database? _db;
+  Database? get db => _db;
+
   @override
   String? path;
 
@@ -15,12 +18,21 @@ base class ImpCache<T extends BaseModel<T>> implements BaseDatabase {
   final FutureOr<void> Function(Database db, int version)? initDatabase;
 
   @override
-  Future<Database> createDatabase() async {
+  Future<void> createDatabase() async {
     final path = await getDatabasesPath();
-    return openDatabase(
+    _db = await openDatabase(
       '$path/${this.path}',
       version: version,
-      onCreate: initDatabase,
+      onCreate: (db, version) {
+        initDatabase!(db,version);
+      },
     );
+  }
+
+  @override
+  Future<void> close() async {
+    if (path != null) {
+      await _db?.close();
+    }
   }
 }
