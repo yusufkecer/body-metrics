@@ -1,17 +1,17 @@
 import 'dart:async';
 import 'package:bmicalculator/core/index.dart';
+import 'package:bmicalculator/domain/index.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 
 @injectable
-final class UserCache extends ImpCache<User> implements CacheMethods<User> {
-  UserCache() : super(initDatabase: onCreate);
+final class UserCache extends ImpCache<User> implements CacheMethods<Users> {
+  UserCache() : super(initTable: onCreate);
 
   static FutureOr<void> onCreate(Database db, int version) async {
-    const table = 'user';
     await db.execute('''
-        CREATE TABLE $table (
+        CREATE TABLE user (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           name TEXT NOT NULL,
           surname TEXT NULL,
@@ -23,36 +23,50 @@ final class UserCache extends ImpCache<User> implements CacheMethods<User> {
   }
 
   @override
+  String get table => 'user';
+
+  @override
   Future<bool> insert(Database? db, Map<String, dynamic> value) async {
     if (db == null) {
       'Database is null'.w;
       return false;
     }
-    final result = await db.insert('user', value);
+    final result = await db.insert(table, value);
 
-    return result > 0;
+    if (result > 0) {
+      'User inserted'.log;
+      return true;
+    } else {
+      'User not inserted'.w;
+      return false;
+    }
   }
 
   @override
-  Future<bool> delete() {
+  Future<Users> select(Database? db, Map<String, dynamic> value) async {
+    //if (value.isNotEmpty) {}
+
+    final result = await db?.query(table);
+    result.log;
+    if (result != null && result.isNotEmpty) {
+      final usersList = result.map(User.fromJson).toList();
+      return Users(users: usersList);
+    }
+    throw Exception('User not found');
+  }
+
+  @override
+  Future<bool> delete(Database? db, int id) {
     throw UnimplementedError();
   }
 
   @override
-  Future<User> select(int id) {
-    // TODO: implement get
+  Future<Users> selectAll(Database? db) async {
     throw UnimplementedError();
   }
 
   @override
-  Future<List<User>> selectAll() {
-    // TODO: implement getAll
-    throw UnimplementedError();
-  }
-
-  @override
-  Future<bool> remove(int id) {
-    // TODO: implement remove
+  Future<bool> deleteAll(Database? db) {
     throw UnimplementedError();
   }
 }

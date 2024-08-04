@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:bmicalculator/core/index.dart';
+import 'package:bmicalculator/feature/gender/gender.dart';
 
 import 'package:injectable/injectable.dart';
 part 'router.gr.dart';
