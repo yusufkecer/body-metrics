@@ -5,12 +5,7 @@ import 'package:flutter/material.dart';
 Future<void> main() async {
   await InitApp.init();
   runApp(
-    EasyLocalization(
-      supportedLocales: [Locale(Lang.en.name), Locale(Lang.tr.name)],
-      fallbackLocale: Locale(Lang.tr.name),
-      useOnlyLangCode: true,
-      useFallbackTranslations: true,
-      path: AssetPath.language,
+    ProductLocalization(
       child: const BMICalculator(),
     ),
   );

@@ -25,7 +25,7 @@ final class UserCache extends ImpCache<User> implements CacheMethods<User> {
   @override
   Future<bool> insert(Database? db, Map<String, dynamic> value) async {
     if (db == null) {
-      'Database is null'.wtf;
+      'Database is null'.w;
       return false;
     }
     final result = await db.insert('user', value);

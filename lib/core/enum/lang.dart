@@ -1,15 +1,11 @@
-enum Lang {
-  en,
-  tr,
-}
+import 'package:flutter/material.dart';
 
-extension LangExtension on Lang {
-  String get name {
-    switch (this) {
-      case Lang.en:
-        return 'en';
-      case Lang.tr:
-        return 'tr';
-    }
-  }
+enum Lang {
+  tr(Locale('tr', 'TR')),
+
+  en(Locale('en', 'US'));
+
+  final Locale locale;
+
+  const Lang(this.locale);
 }
