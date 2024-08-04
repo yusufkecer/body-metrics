@@ -10,10 +10,10 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       id: (json['id'] as num?)?.toInt(),
       name: json['name'] as String?,
       surname: json['surname'] as String?,
-      gender: json['gender'] as String?,
-      bmi: (json['bmi'] as List<dynamic>?)
-          ?.map((e) => BMI.fromJson(e as Map<String, dynamic>))
-          .toList(),
+      gender: (json['gender'] as num?)?.toInt(),
+      bmis: json['bmis'] == null
+          ? null
+          : BMIS.fromJson(json['bmis'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
@@ -21,5 +21,4 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'name': instance.name,
       'surname': instance.surname,
       'gender': instance.gender,
-      'bmi': instance.bmi,
     };

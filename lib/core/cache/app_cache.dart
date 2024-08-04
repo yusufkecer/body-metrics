@@ -1,24 +1,19 @@
 import 'dart:async';
+
 import 'package:bmicalculator/core/index.dart';
 import 'package:bmicalculator/domain/index.dart';
-import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
-@injectable
-final class BMICache extends ImpCache<BMI> implements CacheMethods<BMIS> {
-  BMICache() : super(initTable: initializeTable);
+final class AppCache extends ImpCache<Settings> implements CacheMethods<Settings> {
+  AppCache() : super(initTable: initializeTable);
 
   static FutureOr<void> initializeTable(Database db, int version) async {
-    const table = 'result';
+    const table = 'settings';
     await db.execute('''
         CREATE TABLE $table (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
-          date TEXT NOT NULL,
-          weight TEXT NULL,
-          height int NOT NULL 
-          user_id INTEGER NOT NULL,
-          result int NOT NULL,
-          FOREIGN KEY (user_id) REFERENCES user(id)
+          theme TEXT NOT NULL,
+          language TEXT NOT NULL
         )
       ''');
   }
@@ -42,13 +37,13 @@ final class BMICache extends ImpCache<BMI> implements CacheMethods<BMIS> {
   }
 
   @override
-  Future<BMIS> select(Database? db, Map<String, dynamic> value) {
+  Future<Settings> select(Database? db, Map<String, dynamic> value) {
     // TODO: implement select
     throw UnimplementedError();
   }
 
   @override
-  Future<BMIS> selectAll(Database? db) {
+  Future<Settings> selectAll(Database? db) {
     // TODO: implement selectAll
     throw UnimplementedError();
   }

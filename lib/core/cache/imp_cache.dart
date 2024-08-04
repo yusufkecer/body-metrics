@@ -4,7 +4,7 @@ import 'package:bmicalculator/core/index.dart';
 import 'package:sqflite/sqflite.dart';
 
 base class ImpCache<T extends BaseModel<T>> implements BaseDatabase {
-  ImpCache({required this.initDatabase});
+  ImpCache({required this.initTable});
 
   Database? _db;
   Database? get db => _db;
@@ -15,17 +15,15 @@ base class ImpCache<T extends BaseModel<T>> implements BaseDatabase {
   @override
   int get version => 1;
 
-  final FutureOr<void> Function(Database db, int version)? initDatabase;
+  final FutureOr<void> Function(Database db, int version)? initTable;
 
   @override
-  Future<Database?> createDatabase() async {
+  Future<Database?> initializeDatabase() async {
     final path = await getDatabasesPath();
     _db = await openDatabase(
       '$path/${this.path}',
       version: version,
-      onCreate: (db, version) {
-        initDatabase!(db, version);
-      },
+      onCreate: initTable,
     );
     'database created'.log;
     return _db;

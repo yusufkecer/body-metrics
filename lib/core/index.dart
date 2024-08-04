@@ -16,7 +16,3 @@ export 'package:bmicalculator/core/init_app/init_app.dart';
 export 'package:bmicalculator/core/router/router.dart';
 export 'package:bmicalculator/core/util/theme/base_theme.dart';
 export 'package:bmicalculator/core/util/theme/theme_constant.dart';
-export 'package:bmicalculator/domain/models/bmi/bmi.dart';
-export 'package:bmicalculator/domain/models/user/user.dart';
-export 'package:bmicalculator/feature/gender/gender.dart';
-export 'package:bmicalculator/injection/locator.dart';

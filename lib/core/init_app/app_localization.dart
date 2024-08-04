@@ -3,8 +3,6 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 @immutable
-
-/// Product localization manager
 final class ProductLocalization extends EasyLocalization {
   ProductLocalization({
     required super.child,
@@ -20,7 +18,7 @@ final class ProductLocalization extends EasyLocalization {
     Lang.en.locale,
   ];
 
-  static const String _translationPath = 'asset/translations';
+  static const String _translationPath = 'assets/language';
 
   static Future<void> updateLanguage({
     required BuildContext context,
