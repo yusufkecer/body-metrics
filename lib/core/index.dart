@@ -8,6 +8,7 @@ export 'package:bmicalculator/core/constants/product_color.dart';
 export 'package:bmicalculator/core/constants/product_duration.dart';
 export 'package:bmicalculator/core/constants/product_radius.dart';
 export 'package:bmicalculator/core/enum/bmi_result.dart';
+export 'package:bmicalculator/core/enum/gender_values.dart';
 export 'package:bmicalculator/core/enum/lang.dart';
 export 'package:bmicalculator/core/enum/space_values.dart';
 export 'package:bmicalculator/core/extension/context_extension.dart';

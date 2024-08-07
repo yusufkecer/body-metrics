@@ -12,7 +12,7 @@ final class User extends Equatable implements BaseModel<User>, IdModel {
   final int? id;
   final String? name;
   final String? surname;
-  final int? gender;
+  final GenderValues? gender;
   @JsonKey(includeToJson: false)
   final BMIS? bmis;
 

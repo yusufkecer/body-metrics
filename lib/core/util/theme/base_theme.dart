@@ -1,3 +1,4 @@
+import 'package:bmicalculator/core/constants/product_color.dart';
 import 'package:bmicalculator/core/index.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -16,12 +17,12 @@ final class BaseTheme {
       elevatedButtonTheme: _elevatedButtonTheme,
       inputDecorationTheme: _inputDecorationTheme,
       brightness: Brightness.dark,
-      scaffoldBackgroundColor: ProductColor().backgroundColor,
+      scaffoldBackgroundColor: Colors.transparent,
     );
   }
 
-  final AppBarTheme _appBarTheme = const AppBarTheme(
-    backgroundColor: Colors.transparent,
+  final AppBarTheme _appBarTheme = AppBarTheme(
+    backgroundColor: ProductColor().deepPurple,
     centerTitle: true,
   );
 

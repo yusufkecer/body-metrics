@@ -3,10 +3,12 @@ import 'package:bmicalculator/core/constants/asset_path.dart';
 import 'package:bmicalculator/core/constants/product_color.dart';
 import 'package:bmicalculator/core/constants/product_pdding.dart';
 import 'package:bmicalculator/core/extension/context_extension.dart';
+import 'package:bmicalculator/core/extension/gradient_scafflod.dart';
 import 'package:bmicalculator/feature/gender/widgets/gender_asset.dart';
 import 'package:flutter/material.dart';
+import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
-@RoutePage(name: 'GenderPage')
+@RoutePage(name: 'GenderView')
 class Gender extends StatefulWidget {
   const Gender({super.key});
 
@@ -17,8 +19,9 @@ class Gender extends StatefulWidget {
 class _GenderState extends State<Gender> {
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return GradientScafflod(
       appBar: AppBar(
+        elevation: 0,
         title: const Text('Gender'),
       ),
       body: Center(
@@ -27,9 +30,19 @@ class _GenderState extends State<Gender> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              GenderAsset(asset: AssetValue.womenGif.value.gif, gender: "Kadın", color: ProductColor().pink),
+              GenderAsset(
+                asset: AssetValue.female.value.lottie,
+                gender: 'Kadın',
+                color: ProductColor().pink,
+                icon: FontAwesomeIcons.venus,
+              ),
               Divider(color: context.colorScheme.onSurface),
-              GenderAsset(asset: AssetValue.manGif.value.gif, gender: "Erkek", color: ProductColor().blue),
+              GenderAsset(
+                asset: AssetValue.male.value.lottie,
+                gender: 'Erkek',
+                color: ProductColor().blue,
+                icon: FontAwesomeIcons.mars,
+              ),
             ],
           ),
         ),

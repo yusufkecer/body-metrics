@@ -18,9 +18,10 @@ dependencies:
   get_it: ^7.7.0
   injectable: ^2.4.4
   json_annotation: ^4.9.0
-  sqflite: ^2.3.3+1
+  lottie: ^3.1.2
   logger: ^2.4.0 
-  fluentui_system_icons: ^1.1.251
+  sqflite: ^2.3.3+1
+
 
 dev_dependencies:
   flutter_test:
@@ -39,7 +40,5 @@ flutter:
     - assets/images/
     - assets/lotties/
     - assets/language/
-    - assets/gif/
-
 
 

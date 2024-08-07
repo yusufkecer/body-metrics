@@ -15,7 +15,7 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
-    GenderPage.name: (routeData) {
+    GenderView.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: const Gender(),
@@ -26,14 +26,14 @@ abstract class _$AppRouter extends RootStackRouter {
 
 /// generated route for
 /// [Gender]
-class GenderPage extends PageRouteInfo<void> {
-  const GenderPage({List<PageRouteInfo>? children})
+class GenderView extends PageRouteInfo<void> {
+  const GenderView({List<PageRouteInfo>? children})
       : super(
-          GenderPage.name,
+          GenderView.name,
           initialChildren: children,
         );
 
-  static const String name = 'GenderPage';
+  static const String name = 'GenderView';
 
   static const PageInfo<void> page = PageInfo<void>(name);
 }
