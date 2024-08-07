@@ -1,3 +1,8 @@
 {
-    "calculator": "VKİ Hesapla"
+    "calculator": "VKİ Hesapla",
+    "gender": {
+        "gender": "Cinsiyet",
+        "women": "Kadın",
+        "man": "Erkek"
+    }
 }

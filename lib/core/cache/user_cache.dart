@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 
-@injectable
+@Injectable(as: CacheMethods<User>)
 final class UserCache extends ImpCache<User> implements CacheMethods<Users> {
   UserCache() : super(initTable: onCreate);
 

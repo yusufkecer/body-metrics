@@ -15,10 +15,13 @@ final class BaseTheme {
       listTileTheme: _listTileThemeData,
       elevatedButtonTheme: _elevatedButtonTheme,
       inputDecorationTheme: _inputDecorationTheme,
+      brightness: Brightness.dark,
+      scaffoldBackgroundColor: ProductColor().backgroundColor,
     );
   }
 
   final AppBarTheme _appBarTheme = const AppBarTheme(
+    backgroundColor: Colors.transparent,
     centerTitle: true,
   );
 
@@ -37,8 +40,7 @@ final class BaseTheme {
     ),
   );
 
-  final ExpansionTileThemeData _expansionTileThemeData =
-      const ExpansionTileThemeData(
+  final ExpansionTileThemeData _expansionTileThemeData = const ExpansionTileThemeData(
     tilePadding: EdgeInsets.zero,
     shape: Border(),
   );

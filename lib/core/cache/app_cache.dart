@@ -2,8 +2,10 @@ import 'dart:async';
 
 import 'package:bmicalculator/core/index.dart';
 import 'package:bmicalculator/domain/index.dart';
+import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
+@Injectable(as: CacheMethods<Settings>)
 final class AppCache extends ImpCache<Settings> implements CacheMethods<Settings> {
   AppCache() : super(initTable: initializeTable);
 
