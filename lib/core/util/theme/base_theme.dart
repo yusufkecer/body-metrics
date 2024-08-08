@@ -1,4 +1,3 @@
-import 'package:bmicalculator/core/constants/product_color.dart';
 import 'package:bmicalculator/core/index.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -18,13 +17,12 @@ final class BaseTheme {
       inputDecorationTheme: _inputDecorationTheme,
       brightness: Brightness.dark,
       scaffoldBackgroundColor: Colors.transparent,
+      checkboxTheme: _checkboxTheme,
     );
   }
 
-  final AppBarTheme _appBarTheme = AppBarTheme(
-    backgroundColor: ProductColor().deepPurple,
-    centerTitle: true,
-  );
+  final AppBarTheme _appBarTheme =
+      AppBarTheme(backgroundColor: ProductColor().deepPurple, centerTitle: true, elevation: 0);
 
   final CardTheme _cardTheme = const CardTheme(
     margin: EdgeInsets.zero,
@@ -62,5 +60,9 @@ final class BaseTheme {
 
   final InputDecorationTheme _inputDecorationTheme = const InputDecorationTheme(
     border: OutlineInputBorder(borderRadius: ProductRadius.ten()),
+  );
+
+  final CheckboxThemeData _checkboxTheme = const CheckboxThemeData(
+    side: BorderSide(color: Colors.white),
   );
 }

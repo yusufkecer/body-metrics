@@ -1,4 +1,5 @@
 import 'package:bmicalculator/core/enum/lang.dart';
+import 'package:bmicalculator/generated/codegen_loader.g.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
@@ -8,6 +9,7 @@ final class ProductLocalization extends EasyLocalization {
     required super.child,
     super.key,
   }) : super(
+          assetLoader: const CodegenLoader(),
           supportedLocales: _supportedItems,
           path: _translationPath,
           useOnlyLangCode: true,

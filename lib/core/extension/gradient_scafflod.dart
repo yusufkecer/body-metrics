@@ -1,4 +1,4 @@
-import 'package:bmicalculator/core/constants/product_color.dart';
+import 'package:bmicalculator/core/util/constants/product_color.dart';
 import 'package:flutter/material.dart';
 
 final class GradientScafflod extends Scaffold {

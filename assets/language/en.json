@@ -1,8 +1,9 @@
 {
     "calculator": "BMI Calculator",
+    "cont": "Continue",
     "gender": {
         "gender": "Gender",
-        "women": "Kadın",
-        "man": "Erkek"
+        "female": "Female",
+        "male": "Erkek"
     }
 }

@@ -5,12 +5,13 @@ publish_to: 'none'
 version: 1.0.0+1
 
 environment:
-  sdk: '>=3.4.3 <4.0.0'
+  sdk: '>=3.5.0 <4.0.0'
 
 dependencies:
   flutter:
     sdk: flutter
-  auto_route: ^8.3.0  
+  animated_text_kit: ^4.2.2
+  auto_route: ^8.3.0
   bloc: ^8.1.4
   easy_localization: ^3.0.7
   equatable: ^2.0.5
@@ -21,6 +22,7 @@ dependencies:
   lottie: ^3.1.2
   logger: ^2.4.0 
   sqflite: ^2.3.3+1
+
 
 
 dev_dependencies:
