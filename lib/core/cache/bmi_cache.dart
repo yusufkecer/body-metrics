@@ -4,7 +4,7 @@ import 'package:bmicalculator/domain/index.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
-@injectable
+@Injectable(as: CacheMethods<BMI>)
 final class BMICache extends ImpCache<BMI> implements CacheMethods<BMIS> {
   BMICache() : super(initTable: initializeTable);
 

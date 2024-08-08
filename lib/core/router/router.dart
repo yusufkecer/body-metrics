@@ -9,6 +9,6 @@ part 'router.gr.dart';
 final class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
-        AutoRoute(page: GenderPage.page, initial: true),
+        AutoRoute(page: GenderView.page, initial: true),
       ];
 }

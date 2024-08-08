@@ -1,0 +1,4 @@
+enum GenderValues {
+  male,
+  female,
+}

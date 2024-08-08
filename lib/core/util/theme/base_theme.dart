@@ -15,12 +15,14 @@ final class BaseTheme {
       listTileTheme: _listTileThemeData,
       elevatedButtonTheme: _elevatedButtonTheme,
       inputDecorationTheme: _inputDecorationTheme,
+      brightness: Brightness.dark,
+      scaffoldBackgroundColor: Colors.transparent,
+      checkboxTheme: _checkboxTheme,
     );
   }
 
-  final AppBarTheme _appBarTheme = const AppBarTheme(
-    centerTitle: true,
-  );
+  final AppBarTheme _appBarTheme =
+      AppBarTheme(backgroundColor: ProductColor().deepPurple, centerTitle: true, elevation: 0);
 
   final CardTheme _cardTheme = const CardTheme(
     margin: EdgeInsets.zero,
@@ -37,8 +39,7 @@ final class BaseTheme {
     ),
   );
 
-  final ExpansionTileThemeData _expansionTileThemeData =
-      const ExpansionTileThemeData(
+  final ExpansionTileThemeData _expansionTileThemeData = const ExpansionTileThemeData(
     tilePadding: EdgeInsets.zero,
     shape: Border(),
   );
@@ -59,5 +60,9 @@ final class BaseTheme {
 
   final InputDecorationTheme _inputDecorationTheme = const InputDecorationTheme(
     border: OutlineInputBorder(borderRadius: ProductRadius.ten()),
+  );
+
+  final CheckboxThemeData _checkboxTheme = const CheckboxThemeData(
+    side: BorderSide(color: Colors.white),
   );
 }
