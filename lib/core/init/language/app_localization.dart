@@ -1,17 +1,17 @@
-import 'package:bmicalculator/core/enum/lang.dart';
-import 'package:bmicalculator/generated/codegen_loader.g.dart';
+import 'package:bmicalculator/core/index.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 
 @immutable
+@lazySingleton
 final class ProductLocalization extends EasyLocalization {
   ProductLocalization({
     required super.child,
     super.key,
   }) : super(
-          assetLoader: const CodegenLoader(),
           supportedLocales: _supportedItems,
-          path: _translationPath,
+          path: AssetPath.language,
           useOnlyLangCode: true,
         );
 
@@ -20,9 +20,7 @@ final class ProductLocalization extends EasyLocalization {
     Lang.en.locale,
   ];
 
-  static const String _translationPath = 'assets/language';
-
-  static Future<void> updateLanguage({
+  Future<void> updateLanguage({
     required BuildContext context,
     required Lang value,
   }) =>

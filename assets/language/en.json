@@ -2,8 +2,8 @@
     "calculator": "BMI Calculator",
     "cont": "Continue",
     "gender": {
-        "gender": "Gender",
-        "female": "Female",
-        "male": "Erkek"
+        "gender_name": "Gender",
+        "fm": "Female",
+        "ml": "Male"
     }
 }

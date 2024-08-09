@@ -1,6 +1,4 @@
-import 'package:bmicalculator/core/index.dart';
-import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
+part of '../gender.dart';
 
 final class GenderAsset extends StatefulWidget {
   // ignore: avoid_positional_boolean_parameters
