@@ -55,5 +55,5 @@ final class BMICache extends ImpCache<BMI> implements CacheMethods<BMIS> {
 
   @override
   // TODO: implement table
-  String get table => throw UnimplementedError();
+  String get table => 'result';
 }

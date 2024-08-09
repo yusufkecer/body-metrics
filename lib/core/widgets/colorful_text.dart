@@ -7,10 +7,10 @@ class ColorfulText extends StatelessWidget {
   final String? text;
   final Duration? speed;
   const ColorfulText({
-    super.key,
     required this.colors,
     required this.text,
     required this.speed,
+    super.key,
   });
 
   @override

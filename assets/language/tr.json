@@ -2,8 +2,8 @@
     "calculator": "VKİ Hesapla",
     "cont": "Devam",
     "gender": {
-        "gender": "Cinsiyet",
-        "female": "Kadın",
-        "male": "Erkek"
+        "gender_name": "Cinsiyet",
+        "fm": "kd",
+        "ml": "fm"
     }
 }
