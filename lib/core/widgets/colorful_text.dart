@@ -11,8 +11,8 @@ class ColorfulText extends StatelessWidget {
     required this.colors,
     required this.text,
     required this.speed,
-    super.key,
     required this.onTap,
+    super.key,
   });
 
   @override

@@ -1,11 +1,10 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:bmicalculator/core/widgets/gradient_scafflod.dart';
 import 'package:bmicalculator/core/index.dart';
-import 'package:bmicalculator/core/widgets/animated_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
+
 part 'gender_model.dart';
 part 'widgets/gender_asset.dart';
 
@@ -30,7 +29,7 @@ class _GenderState extends State<Gender> with GenderModel {
               speed: Durations.long3,
               text: LocaleKeys.cont.tr(),
               onTap: () => context.router.push(
-                const HeightPage(),
+                HeightPage(isFemale: isFemale!),
               ),
             ),
         ],
