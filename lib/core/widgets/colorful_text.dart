@@ -6,11 +6,13 @@ class ColorfulText extends StatelessWidget {
   final List<Color>? colors;
   final String? text;
   final Duration? speed;
+  final void Function() onTap;
   const ColorfulText({
     required this.colors,
     required this.text,
     required this.speed,
     super.key,
+    required this.onTap,
   });
 
   @override
@@ -27,7 +29,7 @@ class ColorfulText extends StatelessWidget {
             textStyle: context.textTheme.titleMedium!,
           ),
         ],
-        onTap: () {},
+        onTap: onTap,
       ),
     );
   }

@@ -3,7 +3,15 @@
     "cont": "Continue",
     "gender": {
         "gender_name": "Gender",
+        "select_gender": "Select Your Gender",
         "fm": "Female",
         "ml": "Male"
+    },
+    "height": {
+        "height_name": "Height",
+        "select_height": "Select Your Height",
+        "cm": "cm",
+        "ft": "ft",
+        "in": "in"
     }
 }

@@ -22,3 +22,4 @@ export 'package:bmicalculator/core/util/constants/space/horizantal_space.dart';
 export 'package:bmicalculator/core/util/theme/base_theme.dart';
 export 'package:bmicalculator/core/util/theme/theme_constant.dart';
 export 'package:bmicalculator/core/widgets/colorful_text.dart';
+export 'package:bmicalculator/core/widgets/gradient_scafflod.dart';

@@ -3,7 +3,15 @@
     "cont": "Devam",
     "gender": {
         "gender_name": "Cinsiyet",
-        "fm": "kd",
-        "ml": "fm"
+        "select_gender": "Cinsiyetinizi Seçin",
+        "fm": "Kadın",
+        "ml": "Erkek"
+    },
+    "height": {
+        "height_name": "Boy",
+        "select_height": "Boyunuzu Seçin",
+        "cm": "cm",
+        "ft": "ft",
+        "in": "in"
     }
 }

@@ -10,5 +10,6 @@ final class AppRouter extends _$AppRouter {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(page: GenderView.page, initial: true),
+        AutoRoute(page: HeightPage.page, initial: true),
       ];
 }

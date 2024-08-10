@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:bmicalculator/core/extension/gradient_scafflod.dart';
+import 'package:bmicalculator/core/widgets/gradient_scafflod.dart';
 import 'package:bmicalculator/core/index.dart';
+import 'package:bmicalculator/core/widgets/animated_image.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -27,7 +28,10 @@ class _GenderState extends State<Gender> with GenderModel {
             ColorfulText(
               colors: ProductColor().animatedColorList,
               speed: Durations.long3,
-              text: LocaleKeys.gender_ml.tr(),
+              text: LocaleKeys.cont.tr(),
+              onTap: () => context.router.push(
+                const HeightPage(),
+              ),
             ),
         ],
       ),
@@ -45,7 +49,7 @@ class _GenderState extends State<Gender> with GenderModel {
                 color: ProductColor().pink,
                 icon: FontAwesomeIcons.venus,
               ),
-              Divider(color: context.colorScheme.onSurface),
+              //  Divider(color: context.colorScheme.onSurface),
               GenderAsset(
                 value: isMale,
                 onChanged: (bool? value) => onChange(value: value, isMale: true),
