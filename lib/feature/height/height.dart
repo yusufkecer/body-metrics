@@ -39,23 +39,11 @@ class _HeightState extends State<Height> with HeightModel {
       body: Row(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                children: [
-                  Lottie.asset(_lottie!.lottie),
-                  Align(
-                    alignment: Alignment.centerRight,
-                    child: Ruler(
-                      pageController: _pageController,
-                      maxValue: _maxValue,
-                      selectedHeight: _selectedHeight,
-                    ),
-                  ),
-                ],
-              ),
-            ],
+          Lottie.asset(_lottie!.lottie),
+          Ruler(
+            pageController: _pageController,
+            maxValue: _maxValue,
+            selectedHeight: _selectedHeight,
           ),
         ],
       ),

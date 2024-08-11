@@ -17,8 +17,9 @@ class Ruler extends StatelessWidget {
   Widget build(BuildContext context) {
     return SizedBox(
       width: 80,
-      height: context.height * .65,
+      height: context.height,
       child: PageView.builder(
+        clipBehavior: Clip.antiAlias,
         scrollDirection: Axis.vertical,
         reverse: true,
         padEnds: false,

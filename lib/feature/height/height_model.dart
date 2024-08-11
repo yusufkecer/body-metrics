@@ -1,7 +1,9 @@
 part of 'height.dart';
 
 mixin HeightModel on State<Height> {
-  final PageController _pageController = PageController();
+  final PageController _pageController = PageController(
+    viewportFraction: 0.1,
+  );
   int _currentCentimeter = 165;
 
   final int _maxValue = 100;

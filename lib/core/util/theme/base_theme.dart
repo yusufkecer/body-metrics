@@ -21,8 +21,12 @@ final class BaseTheme {
     );
   }
 
-  final AppBarTheme _appBarTheme =
-      AppBarTheme(backgroundColor: ProductColor().deepPurple, centerTitle: true, elevation: 0);
+  final AppBarTheme _appBarTheme = AppBarTheme(
+    backgroundColor: ProductColor().deepPurple,
+    centerTitle: true,
+    elevation: 0,
+    surfaceTintColor: Colors.transparent,
+  );
 
   final CardTheme _cardTheme = const CardTheme(
     margin: EdgeInsets.zero,
