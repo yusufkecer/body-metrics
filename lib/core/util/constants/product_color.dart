@@ -5,9 +5,10 @@ final class ProductColor {
   final Color _seedColor = Colors.deepPurple;
   final Color _pink = Colors.pink;
   final Color _blue = Colors.blue;
-  final Color _backgroundColor = const Color(0xFF3A3047);
-  final Color _darkPurple = const Color(0xFF362A84);
-  final Color _lightPurple = const Color(0xFF9747FF);
+
+  final Color _bg1 = const Color(0xFF6A1B9A);
+  final Color _bg2 = const Color(0xFF9747FF);
+  final Color _white = Colors.white;
 
   final List<Color> animatedColorList = [
     const Color.fromARGB(255, 255, 255, 255),
@@ -20,8 +21,9 @@ final class ProductColor {
   Color get seedColor => _seedColor;
   Color get pink => _pink;
   Color get blue => _blue;
-  Color get backgroundColor => _backgroundColor;
-  Color get deepPurple => _darkPurple;
-  Color get lightPurple => _lightPurple;
+
+  Color get deepPurple => _bg1;
+  Color get lightPurple => _bg2;
   List<Color> get colorfulList => animatedColorList;
+  Color get white => _white;
 }

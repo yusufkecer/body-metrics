@@ -1,6 +1,6 @@
 part of '../gender.dart';
 
-final class GenderAsset extends StatefulWidget {
+final class GenderAsset extends StatelessWidget {
   // ignore: avoid_positional_boolean_parameters
   final void Function(bool? value)? onChanged;
   final String asset;
@@ -20,42 +20,44 @@ final class GenderAsset extends StatefulWidget {
   });
 
   @override
-  State<GenderAsset> createState() => _GenderAssetState();
-}
-
-class _GenderAssetState extends State<GenderAsset> {
-  @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Wrap(
+    var size = 200.0;
+    size = (value ?? false) ? 300.0 : 250.0;
+    return GestureDetector(
+      onTap: () => onChanged?.call(!(value ?? false)),
+      child: AnimatedImage(
+        size: size,
+        child: Column(
           children: [
-            Text(
-              widget.gender,
-              textAlign: TextAlign.center,
-              style: context.textTheme.titleLarge?.copyWith(color: widget.color),
+            Wrap(
+              children: [
+                Text(
+                  gender,
+                  textAlign: TextAlign.center,
+                  style: context.textTheme.titleLarge?.copyWith(color: color),
+                ),
+                HorizantalSpace.xs(),
+                Icon(icon, color: color),
+              ],
             ),
-            HorizantalSpace.xs(),
-            Icon(widget.icon, color: widget.color),
+            Stack(
+              children: [
+                Lottie.asset(
+                  asset,
+                ),
+                Positioned(
+                  top: 10,
+                  right: 10,
+                  child: Checkbox(
+                    value: value ?? false,
+                    onChanged: onChanged,
+                  ),
+                ),
+              ],
+            ),
           ],
         ),
-        Stack(
-          children: [
-            Lottie.asset(
-              widget.asset,
-              height: 250,
-            ),
-            Positioned(
-              top: 20,
-              right: 40,
-              child: Checkbox(
-                value: widget.value ?? false,
-                onChanged: widget.onChanged,
-              ),
-            ),
-          ],
-        ),
-      ],
+      ),
     );
   }
 }

@@ -16,7 +16,10 @@ extension AssetPathExtension on String {
 
 enum AssetValue {
   male('male'),
-  female('female');
+  female('female'),
+  maleBody('male_body'),
+  femaleBody('female_body'),
+  ;
 
   final String value;
 

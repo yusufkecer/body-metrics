@@ -10,6 +10,7 @@ final class ProductLocalization extends EasyLocalization {
     required super.child,
     super.key,
   }) : super(
+          startLocale: Lang.tr.locale,
           supportedLocales: _supportedItems,
           path: AssetPath.language,
           useOnlyLangCode: true,
