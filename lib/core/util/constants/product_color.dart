@@ -24,6 +24,7 @@ final class ProductColor {
 
   Color get deepPurple => _bg1;
   Color get lightPurple => _bg2;
+
   List<Color> get colorfulList => animatedColorList;
   Color get white => _white;
 }

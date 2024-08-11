@@ -5,9 +5,9 @@ import 'package:injectable/injectable.dart';
 // ignore: invalid_annotation_target
 @InjectableInit(initializerName: 'init')
 abstract final class Locator {
-  static final instance = GetIt.instance;
+  static final sl = GetIt.instance;
 
   static Future<void> locateServices() async {
-    instance.init();
+    sl.init();
   }
 }

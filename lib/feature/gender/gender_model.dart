@@ -14,6 +14,15 @@ mixin GenderModel on State<Gender> {
       this.isMale = (this.isFemale == null) ? null : !value;
     }
 
+    var genderValue = GenderValue.female;
+
+    if (this.isMale ?? false) {
+      genderValue = GenderValue.female;
+    } else if (this.isFemale ?? false) {
+      genderValue = GenderValue.male;
+    }
     setState(() {});
+
+    context.read<GenderCubit>().changeGender(newGender: genderValue);
   }
 }

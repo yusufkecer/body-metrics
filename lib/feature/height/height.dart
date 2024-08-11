@@ -25,8 +25,7 @@ class _HeightState extends State<Height> with HeightModel {
     return GradientScafflod(
       appBar: AppBar(
         elevation: 0,
-        leading: const SizedBox(),
-        title: Text(LocaleKeys.gender_select_gender.tr()),
+        title: Text(LocaleKeys.height_select_height.tr()),
         actions: [
           ColorfulText(
             colors: ProductColor().animatedColorList,
@@ -37,13 +36,18 @@ class _HeightState extends State<Height> with HeightModel {
         ],
       ),
       body: Row(
-        mainAxisAlignment: MainAxisAlignment.center,
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Lottie.asset(_lottie!.lottie),
+          const SizedBox.shrink(),
+          Lottie.asset(
+            _lottie!.lottie,
+            height: _selectedHeight,
+          ),
           Ruler(
             pageController: _pageController,
             maxValue: _maxValue,
-            selectedHeight: _selectedHeight,
+            minValue: _minValue,
+            selectedHeight: _currentCentimeter - 1,
           ),
         ],
       ),

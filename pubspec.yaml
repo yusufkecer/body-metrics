@@ -12,9 +12,11 @@ dependencies:
     sdk: flutter
   animated_text_kit: ^4.2.2
   auto_route: ^8.3.0
-  bloc: ^8.1.4
+  flutter_bloc: ^8.1.6  
   easy_localization: ^3.0.7
   equatable: ^2.0.5
+  flutter_launcher_icons: ^0.13.1
+  flutter_native_splash: ^2.4.1
   font_awesome_flutter: ^10.7.0
   get_it: ^7.7.0
   injectable: ^2.4.4
@@ -40,6 +42,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/images/profiles/
     - assets/lotties/
     - assets/language/
 
