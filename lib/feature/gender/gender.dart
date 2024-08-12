@@ -24,9 +24,9 @@ class _GenderState extends State<Gender> with GenderModel {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => Locator.sl<GenderCubit>()..changeGender(),
+      create: (context) => GenderCubit(),
       child: BlocBuilder<GenderCubit, GenderState>(
-        builder: (context, state) {
+        builder: (context, snapshot) {
           return GradientScafflod(
             appBar: AppBar(
               title: Text(LocaleKeys.gender_gender_name.tr()),
@@ -50,20 +50,22 @@ class _GenderState extends State<Gender> with GenderModel {
                   children: [
                     GenderAsset(
                       value: false,
-                      onChanged: (bool? value) => onChange(value: value, isFemale: true),
+                      onChanged: (bool? value) {
+                        context.read<GenderCubit>().changeGender2();
+                      },
                       asset: AssetValue.female.value.lottie,
                       gender: LocaleKeys.gender_fm.tr(),
                       color: ProductColor().pink,
                       icon: FontAwesomeIcons.venus,
                     ),
-                    GenderAsset(
-                      value: false,
-                      onChanged: (bool? value) => onChange(value: value, isMale: true),
-                      asset: AssetValue.male.value.lottie,
-                      gender: LocaleKeys.gender_ml.tr(),
-                      color: ProductColor().blue,
-                      icon: FontAwesomeIcons.mars,
-                    ),
+                    // GenderAsset(
+                    //   value: context.watch<GenderCubit>().genderValue == GenderValue.male,
+                    //   onChanged: (bool? value) => onChange(value: value, isMale: true),
+                    //   asset: AssetValue.male.value.lottie,
+                    //   gender: LocaleKeys.gender_ml.tr(),
+                    //   color: ProductColor().blue,
+                    //   icon: FontAwesomeIcons.mars,
+                    // ),
                   ],
                 ),
               ),

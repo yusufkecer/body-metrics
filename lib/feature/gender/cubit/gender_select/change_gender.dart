@@ -9,12 +9,16 @@ part 'change_gender_state.dart';
 @injectable
 class GenderCubit extends Cubit<GenderState> {
   GenderCubit({GenderValue? genderValue})
-      : _genderValue = genderValue,
+      : _genderValue = genderValue ?? GenderValue.male,
         super(SelectGender(genderValue: genderValue));
 
   GenderValue? _genderValue;
 
   GenderValue get genderValue => _genderValue!;
+
+  void changeGender2() {
+    print("changeGender2");
+  }
 
   void changeGender({GenderValue? newGender}) {
     _genderValue = newGender;
