@@ -1,4 +1,4 @@
-enum GenderValues {
+enum GenderValue {
   male,
   female,
 }

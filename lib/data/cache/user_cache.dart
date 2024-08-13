@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bmicalculator/core/index.dart';
+import 'package:bmicalculator/data/index.dart';
 import 'package:bmicalculator/domain/index.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';

@@ -1,8 +1,6 @@
 export 'package:bmicalculator/core/base/base_database.dart';
 export 'package:bmicalculator/core/base/base_model.dart';
-export 'package:bmicalculator/core/base/cache_methods.dart';
-export 'package:bmicalculator/core/base/imp_cache.dart';
-export 'package:bmicalculator/core/cache/user_cache.dart';
+
 export 'package:bmicalculator/core/enum/bmi_result.dart';
 export 'package:bmicalculator/core/enum/gender_values.dart';
 export 'package:bmicalculator/core/enum/lang.dart';

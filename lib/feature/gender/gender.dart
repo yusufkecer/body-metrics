@@ -1,7 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bmicalculator/core/index.dart';
+import 'package:bmicalculator/feature/gender/cubit/gender_select/change_gender.dart';
+import 'package:bmicalculator/injection/locator.dart';
+
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 
@@ -16,7 +20,24 @@ class Gender extends StatefulWidget {
   State<Gender> createState() => _GenderState();
 }
 
-class _GenderState extends State<Gender> with GenderModel {
+class _GenderState extends State<Gender> {
+  @override
+  Widget build(BuildContext context) {
+    return BlocProvider(
+      create: (context) => Locator.sl<GenderCubit>(),
+      child: const _GenderView(),
+    );
+  }
+}
+
+class _GenderView extends StatefulWidget {
+  const _GenderView();
+
+  @override
+  State<_GenderView> createState() => __GenderViewState();
+}
+
+class __GenderViewState extends State<_GenderView> with GenderModel {
   @override
   Widget build(BuildContext context) {
     return GradientScafflod(
@@ -29,7 +50,7 @@ class _GenderState extends State<Gender> with GenderModel {
               speed: Durations.long3,
               text: LocaleKeys.cont.tr(),
               onTap: () => context.router.push(
-                HeightPage(isFemale: isFemale!),
+                HeightView(isFemale: isFemale!),
               ),
             ),
         ],
@@ -41,16 +62,15 @@ class _GenderState extends State<Gender> with GenderModel {
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               GenderAsset(
-                value: isFemale,
+                value: context.watch<GenderCubit>().state.genderValue == GenderValue.female,
                 onChanged: (bool? value) => onChange(value: value, isFemale: true),
                 asset: AssetValue.female.value.lottie,
                 gender: LocaleKeys.gender_fm.tr(),
                 color: ProductColor().pink,
                 icon: FontAwesomeIcons.venus,
               ),
-              //  Divider(color: context.colorScheme.onSurface),
               GenderAsset(
-                value: isMale,
+                value: context.watch<GenderCubit>().state.genderValue == GenderValue.male,
                 onChanged: (bool? value) => onChange(value: value, isMale: true),
                 asset: AssetValue.male.value.lottie,
                 gender: LocaleKeys.gender_ml.tr(),

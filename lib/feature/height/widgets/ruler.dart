@@ -1,14 +1,18 @@
 import 'package:bmicalculator/core/index.dart';
+import 'package:bmicalculator/feature/height/widgets/selected_height.dart';
 import 'package:flutter/material.dart';
 
-class Ruler extends StatelessWidget {
+@immutable
+final class Ruler extends StatelessWidget with HeightCalculate {
   final PageController pageController;
   final int maxValue;
-  final double selectedHeight;
+  final int minValue;
+  final int selectedHeight;
 
   const Ruler({
     required this.pageController,
     required this.maxValue,
+    required this.minValue,
     required this.selectedHeight,
     super.key,
   });
@@ -22,36 +26,52 @@ class Ruler extends StatelessWidget {
         clipBehavior: Clip.antiAlias,
         scrollDirection: Axis.vertical,
         reverse: true,
-        padEnds: false,
+        pageSnapping: false,
         itemBuilder: (context, index) {
-          final current = index + 1;
-          final selectedCentimeter = selectedHeight.round() == current;
-
+          final adjustedIndex = calculateIndex(selectedHeight, index, minValue);
+          final selectedCentimeter = isSelectedCentimeter(selectedHeight, adjustedIndex);
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
-                '$current',
-                style: TextStyle(
-                  color: selectedCentimeter
-                      ? ProductColor().pink
-                      : current % 5 == 0
-                          ? ProductColor().white
-                          : ProductColor().white.withOpacity(.5),
-                  fontWeight: current % 5 == 0 ? FontWeight.bold : null,
+              if (selectedCentimeter)
+                SelectedHeight(selectedHeight: adjustedIndex)
+              else
+                Text(
+                  '$adjustedIndex',
+                  style: TextStyle(
+                    color:
+                        isMultipleOfFive(adjustedIndex) ? ProductColor().white : ProductColor().white.withOpacity(.8),
+                    fontWeight: isMultipleOfFive(adjustedIndex) ? FontWeight.bold : null,
+                  ),
                 ),
-              ),
               Container(
-                color: current % 5 == 0 ? ProductColor().white : ProductColor().white.withOpacity(.5),
+                color: isMultipleOfFive(adjustedIndex) ? ProductColor().white : ProductColor().white.withOpacity(.8),
                 height: 2,
-                width: current % 5 == 0 ? 15 : 10,
+                width: isMultipleOfFive(adjustedIndex) ? 15 : 10,
               ),
             ],
           );
         },
         controller: pageController,
-        itemCount: maxValue,
+        itemCount: maxValue - minValue + 1,
       ),
     );
+  }
+}
+
+mixin HeightCalculate {
+  int calculateIndex(int selectedHeight, int index, int minValue) {
+    final adjustedIndex = minValue + index;
+    return adjustedIndex;
+  }
+
+  bool isSelectedCentimeter(int selectedHeight, int adjustedIndex) {
+    final selectedCentimeter = selectedHeight == adjustedIndex - 1;
+    return selectedCentimeter;
+  }
+
+  bool isMultipleOfFive(int adjustedIndex) {
+    final multipleOfFive = adjustedIndex % 5 == 0;
+    return multipleOfFive;
   }
 }

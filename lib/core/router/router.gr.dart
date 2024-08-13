@@ -21,8 +21,8 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const Gender(),
       );
     },
-    HeightPage.name: (routeData) {
-      final args = routeData.argsAs<HeightPageArgs>();
+    HeightView.name: (routeData) {
+      final args = routeData.argsAs<HeightViewArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: Height(
@@ -50,27 +50,27 @@ class GenderView extends PageRouteInfo<void> {
 
 /// generated route for
 /// [Height]
-class HeightPage extends PageRouteInfo<HeightPageArgs> {
-  HeightPage({
+class HeightView extends PageRouteInfo<HeightViewArgs> {
+  HeightView({
     required bool isFemale,
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
-          HeightPage.name,
-          args: HeightPageArgs(
+          HeightView.name,
+          args: HeightViewArgs(
             isFemale: isFemale,
             key: key,
           ),
           initialChildren: children,
         );
 
-  static const String name = 'HeightPage';
+  static const String name = 'HeightView';
 
-  static const PageInfo<HeightPageArgs> page = PageInfo<HeightPageArgs>(name);
+  static const PageInfo<HeightViewArgs> page = PageInfo<HeightViewArgs>(name);
 }
 
-class HeightPageArgs {
-  const HeightPageArgs({
+class HeightViewArgs {
+  const HeightViewArgs({
     required this.isFemale,
     this.key,
   });
@@ -81,6 +81,6 @@ class HeightPageArgs {
 
   @override
   String toString() {
-    return 'HeightPageArgs{isFemale: $isFemale, key: $key}';
+    return 'HeightViewArgs{isFemale: $isFemale, key: $key}';
   }
 }
