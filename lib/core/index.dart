@@ -14,7 +14,7 @@ export 'package:bmicalculator/core/router/router.dart';
 export 'package:bmicalculator/core/util/constants/asset_path.dart';
 export 'package:bmicalculator/core/util/constants/product_color.dart';
 export 'package:bmicalculator/core/util/constants/product_duration.dart';
-export 'package:bmicalculator/core/util/constants/product_pdding.dart';
+export 'package:bmicalculator/core/util/constants/product_padding.dart';
 export 'package:bmicalculator/core/util/constants/product_radius.dart';
 export 'package:bmicalculator/core/util/constants/space/horizantal_space.dart';
 export 'package:bmicalculator/core/util/theme/base_theme.dart';

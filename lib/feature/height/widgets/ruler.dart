@@ -1,6 +1,4 @@
-import 'package:bmicalculator/core/index.dart';
-import 'package:bmicalculator/feature/height/widgets/selected_height.dart';
-import 'package:flutter/material.dart';
+part of '../height.dart';
 
 @immutable
 final class Ruler extends StatelessWidget with HeightCalculate {
