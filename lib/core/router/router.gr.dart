@@ -31,6 +31,12 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    ProfileImagePickerView.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const ProfileImagePicker(),
+      );
+    },
   };
 }
 
@@ -83,4 +89,18 @@ class HeightViewArgs {
   String toString() {
     return 'HeightViewArgs{isFemale: $isFemale, key: $key}';
   }
+}
+
+/// generated route for
+/// [ProfileImagePicker]
+class ProfileImagePickerView extends PageRouteInfo<void> {
+  const ProfileImagePickerView({List<PageRouteInfo>? children})
+      : super(
+          ProfileImagePickerView.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'ProfileImagePickerView';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
