@@ -20,58 +20,66 @@ class Gender extends StatefulWidget {
   State<Gender> createState() => _GenderState();
 }
 
-class _GenderState extends State<Gender> with GenderModel {
+class _GenderState extends State<Gender> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => GenderCubit(),
-      child: BlocBuilder<GenderCubit, GenderState>(
-        builder: (context, snapshot) {
-          return GradientScafflod(
-            appBar: AppBar(
-              title: Text(LocaleKeys.gender_gender_name.tr()),
-              actions: [
-                if (isMale != null || isFemale != null)
-                  ColorfulText(
-                    colors: ProductColor().animatedColorList,
-                    speed: Durations.long3,
-                    text: LocaleKeys.cont.tr(),
-                    onTap: () => context.router.push(
-                      HeightView(isFemale: isFemale!),
-                    ),
-                  ),
-              ],
-            ),
-            body: Center(
-              child: Padding(
-                padding: const ProductPadding.ten(),
-                child: Column(
-                  mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-                  children: [
-                    GenderAsset(
-                      value: false,
-                      onChanged: (bool? value) {
-                        context.read<GenderCubit>().changeGender2();
-                      },
-                      asset: AssetValue.female.value.lottie,
-                      gender: LocaleKeys.gender_fm.tr(),
-                      color: ProductColor().pink,
-                      icon: FontAwesomeIcons.venus,
-                    ),
-                    // GenderAsset(
-                    //   value: context.watch<GenderCubit>().genderValue == GenderValue.male,
-                    //   onChanged: (bool? value) => onChange(value: value, isMale: true),
-                    //   asset: AssetValue.male.value.lottie,
-                    //   gender: LocaleKeys.gender_ml.tr(),
-                    //   color: ProductColor().blue,
-                    //   icon: FontAwesomeIcons.mars,
-                    // ),
-                  ],
-                ),
+      create: (context) => Locator.sl<GenderCubit>(),
+      child: const _GenderView(),
+    );
+  }
+}
+
+class _GenderView extends StatefulWidget {
+  const _GenderView();
+
+  @override
+  State<_GenderView> createState() => __GenderViewState();
+}
+
+class __GenderViewState extends State<_GenderView> with GenderModel {
+  @override
+  Widget build(BuildContext context) {
+    return GradientScafflod(
+      appBar: AppBar(
+        title: Text(LocaleKeys.gender_gender_name.tr()),
+        actions: [
+          if (isMale != null || isFemale != null)
+            ColorfulText(
+              colors: ProductColor().animatedColorList,
+              speed: Durations.long3,
+              text: LocaleKeys.cont.tr(),
+              onTap: () => context.router.push(
+                HeightView(isFemale: isFemale!),
               ),
             ),
-          );
-        },
+        ],
+      ),
+      body: Center(
+        child: Padding(
+          padding: const ProductPadding.ten(),
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+            children: [
+              GenderAsset(
+                value: context.watch<GenderCubit>().state.genderValue == GenderValue.female,
+                onChanged: (bool? value) => onChange(value: value, isFemale: true),
+                asset: AssetValue.female.value.lottie,
+                gender: LocaleKeys.gender_fm.tr(),
+                color: ProductColor().pink,
+                icon: FontAwesomeIcons.venus,
+              ),
+              GenderAsset(
+                value: context.watch<GenderCubit>().state.genderValue == GenderValue.male,
+                onChanged: (bool? value) => onChange(value: value, isMale: true),
+                asset: AssetValue.male.value.lottie,
+                gender: LocaleKeys.gender_ml.tr(),
+                color: ProductColor().blue,
+                icon: FontAwesomeIcons.mars,
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }

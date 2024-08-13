@@ -30,6 +30,7 @@ mixin HeightModel on State<Height> {
           'current $_currentCentimeter'.w;
         }
       });
+      setState(() {});
     });
   }
 

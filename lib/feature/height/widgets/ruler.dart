@@ -1,4 +1,5 @@
 import 'package:bmicalculator/core/index.dart';
+import 'package:bmicalculator/feature/height/widgets/selected_height.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -32,17 +33,17 @@ final class Ruler extends StatelessWidget with HeightCalculate {
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              Text(
-                '$adjustedIndex',
-                style: TextStyle(
-                  color: selectedCentimeter
-                      ? ProductColor().pink
-                      : isMultipleOfFive(adjustedIndex)
-                          ? ProductColor().white
-                          : ProductColor().white.withOpacity(.8),
-                  fontWeight: isMultipleOfFive(adjustedIndex) ? FontWeight.bold : null,
+              if (selectedCentimeter)
+                SelectedHeight(selectedHeight: adjustedIndex)
+              else
+                Text(
+                  '$adjustedIndex',
+                  style: TextStyle(
+                    color:
+                        isMultipleOfFive(adjustedIndex) ? ProductColor().white : ProductColor().white.withOpacity(.8),
+                    fontWeight: isMultipleOfFive(adjustedIndex) ? FontWeight.bold : null,
+                  ),
                 ),
-              ),
               Container(
                 color: isMultipleOfFive(adjustedIndex) ? ProductColor().white : ProductColor().white.withOpacity(.8),
                 height: 2,

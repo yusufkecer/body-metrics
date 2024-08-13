@@ -5,7 +5,7 @@ final class ProductColor {
   final Color _seedColor = Colors.deepPurple;
   final Color _pink = Colors.pink;
   final Color _blue = Colors.blue;
-
+  final Color _indicatorColor = Color.fromARGB(255, 163, 121, 236);
   final Color _bg1 = const Color(0xFF6A1B9A);
   final Color _bg2 = const Color(0xFF9747FF);
   final Color _white = Colors.white;
@@ -24,6 +24,7 @@ final class ProductColor {
 
   Color get deepPurple => _bg1;
   Color get lightPurple => _bg2;
+  Color get indicatorColor => _indicatorColor;
 
   List<Color> get colorfulList => animatedColorList;
   Color get white => _white;

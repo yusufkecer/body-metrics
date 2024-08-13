@@ -1,6 +1,6 @@
 part of 'change_gender.dart';
 
-sealed class GenderState extends Equatable {
+class GenderState extends Equatable {
   final GenderValue? genderValue;
   const GenderState({this.genderValue});
   @override

@@ -1,7 +1,7 @@
 part of 'gender.dart';
 
 // ignore: library_private_types_in_public_api
-mixin GenderModel on State<Gender> {
+mixin GenderModel on State<_GenderView> {
   bool? isMale;
   bool? isFemale;
   void onChange({bool? value, bool isMale = false, bool isFemale = false}) {
@@ -14,17 +14,13 @@ mixin GenderModel on State<Gender> {
       this.isFemale = (this.isFemale ?? false) ? null : value;
       this.isMale = (this.isFemale == null) ? null : !value;
     }
-    print('isMale: $isMale');
-    print('isFemale: $isFemale');
-    // var genderValue = GenderValue.female;
 
-    // if (this.isMale ?? false) {
-    //   genderValue = GenderValue.female;
-    // } else if (this.isFemale ?? false) {
-    //   genderValue = GenderValue.male;
-    // }
-
-    setState(() {});
-    // Locator.sl<GenderCubit>().changeGender(newGender: genderValue);
+    if (this.isMale ?? false) {
+      context.read<GenderCubit>().changeGender(const SelectGender(genderValue: GenderValue.male));
+    } else if (this.isFemale ?? false) {
+      context.read<GenderCubit>().changeGender(const SelectGender(genderValue: GenderValue.female));
+    } else {
+      context.read<GenderCubit>().changeGender(const SelectGender());
+    }
   }
 }
