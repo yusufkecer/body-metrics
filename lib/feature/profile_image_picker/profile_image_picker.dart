@@ -1,5 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bmicalculator/core/index.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 import 'package:flutter/material.dart';
 
 part 'profile_image_picker_model.dart';
@@ -16,38 +18,31 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> with ProfileIma
   @override
   Widget build(BuildContext context) {
     return GradientScafflod(
-      appBar: AppBar(
-        title: const Text('Profil Resmi Seç'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              context.pushRoute(const GenderView());
-            },
-            child: Text(
-              'Atla',
-              style: context.textTheme.titleMedium!.copyWith(
-                color: ProductColor().white,
-              ),
+      appBar: CustomAppBar(
+        title: LocaleKeys.register_select_profile_picture.tr(),
+        action: TextButton(
+          onPressed: () {
+            context.pushRoute(const GenderView());
+          },
+          child: Text(
+            LocaleKeys.register_skip.tr(),
+            style: context.textTheme.titleMedium!.copyWith(
+              color: ProductColor().white,
             ),
           ),
-        ],
+        ),
       ),
       body: GridView.builder(
         itemCount: profileImages.length,
-        gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-          crossAxisCount: 2,
-          mainAxisSpacing: 2,
-          crossAxisSpacing: 2,
-          childAspectRatio: 1.1,
-        ),
+        gridDelegate: GridDelegate.profileImageGrid(),
         itemBuilder: (context, index) {
           return Padding(
             padding: const ProductPadding.ten(),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () => onTapProfileImage(index),
               child: CircleAvatar(
                 child: Image.asset(
-                  profileImages[index].profile,
+                  profileImages[index],
                   fit: BoxFit.cover,
                 ),
               ),

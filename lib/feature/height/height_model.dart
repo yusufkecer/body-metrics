@@ -20,6 +20,12 @@ mixin HeightModel on State<Height> {
     super.initState();
   }
 
+  @override
+  void dispose() {
+    _pageController.dispose();
+    super.dispose();
+  }
+
   Future<void> _onPageChanged() async {
     _pageController.addListener(() {
       Future.microtask(() {

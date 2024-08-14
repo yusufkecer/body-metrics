@@ -14,14 +14,14 @@ class SelectedHeight extends StatelessWidget {
       width: 50,
       decoration: BoxDecoration(
         color: ProductColor().white,
-        borderRadius: BorderRadius.circular(10),
+        borderRadius: const ProductRadius.ten(),
       ),
       child: Column(
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           SizedBox(
-            height: 10,
-            width: 10,
+            height: CustomSize.s.value,
+            width: CustomSize.s.value,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 color: ProductColor().deepPurple,

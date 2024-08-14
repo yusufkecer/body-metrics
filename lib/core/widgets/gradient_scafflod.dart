@@ -1,19 +1,17 @@
-import 'package:bmicalculator/core/util/constants/product_color.dart';
+import 'package:bmicalculator/core/index.dart';
 import 'package:flutter/material.dart';
 
 final class GradientScafflod extends Scaffold {
-  GradientScafflod({super.key, Widget? body, AppBar? appBar})
+  GradientScafflod({super.key, Widget? body, super.appBar})
       : super(
-          appBar: appBar,
           body: Container(
+            height: double.infinity,
+            width: double.infinity,
             decoration: BoxDecoration(
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: [
-                  ProductColor().deepPurple,
-                  ProductColor().lightPurple,
-                ],
+                colors: ProductColor().backgroundColorList,
               ),
             ),
             child: body,

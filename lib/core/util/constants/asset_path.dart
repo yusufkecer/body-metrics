@@ -37,12 +37,12 @@ enum AssetValue {
 extension AssetList on List<AssetValue> {
   List<String> get profileImageList {
     return [
-      AssetValue.profile1.value,
-      AssetValue.profile2.value,
-      AssetValue.profile3.value,
-      AssetValue.profile4.value,
-      AssetValue.profile5.value,
-      AssetValue.profile6.value,
+      AssetValue.profile1.value.profile,
+      AssetValue.profile2.value.profile,
+      AssetValue.profile3.value.profile,
+      AssetValue.profile4.value.profile,
+      AssetValue.profile5.value.profile,
+      AssetValue.profile6.value.profile,
     ];
   }
 }

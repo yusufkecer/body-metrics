@@ -1,6 +1,7 @@
 {
     "calculator": "BMI Calculator",
     "cont": "Continue",
+    "save": "Save",
     "gender": {
         "gender_name": "Gender",
         "select_gender": "Select Your Gender",
@@ -13,5 +14,11 @@
         "cm": "cm",
         "ft": "ft",
         "in": "in"
+    },
+    "register": {
+        "fullname": "Full Name",
+        "complete": "Complete Registration",
+        "skip": "Skip",
+        "select_profile_picture": "Select Profile Picture"
     }
 }
