@@ -18,7 +18,7 @@ class ColorfulText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const EdgeInsets.all(8),
+      padding: const ProductPadding.ten(),
       child: AnimatedTextKit(
         repeatForever: true,
         animatedTexts: [

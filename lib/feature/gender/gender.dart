@@ -6,7 +6,6 @@ import 'package:bmicalculator/injection/locator.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:lottie/lottie.dart';
 
 part 'gender_model.dart';
@@ -54,7 +53,7 @@ class __GenderViewState extends State<_GenderView> with GenderModel {
                 asset: AssetValue.female.value.lottie,
                 gender: LocaleKeys.gender_fm.tr(),
                 color: ProductColor().pink,
-                icon: FontAwesomeIcons.venus,
+                icon: ProductIcon.venus.icon,
               ),
               GenderAsset(
                 value: context.watch<GenderCubit>().state.genderValue == GenderValue.male,
@@ -62,7 +61,7 @@ class __GenderViewState extends State<_GenderView> with GenderModel {
                 asset: AssetValue.male.value.lottie,
                 gender: LocaleKeys.gender_ml.tr(),
                 color: ProductColor().blue,
-                icon: FontAwesomeIcons.mars,
+                icon: ProductIcon.mars.icon,
               ),
             ],
           ),
@@ -78,7 +77,9 @@ class __GenderViewState extends State<_GenderView> with GenderModel {
             speed: Durations.long3,
             text: LocaleKeys.cont.tr(),
             onTap: () => context.router.push(
-              HeightView(isFemale: isFemale!),
+              HeightView(
+                isFemale: isFemale!,
+              ),
             ),
           )
         : const SizedBox.shrink();

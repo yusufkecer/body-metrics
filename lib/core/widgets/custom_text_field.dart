@@ -1,3 +1,4 @@
+import 'package:bmicalculator/core/index.dart';
 import 'package:flutter/material.dart';
 
 class CustomTextField extends StatelessWidget {
@@ -5,32 +6,43 @@ class CustomTextField extends StatelessWidget {
   final TextEditingController? controller;
   final void Function(String)? onChanged;
   final IconData? prefixIcon;
+  final String? hintText;
 
   const CustomTextField({
-    Key? key,
+    this.hintText,
+    super.key,
     this.label,
     this.controller,
     this.onChanged,
     this.prefixIcon,
-  }) : super(key: key);
+  });
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        border: Border.all(
-          color: Colors.grey,
-        ),
-        borderRadius: BorderRadius.circular(5),
-      ),
-      child: TextField(
-        onChanged: onChanged,
-        controller: controller,
-        decoration: InputDecoration(
-          border: InputBorder.none,
-          prefixIcon: Icon(prefixIcon),
-          labelText: label,
-        ),
+    return Padding(
+      padding: const ProductPadding.ten(),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            label ?? '',
+            style: context.textTheme.titleMedium,
+          ),
+          VerticalSpace.s(),
+          Container(
+            decoration: ProductDecoration.inputDecoration(),
+            child: TextField(
+              onTapOutside: (event) => FocusScope.of(context).unfocus(),
+              onChanged: onChanged,
+              controller: controller,
+              decoration: InputDecoration(
+                contentPadding: const ProductPadding.fifTeen(),
+                border: InputBorder.none,
+                prefixIcon: Icon(prefixIcon),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

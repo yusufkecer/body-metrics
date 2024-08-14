@@ -1,6 +1,7 @@
 {
     "calculator": "VKİ Hesapla",
     "cont": "Devam",
+    "save": "Kaydet",
     "gender": {
         "gender_name": "Cinsiyet",
         "select_gender": "Cinsiyetinizi Seçin",
@@ -13,5 +14,11 @@
         "cm": "cm",
         "ft": "ft",
         "in": "in"
+    },
+    "register": {
+        "fullname": "İsim Soyisim",
+        "complete": "Kaydı Tamamla",
+        "skip": "Atla",
+        "select_profile_picture": "Profil Resmi Seçin"
     }
 }
