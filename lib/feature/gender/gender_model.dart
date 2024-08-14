@@ -23,4 +23,6 @@ mixin GenderModel on State<_GenderView> {
       context.read<GenderCubit>().changeGender(const SelectGender());
     }
   }
+
+  bool isSelected() => isMale != null || isFemale != null;
 }

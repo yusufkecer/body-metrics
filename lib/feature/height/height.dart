@@ -24,19 +24,16 @@ class _HeightState extends State<Height> with HeightModel {
   @override
   Widget build(BuildContext context) {
     return GradientScafflod(
-      appBar: AppBar(
-        elevation: 0,
-        title: Text(LocaleKeys.height_select_height.tr()),
-        actions: [
-          ColorfulText(
-            colors: ProductColor().animatedColorList,
-            speed: Durations.long3,
-            text: LocaleKeys.cont.tr(),
-            onTap: () {
-              context.pushRoute(const ProfileImagePickerView());
-            },
-          ),
-        ],
+      appBar: CustomAppBar(
+        title: LocaleKeys.height_select_height.tr(),
+        action: ColorfulText(
+          colors: ProductColor().animatedColorList,
+          speed: Durations.long3,
+          text: LocaleKeys.cont.tr(),
+          onTap: () {
+            context.pushRoute(const ProfileImagePickerView());
+          },
+        ),
       ),
       body: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,

@@ -1,8 +1,8 @@
-import 'package:bmicalculator/core/util/constants/product_color.dart';
+import 'package:bmicalculator/core/index.dart';
 import 'package:flutter/material.dart';
 
 final class GradientScafflod extends Scaffold {
-  GradientScafflod({super.key, Widget? body, AppBar? appBar})
+  GradientScafflod({super.key, Widget? body, CustomAppBar? appBar})
       : super(
           appBar: appBar,
           body: Container(

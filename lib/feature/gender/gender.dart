@@ -41,20 +41,7 @@ class __GenderViewState extends State<_GenderView> with GenderModel {
   @override
   Widget build(BuildContext context) {
     return GradientScafflod(
-      appBar: AppBar(
-        title: Text(LocaleKeys.gender_gender_name.tr()),
-        actions: [
-          if (isMale != null || isFemale != null)
-            ColorfulText(
-              colors: ProductColor().animatedColorList,
-              speed: Durations.long3,
-              text: LocaleKeys.cont.tr(),
-              onTap: () => context.router.push(
-                HeightView(isFemale: isFemale!),
-              ),
-            ),
-        ],
-      ),
+      appBar: CustomAppBar(title: LocaleKeys.gender_gender_name.tr(), action: appbarWiget()),
       body: Center(
         child: Padding(
           padding: const ProductPadding.ten(),
@@ -82,5 +69,18 @@ class __GenderViewState extends State<_GenderView> with GenderModel {
         ),
       ),
     );
+  }
+
+  Widget appbarWiget() {
+    return isSelected()
+        ? ColorfulText(
+            colors: ProductColor().animatedColorList,
+            speed: Durations.long3,
+            text: LocaleKeys.cont.tr(),
+            onTap: () => context.router.push(
+              HeightView(isFemale: isFemale!),
+            ),
+          )
+        : const SizedBox.shrink();
   }
 }

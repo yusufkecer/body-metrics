@@ -16,21 +16,19 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> with ProfileIma
   @override
   Widget build(BuildContext context) {
     return GradientScafflod(
-      appBar: AppBar(
-        title: const Text('Profil Resmi Seç'),
-        actions: [
-          TextButton(
-            onPressed: () {
-              context.pushRoute(const GenderView());
-            },
-            child: Text(
-              'Atla',
-              style: context.textTheme.titleMedium!.copyWith(
-                color: ProductColor().white,
-              ),
+      appBar: CustomAppBar(
+        title: 'Profil Resmi Seç',
+        action: TextButton(
+          onPressed: () {
+            context.pushRoute(const GenderView());
+          },
+          child: Text(
+            'Atla',
+            style: context.textTheme.titleMedium!.copyWith(
+              color: ProductColor().white,
             ),
           ),
-        ],
+        ),
       ),
       body: GridView.builder(
         itemCount: profileImages.length,
@@ -44,7 +42,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> with ProfileIma
           return Padding(
             padding: const ProductPadding.ten(),
             child: GestureDetector(
-              onTap: () {},
+              onTap: () => onTapProfileImage(index),
               child: CircleAvatar(
                 child: Image.asset(
                   profileImages[index].profile,
