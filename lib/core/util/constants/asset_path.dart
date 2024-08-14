@@ -21,6 +21,7 @@ enum AssetValue {
   female('female'),
   maleBody('male_body'),
   femaleBody('female_body'),
+  robotError('robot_error'),
   profile1('pr1.png'),
   profile2('pr2.png'),
   profile3('pr3.png'),

@@ -1,7 +1,8 @@
 import 'package:bmicalculator/core/index.dart';
 import 'package:flutter/material.dart';
 
-class CustomTextField extends StatelessWidget {
+@immutable
+final class CustomTextField extends StatelessWidget {
   final String? label;
   final TextEditingController? controller;
   final void Function(String)? onChanged;

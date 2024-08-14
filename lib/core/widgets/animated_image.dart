@@ -1,7 +1,8 @@
 import 'package:bmicalculator/core/index.dart';
 import 'package:flutter/material.dart';
 
-class AnimatedImage extends StatelessWidget {
+@immutable
+final class AnimatedImage extends StatelessWidget {
   final Widget child;
   final double size;
   const AnimatedImage({required this.child, required this.size, super.key});

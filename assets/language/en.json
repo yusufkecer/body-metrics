@@ -2,6 +2,7 @@
     "calculator": "BMI Calculator",
     "cont": "Continue",
     "save": "Save",
+    "ok": "OK",
     "gender": {
         "gender_name": "Gender",
         "select_gender": "Select Your Gender",
@@ -11,14 +12,13 @@
     "height": {
         "height_name": "Height",
         "select_height": "Select Your Height",
-        "cm": "cm",
-        "ft": "ft",
-        "in": "in"
+        "cm": "cm"
     },
     "register": {
         "fullname": "Full Name",
         "complete": "Complete Registration",
         "skip": "Skip",
-        "select_profile_picture": "Select Profile Picture"
+        "select_profile_picture": "Select Your Profile Picture",
+        "name_empty": "To complete the registration, you need to enter your name."
     }
 }

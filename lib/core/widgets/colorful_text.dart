@@ -2,7 +2,8 @@ import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:bmicalculator/core/index.dart';
 import 'package:flutter/material.dart';
 
-class ColorfulText extends StatelessWidget {
+@immutable
+final class ColorfulText extends StatelessWidget {
   final List<Color>? colors;
   final String? text;
   final Duration? speed;

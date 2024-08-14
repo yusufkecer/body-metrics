@@ -1,12 +1,13 @@
-import 'package:flutter/rendering.dart';
+import 'package:flutter/material.dart';
 
+@immutable
 final class GridDelegate extends SliverGridDelegateWithFixedCrossAxisCount {
   @override
   bool shouldRelayout(covariant SliverGridDelegate oldDelegate) {
     return false;
   }
 
-  GridDelegate.profileImageGrid()
+  const GridDelegate.profileImageGrid()
       : super(
           crossAxisCount: 2,
           mainAxisSpacing: 2,

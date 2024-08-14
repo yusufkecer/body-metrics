@@ -1,6 +1,7 @@
 import 'package:bmicalculator/core/index.dart';
 import 'package:flutter/material.dart';
 
+@immutable
 final class GradientScafflod extends Scaffold {
   GradientScafflod({super.key, Widget? body, super.appBar})
       : super(
