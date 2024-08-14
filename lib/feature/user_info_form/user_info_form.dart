@@ -18,6 +18,14 @@ class UserInfoForm extends StatefulWidget {
 class _UserInfoFormState extends State<UserInfoForm> {
   @override
   Widget build(BuildContext context) {
-    return GradientScafflod(appBar: const CustomAppBar());
+    return GradientScafflod(
+      appBar: const CustomAppBar(
+        title: 'İsim Soyisim',
+        action: Text("data"),
+      ),
+      body: CircleAvatar(
+        child: Image.asset(widget.image, fit: BoxFit.cover),
+      ),
+    );
   }
 }
