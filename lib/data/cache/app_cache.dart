@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:bmicalculator/data/index.dart';
-import 'package:bmicalculator/domain/index.dart';
+import 'package:bodymetrics/data/index.dart';
+import 'package:bodymetrics/domain/index.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 

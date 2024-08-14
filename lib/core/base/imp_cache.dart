@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:bmicalculator/core/index.dart';
+import 'package:bodymetrics/core/index.dart';
 import 'package:sqflite/sqflite.dart';
 
 base class ImpCache<T extends BaseModel<T>> implements BaseDatabase {

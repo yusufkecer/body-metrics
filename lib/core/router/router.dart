@@ -1,8 +1,8 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:bmicalculator/feature/gender/gender.dart';
-import 'package:bmicalculator/feature/height/height.dart';
-import 'package:bmicalculator/feature/profile_image_picker/profile_image_picker.dart';
-import 'package:bmicalculator/feature/user_info_form/user_info_form.dart';
+import 'package:bodymetrics/feature/gender/gender.dart';
+import 'package:bodymetrics/feature/height/height.dart';
+import 'package:bodymetrics/feature/profile_image_picker/profile_image_picker.dart';
+import 'package:bodymetrics/feature/user_info_form/user_info_form.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 

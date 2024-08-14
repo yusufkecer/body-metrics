@@ -1,4 +1,4 @@
-# bmicalculator
+# bodymetrics
 
 A new Flutter project.
 

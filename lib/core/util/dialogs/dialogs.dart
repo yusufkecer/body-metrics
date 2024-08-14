@@ -1,5 +1,5 @@
-import 'package:bmicalculator/core/index.dart';
-import 'package:bmicalculator/core/widgets/lottie_dialog.dart';
+import 'package:bodymetrics/core/index.dart';
+import 'package:bodymetrics/core/widgets/lottie_dialog.dart';
 import 'package:flutter/material.dart';
 
 mixin Dialogs {

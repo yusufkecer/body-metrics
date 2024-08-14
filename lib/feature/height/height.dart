@@ -1,5 +1,5 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:bmicalculator/core/index.dart';
+import 'package:bodymetrics/core/index.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';

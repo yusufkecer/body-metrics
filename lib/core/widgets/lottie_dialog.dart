@@ -1,4 +1,4 @@
-import 'package:bmicalculator/core/init/language/locale_keys.g.dart';
+import 'package:bodymetrics/core/init/language/locale_keys.g.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 

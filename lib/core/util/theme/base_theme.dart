@@ -1,4 +1,4 @@
-import 'package:bmicalculator/core/index.dart';
+import 'package:bodymetrics/core/index.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 

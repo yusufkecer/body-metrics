@@ -1,4 +1,4 @@
-import 'package:bmicalculator/core/index.dart';
+import 'package:bodymetrics/core/index.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:json_annotation/json_annotation.dart';
