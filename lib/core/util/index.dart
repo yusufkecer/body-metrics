@@ -1,3 +1,4 @@
+export 'package:bodymetrics/core/util/dialogs/dialog_util.dart';
 export 'package:bodymetrics/core/util/models/bmi/bmi.dart';
 export 'package:bodymetrics/core/util/models/bmi/bmis.dart';
 export 'package:bodymetrics/core/util/models/settings/settings.dart';

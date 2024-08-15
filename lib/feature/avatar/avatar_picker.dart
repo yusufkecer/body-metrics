@@ -40,7 +40,7 @@ class _AvatarPickerState extends State<AvatarPicker> with AvatarPickerModel {
           return Padding(
             padding: const ProductPadding.ten(),
             child: GestureDetector(
-              onTap: () => onTapProfileImage(avatarList[index]),
+              onTap: () => onTapProfileImage(index),
               child: CircleAvatar(
                 child: Image.asset(
                   avatarList[index],
