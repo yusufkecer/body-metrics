@@ -8,11 +8,11 @@ part 'bmis.g.dart';
 @immutable
 @JsonSerializable()
 final class BMIS extends Equatable implements BaseModel<BMIS> {
-  final List<BMI>? bmis;
+  final List<BMI>? bodymetricss;
 
-  const BMIS({this.bmis});
+  const BMIS({this.bodymetricss});
   @override
-  List<Object?> get props => [bmis];
+  List<Object?> get props => [bodymetricss];
 
   factory BMIS.fromJson(Map<String, dynamic> json) => _$BMISFromJson(json);
 

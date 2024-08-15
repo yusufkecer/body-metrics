@@ -19,6 +19,7 @@ final class BaseTheme {
       brightness: Brightness.dark,
       scaffoldBackgroundColor: Colors.transparent,
       checkboxTheme: _checkboxTheme,
+      dialogBackgroundColor: ProductColor().deepPurple,
     );
   }
 

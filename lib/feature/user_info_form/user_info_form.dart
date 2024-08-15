@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
+import 'package:bodymetrics/core/util/dialogs/dialog_util.dart';
 import 'package:bodymetrics/core/widgets/custom_elevated.dart';
 import 'package:bodymetrics/core/widgets/custom_text_field.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -20,7 +21,7 @@ class UserInfoForm extends StatefulWidget {
   State<UserInfoForm> createState() => _UserInfoFormState();
 }
 
-class _UserInfoFormState extends State<UserInfoForm> with UserInfoFormModel {
+class _UserInfoFormState extends State<UserInfoForm> with DialogUtil, UserInfoFormModel {
   @override
   Widget build(BuildContext context) {
     return GradientScafflod(

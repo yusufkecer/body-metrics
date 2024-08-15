@@ -10,7 +10,7 @@ class ImpCache implements BaseDatabase {
   Database? get db => _db;
 
   @override
-  String? path = 'bmi.db';
+  String? path = 'bodymetrics.db';
 
   @override
   int get version => 1;

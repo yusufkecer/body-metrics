@@ -1,6 +1,6 @@
 part of 'user_info_form.dart';
 
-mixin UserInfoFormModel on State<UserInfoForm> {
+mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
   TextEditingController fullNameController = TextEditingController();
   @override
   void dispose() {
@@ -8,5 +8,9 @@ mixin UserInfoFormModel on State<UserInfoForm> {
     super.dispose();
   }
 
-  void onPressed() {}
+  void onPressed() {
+    if (fullNameController.text.isEmpty) {
+      showLottieError(context, LocaleKeys.register_name_empty.tr(), '');
+    }
+  }
 }
