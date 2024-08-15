@@ -1,12 +1,12 @@
 import 'dart:async';
 
-import 'package:bmicalculator/data/index.dart';
-import 'package:bmicalculator/domain/index.dart';
+import 'package:bodymetrics/data/index.dart';
+import 'package:bodymetrics/domain/index.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
-@Injectable(as: CacheMethods<BMI>)
-final class BMICache extends ImpCache<BMI> implements CacheMethods<BMIS> {
+@Injectable(as: CacheMethods<BMI, BMIS>)
+final class BMICache extends ImpCache implements CacheMethods<BMI, BMIS> {
   BMICache() : super(initTable: initializeTable);
 
   static FutureOr<void> initializeTable(Database db, int version) async {
@@ -43,12 +43,6 @@ final class BMICache extends ImpCache<BMI> implements CacheMethods<BMIS> {
   }
 
   @override
-  Future<BMIS> select(Database? db, Map<String, dynamic> value) {
-    // TODO: implement select
-    throw UnimplementedError();
-  }
-
-  @override
   Future<BMIS> selectAll(Database? db) {
     // TODO: implement selectAll
     throw UnimplementedError();
@@ -57,4 +51,16 @@ final class BMICache extends ImpCache<BMI> implements CacheMethods<BMIS> {
   @override
   // TODO: implement table
   String get table => 'result';
+
+  @override
+  Future<BMIS> selectAllFilter(Database? db, Map<String, dynamic> value) {
+    // TODO: implement selectAllFilter
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<BMI> selectFirst(Database? db, Map<String, dynamic> value) {
+    // TODO: implement selectFirst
+    throw UnimplementedError();
+  }
 }

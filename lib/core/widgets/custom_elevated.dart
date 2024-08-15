@@ -1,6 +1,7 @@
-import 'package:bmicalculator/core/index.dart';
+import 'package:bodymetrics/core/index.dart';
 import 'package:flutter/material.dart';
 
+@immutable
 final class CustomElevated extends StatelessWidget {
   final String text;
   final void Function() onPressed;

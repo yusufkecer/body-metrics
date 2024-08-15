@@ -1,4 +1,4 @@
-import 'package:bmicalculator/core/index.dart';
+import 'package:bodymetrics/core/index.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';

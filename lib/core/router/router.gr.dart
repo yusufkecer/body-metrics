@@ -15,6 +15,12 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    AvatarPickerView.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const AvatarPicker(),
+      );
+    },
     GenderView.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -31,23 +37,31 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
-    ProfileImagePickerView.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const ProfileImagePicker(),
-      );
-    },
     UserInfoFormView.name: (routeData) {
       final args = routeData.argsAs<UserInfoFormViewArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: UserInfoForm(
-          image: args.image,
+          avatar: args.avatar,
           key: args.key,
         ),
       );
     },
   };
+}
+
+/// generated route for
+/// [AvatarPicker]
+class AvatarPickerView extends PageRouteInfo<void> {
+  const AvatarPickerView({List<PageRouteInfo>? children})
+      : super(
+          AvatarPickerView.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AvatarPickerView';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -102,30 +116,16 @@ class HeightViewArgs {
 }
 
 /// generated route for
-/// [ProfileImagePicker]
-class ProfileImagePickerView extends PageRouteInfo<void> {
-  const ProfileImagePickerView({List<PageRouteInfo>? children})
-      : super(
-          ProfileImagePickerView.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'ProfileImagePickerView';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
-}
-
-/// generated route for
 /// [UserInfoForm]
 class UserInfoFormView extends PageRouteInfo<UserInfoFormViewArgs> {
   UserInfoFormView({
-    required String image,
+    required String avatar,
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
           UserInfoFormView.name,
           args: UserInfoFormViewArgs(
-            image: image,
+            avatar: avatar,
             key: key,
           ),
           initialChildren: children,
@@ -139,16 +139,16 @@ class UserInfoFormView extends PageRouteInfo<UserInfoFormViewArgs> {
 
 class UserInfoFormViewArgs {
   const UserInfoFormViewArgs({
-    required this.image,
+    required this.avatar,
     this.key,
   });
 
-  final String image;
+  final String avatar;
 
   final Key? key;
 
   @override
   String toString() {
-    return 'UserInfoFormViewArgs{image: $image, key: $key}';
+    return 'UserInfoFormViewArgs{avatar: $avatar, key: $key}';
   }
 }

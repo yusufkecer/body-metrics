@@ -28,6 +28,7 @@ final class Ruler extends StatelessWidget with HeightCalculate {
         itemBuilder: (context, index) {
           final adjustedIndex = calculateIndex(selectedHeight, index, minValue);
           final selectedCentimeter = isSelectedCentimeter(selectedHeight, adjustedIndex);
+
           return Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
