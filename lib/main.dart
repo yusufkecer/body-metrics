@@ -8,18 +8,18 @@ Future<void> main() async {
   await InitApp.init();
   runApp(
     ProductLocalization(
-      child: const bodymetrics(),
+      child: const Bodymetrics(),
     ),
   );
 }
 
-class bodymetrics extends StatelessWidget {
-  const bodymetrics({super.key});
+class Bodymetrics extends StatelessWidget {
+  const Bodymetrics({super.key});
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'BMI Calculator',
+      title: 'BodyMetrics Calculator',
       theme: Locator.sl<BaseTheme>().theme,
       routerConfig: Locator.sl<AppRouter>().config(),
       debugShowCheckedModeBanner: false,

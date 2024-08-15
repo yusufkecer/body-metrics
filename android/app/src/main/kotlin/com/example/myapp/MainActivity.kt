@@ -1,4 +1,4 @@
-package com.example.bodymetrics
+package com.bodymetrics.bodymetrics
 
 import io.flutter.embedding.android.FlutterActivity
 

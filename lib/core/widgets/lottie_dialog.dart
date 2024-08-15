@@ -1,4 +1,5 @@
-import 'package:bodymetrics/core/init/language/locale_keys.g.dart';
+import 'package:bodymetrics/core/index.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -12,14 +13,19 @@ final class LottieDialog extends StatelessWidget {
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Lottie.asset(assetValue),
-      content: Text(title),
+      content: Text(
+        title,
+        style: context.textTheme.titleMedium,
+        textAlign: TextAlign.center,
+      ),
       actions: [
         TextButton(
           onPressed: () {
             Navigator.of(context).pop();
           },
-          child: const Text(
-            LocaleKeys.ok,
+          child: Text(
+            LocaleKeys.ok.tr(),
+            style: context.textTheme.titleMedium,
           ),
         ),
       ],

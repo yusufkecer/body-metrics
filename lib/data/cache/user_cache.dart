@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/data/index.dart';
-import 'package:bodymetrics/domain/index.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
