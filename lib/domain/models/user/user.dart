@@ -7,7 +7,7 @@ part 'user.g.dart';
 
 @JsonSerializable()
 @immutable
-final class User extends Equatable implements BaseModel<User>, IdModel {
+class User extends Equatable implements BaseModel<User>, IdModel {
   @override
   final int? id;
   final String? name;

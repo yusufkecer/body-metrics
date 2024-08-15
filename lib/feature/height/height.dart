@@ -31,7 +31,7 @@ class _HeightState extends State<Height> with HeightModel {
           speed: Durations.long3,
           text: LocaleKeys.cont.tr(),
           onTap: () {
-            context.pushRoute(const ProfileImagePickerView());
+            context.pushRoute(const AvatarPickerView());
           },
         ),
       ),

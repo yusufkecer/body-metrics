@@ -10,9 +10,9 @@ part 'user_info_form_model.dart';
 
 @RoutePage(name: 'UserInfoFormView')
 class UserInfoForm extends StatefulWidget {
-  final String image;
+  final String avatar;
   const UserInfoForm({
-    required this.image,
+    required this.avatar,
     super.key,
   });
 
@@ -32,7 +32,7 @@ class _UserInfoFormState extends State<UserInfoForm> with UserInfoFormModel {
           children: [
             ClipOval(
               child: Image.asset(
-                widget.image,
+                widget.avatar,
                 width: 150,
               ),
             ),

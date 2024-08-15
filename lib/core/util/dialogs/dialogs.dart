@@ -3,7 +3,7 @@ import 'package:bodymetrics/core/widgets/lottie_dialog.dart';
 import 'package:flutter/material.dart';
 
 mixin Dialogs {
-  void showErrorDialog(BuildContext context, String title, String message) {
+  void showLottieError(BuildContext context, String title, String message) {
     showDialog<void>(
       context: context,
       builder: (BuildContext context) {

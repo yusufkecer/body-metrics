@@ -15,6 +15,12 @@ abstract class _$AppRouter extends RootStackRouter {
 
   @override
   final Map<String, PageFactory> pagesMap = {
+    AvatarPickerView.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const AvatarPicker(),
+      );
+    },
     GenderView.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -31,12 +37,6 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
-    ProfileImagePickerView.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const ProfileImagePicker(),
-      );
-    },
     UserInfoFormView.name: (routeData) {
       final args = routeData.argsAs<UserInfoFormViewArgs>();
       return AutoRoutePage<dynamic>(
@@ -48,6 +48,20 @@ abstract class _$AppRouter extends RootStackRouter {
       );
     },
   };
+}
+
+/// generated route for
+/// [AvatarPicker]
+class AvatarPickerView extends PageRouteInfo<void> {
+  const AvatarPickerView({List<PageRouteInfo>? children})
+      : super(
+          AvatarPickerView.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'AvatarPickerView';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for
@@ -99,20 +113,6 @@ class HeightViewArgs {
   String toString() {
     return 'HeightViewArgs{isFemale: $isFemale, key: $key}';
   }
-}
-
-/// generated route for
-/// [ProfileImagePicker]
-class ProfileImagePickerView extends PageRouteInfo<void> {
-  const ProfileImagePickerView({List<PageRouteInfo>? children})
-      : super(
-          ProfileImagePickerView.name,
-          initialChildren: children,
-        );
-
-  static const String name = 'ProfileImagePickerView';
-
-  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

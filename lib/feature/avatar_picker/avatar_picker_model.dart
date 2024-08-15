@@ -4,17 +4,17 @@ import 'package:easy_localization/easy_localization.dart';
 
 import 'package:flutter/material.dart';
 
-part 'profile_image_picker_model.dart';
+part 'avatar_picker.dart';
 
-@RoutePage(name: 'ProfileImagePickerView')
-class ProfileImagePicker extends StatefulWidget {
-  const ProfileImagePicker({super.key});
+@RoutePage(name: 'AvatarPickerView')
+class AvatarPicker extends StatefulWidget {
+  const AvatarPicker({super.key});
 
   @override
-  State<ProfileImagePicker> createState() => _ProfileImagePickerState();
+  State<AvatarPicker> createState() => _AvatarPickerState();
 }
 
-class _ProfileImagePickerState extends State<ProfileImagePicker> with ProfileImagePickerModel {
+class _AvatarPickerState extends State<AvatarPicker> with AvatarPickerModel {
   @override
   Widget build(BuildContext context) {
     return GradientScafflod(
@@ -33,8 +33,8 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> with ProfileIma
         ),
       ),
       body: GridView.builder(
-        itemCount: profileImages.length,
-        gridDelegate: GridDelegate.profileImageGrid(),
+        itemCount: avatarList.length,
+        gridDelegate: const GridDelegate.profileImageGrid(),
         itemBuilder: (context, index) {
           return Padding(
             padding: const ProductPadding.ten(),
@@ -42,7 +42,7 @@ class _ProfileImagePickerState extends State<ProfileImagePicker> with ProfileIma
               onTap: () => onTapProfileImage(index),
               child: CircleAvatar(
                 child: Image.asset(
-                  profileImages[index],
+                  avatarList[index],
                   fit: BoxFit.cover,
                 ),
               ),
