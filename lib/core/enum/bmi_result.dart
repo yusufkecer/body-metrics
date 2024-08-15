@@ -1,12 +1,4 @@
-///[BMIResult] types 1 underweight 2 normal 3 overweight 4 obese 5 morbidlyObese 6 unknown
-enum BMIResult {
-  underweight,
-  normal,
-  overweight,
-  obese,
-  morbidlyObese,
-  unknown
-}
+enum BMIResult { underweight, normal, overweight, obese, morbidlyObese, unknown }
 
 extension ResultExtension on BMIResult {
   String get result {

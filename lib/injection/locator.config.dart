@@ -8,13 +8,13 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:bodymetrics/core/index.dart' as _i243;
 import 'package:bodymetrics/core/init/language/app_localization.dart' as _i782;
 import 'package:bodymetrics/core/router/router.dart' as _i125;
 import 'package:bodymetrics/core/util/theme/base_theme.dart' as _i353;
 import 'package:bodymetrics/data/cache/bmi_cache.dart' as _i804;
 import 'package:bodymetrics/data/cache/user_cache.dart' as _i333;
 import 'package:bodymetrics/data/index.dart' as _i101;
-import 'package:bodymetrics/domain/index.dart' as _i34;
 import 'package:bodymetrics/feature/gender/cubit/gender_select/change_gender.dart'
     as _i42;
 import 'package:flutter/material.dart' as _i409;
@@ -35,13 +35,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i42.GenderCubit>(() => _i42.GenderCubit());
     gh.lazySingleton<_i125.AppRouter>(() => _i125.AppRouter());
     gh.lazySingleton<_i353.BaseTheme>(() => _i353.BaseTheme());
-    gh.factory<_i101.CacheMethods<_i34.User, _i34.Users>>(
+    gh.factory<_i101.CacheMethods<_i243.User, _i243.Users>>(
         () => _i333.UserCache());
     gh.lazySingleton<_i782.ProductLocalization>(() => _i782.ProductLocalization(
           child: gh<_i409.Widget>(),
           key: gh<_i409.Key>(),
         ));
-    gh.factory<_i101.CacheMethods<_i34.BMI, _i34.BMIS>>(() => _i804.BMICache());
+    gh.factory<_i101.CacheMethods<_i243.BMI, _i243.BMIS>>(
+        () => _i804.BMICache());
     return this;
   }
 }
