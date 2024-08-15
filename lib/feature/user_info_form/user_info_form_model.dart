@@ -8,5 +8,9 @@ mixin UserInfoFormModel on State<UserInfoForm> {
     super.dispose();
   }
 
-  void onPressed() {}
+  void onPressed() {
+    if (fullNameController.text.isEmpty) {
+      //  showLottieError(context, LocaleKeys.register_name_empty.tr(), '');
+    }
+  }
 }
