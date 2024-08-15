@@ -8,8 +8,8 @@ part of 'user.dart';
 
 User _$UserFromJson(Map<String, dynamic> json) => User(
       id: (json['id'] as num?)?.toInt(),
+      avatar: json['avatar'] as String?,
       name: json['name'] as String?,
-      surname: json['surname'] as String?,
       gender: $enumDecodeNullable(_$GenderValueEnumMap, json['gender']),
       bmis: json['bmis'] == null
           ? null
@@ -19,7 +19,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'id': instance.id,
       'name': instance.name,
-      'surname': instance.surname,
+      'avatar': instance.avatar,
       'gender': _$GenderValueEnumMap[instance.gender],
     };
 

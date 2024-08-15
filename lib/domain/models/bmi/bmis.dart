@@ -1,3 +1,4 @@
+import 'package:bodymetrics/core/base/base_model.dart';
 import 'package:bodymetrics/domain/index.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
@@ -6,7 +7,7 @@ part 'bmis.g.dart';
 
 @immutable
 @JsonSerializable()
-final class BMIS extends Equatable {
+final class BMIS extends Equatable implements BaseModel<BMIS> {
   final List<BMI>? bmis;
 
   const BMIS({this.bmis});
@@ -14,4 +15,7 @@ final class BMIS extends Equatable {
   List<Object?> get props => [bmis];
 
   factory BMIS.fromJson(Map<String, dynamic> json) => _$BMISFromJson(json);
+
+  @override
+  Map<String, dynamic> toJson() => _$BMISToJson(this);
 }

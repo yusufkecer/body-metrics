@@ -11,29 +11,29 @@ class User extends Equatable implements BaseModel<User>, IdModel {
   @override
   final int? id;
   final String? name;
-  final String? surname;
+  final String? avatar;
   final GenderValue? gender;
   @JsonKey(includeToJson: false)
   final BMIS? bmis;
 
   const User({
     this.id,
+    this.avatar,
     this.name,
-    this.surname,
     this.gender,
     this.bmis,
   });
 
   const User.copyWith({
     this.id,
+    this.avatar,
     this.name,
-    this.surname,
     this.gender,
     this.bmis,
   });
 
   @override
-  List<Object?> get props => [name, surname, gender];
+  List<Object?> get props => [name, gender, bmis, id];
 
   @override
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

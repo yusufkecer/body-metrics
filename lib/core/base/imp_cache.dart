@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:bodymetrics/core/index.dart';
 import 'package:sqflite/sqflite.dart';
 
-base class ImpCache<T extends BaseModel<T>> implements BaseDatabase {
+class ImpCache implements BaseDatabase {
   ImpCache({required this.initTable});
 
   Database? _db;

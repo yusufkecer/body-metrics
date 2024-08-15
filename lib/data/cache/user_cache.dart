@@ -6,8 +6,8 @@ import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 
-@Injectable(as: CacheMethods<User>)
-final class UserCache extends ImpCache<User> implements CacheMethods<Users> {
+@Injectable(as: CacheMethods<User, Users>)
+final class UserCache extends ImpCache implements CacheMethods<User, Users> {
   UserCache() : super(initTable: onCreate);
 
   static FutureOr<void> onCreate(Database db, int version) async {
@@ -16,7 +16,8 @@ final class UserCache extends ImpCache<User> implements CacheMethods<Users> {
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           name TEXT NOT NULL,
           surname TEXT NULL,
-          gender int NOT NULL 
+          gender int NOT NULL,
+          avatar TEXT NULL,
         )
       ''');
 
@@ -44,14 +45,17 @@ final class UserCache extends ImpCache<User> implements CacheMethods<Users> {
   }
 
   @override
-  Future<Users> select(Database? db, Map<String, dynamic> value) async {
+  Future<User> selectFirst(Database? db, Map<String, dynamic> value) async {
     //if (value.isNotEmpty) {}
 
     final result = await db?.query(table);
     result.log;
     if (result != null && result.isNotEmpty) {
       final usersList = result.map(User.fromJson).toList();
-      return Users(users: usersList);
+      return User(
+        id: usersList[0].id,
+        name: usersList[0].name,
+      );
     }
     throw Exception('User not found');
   }
@@ -68,6 +72,12 @@ final class UserCache extends ImpCache<User> implements CacheMethods<Users> {
 
   @override
   Future<bool> deleteAll(Database? db) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<Users> selectAllFilter(Database? db, Map<String, dynamic> value) {
+    // TODO: implement selectAllFilter
     throw UnimplementedError();
   }
 }
