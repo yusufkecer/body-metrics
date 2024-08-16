@@ -12,7 +12,9 @@ final class LottieDialog extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
-      title: Lottie.asset(assetValue),
+      title: Lottie.asset(
+        assetValue,
+      ),
       content: Text(
         title,
         style: context.textTheme.titleMedium,

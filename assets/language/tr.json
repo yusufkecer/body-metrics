@@ -18,7 +18,7 @@
         "fullname": "İsim Soyisim",
         "complete": "Kaydı Tamamla",
         "skip": "Atla",
-        "select_profile_picture": "Profil Resminizi Seçin",
+        "select_profile_picture": "Avatarınızı Seçin",
         "name_empty": "Kaydı tamamlamak için adınızı girmeniz gerekiyor."
     }
 }
