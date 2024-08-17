@@ -6,39 +6,42 @@ import 'package:bodymetrics/injection/locator.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-final class UserRepository implements BaseRepository<Users> {
-  UserRepository();
+final class UserRepository implements BaseRepository<Users, User> {
+  UserRepository() {
+    _userCache = Locator.sl<UserCache>();
+  }
 
-  late final UserCache? _userCache;
+  late final UserCache _userCache;
 
   @override
   Future<bool> save(Map<String, dynamic> filter) async {
-    _userCache = Locator.sl<UserCache>();
-    final db = await _userCache!.initializeDatabase();
-    return _userCache!.insert(db, filter);
+    final db = await _userCache.initializeDatabase();
+
+    return _userCache.insert(db, filter);
   }
 
   @override
   Future<bool> delete(int id) async {
-    final db = await _userCache!.initializeDatabase();
-    return _userCache!.delete(db, id);
+    final db = await _userCache.initializeDatabase();
+    return _userCache.delete(db, id);
   }
 
   @override
   Future<bool> update(Map<String, dynamic> filter) async {
-    final db = await _userCache!.initializeDatabase();
-    return _userCache!.update(db, filter);
+    final db = await _userCache.initializeDatabase();
+    return _userCache.update(db, filter);
   }
 
   @override
-  Future<Users> get(Map<String, dynamic> filter) async {
-    final db = await _userCache!.initializeDatabase();
-    return _userCache!.select(db, filter);
+  Future<Users?> get(User user) async {
+    final db = await _userCache.initializeDatabase();
+    final users = await _userCache.select(db, user);
+    return users;
   }
 
   @override
   Future<bool> deleteAll() async {
-    final db = await _userCache!.initializeDatabase();
-    return _userCache!.deleteAll(db);
+    final db = await _userCache.initializeDatabase();
+    return _userCache.deleteAll(db);
   }
 }

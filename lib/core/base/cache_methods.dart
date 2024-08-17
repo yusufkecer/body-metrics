@@ -7,6 +7,6 @@ abstract interface class CacheMethods<T, U> {
   Future<bool> update(Database? db, Map<String, dynamic> value);
 
   Future<bool> delete(Database? db, int id);
-  Future<U> select(Database? db, Map<String, dynamic> value);
+  Future<T?> select(Database? db, U value);
   Future<bool> deleteAll(Database? db);
 }

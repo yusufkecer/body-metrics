@@ -20,10 +20,9 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
     final saveUseCase = Locator.sl<SaveUseCase>(param1: userInfoRepository);
 
     final user = User(
-      name: _fullNameController.text,
-      avatar: widget.avatar,
+      id: 1,
     );
 
-    await saveUseCase.execute(user.toJson());
+    await saveUseCase.execute(user);
   }
 }

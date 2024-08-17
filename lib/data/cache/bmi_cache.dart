@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
 @injectable
-final class BMICache extends ImpCache implements CacheMethods<BMI, BMIS> {
+final class BMICache extends ImpCache implements CacheMethods<BMIS, BMI> {
   BMICache() : super(initTable: initializeTable);
 
   static FutureOr<void> initializeTable(Database db, int version) async {
@@ -53,7 +53,7 @@ final class BMICache extends ImpCache implements CacheMethods<BMI, BMIS> {
   }
 
   @override
-  Future<BMIS> select(Database? db, Map<String, dynamic> value) {
+  Future<BMIS?> select(Database? db, BMI value) {
     // TODO: implement select
     throw UnimplementedError();
   }

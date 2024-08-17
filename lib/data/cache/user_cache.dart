@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:bodymetrics/core/extension/value_extension.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/data/index.dart';
 import 'package:bodymetrics/domain/index.dart';
@@ -7,7 +8,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 
 @injectable
-final class UserCache extends ImpCache implements CacheMethods<User, Users> {
+final class UserCache extends ImpCache implements CacheMethods<Users, User> {
   UserCache() : super(initTable: onCreate);
 
   static Future<void> onCreate(Database db, int version) async {
@@ -16,8 +17,8 @@ final class UserCache extends ImpCache implements CacheMethods<User, Users> {
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           name TEXT NOT NULL,
           surname TEXT NULL,
-          gender int NOT NULL,
-          avatar TEXT NULL,
+          gender INTEGER NULL,
+          avatar TEXT NULL
         )
       ''');
 
@@ -50,8 +51,21 @@ final class UserCache extends ImpCache implements CacheMethods<User, Users> {
   }
 
   @override
-  Future<Users> select(Database? db, Map<String, dynamic> value) async {
-    throw UnimplementedError();
+  Future<Users?> select(Database? db, User user) async {
+    if (db.isNull) {
+      'Database is null'.w;
+      return null;
+    }
+    final result = await db!.query(table);
+
+    if (result.isNotEmpty) {
+      'User selected'.log;
+
+      return Users(users: result.map(User.fromJson).toList());
+    } else {
+      'User not selected'.w;
+      return null;
+    }
   }
 
   @override
