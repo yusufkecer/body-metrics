@@ -24,8 +24,8 @@ dependencies:
   lottie: ^3.1.2
   logger: ^2.4.0 
   sqflite: ^2.3.3+1
-
-
+  kartal: 
+    path: ../kartal
 
 dev_dependencies:
   flutter_test:

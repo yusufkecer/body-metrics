@@ -9,10 +9,9 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
   }
 
   void onPressed() {
-    if (fullNameController.text.isEmpty) {
-      showLottieError(context, LocaleKeys.register_name_empty.tr(), '');
-      return;
-    }
-    context.pushRoute(const GenderView());
+    // if (fullNameController.text.isEmpty) {
+    //   showLottieError(context, LocaleKeys.register_name_empty.tr(), '');
+    // }
+    context.general.unfocus();
   }
 }

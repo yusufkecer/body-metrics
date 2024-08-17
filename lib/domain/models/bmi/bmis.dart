@@ -1,4 +1,5 @@
 import 'package:bodymetrics/core/index.dart';
+import 'package:bodymetrics/domain/models/bmi/bmi.dart';
 
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';

@@ -1,7 +1,7 @@
 import 'dart:async';
 
-import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/data/index.dart';
+import 'package:bodymetrics/domain/index.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -43,24 +43,18 @@ final class BMICache extends ImpCache implements CacheMethods<BMI, BMIS> {
   }
 
   @override
-  Future<BMIS> selectAll(Database? db) {
-    // TODO: implement selectAll
-    throw UnimplementedError();
-  }
-
-  @override
   // TODO: implement table
   String get table => 'result';
 
   @override
-  Future<BMIS> selectAllFilter(Database? db, Map<String, dynamic> value) {
-    // TODO: implement selectAllFilter
+  Future<bool> update(Database? db, Map<String, dynamic> value) {
+    // TODO: implement update
     throw UnimplementedError();
   }
 
   @override
-  Future<BMI> selectFirst(Database? db, Map<String, dynamic> value) {
-    // TODO: implement selectFirst
+  Future<BMIS> select(Database? db, Map<String, dynamic> value) {
+    // TODO: implement select
     throw UnimplementedError();
   }
 }

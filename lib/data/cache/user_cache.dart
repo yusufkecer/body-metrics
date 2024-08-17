@@ -1,6 +1,7 @@
 import 'dart:async';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/data/index.dart';
+import 'package:bodymetrics/domain/index.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
@@ -44,28 +45,12 @@ final class UserCache extends ImpCache implements CacheMethods<User, Users> {
   }
 
   @override
-  Future<User> selectFirst(Database? db, Map<String, dynamic> value) async {
-    //if (value.isNotEmpty) {}
-
-    final result = await db?.query(table);
-    result.log;
-    if (result != null && result.isNotEmpty) {
-      final usersList = result.map(User.fromJson).toList();
-      return User(
-        id: usersList[0].id,
-        name: usersList[0].name,
-      );
-    }
-    throw Exception('User not found');
-  }
-
-  @override
   Future<bool> delete(Database? db, int id) {
     throw UnimplementedError();
   }
 
   @override
-  Future<Users> selectAll(Database? db) async {
+  Future<Users> select(Database? db, Map<String, dynamic> value) async {
     throw UnimplementedError();
   }
 
@@ -75,8 +60,7 @@ final class UserCache extends ImpCache implements CacheMethods<User, Users> {
   }
 
   @override
-  Future<Users> selectAllFilter(Database? db, Map<String, dynamic> value) {
-    // TODO: implement selectAllFilter
+  Future<bool> update(Database? db, Map<String, dynamic> value) {
     throw UnimplementedError();
   }
 }
