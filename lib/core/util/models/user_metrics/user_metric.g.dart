@@ -1,12 +1,12 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'bmi.dart';
+part of 'user_metric.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-BMI _$BMIFromJson(Map<String, dynamic> json) => BMI(
+UserMetric _$UserMetricFromJson(Map<String, dynamic> json) => UserMetric(
       date: json['date'] as String?,
       height: json['height'] as String?,
       weight: json['weight'] as String?,
@@ -14,7 +14,8 @@ BMI _$BMIFromJson(Map<String, dynamic> json) => BMI(
           $enumDecodeNullable(_$BMIResultEnumMap, json['bodymetricsResult']),
     );
 
-Map<String, dynamic> _$BMIToJson(BMI instance) => <String, dynamic>{
+Map<String, dynamic> _$UserMetricToJson(UserMetric instance) =>
+    <String, dynamic>{
       'date': instance.date,
       'height': instance.height,
       'weight': instance.weight,

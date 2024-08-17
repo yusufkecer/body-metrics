@@ -2,7 +2,6 @@ import 'dart:async';
 import 'package:bodymetrics/core/extension/value_extension.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/data/index.dart';
-import 'package:bodymetrics/domain/index.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
@@ -59,9 +58,27 @@ final class UserCache extends ImpCache implements CacheMethods<Users, User> {
     final result = await db!.query(table);
 
     if (result.isNotEmpty) {
-      'User selected'.log;
+      final users = Users(users: result.map(User.fromJson).toList());
+      'User selected $users'.log;
+      return users;
+    } else {
+      'User not selected'.w;
+      return null;
+    }
+  }
 
-      return Users(users: result.map(User.fromJson).toList());
+  @override
+  Future<Users?> selectAll(Database? db) async {
+    if (db.isNull) {
+      'Database is null'.w;
+      return null;
+    }
+    final result = await db!.query(table);
+
+    if (result.isNotEmpty) {
+      final users = Users(users: result.map(User.fromJson).toList());
+      'User selected $users'.log;
+      return users;
     } else {
       'User not selected'.w;
       return null;

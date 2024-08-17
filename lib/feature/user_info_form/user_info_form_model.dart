@@ -15,12 +15,12 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
     //   showLottieError(context, LocaleKeys.register_name_empty.tr(), '');
     //   return;
     // }
-    final userInfoRepository = Locator.sl<UserRepository>();
+    final userInfoRepository = Locator.sl<GetUserRepository>();
 
     final saveUseCase = Locator.sl<SaveUseCase>(param1: userInfoRepository);
 
-    final user = User(
-      id: 1,
+    const user = UserFilters(
+      name: 'name',
     );
 
     await saveUseCase.execute(user);
