@@ -6,11 +6,11 @@ import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 
-@Injectable(as: CacheMethods<User, Users>)
+@injectable
 final class UserCache extends ImpCache implements CacheMethods<User, Users> {
   UserCache() : super(initTable: onCreate);
 
-  static FutureOr<void> onCreate(Database db, int version) async {
+  static Future<void> onCreate(Database db, int version) async {
     await db.execute('''
         CREATE TABLE user (
           id INTEGER PRIMARY KEY AUTOINCREMENT,

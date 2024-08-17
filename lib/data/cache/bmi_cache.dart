@@ -5,7 +5,7 @@ import 'package:bodymetrics/domain/index.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
-@Injectable(as: CacheMethods<BMI, BMIS>)
+@injectable
 final class BMICache extends ImpCache implements CacheMethods<BMI, BMIS> {
   BMICache() : super(initTable: initializeTable);
 

@@ -1,8 +1,12 @@
 import 'dart:async';
 
 import 'package:bodymetrics/core/index.dart';
+import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
+typedef InitTableFunction = void Function(Database db, int version);
+
+@injectable
 class ImpCache implements BaseDatabase {
   ImpCache({required this.initTable});
 
@@ -15,7 +19,7 @@ class ImpCache implements BaseDatabase {
   @override
   int get version => 1;
 
-  final FutureOr<void> Function(Database db, int version)? initTable;
+  InitTableFunction? initTable;
 
   @override
   Future<Database?> initializeDatabase() async {
