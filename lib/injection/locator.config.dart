@@ -14,7 +14,6 @@ import 'package:bodymetrics/core/util/theme/base_theme.dart' as _i353;
 import 'package:bodymetrics/data/cache/bmi_cache.dart' as _i804;
 import 'package:bodymetrics/data/cache/imp_cache.dart' as _i956;
 import 'package:bodymetrics/data/cache/user_cache.dart' as _i333;
-import 'package:bodymetrics/data/index.dart' as _i101;
 import 'package:bodymetrics/domain/index.dart' as _i34;
 import 'package:bodymetrics/domain/repositories/user_repository.dart' as _i914;
 import 'package:bodymetrics/domain/use_case/save_use_case.dart' as _i175;
@@ -36,20 +35,19 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     gh.factory<_i804.BMICache>(() => _i804.BMICache());
-    gh.factory<_i914.UserRepository>(() => _i914.UserRepository());
+    gh.factory<_i333.UserCache>(() => _i333.UserCache());
+    gh.factory<_i914.GetUserRepository>(() => _i914.GetUserRepository());
     gh.factory<_i42.GenderCubit>(() => _i42.GenderCubit());
     gh.lazySingleton<_i125.AppRouter>(() => _i125.AppRouter());
     gh.lazySingleton<_i353.BaseTheme>(() => _i353.BaseTheme());
-    gh.factory<_i101.CacheMethods<_i34.User, _i34.Users>>(
-        () => _i333.UserCache());
-    gh.factory<_i175.SaveUseCase>(
-        () => _i175.SaveUseCase(gh<_i34.UserRepository>()));
     gh.lazySingleton<_i782.ProductLocalization>(() => _i782.ProductLocalization(
           child: gh<_i409.Widget>(),
           key: gh<_i409.Key>(),
         ));
     gh.factory<_i956.ImpCache>(
         () => _i956.ImpCache(initTable: gh<_i956.InitTableFunction>()));
+    gh.factory<_i175.SaveUseCase>(
+        () => _i175.SaveUseCase(gh<_i34.GetUserRepository>()));
     return this;
   }
 }

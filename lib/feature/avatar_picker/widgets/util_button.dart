@@ -9,8 +9,8 @@ final class UtilButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: context.width * .41,
-      height: context.width * .41,
+      width: context.width * .35,
+      height: context.width * .35,
       child: ClipOval(
         child: Material(
           color: ProductColor().seedColor,

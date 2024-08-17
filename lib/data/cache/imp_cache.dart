@@ -23,6 +23,7 @@ class ImpCache implements BaseDatabase {
 
   @override
   Future<Database?> initializeDatabase() async {
+    'database log'.log;
     final path = await getDatabasesPath();
     _db = await openDatabase(
       '$path/${this.path}',

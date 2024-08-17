@@ -1,5 +1,4 @@
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/domain/index.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
@@ -15,14 +14,14 @@ class User extends Equatable implements BaseModel<User>, IdModel {
   final String? avatar;
   final GenderValue? gender;
   @JsonKey(includeToJson: false)
-  final BMIS? bodymetricss;
+  final UserMetric? userMetrics;
 
   const User({
     this.id,
     this.avatar,
     this.name,
     this.gender,
-    this.bodymetricss,
+    this.userMetrics,
   });
 
   const User.copyWith({
@@ -30,11 +29,11 @@ class User extends Equatable implements BaseModel<User>, IdModel {
     this.avatar,
     this.name,
     this.gender,
-    this.bodymetricss,
+    this.userMetrics,
   });
 
   @override
-  List<Object?> get props => [name, gender, bodymetricss, id];
+  List<Object?> get props => [name, gender, userMetrics, id];
 
   @override
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);

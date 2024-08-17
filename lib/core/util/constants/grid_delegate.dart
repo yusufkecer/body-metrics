@@ -12,6 +12,6 @@ final class GridDelegate extends SliverGridDelegateWithFixedCrossAxisCount {
           crossAxisCount: 2,
           mainAxisSpacing: 2,
           crossAxisSpacing: 2,
-          childAspectRatio: 1.1,
+          childAspectRatio: 1.25,
         );
 }

@@ -1,17 +1,18 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-part of 'bmis.dart';
+part of 'user_metrics.dart';
 
 // **************************************************************************
 // JsonSerializableGenerator
 // **************************************************************************
 
-BMIS _$BMISFromJson(Map<String, dynamic> json) => BMIS(
+UserMetrics _$UserMetricsFromJson(Map<String, dynamic> json) => UserMetrics(
       bodymetricss: (json['bodymetricss'] as List<dynamic>?)
-          ?.map((e) => BMI.fromJson(e as Map<String, dynamic>))
+          ?.map((e) => UserMetrics.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
-Map<String, dynamic> _$BMISToJson(BMIS instance) => <String, dynamic>{
+Map<String, dynamic> _$UserMetricsToJson(UserMetrics instance) =>
+    <String, dynamic>{
       'bodymetricss': instance.bodymetricss,
     };

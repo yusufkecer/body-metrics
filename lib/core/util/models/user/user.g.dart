@@ -11,9 +11,9 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       avatar: json['avatar'] as String?,
       name: json['name'] as String?,
       gender: $enumDecodeNullable(_$GenderValueEnumMap, json['gender']),
-      bodymetricss: json['bodymetricss'] == null
+      userMetrics: json['userMetrics'] == null
           ? null
-          : BMIS.fromJson(json['bodymetricss'] as Map<String, dynamic>),
+          : UserMetric.fromJson(json['userMetrics'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
