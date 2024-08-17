@@ -25,8 +25,6 @@ dependencies:
   logger: ^2.4.0 
   sqflite: ^2.3.3+1
 
-
-
 dev_dependencies:
   flutter_test:
     sdk: flutter

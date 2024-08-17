@@ -1,4 +1,5 @@
 import 'package:bodymetrics/core/index.dart';
+import 'package:bodymetrics/domain/index.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';

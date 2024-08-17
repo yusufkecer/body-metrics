@@ -16,9 +16,14 @@ abstract class _$AppRouter extends RootStackRouter {
   @override
   final Map<String, PageFactory> pagesMap = {
     AvatarPickerView.name: (routeData) {
+      final args = routeData.argsAs<AvatarPickerViewArgs>(
+          orElse: () => const AvatarPickerViewArgs());
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: const AvatarPicker(),
+        child: AvatarPicker(
+          key: args.key,
+          canSkip: args.canSkip,
+        ),
       );
     },
     GenderView.name: (routeData) {
@@ -52,16 +57,40 @@ abstract class _$AppRouter extends RootStackRouter {
 
 /// generated route for
 /// [AvatarPicker]
-class AvatarPickerView extends PageRouteInfo<void> {
-  const AvatarPickerView({List<PageRouteInfo>? children})
-      : super(
+class AvatarPickerView extends PageRouteInfo<AvatarPickerViewArgs> {
+  AvatarPickerView({
+    Key? key,
+    bool canSkip = true,
+    List<PageRouteInfo>? children,
+  }) : super(
           AvatarPickerView.name,
+          args: AvatarPickerViewArgs(
+            key: key,
+            canSkip: canSkip,
+          ),
           initialChildren: children,
         );
 
   static const String name = 'AvatarPickerView';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static const PageInfo<AvatarPickerViewArgs> page =
+      PageInfo<AvatarPickerViewArgs>(name);
+}
+
+class AvatarPickerViewArgs {
+  const AvatarPickerViewArgs({
+    this.key,
+    this.canSkip = true,
+  });
+
+  final Key? key;
+
+  final bool canSkip;
+
+  @override
+  String toString() {
+    return 'AvatarPickerViewArgs{key: $key, canSkip: $canSkip}';
+  }
 }
 
 /// generated route for

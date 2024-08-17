@@ -18,7 +18,7 @@
         "fullname": "Full Name",
         "complete": "Complete Registration",
         "skip": "Skip",
-        "select_profile_picture": "Select Your Profile Picture",
+        "select_profile_picture": "Select Your Avatar",
         "name_empty": "To complete the registration, you need to enter your name."
     }
 }

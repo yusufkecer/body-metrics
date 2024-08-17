@@ -5,6 +5,9 @@ enum ProductIcon {
   venus(FontAwesomeIcons.venus),
   mars(FontAwesomeIcons.mars),
   user(FontAwesomeIcons.userAstronaut),
+  share(FontAwesomeIcons.arrowUpRightFromSquare),
+  arrowRight(FontAwesomeIcons.userAstronaut),
+  plus(FontAwesomeIcons.plus),
   ;
 
   final IconData icon;
