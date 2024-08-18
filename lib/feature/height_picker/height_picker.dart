@@ -32,7 +32,9 @@ class Height extends StatelessWidget {
             colors: ProductColor().animatedColorList,
             speed: Durations.long3,
             text: LocaleKeys.cont.tr(),
-            onTap: () {},
+            onTap: () {
+              context.pushRoute(const WeightView());
+            },
           ),
         ),
         body: _HeightBody(

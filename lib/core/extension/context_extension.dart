@@ -14,7 +14,7 @@ extension MediaQueryExtension on BuildContext {
   double get height => sizeOf.height;
 }
 
-// extension CloseKeyboard on BuildContext {
-//   FocusNode get focusScope => FocusScope.of(this);
-//   void get unfocus => focusScope.unfocus();
-// }
+extension CloseKeyboard on BuildContext {
+  FocusNode get focusScope => FocusScope.of(this);
+  void get unfocus => focusScope.unfocus();
+}

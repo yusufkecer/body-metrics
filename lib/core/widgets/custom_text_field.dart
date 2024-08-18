@@ -33,7 +33,7 @@ final class CustomTextField extends StatelessWidget {
           Container(
             decoration: ProductDecoration.inputDecoration(),
             child: TextField(
-              onTapOutside: (event) => FocusScope.of(context).unfocus(),
+              onTapOutside: (_) => context.unfocus,
               onChanged: onChanged,
               controller: controller,
               decoration: InputDecoration(

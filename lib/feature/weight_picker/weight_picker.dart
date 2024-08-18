@@ -8,27 +8,31 @@ part 'widgets/weight_indicator.dart';
 part 'widgets/indicator_clipper.dart';
 
 @RoutePage(name: 'WeightView')
-final class WeightPicker extends StatefulWidget {
+final class WeightPicker extends StatelessWidget {
   const WeightPicker({super.key});
 
-  @override
-  State<WeightPicker> createState() => _WeightPickerState();
-}
-
-class _WeightPickerState extends State<WeightPicker> {
   @override
   Widget build(BuildContext context) {
     return GradientScafflod(
       appBar: AppBar(
         title: const Text('Select Weight'),
       ),
-      body: const _WeightPickerBody(),
+      body: const Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _WeightPickerBody(),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
 
 class _WeightPickerBody extends StatefulWidget {
-  const _WeightPickerBody({super.key});
+  const _WeightPickerBody();
 
   @override
   State<_WeightPickerBody> createState() => __WeightPickerBodyState();
@@ -43,7 +47,7 @@ class __WeightPickerBodyState extends State<_WeightPickerBody> with WeightPicker
         borderRadius: const ProductRadius.ten(),
         clipBehavior: Clip.hardEdge,
         child: Container(
-          height: context.height * 0.4,
+          height: context.height * 0.6,
           width: context.width * 0.9,
           padding: const EdgeInsets.all(12),
           alignment: Alignment.topCenter,
@@ -54,14 +58,13 @@ class __WeightPickerBodyState extends State<_WeightPickerBody> with WeightPicker
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              const Icon(
-                Icons.arrow_drop_down,
-                color: Colors.white,
+              _buildWeightIndicator(),
+              WeightIndicator(
+                weightPickerController: _weightController,
               ),
               WeightIndicator(
-                weightPickerController: _weightPickerController,
+                weightPickerController: _decimalWeightController,
               ),
-              _buildWeightIndicator(),
             ],
           ),
         ),
@@ -72,12 +75,16 @@ class __WeightPickerBodyState extends State<_WeightPickerBody> with WeightPicker
   Widget _buildWeightIndicator() {
     return CircleAvatar(
       radius: 55,
-      backgroundColor: Colors.white,
+      backgroundColor: ProductColor().white,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            '65',
+          TextField(
+            controller: _weightTextController,
+            onTapOutside: (_) => context.unfocus,
+            decoration: const InputDecoration(
+              border: InputBorder.none,
+            ),
             textAlign: TextAlign.center,
             style: context.textTheme.displaySmall!.copyWith(
               color: ProductColor().seedColor,

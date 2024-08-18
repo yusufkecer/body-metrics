@@ -14,5 +14,6 @@ final class AppRouter extends _$AppRouter {
         AutoRoute(page: HeightView.page),
         AutoRoute(page: AvatarPickerView.page, initial: true),
         AutoRoute(page: UserInfoFormView.page),
+        AutoRoute(page: WeightView.page),
       ];
 }
