@@ -6,3 +6,4 @@ export 'package:bodymetrics/core/router/router.dart';
 export 'package:bodymetrics/core/util/constants/index.dart';
 export 'package:bodymetrics/core/util/index.dart';
 export 'package:bodymetrics/core/widgets/index.dart';
+export 'package:bodymetrics/core/widgets/picked_widget.dart';

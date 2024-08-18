@@ -52,6 +52,12 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    WeightView.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const WeightPicker(),
+      );
+    },
   };
 }
 
@@ -180,4 +186,18 @@ class UserInfoFormViewArgs {
   String toString() {
     return 'UserInfoFormViewArgs{avatar: $avatar, key: $key}';
   }
+}
+
+/// generated route for
+/// [WeightPicker]
+class WeightView extends PageRouteInfo<void> {
+  const WeightView({List<PageRouteInfo>? children})
+      : super(
+          WeightView.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'WeightView';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }

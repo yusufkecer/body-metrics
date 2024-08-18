@@ -1,4 +1,5 @@
-part of '../height.dart';
+import 'package:bodymetrics/core/index.dart';
+import 'package:flutter/material.dart';
 
 class SelectedHeight extends StatelessWidget {
   final int selectedHeight;
