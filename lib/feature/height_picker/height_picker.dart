@@ -24,7 +24,7 @@ class Height extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => Locator.sl<HeightSelectorCubit>().._currentHeight,
+      create: (context) => Locator.sl<HeightSelectorCubit>(),
       child: GradientScafflod(
         appBar: CustomAppBar(
           title: LocaleKeys.height_select_height.tr(),

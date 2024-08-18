@@ -9,8 +9,9 @@ extension ThemeExtension on BuildContext {
 }
 
 extension MediaQueryExtension on BuildContext {
-  double get width => MediaQuery.sizeOf(this).width;
-  double get height => MediaQuery.sizeOf(this).height;
+  Size get sizeOf => MediaQuery.sizeOf(this);
+  double get width => sizeOf.width;
+  double get height => sizeOf.height;
 }
 
 // extension CloseKeyboard on BuildContext {
