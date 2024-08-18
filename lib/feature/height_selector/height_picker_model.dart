@@ -1,32 +1,34 @@
-part of 'height.dart';
+part of 'height_picker.dart';
 
 mixin HeightModel on State<_HeightBody> {
   late PageController _pageController;
 
   HeightSelectorCubit? cubit;
 
-  late int _currentCentimeter;
-  late final int _maxValue;
-  late final int _minValue;
+  late double _currentCentimeter;
+  final int _maxValue = 252;
+  final int _minValue = 65;
   late String? _lottie;
 
   @override
   void initState() {
-    cubit = context.read<HeightSelectorCubit>();
-    if (cubit.isNull) {
-      throw Exception('cubit is null');
-    }
+    super.initState();
+
+    final cubit = context.read<HeightSelectorCubit>();
+
     _currentCentimeter = 165;
-    _maxValue = cubit!._maxValue;
-    _minValue = cubit!._minValue;
-    cubit!.updateHeight(_currentCentimeter.toDouble());
+
     _initValues();
-    _pageController = PageController(viewportFraction: 0.15, initialPage: _currentCentimeter - _minValue);
+    _pageController = PageController(
+      viewportFraction: 0.15,
+      initialPage: _currentCentimeter.toInt() - _minValue,
+    );
+
+    cubit.updateHeight(_pageController.initialPage.toDouble(), _minValue, _maxValue);
+
     WidgetsBinding.instance.addPostFrameCallback((_) {
       _onPageChanged();
     });
-
-    super.initState();
   }
 
   @override
@@ -38,7 +40,7 @@ mixin HeightModel on State<_HeightBody> {
   Future<void> _onPageChanged() async {
     _pageController.addListener(() {
       final page = _pageController.page!;
-      cubit!.updateHeight(page);
+      cubit!.updateHeight(page, _minValue, _maxValue);
     });
   }
 

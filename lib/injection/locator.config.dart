@@ -17,9 +17,8 @@ import 'package:bodymetrics/data/cache/user_cache.dart' as _i333;
 import 'package:bodymetrics/domain/index.dart' as _i34;
 import 'package:bodymetrics/domain/repositories/user_repository.dart' as _i914;
 import 'package:bodymetrics/domain/use_case/save_use_case.dart' as _i175;
-import 'package:bodymetrics/feature/gender/cubit/gender_select/change_gender.dart'
-    as _i42;
-import 'package:bodymetrics/feature/height/height.dart' as _i960;
+import 'package:bodymetrics/feature/gender/cubit/gender_select/change_gender.dart' as _i42;
+import 'package:bodymetrics/feature/height_selector/height_picker.dart' as _i960;
 import 'package:flutter/material.dart' as _i409;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
@@ -46,10 +45,8 @@ extension GetItInjectableX on _i174.GetIt {
           child: gh<_i409.Widget>(),
           key: gh<_i409.Key>(),
         ));
-    gh.factory<_i956.ImpCache>(
-        () => _i956.ImpCache(initTable: gh<_i956.InitTableFunction>()));
-    gh.factory<_i175.SaveUseCase>(
-        () => _i175.SaveUseCase(gh<_i34.GetUserRepository>()));
+    gh.factory<_i956.ImpCache>(() => _i956.ImpCache(initTable: gh<_i956.InitTableFunction>()));
+    gh.factory<_i175.SaveUseCase>(() => _i175.SaveUseCase(gh<_i34.GetUserRepository>()));
     return this;
   }
 }

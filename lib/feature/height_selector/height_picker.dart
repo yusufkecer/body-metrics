@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:bodymetrics/core/extension/value_extension.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/injection/locator.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -9,11 +8,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:lottie/lottie.dart';
 
-part './cubit/height_selector_cubit.dart';
-part './cubit/height_selector_state.dart';
-part 'height_model.dart';
+part 'cubit/height_picker_cubit.dart';
+part 'cubit/height_picker_state.dart';
+part 'height_picker_model.dart';
 part 'widgets/ruler.dart';
-part 'widgets/selected_height.dart';
 
 @RoutePage(name: 'HeightView')
 class Height extends StatelessWidget {
@@ -26,7 +24,7 @@ class Height extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (context) => Locator.sl<HeightSelectorCubit>()..currentHeight,
+      create: (context) => Locator.sl<HeightSelectorCubit>().._currentHeight,
       child: GradientScafflod(
         appBar: CustomAppBar(
           title: LocaleKeys.height_select_height.tr(),
@@ -34,9 +32,7 @@ class Height extends StatelessWidget {
             colors: ProductColor().animatedColorList,
             speed: Durations.long3,
             text: LocaleKeys.cont.tr(),
-            onTap: () {
-              context.pushRoute(AvatarPickerView());
-            },
+            onTap: () {},
           ),
         ),
         body: _HeightBody(
@@ -61,6 +57,10 @@ class _HeightBodyState extends State<_HeightBody> with HeightModel {
   @override
   Widget build(BuildContext context) {
     cubit = context.watch<HeightSelectorCubit>();
+    if (cubit == null) {
+      //TODO : Add error widget
+      return const SizedBox.shrink();
+    }
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -73,7 +73,7 @@ class _HeightBodyState extends State<_HeightBody> with HeightModel {
           pageController: _pageController,
           maxValue: _maxValue,
           minValue: _minValue,
-          selectedHeight: cubit!.state._page - 1,
+          selectedHeight: cubit!.state._page,
         ),
       ],
     );
