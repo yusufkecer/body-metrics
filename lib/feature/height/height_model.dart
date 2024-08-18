@@ -1,16 +1,25 @@
 part of 'height.dart';
 
-mixin HeightModel on State<Height> {
+mixin HeightModel on State<_HeightBody> {
   late PageController _pageController;
 
-  int _currentCentimeter = 165;
-  final int _maxValue = 252;
-  final int _minValue = 65;
-  double _selectedHeight = 165;
+  HeightSelectorCubit? cubit;
+
+  late int _currentCentimeter;
+  late final int _maxValue;
+  late final int _minValue;
   late String? _lottie;
 
   @override
   void initState() {
+    cubit = context.read<HeightSelectorCubit>();
+    if (cubit.isNull) {
+      throw Exception('cubit is null');
+    }
+    _currentCentimeter = 165;
+    _maxValue = cubit!._maxValue;
+    _minValue = cubit!._minValue;
+    cubit!.updateHeight(_currentCentimeter.toDouble());
     _initValues();
     _pageController = PageController(viewportFraction: 0.15, initialPage: _currentCentimeter - _minValue);
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -28,21 +37,12 @@ mixin HeightModel on State<Height> {
 
   Future<void> _onPageChanged() async {
     _pageController.addListener(() {
-      Future.microtask(() {
-        final position = _pageController.page!.floor() + _minValue + 1;
-        if (position != _currentCentimeter && position >= _minValue && position <= _maxValue) {
-          _currentCentimeter = position;
-          _selectedHeight = ((_currentCentimeter * 2) * (_maxValue - _minValue)) / 233;
-          'current $_currentCentimeter'.w;
-        }
-      });
-      //TODO: change to cubit
-      setState(() {});
+      final page = _pageController.page!;
+      cubit!.updateHeight(page);
     });
   }
 
   void _initValues() {
-    _selectedHeight = ((_currentCentimeter * 2) * (_maxValue - _minValue)) / 233;
     _lottie = widget.isFemale == true ? AssetValue.femaleBody.value : AssetValue.maleBody.value;
   }
 }

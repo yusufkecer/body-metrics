@@ -19,6 +19,7 @@ import 'package:bodymetrics/domain/repositories/user_repository.dart' as _i914;
 import 'package:bodymetrics/domain/use_case/save_use_case.dart' as _i175;
 import 'package:bodymetrics/feature/gender/cubit/gender_select/change_gender.dart'
     as _i42;
+import 'package:bodymetrics/feature/height/height.dart' as _i960;
 import 'package:flutter/material.dart' as _i409;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
@@ -38,6 +39,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i333.UserCache>(() => _i333.UserCache());
     gh.factory<_i914.GetUserRepository>(() => _i914.GetUserRepository());
     gh.factory<_i42.GenderCubit>(() => _i42.GenderCubit());
+    gh.factory<_i960.HeightSelectorCubit>(() => _i960.HeightSelectorCubit());
     gh.lazySingleton<_i125.AppRouter>(() => _i125.AppRouter());
     gh.lazySingleton<_i353.BaseTheme>(() => _i353.BaseTheme());
     gh.lazySingleton<_i782.ProductLocalization>(() => _i782.ProductLocalization(

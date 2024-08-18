@@ -52,7 +52,7 @@ final class Ruler extends StatelessWidget with HeightCalculate {
           );
         },
         controller: pageController,
-        itemCount: maxValue - minValue + 1,
+        itemCount: maxValue - minValue,
       ),
     );
   }
@@ -60,7 +60,7 @@ final class Ruler extends StatelessWidget with HeightCalculate {
 
 mixin HeightCalculate {
   int calculateIndex(int selectedHeight, int index, int minValue) {
-    final adjustedIndex = minValue + index;
+    final adjustedIndex = (minValue + 1) + index;
     return adjustedIndex;
   }
 
