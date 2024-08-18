@@ -3,15 +3,24 @@ part of 'weight_picker.dart';
 mixin WeightPickerModel on State<_WeightPickerBody> {
   late final PageController _weightController;
   late final PageController _decimalWeightController;
-  final TextEditingController _weightTextController = TextEditingController(text: '62');
+  final TextEditingController _weightTextController = TextEditingController();
+
   int _selectedWeight = 62;
+  int _selectedDecimalWeight = 0;
+
+  final double _decimalMaxWeight = 10;
+  final double _maxWeight = 636;
+
+  final double _decimalMinWeight = 0;
+  final double _minWeight = 25;
 
   @override
   void initState() {
     super.initState();
+    _weightTextController.text = '$_selectedWeight';
     _weightController = PageController(
-      initialPage: _selectedWeight,
-      viewportFraction: 0.14,
+      initialPage: _selectedWeight - _minWeight.toInt(),
+      viewportFraction: 0.20,
     );
     _decimalWeightController = PageController(
       viewportFraction: 0.14,
@@ -46,14 +55,15 @@ mixin WeightPickerModel on State<_WeightPickerBody> {
   }
 
   void _onChangeDecimalWeight() {
-    final position = _weightController.page!.round();
-    if (position != _selectedWeight) {
+    final position = _decimalWeightController.page!;
+    if (position != _selectedDecimalWeight) {
       setState(() {
-        _selectedWeight = position;
+        _selectedDecimalWeight = position.round();
         trackAndSetWeight();
       });
     }
   }
 
   void trackAndSetWeight() {}
+  void trackAndSetDecimalWeight() {}
 }

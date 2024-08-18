@@ -25,5 +25,13 @@
         "weight_name": "Weight",
         "select_weight": "Select Your Weight",
         "kg": "kg"
+    },
+    "bmi_result": {
+        "underweight": "Normal Kilonun Altında",
+        "normal": "Normal",
+        "overweight": "Fazla Kilolu",
+        "obese": "Obez",
+        "severely_obese": "Aşırı Obez",
+        "very_severely_obese": "İleri Seviye Obese"
     }
 }

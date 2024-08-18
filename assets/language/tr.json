@@ -25,5 +25,13 @@
         "weight_name": "Kilo",
         "select_weight": "Kilonuzu Seçin",
         "kg": "kg"
+    },
+    "bmi_result": {
+        "underweight": "Underweight",
+        "normal": "Normal",
+        "overweight": "Overweight",
+        "obese": "Obese",
+        "severely_obese": "Severely Obese",
+        "very_severely_obese": "Very Severely Obese"
     }
 }

@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
-
 import 'package:flutter/material.dart';
 
 part 'weight_picker_model.dart';
@@ -49,7 +48,7 @@ class __WeightPickerBodyState extends State<_WeightPickerBody> with WeightPicker
         child: Container(
           height: context.height * 0.6,
           width: context.width * 0.9,
-          padding: const EdgeInsets.all(12),
+          padding: const ProductPadding.ten(),
           alignment: Alignment.topCenter,
           decoration: BoxDecoration(
             color: ProductColor().seedColor,
@@ -61,9 +60,15 @@ class __WeightPickerBodyState extends State<_WeightPickerBody> with WeightPicker
               _buildWeightIndicator(),
               WeightIndicator(
                 weightPickerController: _weightController,
+                minVal: _minWeight,
+                selectedWeight: _selectedWeight,
+                maxVal: _maxWeight,
               ),
               WeightIndicator(
                 weightPickerController: _decimalWeightController,
+                minVal: _decimalMinWeight,
+                selectedWeight: _selectedDecimalWeight,
+                maxVal: _decimalMaxWeight,
               ),
             ],
           ),
@@ -83,6 +88,7 @@ class __WeightPickerBodyState extends State<_WeightPickerBody> with WeightPicker
             controller: _weightTextController,
             onTapOutside: (_) => context.unfocus,
             decoration: const InputDecoration(
+              contentPadding: EdgeInsets.zero,
               border: InputBorder.none,
             ),
             textAlign: TextAlign.center,
@@ -94,7 +100,7 @@ class __WeightPickerBodyState extends State<_WeightPickerBody> with WeightPicker
           Text(
             'Kg',
             textAlign: TextAlign.center,
-            style: context.textTheme.titleMedium!.copyWith(
+            style: context.textTheme.titleLarge!.copyWith(
               color: ProductColor().seedColor,
               fontWeight: FontWeight.bold,
             ),

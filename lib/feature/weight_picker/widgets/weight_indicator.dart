@@ -3,7 +3,15 @@ part of '../weight_picker.dart';
 class WeightIndicator extends StatelessWidget {
   final int selectedWeight;
   final PageController weightPickerController;
-  const WeightIndicator({required this.weightPickerController, super.key, this.selectedWeight = 62});
+  final double minVal;
+  final double maxVal;
+  const WeightIndicator({
+    required this.selectedWeight,
+    required this.weightPickerController,
+    required this.minVal,
+    required this.maxVal,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -11,41 +19,43 @@ class WeightIndicator extends StatelessWidget {
       height: 80,
       child: PageView.builder(
         controller: weightPickerController,
-        itemCount: 300,
+        itemCount: (maxVal - minVal).toInt(),
+        pageSnapping: false,
         itemBuilder: (context, index) {
-          return _buildWeightText(index);
+          print('index: ${index + minVal.toInt()}');
+          return _buildWeightText(index + minVal.toInt(), context);
         },
       ),
     );
   }
 
-  Widget _buildWeightText(int index) {
-    final isActive = selectedWeight == index;
-    final opacity = _calculateOpacity(index);
-    final fontSize = _calculateFontSize(index);
+  Widget _buildWeightText(int weight, BuildContext context) {
+    final isActive = selectedWeight == weight;
+    final opacity = _calculateOpacity(weight);
+    final fontSize = _calculateFontSize(weight);
 
     return Align(
       child: Text(
-        '$index',
-        style: TextStyle(
+        '$weight',
+        style: context.textTheme.headlineMedium?.copyWith(
           fontWeight: isActive ? FontWeight.normal : null,
-          color: Colors.white.withOpacity(opacity),
+          color: ProductColor().white.withOpacity(opacity),
           fontSize: fontSize,
         ),
       ),
     );
   }
 
-  double _calculateOpacity(int index) {
-    final difference = (index - selectedWeight).abs();
+  double _calculateOpacity(int weight) {
+    final difference = (weight - selectedWeight).abs();
     if (difference == 0) return 1;
     if (difference == 1) return 0.8;
     if (difference == 2) return 0.5;
     return 0.3;
   }
 
-  double _calculateFontSize(int index) {
-    final difference = (index - selectedWeight).abs();
+  double _calculateFontSize(int weight) {
+    final difference = (weight - selectedWeight).abs();
     if (difference == 0) return 34;
     if (difference == 1) return 24;
     if (difference == 2) return 16;
