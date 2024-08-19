@@ -1,40 +1,46 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:bodymetrics/core/extension/regex_extension.dart';
 import 'package:bodymetrics/core/index.dart';
-
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 part 'weight_picker_model.dart';
 part 'widgets/weight_indicator.dart';
 part 'widgets/indicator_clipper.dart';
 
 @RoutePage(name: 'WeightView')
-final class WeightPicker extends StatefulWidget {
+final class WeightPicker extends StatelessWidget {
   const WeightPicker({super.key});
 
-  @override
-  State<WeightPicker> createState() => _WeightPickerState();
-}
-
-class _WeightPickerState extends State<WeightPicker> {
   @override
   Widget build(BuildContext context) {
     return GradientScafflod(
       appBar: AppBar(
-        title: const Text('Select Weight'),
+        title: Text(LocaleKeys.weight_select_weight.tr()),
       ),
-      body: const _WeightPickerBody(),
+      body: const Center(
+        child: SingleChildScrollView(
+          child: Column(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: [
+              _WeightPickerBody(),
+            ],
+          ),
+        ),
+      ),
     );
   }
 }
 
 class _WeightPickerBody extends StatefulWidget {
-  const _WeightPickerBody({super.key});
+  const _WeightPickerBody();
 
   @override
   State<_WeightPickerBody> createState() => __WeightPickerBodyState();
 }
 
-class __WeightPickerBodyState extends State<_WeightPickerBody> with WeightPickerModel {
+class __WeightPickerBodyState extends State<_WeightPickerBody> with DialogUtil, WeightPickerModel {
   @override
   Widget build(BuildContext context) {
     return ClipPath(
@@ -43,9 +49,9 @@ class __WeightPickerBodyState extends State<_WeightPickerBody> with WeightPicker
         borderRadius: const ProductRadius.ten(),
         clipBehavior: Clip.hardEdge,
         child: Container(
-          height: context.height * 0.4,
+          height: context.height * 0.6,
           width: context.width * 0.9,
-          padding: const EdgeInsets.all(12),
+          padding: const ProductPadding.ten(),
           alignment: Alignment.topCenter,
           decoration: BoxDecoration(
             color: ProductColor().seedColor,
@@ -54,14 +60,19 @@ class __WeightPickerBodyState extends State<_WeightPickerBody> with WeightPicker
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              const Icon(
-                Icons.arrow_drop_down,
-                color: Colors.white,
+              _buildWeightIndicator(),
+              WeightIndicator(
+                weightPickerController: _weightController,
+                minVal: _minWeight,
+                selectedWeight: _selectedWeight,
+                maxVal: _maxWeight,
               ),
               WeightIndicator(
-                weightPickerController: _weightPickerController,
+                weightPickerController: _decimalWeightController,
+                minVal: _decimalMinWeight,
+                selectedWeight: _selectedDecimalWeight,
+                maxVal: _decimalMaxWeight,
               ),
-              _buildWeightIndicator(),
             ],
           ),
         ),
@@ -72,22 +83,35 @@ class __WeightPickerBodyState extends State<_WeightPickerBody> with WeightPicker
   Widget _buildWeightIndicator() {
     return CircleAvatar(
       radius: 55,
-      backgroundColor: Colors.white,
+      backgroundColor: ProductColor().white,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text(
-            '65',
-            textAlign: TextAlign.center,
-            style: context.textTheme.displaySmall!.copyWith(
-              color: ProductColor().seedColor,
-              fontWeight: FontWeight.bold,
+          Focus(
+            onFocusChange: _fieldFocus,
+            child: TextField(
+              controller: _weightTextController,
+              keyboardType: TextInputType.number,
+              onTapOutside: (_) => context.unfocus,
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(4),
+              ],
+              onChanged: _textFieldChange,
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.zero,
+                border: InputBorder.none,
+              ),
+              textAlign: TextAlign.center,
+              style: context.textTheme.displaySmall!.copyWith(
+                color: ProductColor().seedColor,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           Text(
             'Kg',
             textAlign: TextAlign.center,
-            style: context.textTheme.titleMedium!.copyWith(
+            style: context.textTheme.titleLarge!.copyWith(
               color: ProductColor().seedColor,
               fontWeight: FontWeight.bold,
             ),

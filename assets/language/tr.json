@@ -24,6 +24,17 @@
     "weight": {
         "weight_name": "Kilo",
         "select_weight": "Kilonuzu Seçin",
-        "kg": "kg"
+        "kg": "kg",
+        "weight_empty": "Devam etmek için kilonuzu girmeniz gerekiyor.",
+        "weight_invalid": "Lütfen geçerli bir kilo girin.",
+        "enter_range": "Lütfen 25-635 aralığında geçerli bir kilo girin."
+    },
+    "bmi_result": {
+        "underweight": "Normal Kilonun Altında",
+        "normal": "Normal",
+        "overweight": "Fazla Kilolu",
+        "obese": "Obez",
+        "severely_obese": "Aşırı Obez",
+        "very_severely_obese": "İleri Seviye Obese"
     }
 }
