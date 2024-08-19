@@ -12,7 +12,7 @@
     "height": {
         "height_name": "Height",
         "select_height": "Select Your Height",
-        "cm": "cm"
+        "cm": "Cm"
     },
     "register": {
         "fullname": "Full Name",
@@ -24,7 +24,7 @@
     "weight": {
         "weight_name": "Weight",
         "select_weight": "Select Your Weight",
-        "kg": "kg",
+        "kg": "Kg",
         "weight_empty": "To continue, you need to enter your weight.",
         "weight_invalid": "Please enter a valid weight.",
         "enter_range": "Please enter a valid weight in the range of 25-635."

@@ -4,8 +4,9 @@ mixin WeightPickerModel on State<_WeightPickerBody>, DialogUtil {
   late final PageController _weightController;
   late final PageController _decimalWeightController;
   final TextEditingController _weightTextController = TextEditingController();
+  bool isFocused = false;
 
-  int _selectedWeight = 62;
+  int _selectedWeight = 70;
   int _selectedDecimalWeight = 0;
 
   final double _maxWeight = 636;
@@ -73,34 +74,85 @@ mixin WeightPickerModel on State<_WeightPickerBody>, DialogUtil {
   }
 
   void _fieldFocus(bool hasFocus) {
-    try {
-      if (!hasFocus) {
-        final text = _weightTextController.text;
-
-        final lastValue = text[text.length - 1];
-        if (lastValue.isEmpty) {
-          showLottieError(LocaleKeys.weight_weight_empty.tr());
-          _weightTextController.text = '$_selectedWeight';
-        }
-        if (lastValue == '.' || lastValue == '.0') {
-          _weightTextController.text = text.substring(0, text.length - 1);
-        }
-        final parsedWeight = double.parse(_weightTextController.text);
-        if (parsedWeight > _maxWeight || parsedWeight < _minWeight) {
-          showLottieError(LocaleKeys.weight_enter_range.tr());
-          _weightTextController.text = '$_selectedWeight';
-        }
-      }
-    } catch (e) {
-      showLottieError(LocaleKeys.weight_weight_invalid.tr());
-      _weightTextController.text = '$_selectedWeight';
+    if (hasFocus) {
+      isFocused = true;
+      return;
+    } else {
+      isFocused = false;
     }
+
+    final text = _weightTextController.text;
+
+    if (text.isEmpty) {
+      _handleEmptyWeight();
+      return;
+    }
+
+    try {
+      _handleTextEditing(text);
+    } catch (e) {
+      _handleInvalidWeight();
+    }
+  }
+
+  void _handleEmptyWeight() {
+    _setWeightText(_selectedWeight.toDouble());
+    showLottieError(LocaleKeys.weight_weight_empty.tr());
+  }
+
+  void _handleTextEditing(String text) {
+    final lastValue = text.isNotEmpty ? text[text.length - 1] : '';
+    final lastSecondValue = text.length > 1 ? text[text.length - 2] : '';
+
+    if (lastValue == '.') {
+      _weightTextController.text = text.substring(0, text.length - 1);
+    } else if (lastSecondValue == '.' && lastValue == '0') {
+      _weightTextController.text = text.substring(0, text.length - 2);
+    }
+
+    final parsedWeight = double.tryParse(_weightTextController.text) ?? 0;
+
+    if (parsedWeight > _maxWeight || parsedWeight < _minWeight) {
+      _handleWeightOutOfRange();
+    } else {
+      _updateWeightAndDecimalController(parsedWeight, text);
+    }
+  }
+
+  void _handleWeightOutOfRange() {
+    _setWeightText(_selectedWeight.toDouble());
+    showLottieError(LocaleKeys.weight_enter_range.tr());
+  }
+
+  void _handleInvalidWeight() {
+    _setWeightText(_selectedWeight.toDouble());
+    showLottieError(LocaleKeys.weight_weight_invalid.tr());
+  }
+
+  void _updateWeightAndDecimalController(double parsedWeight, String text) {
+    if (text.contains('.')) {
+      final decimal = text.split('.').last;
+      _decimalWeightController.animateToPage(
+        int.parse(decimal),
+        duration: const Duration(milliseconds: 350),
+        curve: Curves.fastOutSlowIn,
+      );
+    }
+
+    _weightController.animateToPage(
+      parsedWeight.toInt() - _minWeight.toInt(),
+      duration: const Duration(milliseconds: 350),
+      curve: Curves.fastOutSlowIn,
+    );
+  }
+
+  void _setWeightText(double weight) {
+    _weightTextController.text = weight.toString();
   }
 
   void _textFieldChange(String value) {
     if (value.isValidNumber) {
       _weightTextController.text = value;
-      if (value.isNotEmpty) {}
     } else {
       _weightTextController.text = '$_selectedWeight';
     }

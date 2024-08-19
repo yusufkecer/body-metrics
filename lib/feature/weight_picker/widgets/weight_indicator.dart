@@ -5,11 +5,13 @@ class WeightIndicator extends StatelessWidget {
   final PageController weightPickerController;
   final double minVal;
   final double maxVal;
+  final bool isDisabled;
   const WeightIndicator({
     required this.selectedWeight,
     required this.weightPickerController,
     required this.minVal,
     required this.maxVal,
+    this.isDisabled = false,
     super.key,
   });
 
@@ -18,6 +20,7 @@ class WeightIndicator extends StatelessWidget {
     return SizedBox(
       height: 80,
       child: PageView.builder(
+        physics: isDisabled ? const NeverScrollableScrollPhysics() : const PageScrollPhysics(),
         controller: weightPickerController,
         itemCount: (maxVal - minVal).toInt(),
         pageSnapping: false,
