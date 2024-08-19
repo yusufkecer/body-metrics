@@ -1,6 +1,9 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:bodymetrics/core/extension/regex_extension.dart';
 import 'package:bodymetrics/core/index.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 
 part 'weight_picker_model.dart';
 part 'widgets/weight_indicator.dart';
@@ -14,7 +17,7 @@ final class WeightPicker extends StatelessWidget {
   Widget build(BuildContext context) {
     return GradientScafflod(
       appBar: AppBar(
-        title: const Text('Select Weight'),
+        title: Text(LocaleKeys.weight_select_weight.tr()),
       ),
       body: const Center(
         child: SingleChildScrollView(
@@ -37,7 +40,7 @@ class _WeightPickerBody extends StatefulWidget {
   State<_WeightPickerBody> createState() => __WeightPickerBodyState();
 }
 
-class __WeightPickerBodyState extends State<_WeightPickerBody> with WeightPickerModel {
+class __WeightPickerBodyState extends State<_WeightPickerBody> with DialogUtil, WeightPickerModel {
   @override
   Widget build(BuildContext context) {
     return ClipPath(
@@ -84,17 +87,25 @@ class __WeightPickerBodyState extends State<_WeightPickerBody> with WeightPicker
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          TextField(
-            controller: _weightTextController,
-            onTapOutside: (_) => context.unfocus,
-            decoration: const InputDecoration(
-              contentPadding: EdgeInsets.zero,
-              border: InputBorder.none,
-            ),
-            textAlign: TextAlign.center,
-            style: context.textTheme.displaySmall!.copyWith(
-              color: ProductColor().seedColor,
-              fontWeight: FontWeight.bold,
+          Focus(
+            onFocusChange: _fieldFocus,
+            child: TextField(
+              controller: _weightTextController,
+              keyboardType: TextInputType.number,
+              onTapOutside: (_) => context.unfocus,
+              inputFormatters: [
+                LengthLimitingTextInputFormatter(4),
+              ],
+              onChanged: _textFieldChange,
+              decoration: const InputDecoration(
+                contentPadding: EdgeInsets.zero,
+                border: InputBorder.none,
+              ),
+              textAlign: TextAlign.center,
+              style: context.textTheme.displaySmall!.copyWith(
+                color: ProductColor().seedColor,
+                fontWeight: FontWeight.bold,
+              ),
             ),
           ),
           Text(

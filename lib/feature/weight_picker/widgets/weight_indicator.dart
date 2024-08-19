@@ -22,7 +22,6 @@ class WeightIndicator extends StatelessWidget {
         itemCount: (maxVal - minVal).toInt(),
         pageSnapping: false,
         itemBuilder: (context, index) {
-          print('index: ${index + minVal.toInt()}');
           return _buildWeightText(index + minVal.toInt(), context);
         },
       ),
