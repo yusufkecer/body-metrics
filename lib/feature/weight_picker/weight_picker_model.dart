@@ -12,7 +12,6 @@ mixin WeightPickerModel on State<_WeightPickerBody>, DialogUtil {
   final double _maxWeight = 636;
   final double _minWeight = 25;
 
-  final double _decimalMinWeight = 0;
   final double _decimalMaxWeight = 10;
 
   @override
@@ -120,7 +119,7 @@ mixin WeightPickerModel on State<_WeightPickerBody>, DialogUtil {
   }
 
   void _handleWeightOutOfRange() {
-    _setWeightText(_selectedWeight.toDouble());
+    _setWeightText(_selectedWeight.toDouble(), isDecimal: false);
     showLottieError(LocaleKeys.weight_enter_range.tr());
   }
 
@@ -151,15 +150,17 @@ mixin WeightPickerModel on State<_WeightPickerBody>, DialogUtil {
     );
   }
 
-  void _setWeightText(double weight) {
+  void _setWeightText(double weight, {bool isDecimal = false}) {
+    if (!isDecimal) {
+      _weightTextController.text = weight.toStringAsFixed(0);
+      return;
+    }
     _weightTextController.text = weight.toString();
   }
 
   void _textFieldChange(String value) {
-    if (value.isValidNumber) {
-      _weightTextController.text = value;
-    } else {
-      _weightTextController.text = '0';
+    if (!value.isValidNumber) {
+      _weightTextController.text = '$_selectedWeight';
     }
   }
 }

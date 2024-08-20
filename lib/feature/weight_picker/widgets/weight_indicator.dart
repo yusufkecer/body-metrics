@@ -10,7 +10,7 @@ final class WeightIndicator extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return CircleAvatar(
-      radius: 55,
+      radius: 60,
       backgroundColor: ProductColor().white,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,

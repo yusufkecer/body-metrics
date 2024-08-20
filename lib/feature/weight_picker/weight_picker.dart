@@ -42,13 +42,10 @@ class __WeightPickerBodyState extends State<_WeightPickerBody> with DialogUtil, 
             ClipPath(
               clipper: IndicatorClipper(),
               child: ClipRRect(
-                borderRadius: const ProductRadius.ten(),
-                clipBehavior: Clip.hardEdge,
                 child: Container(
-                  height: context.height * 0.6,
-                  width: context.width * 0.9,
+                  height: context.weightIndicatorHeight,
+                  width: context.weightIndicatorWidth,
                   padding: ProductPadding.ten(),
-                  alignment: Alignment.topCenter,
                   decoration: BoxDecoration(
                     color: ProductColor().seedColor,
                     borderRadius: const ProductRadius.ten(),
@@ -70,7 +67,7 @@ class __WeightPickerBodyState extends State<_WeightPickerBody> with DialogUtil, 
                       ),
                       WeightPickerWidget(
                         weightPickerController: _decimalWeightController,
-                        minVal: _decimalMinWeight,
+                        minVal: 0,
                         selectedWeight: _selectedDecimalWeight,
                         maxVal: _decimalMaxWeight,
                         isDisabled: isFocused,
