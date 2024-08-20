@@ -131,9 +131,10 @@ mixin WeightPickerModel on State<_WeightPickerBody>, DialogUtil {
 
   void _updateWeightAndDecimalController(double parsedWeight, String text) {
     if (text.contains('.')) {
-      final decimal = text.split('.').last;
+      final decimal = text.split('.');
+      final value = decimal[1].convert;
       _decimalWeightController.animateToPage(
-        int.parse(decimal),
+        value,
         duration: const Duration(milliseconds: 350),
         curve: Curves.fastOutSlowIn,
       );
@@ -154,7 +155,7 @@ mixin WeightPickerModel on State<_WeightPickerBody>, DialogUtil {
     if (value.isValidNumber) {
       _weightTextController.text = value;
     } else {
-      _weightTextController.text = '$_selectedWeight';
+      _weightTextController.text = '0';
     }
   }
 }

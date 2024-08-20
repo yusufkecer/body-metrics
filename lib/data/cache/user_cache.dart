@@ -1,5 +1,4 @@
 import 'dart:async';
-import 'package:bodymetrics/core/extension/value_extension.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/data/index.dart';
 import 'package:injectable/injectable.dart';

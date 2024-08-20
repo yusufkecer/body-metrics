@@ -17,16 +17,18 @@ class WeightIndicator extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: 80,
-      child: PageView.builder(
-        physics: isDisabled ? const NeverScrollableScrollPhysics() : const PageScrollPhysics(),
-        controller: weightPickerController,
-        itemCount: (maxVal - minVal).toInt(),
-        pageSnapping: false,
-        itemBuilder: (context, index) {
-          return _buildWeightText(index + minVal.toInt(), context);
-        },
+    return RepaintBoundary(
+      child: SizedBox(
+        height: context.height * .08,
+        child: PageView.builder(
+          physics: isDisabled ? const NeverScrollableScrollPhysics() : const PageScrollPhysics(),
+          controller: weightPickerController,
+          itemCount: (maxVal - minVal).toInt(),
+          pageSnapping: false,
+          itemBuilder: (context, index) {
+            return _buildWeightText(index + minVal.toInt(), context);
+          },
+        ),
       ),
     );
   }

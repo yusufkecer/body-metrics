@@ -1,5 +1,4 @@
 import 'package:auto_route/auto_route.dart';
-import 'package:bodymetrics/core/extension/regex_extension.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
@@ -8,6 +7,7 @@ import 'package:flutter/services.dart';
 part 'weight_picker_model.dart';
 part 'widgets/weight_indicator.dart';
 part 'widgets/indicator_clipper.dart';
+part 'extension/value_extension.dart';
 
 @RoutePage(name: 'WeightView')
 final class WeightPicker extends StatelessWidget {
@@ -19,16 +19,7 @@ final class WeightPicker extends StatelessWidget {
       appBar: AppBar(
         title: Text(LocaleKeys.weight_select_weight.tr()),
       ),
-      body: const Center(
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              _WeightPickerBody(),
-            ],
-          ),
-        ),
-      ),
+      body: const _WeightPickerBody(),
     );
   }
 }
@@ -43,40 +34,48 @@ class _WeightPickerBody extends StatefulWidget {
 class __WeightPickerBodyState extends State<_WeightPickerBody> with DialogUtil, WeightPickerModel {
   @override
   Widget build(BuildContext context) {
-    return ClipPath(
-      clipper: CustomPentagon(),
-      child: ClipRRect(
-        borderRadius: const ProductRadius.ten(),
-        clipBehavior: Clip.hardEdge,
-        child: Container(
-          height: context.height * 0.6,
-          width: context.width * 0.9,
-          padding: const ProductPadding.ten(),
-          alignment: Alignment.topCenter,
-          decoration: BoxDecoration(
-            color: ProductColor().seedColor,
-            borderRadius: const ProductRadius.ten(),
-          ),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _buildWeightIndicator(),
-              WeightIndicator(
-                weightPickerController: _weightController,
-                minVal: _minWeight,
-                selectedWeight: _selectedWeight,
-                maxVal: _maxWeight,
-                isDisabled: isFocused,
+    return Center(
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            ClipPath(
+              clipper: CustomPentagon(),
+              child: ClipRRect(
+                borderRadius: const ProductRadius.ten(),
+                clipBehavior: Clip.hardEdge,
+                child: Container(
+                  height: context.height * 0.6,
+                  width: context.width * 0.9,
+                  padding: const ProductPadding.ten(),
+                  alignment: Alignment.topCenter,
+                  decoration: BoxDecoration(
+                    color: ProductColor().seedColor,
+                    borderRadius: const ProductRadius.ten(),
+                  ),
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      _buildWeightIndicator(),
+                      WeightIndicator(
+                        weightPickerController: _weightController,
+                        minVal: _minWeight,
+                        selectedWeight: _selectedWeight,
+                        maxVal: _maxWeight,
+                        isDisabled: isFocused,
+                      ),
+                      WeightIndicator(
+                        weightPickerController: _decimalWeightController,
+                        minVal: _decimalMinWeight,
+                        selectedWeight: _selectedDecimalWeight,
+                        maxVal: _decimalMaxWeight,
+                        isDisabled: isFocused,
+                      ),
+                    ],
+                  ),
+                ),
               ),
-              WeightIndicator(
-                weightPickerController: _decimalWeightController,
-                minVal: _decimalMinWeight,
-                selectedWeight: _selectedDecimalWeight,
-                maxVal: _decimalMaxWeight,
-                isDisabled: isFocused,
-              ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
