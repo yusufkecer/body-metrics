@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 part 'weight_picker_model.dart';
+part 'widgets/weight_picker.dart';
 part 'widgets/weight_indicator.dart';
 part 'widgets/indicator_clipper.dart';
 part 'extension/value_extension.dart';
@@ -24,7 +25,7 @@ final class WeightPicker extends StatelessWidget {
   }
 }
 
-class _WeightPickerBody extends StatefulWidget {
+final class _WeightPickerBody extends StatefulWidget {
   const _WeightPickerBody();
 
   @override
@@ -39,14 +40,14 @@ class __WeightPickerBodyState extends State<_WeightPickerBody> with DialogUtil, 
         child: Column(
           children: [
             ClipPath(
-              clipper: CustomPentagon(),
+              clipper: IndicatorClipper(),
               child: ClipRRect(
                 borderRadius: const ProductRadius.ten(),
                 clipBehavior: Clip.hardEdge,
                 child: Container(
                   height: context.height * 0.6,
                   width: context.width * 0.9,
-                  padding: const ProductPadding.ten(),
+                  padding: ProductPadding.ten(),
                   alignment: Alignment.topCenter,
                   decoration: BoxDecoration(
                     color: ProductColor().seedColor,
@@ -55,15 +56,19 @@ class __WeightPickerBodyState extends State<_WeightPickerBody> with DialogUtil, 
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      _buildWeightIndicator(),
                       WeightIndicator(
+                        weightTextController: _weightTextController,
+                        fieldFocus: _fieldFocus,
+                        textFieldChange: _textFieldChange,
+                      ),
+                      WeightPickerWidget(
                         weightPickerController: _weightController,
                         minVal: _minWeight,
                         selectedWeight: _selectedWeight,
                         maxVal: _maxWeight,
                         isDisabled: isFocused,
                       ),
-                      WeightIndicator(
+                      WeightPickerWidget(
                         weightPickerController: _decimalWeightController,
                         minVal: _decimalMinWeight,
                         selectedWeight: _selectedDecimalWeight,
@@ -77,47 +82,6 @@ class __WeightPickerBodyState extends State<_WeightPickerBody> with DialogUtil, 
             ),
           ],
         ),
-      ),
-    );
-  }
-
-  Widget _buildWeightIndicator() {
-    return CircleAvatar(
-      radius: 55,
-      backgroundColor: ProductColor().white,
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: [
-          Focus(
-            onFocusChange: _fieldFocus,
-            child: TextField(
-              controller: _weightTextController,
-              keyboardType: TextInputType.number,
-              onTapOutside: (_) => context.unfocus,
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(5),
-              ],
-              onChanged: _textFieldChange,
-              decoration: const InputDecoration(
-                contentPadding: EdgeInsets.zero,
-                border: InputBorder.none,
-              ),
-              textAlign: TextAlign.center,
-              style: context.textTheme.displaySmall!.copyWith(
-                color: ProductColor().seedColor,
-                fontWeight: FontWeight.bold,
-              ),
-            ),
-          ),
-          Text(
-            LocaleKeys.weight_kg.tr(),
-            textAlign: TextAlign.center,
-            style: context.textTheme.titleLarge!.copyWith(
-              color: ProductColor().seedColor,
-              fontWeight: FontWeight.bold,
-            ),
-          ),
-        ],
       ),
     );
   }

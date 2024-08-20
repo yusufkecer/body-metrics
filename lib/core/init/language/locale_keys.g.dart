@@ -33,6 +33,7 @@ abstract class  LocaleKeys {
   static const bmi_result_obese = 'bmi_result.obese';
   static const bmi_result_severely_obese = 'bmi_result.severely_obese';
   static const bmi_result_very_severely_obese = 'bmi_result.very_severely_obese';
+  static const bmi_result_unkown = 'bmi_result.unkown';
   static const bmi_result = 'bmi_result';
 
 }

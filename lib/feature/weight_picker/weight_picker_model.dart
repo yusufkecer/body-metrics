@@ -130,18 +130,22 @@ mixin WeightPickerModel on State<_WeightPickerBody>, DialogUtil {
   }
 
   void _updateWeightAndDecimalController(double parsedWeight, String text) {
-    if (text.contains('.')) {
-      final decimal = text.split('.');
-      final value = decimal[1].convert;
-      _decimalWeightController.animateToPage(
-        value,
-        duration: const Duration(milliseconds: 350),
-        curve: Curves.fastOutSlowIn,
-      );
+    var value = text.convert;
+    var integer = parsedWeight.toInt() - _minWeight.toInt();
+
+    if (value > 9) {
+      integer++;
+      value = 0;
     }
 
+    _decimalWeightController.animateToPage(
+      value,
+      duration: const Duration(milliseconds: 350),
+      curve: Curves.fastOutSlowIn,
+    );
+
     _weightController.animateToPage(
-      parsedWeight.toInt() - _minWeight.toInt(),
+      integer,
       duration: const Duration(milliseconds: 350),
       curve: Curves.fastOutSlowIn,
     );

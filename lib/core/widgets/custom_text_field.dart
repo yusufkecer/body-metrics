@@ -21,7 +21,7 @@ final class CustomTextField extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const ProductPadding.ten(),
+      padding: ProductPadding.ten(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

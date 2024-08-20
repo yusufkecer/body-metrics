@@ -35,6 +35,7 @@
         "overweight": "Overweight",
         "obese": "Obese",
         "severely_obese": "Severely Obese",
-        "very_severely_obese": "Very Severely Obese"
+        "very_severely_obese": "Very Severely Obese",
+        "unkown": "Unknown"
     }
 }

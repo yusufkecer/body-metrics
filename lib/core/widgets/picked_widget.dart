@@ -21,8 +21,8 @@ class SelectedHeight extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           SizedBox(
-            height: CustomSize.s.value,
-            width: CustomSize.s.value,
+            height: SpaceValues.s.value,
+            width: SpaceValues.s.value,
             child: DecoratedBox(
               decoration: BoxDecoration(
                 color: ProductColor().deepPurple,

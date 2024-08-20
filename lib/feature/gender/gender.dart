@@ -43,7 +43,7 @@ class __GenderViewState extends State<_GenderView> with GenderModel {
       appBar: CustomAppBar(title: LocaleKeys.gender_gender_name.tr(), action: appbarWiget()),
       body: Center(
         child: Padding(
-          padding: const ProductPadding.ten(),
+          padding: ProductPadding.ten(),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [

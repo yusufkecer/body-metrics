@@ -1,20 +1,23 @@
+import 'package:bodymetrics/core/index.dart';
+import 'package:easy_localization/easy_localization.dart';
+
 enum BMIResult { underweight, normal, overweight, obese, morbidlyObese, unknown }
 
 extension ResultExtension on BMIResult {
   String get result {
     switch (this) {
       case BMIResult.underweight:
-        return 'Underweight';
+        return LocaleKeys.bmi_result_underweight.tr();
       case BMIResult.normal:
-        return 'Normal';
+        return LocaleKeys.bmi_result_normal.tr();
       case BMIResult.overweight:
-        return 'Overweight';
+        return LocaleKeys.bmi_result_overweight.tr();
       case BMIResult.obese:
-        return 'Obese';
+        return LocaleKeys.bmi_result_obese.tr();
       case BMIResult.morbidlyObese:
-        return 'Morbidly Obese';
+        return LocaleKeys.bmi_result_severely_obese.tr();
       case BMIResult.unknown:
-        return 'Unknown';
+        return LocaleKeys.bmi_result_unkown.tr();
     }
   }
 }
