@@ -48,7 +48,7 @@ class _AvatarPickerState extends State<AvatarPicker> with AvatarPickerModel {
       gridDelegate: const GridDelegate.profileImageGrid(),
       itemBuilder: (context, index) {
         return Padding(
-          padding: const ProductPadding.ten(),
+          padding: ProductPadding.ten(),
           child: InkWell(
             onTap: () => addNewProfile(index),
             child: CircleAvatar(

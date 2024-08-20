@@ -10,7 +10,7 @@ final class CustomElevated extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      margin: const ProductPadding.ten(),
+      margin: ProductPadding.ten(),
       decoration: ProductDecoration.buttonDecoration(),
       child: ElevatedButton(
         style: ElevatedButton.styleFrom(

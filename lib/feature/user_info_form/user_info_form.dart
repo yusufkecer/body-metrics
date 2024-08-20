@@ -42,9 +42,16 @@ class _UserInfoFormState extends State<UserInfoForm> with DialogUtil, UserInfoFo
               prefixIcon: ProductIcon.user.icon,
               controller: _fullNameController,
             ),
+            CustomTextField(
+              label: 'Doğum Tarihi',
+              readOnly: true,
+              onTap: _openDatePicker,
+              prefixIcon: ProductIcon.birthDay.icon,
+              controller: _birthDayController,
+            ),
             CustomElevated(
               text: LocaleKeys.save.tr(),
-              onPressed: onPressed,
+              onPressed: _onPressed,
             ),
           ],
         ),

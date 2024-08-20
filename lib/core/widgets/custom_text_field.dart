@@ -6,8 +6,10 @@ final class CustomTextField extends StatelessWidget {
   final String? label;
   final TextEditingController? controller;
   final void Function(String)? onChanged;
+  final void Function()? onTap;
   final IconData? prefixIcon;
   final String? hintText;
+  final bool readOnly;
 
   const CustomTextField({
     this.hintText,
@@ -16,12 +18,14 @@ final class CustomTextField extends StatelessWidget {
     this.controller,
     this.onChanged,
     this.prefixIcon,
+    this.onTap,
+    this.readOnly = false,
   });
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: const ProductPadding.ten(),
+      padding: ProductPadding.ten(),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -33,9 +37,11 @@ final class CustomTextField extends StatelessWidget {
           Container(
             decoration: ProductDecoration.inputDecoration(),
             child: TextField(
+              readOnly: readOnly,
               onTapOutside: (_) => context.unfocus,
               onChanged: onChanged,
               controller: controller,
+              onTap: onTap,
               decoration: InputDecoration(
                 contentPadding: const ProductPadding.fifTeen(),
                 border: InputBorder.none,

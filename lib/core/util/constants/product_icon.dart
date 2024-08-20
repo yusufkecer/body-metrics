@@ -8,6 +8,7 @@ enum ProductIcon {
   share(FontAwesomeIcons.arrowUpRightFromSquare),
   arrowRight(FontAwesomeIcons.userAstronaut),
   plus(FontAwesomeIcons.plus),
+  birthDay(FontAwesomeIcons.cakeCandles),
   ;
 
   final IconData icon;

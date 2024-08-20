@@ -20,6 +20,7 @@ final class BaseTheme {
       scaffoldBackgroundColor: Colors.transparent,
       checkboxTheme: _checkboxTheme,
       dialogBackgroundColor: ProductColor().deepPurple,
+      datePickerTheme: _datePickerTheme,
     );
   }
 
@@ -70,5 +71,12 @@ final class BaseTheme {
 
   final CheckboxThemeData _checkboxTheme = const CheckboxThemeData(
     side: BorderSide(color: Colors.white),
+  );
+
+  final DatePickerThemeData _datePickerTheme = DatePickerThemeData(
+    backgroundColor: ProductColor().seedColor,
+    dividerColor: ProductColor().white,
+    shadowColor: ProductColor().white,
+    surfaceTintColor: ProductColor().white,
   );
 }
