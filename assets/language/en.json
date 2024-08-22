@@ -2,7 +2,6 @@
     "calculator": "BodyMetrics Calculator",
     "cont": "Continue",
     "save": "Save",
-    "ok": "OK",
     "gender": {
         "gender_name": "Gender",
         "select_gender": "Select Your Gender",
@@ -37,5 +36,12 @@
         "severely_obese": "Severely Obese",
         "very_severely_obese": "Very Severely Obese",
         "unkown": "Unknown"
+    },
+    "dialog": {
+        "progress_lost": "Are you sure? All your progress will be lost.",
+        "cancel": "Cancel",
+        "ok": "OK",
+        "close": "Close",
+        "yes": "Yes"
     }
 }
