@@ -40,18 +40,19 @@ class _UserInfoFormState extends State<UserInfoForm> with DialogUtil, UserInfoFo
             Form(
               canPop: !isAnyProgress,
               onPopInvoked: (didPop) async {
-                context.unfocus;
                 if (!isAnyProgress) {
-                  await context.maybePop(isAnyProgress);
+                  print("isAnyProgress: $isAnyProgress");
+                  await context.maybePop();
                   return;
                 }
 
                 final value = await confirmDialog('EMİN MİSİNİZ?');
-                if (value ?? false) {
-                  if (!context.mounted) return;
+                print("valuesssssssssssssssssssssssss: $value");
+                if (value.isNotNull && !value!) return;
+                forcePop = true;
+                if (!context.mounted) return;
 
-                  await context.maybePop(isAnyProgress);
-                }
+                await context.router.pushAndPopUntil(AvatarPickerView(), predicate: (_) => false);
               },
               child: Column(
                 children: [

@@ -30,7 +30,7 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
   }
 
   bool get isAnyProgress => checkFields();
-
+  bool? forcePop;
   void _openDatePicker() {
     showDatePicker(
       barrierColor: ProductColor().seedColor.withOpacity(0.4),
