@@ -1,4 +1,5 @@
 import 'package:bodymetrics/core/index.dart';
+import 'package:bodymetrics/core/widgets/lottie_confirm_dialog.dart';
 import 'package:bodymetrics/core/widgets/lottie_dialog.dart';
 import 'package:bodymetrics/injection/locator.dart';
 
@@ -11,6 +12,18 @@ mixin DialogUtil {
       builder: (BuildContext context) {
         return LottieDialog(
           assetValue: AssetValue.robotError.value.lottie,
+          title: message,
+        );
+      },
+    );
+  }
+
+  Future<bool?> confirmDialog(String message) {
+    return showDialog<bool>(
+      context: Locator.sl<AppRouter>().navigatorKey.currentContext!,
+      builder: (BuildContext context) {
+        return LottieConfirmDialog(
+          assetValue: AssetValue.confirm.value.lottie,
           title: message,
         );
       },

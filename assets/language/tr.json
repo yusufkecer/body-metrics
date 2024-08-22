@@ -2,7 +2,6 @@
     "calculator": "VKİ Hesapla",
     "cont": "Devam",
     "save": "Kaydet",
-    "ok": "Tamam",
     "gender": {
         "gender_name": "Cinsiyet",
         "select_gender": "Cinsiyetinizi Seçin",
@@ -36,5 +35,12 @@
         "obese": "Obez",
         "severely_obese": "Aşırı Obez",
         "unkown": "Bilinmeyen"
+    },
+    "dialog": {
+        "progress_lost": "Emin misiniz? Tüm ilerlemeniz kaybolacak.",
+        "cancel": "İptal",
+        "ok": "Tamam",
+        "close": "Close",
+        "yes": "Evet"
     }
 }

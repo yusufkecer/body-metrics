@@ -20,39 +20,41 @@ final class Ruler extends StatelessWidget with HeightCalculate {
     return SizedBox(
       width: 80,
       height: context.height,
-      child: PageView.builder(
-        clipBehavior: Clip.antiAlias,
-        scrollDirection: Axis.vertical,
-        reverse: true,
-        pageSnapping: false,
-        itemBuilder: (context, index) {
-          final adjustedIndex = calculateIndex(selectedHeight - 1, index, minValue);
-          final selectedCentimeter = isSelectedCentimeter(selectedHeight - 1, adjustedIndex);
+      child: RepaintBoundary(
+        child: PageView.builder(
+          clipBehavior: Clip.antiAlias,
+          scrollDirection: Axis.vertical,
+          reverse: true,
+          pageSnapping: false,
+          itemBuilder: (context, index) {
+            final adjustedIndex = calculateIndex(selectedHeight - 1, index, minValue);
+            final selectedCentimeter = isSelectedCentimeter(selectedHeight - 1, adjustedIndex);
 
-          return Row(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              if (selectedCentimeter)
-                SelectedHeight(selectedHeight: adjustedIndex)
-              else
-                Text(
-                  '$adjustedIndex',
-                  style: TextStyle(
-                    color:
-                        isMultipleOfFive(adjustedIndex) ? ProductColor().white : ProductColor().white.withOpacity(.8),
-                    fontWeight: isMultipleOfFive(adjustedIndex) ? FontWeight.bold : null,
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                if (selectedCentimeter)
+                  SelectedHeight(selectedHeight: adjustedIndex)
+                else
+                  Text(
+                    '$adjustedIndex',
+                    style: TextStyle(
+                      color:
+                          isMultipleOfFive(adjustedIndex) ? ProductColor().white : ProductColor().white.withOpacity(.8),
+                      fontWeight: isMultipleOfFive(adjustedIndex) ? FontWeight.bold : null,
+                    ),
                   ),
+                Container(
+                  color: isMultipleOfFive(adjustedIndex) ? ProductColor().white : ProductColor().white.withOpacity(.8),
+                  height: 2,
+                  width: isMultipleOfFive(adjustedIndex) ? 15 : 10,
                 ),
-              Container(
-                color: isMultipleOfFive(adjustedIndex) ? ProductColor().white : ProductColor().white.withOpacity(.8),
-                height: 2,
-                width: isMultipleOfFive(adjustedIndex) ? 15 : 10,
-              ),
-            ],
-          );
-        },
-        controller: pageController,
-        itemCount: maxValue - minValue,
+              ],
+            );
+          },
+          controller: pageController,
+          itemCount: maxValue - minValue,
+        ),
       ),
     );
   }

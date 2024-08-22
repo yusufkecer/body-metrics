@@ -4,7 +4,10 @@ abstract class  LocaleKeys {
   static const calculator = 'calculator';
   static const cont = 'cont';
   static const save = 'save';
+  static const cancel = 'cancel';
   static const ok = 'ok';
+  static const close = 'close';
+  static const yes = 'yes';
   static const gender_gender_name = 'gender.gender_name';
   static const gender_select_gender = 'gender.select_gender';
   static const gender_fm = 'gender.fm';

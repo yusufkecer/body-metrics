@@ -37,17 +37,39 @@ class _UserInfoFormState extends State<UserInfoForm> with DialogUtil, UserInfoFo
                 width: 150,
               ),
             ),
-            CustomTextField(
-              label: LocaleKeys.register_fullname.tr(),
-              prefixIcon: ProductIcon.user.icon,
-              controller: _fullNameController,
-            ),
-            CustomTextField(
-              label: 'Doğum Tarihi',
-              readOnly: true,
-              onTap: _openDatePicker,
-              prefixIcon: ProductIcon.birthDay.icon,
-              controller: _birthofDateController,
+            Form(
+              canPop: !isAnyProgress,
+              onPopInvoked: (didPop) async {
+                if (!isAnyProgress) {
+                  print("isAnyProgress: $isAnyProgress");
+                  await context.maybePop();
+                  return;
+                }
+
+                final value = await confirmDialog('EMİN MİSİNİZ?');
+                print("valuesssssssssssssssssssssssss: $value");
+                if (value.isNotNull && !value!) return;
+                forcePop = true;
+                if (!context.mounted) return;
+
+                await context.router.pushAndPopUntil(AvatarPickerView(), predicate: (_) => false);
+              },
+              child: Column(
+                children: [
+                  CustomTextField(
+                    label: LocaleKeys.register_fullname.tr(),
+                    prefixIcon: ProductIcon.user.icon,
+                    controller: _fullNameController,
+                  ),
+                  CustomTextField(
+                    label: 'Doğum Tarihi',
+                    readOnly: true,
+                    onTap: _openDatePicker,
+                    prefixIcon: ProductIcon.birthDay.icon,
+                    controller: _birthofDateController,
+                  ),
+                ],
+              ),
             ),
             CustomElevated(
               text: LocaleKeys.save.tr(),

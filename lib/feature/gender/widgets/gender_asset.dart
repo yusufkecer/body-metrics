@@ -42,8 +42,10 @@ final class GenderAsset extends StatelessWidget {
             ),
             Stack(
               children: [
-                Lottie.asset(
-                  asset,
+                RepaintBoundary(
+                  child: Lottie.asset(
+                    asset,
+                  ),
                 ),
                 Positioned(
                   top: 10,

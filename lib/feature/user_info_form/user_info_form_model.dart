@@ -29,6 +29,8 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
     await saveUseCase.execute(user);
   }
 
+  bool get isAnyProgress => checkFields();
+  bool? forcePop;
   void _openDatePicker() {
     showDatePicker(
       barrierColor: ProductColor().seedColor.withOpacity(0.4),
@@ -41,5 +43,9 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
         _fullNameController.text = value.toString();
       }
     });
+  }
+
+  bool checkFields() {
+    return _fullNameController.text.isNotEmpty || _birthofDateController.text.isNotEmpty;
   }
 }

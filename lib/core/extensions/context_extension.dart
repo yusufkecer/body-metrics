@@ -19,5 +19,5 @@ extension MediaQueryExtension on BuildContext {
 
 extension CloseKeyboard on BuildContext {
   FocusNode get focusScope => FocusScope.of(this);
-  void get unfocus => focusScope.unfocus();
+  void unfocus() => focusScope.unfocus();
 }

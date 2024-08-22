@@ -1,0 +1,44 @@
+import 'package:auto_route/auto_route.dart';
+import 'package:bodymetrics/core/extensions/context_extension.dart';
+import 'package:bodymetrics/core/init/language/locale_keys.g.dart';
+import 'package:bodymetrics/core/widgets/dialog_text_button.dart';
+import 'package:easy_localization/easy_localization.dart';
+import 'package:flutter/material.dart';
+import 'package:lottie/lottie.dart';
+
+@immutable
+final class LottieConfirmDialog extends StatelessWidget {
+  final String assetValue;
+  final String title;
+
+  const LottieConfirmDialog({
+    required this.assetValue,
+    required this.title,
+    super.key,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return AlertDialog(
+      title: Lottie.asset(
+        assetValue,
+        width: context.width * 0.5,
+      ),
+      content: Text(
+        title,
+        style: context.textTheme.titleMedium,
+        textAlign: TextAlign.center,
+      ),
+      actions: [
+        DialogTextButton(
+          onPressed: () => context.router.maybePop(true),
+          title: LocaleKeys.yes.tr(),
+        ),
+        DialogTextButton(
+          title: LocaleKeys.cancel.tr(),
+          onPressed: () => context.router.maybePop(false),
+        ),
+      ],
+    );
+  }
+}
