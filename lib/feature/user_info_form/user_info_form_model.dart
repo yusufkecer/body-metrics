@@ -2,12 +2,12 @@ part of 'user_info_form.dart';
 
 mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
   final TextEditingController _fullNameController = TextEditingController();
-  final TextEditingController _birthDayController = TextEditingController();
+  final TextEditingController _birthofDateController = TextEditingController();
 
   @override
   void dispose() {
     _fullNameController.dispose();
-    _birthDayController.dispose();
+    _birthofDateController.dispose();
     super.dispose();
   }
 
@@ -21,8 +21,9 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
 
     final saveUseCase = Locator.sl<SaveUseCase>(param1: userInfoRepository);
 
-    const user = UserFilters(
-      name: 'name',
+    final user = User(
+      name: _fullNameController.text,
+      birthOfDay: _birthofDateController.text,
     );
 
     await saveUseCase.execute(user);
