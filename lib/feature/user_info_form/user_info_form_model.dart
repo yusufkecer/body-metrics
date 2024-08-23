@@ -39,22 +39,21 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
     showDatePicker(
       barrierColor: ProductColor().seedColor.withOpacity(0.4),
       context: context,
-      initialDate: DateTime.now(),
+      initialDate: DateTime(1999),
       firstDate: DateTime(1900),
       lastDate: DateTime.now(),
     ).then((value) {
       if (value != null) {
-        _fullNameController.text = value.toString();
+        _birthofDateController.text = value.toString();
       }
     });
   }
 
   void _formListener() {
-    '${checkFields()}'.log;
+    final isFormFilled = checkFields();
+    '$isFormFilled'.log;
 
-    _valueNotifier.value.isFormEmpty.w;
-
-    _valueNotifier.value = _valueNotifier.value.copyWith(isFormEmpty: checkFields());
+    _valueNotifier.value = _valueNotifier.value.copyWith(isFormEmpty: isFormFilled);
 
     _valueNotifier.value.isFormEmpty.w;
   }

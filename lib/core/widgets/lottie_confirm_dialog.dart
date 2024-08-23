@@ -22,7 +22,7 @@ final class LottieConfirmDialog extends StatelessWidget {
     return AlertDialog(
       title: Lottie.asset(
         assetValue,
-        width: context.width * 0.5,
+        width: context.width,
       ),
       content: Text(
         title,
@@ -32,10 +32,10 @@ final class LottieConfirmDialog extends StatelessWidget {
       actions: [
         DialogTextButton(
           onPressed: () => context.router.maybePop(true),
-          title: LocaleKeys.yes.tr(),
+          title: LocaleKeys.dialog_yes.tr(),
         ),
         DialogTextButton(
-          title: LocaleKeys.cancel.tr(),
+          title: LocaleKeys.dialog_cancel.tr(),
           onPressed: () => context.router.maybePop(false),
         ),
       ],

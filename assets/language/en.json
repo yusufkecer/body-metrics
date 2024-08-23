@@ -14,7 +14,8 @@
         "cm": "Cm"
     },
     "register": {
-        "fullname": "Full Name",
+        "full_name": "Full Name",
+        "birt_of_date": "Birth of Date",
         "complete": "Complete Registration",
         "skip": "Skip",
         "select_profile_picture": "Select Your Avatar",
@@ -29,9 +30,9 @@
         "enter_range": "Please enter a valid weight in the range of 25-635."
     },
     "bmi_result": {
-        "underweight": "Underweight",
+        "under_weight": "Underweight",
         "normal": "Normal",
-        "overweight": "Overweight",
+        "over_weight": "Overweight",
         "obese": "Obese",
         "severely_obese": "Severely Obese",
         "very_severely_obese": "Very Severely Obese",

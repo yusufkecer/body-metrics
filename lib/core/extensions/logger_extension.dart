@@ -11,4 +11,5 @@ extension LoggerExtension on dynamic {
 
   dynamic get log => Logger().i(this);
   dynamic get w => Logger().w(this);
+  dynamic get e => Logger().e(this);
 }

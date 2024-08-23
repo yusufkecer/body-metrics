@@ -26,7 +26,7 @@ final class LottieDialog extends StatelessWidget {
             Navigator.of(context).pop();
           },
           child: Text(
-            LocaleKeys.ok.tr(),
+            LocaleKeys.dialog_ok.tr(),
             style: context.textTheme.titleMedium,
           ),
         ),

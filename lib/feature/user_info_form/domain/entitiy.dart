@@ -1,6 +1,6 @@
 part of '../user_info_form.dart';
 
-class UserInfoFormEntity extends User {
+class UserInfoFormEntity extends Equatable {
   final bool isFormEmpty;
 
   const UserInfoFormEntity({
@@ -14,4 +14,7 @@ class UserInfoFormEntity extends User {
       isFormEmpty: isFormEmpty ?? this.isFormEmpty,
     );
   }
+
+  @override
+  List<Object?> get props => [isFormEmpty];
 }
