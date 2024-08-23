@@ -7,11 +7,11 @@ extension ResultExtension on BMIResult {
   String get result {
     switch (this) {
       case BMIResult.underweight:
-        return LocaleKeys.bmi_result_underweight.tr();
+        return LocaleKeys.bmi_result_under_weight.tr();
       case BMIResult.normal:
         return LocaleKeys.bmi_result_normal.tr();
       case BMIResult.overweight:
-        return LocaleKeys.bmi_result_overweight.tr();
+        return LocaleKeys.bmi_result_over_weight.tr();
       case BMIResult.obese:
         return LocaleKeys.bmi_result_obese.tr();
       case BMIResult.morbidlyObese:

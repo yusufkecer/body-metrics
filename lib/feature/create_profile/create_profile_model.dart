@@ -1,13 +1,16 @@
-part of 'user_info_form.dart';
+part of 'create_profile.dart';
 
 mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
   final TextEditingController _fullNameController = TextEditingController();
-  final TextEditingController _birthofDateController = TextEditingController();
+  final DateController _birthofDateController = DateController();
+  final ValueNotifier<FormControl> _valueNotifier = ValueNotifier<FormControl>(const FormControl());
 
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   void dispose() {
     _fullNameController.dispose();
     _birthofDateController.dispose();
+    _valueNotifier.dispose();
     super.dispose();
   }
 
@@ -29,20 +32,29 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
     await saveUseCase.execute(user);
   }
 
-  bool get isAnyProgress => checkFields();
-  bool? forcePop;
+  bool get isAnyProgress => _valueNotifier.value.isFormEmpty;
+
   void _openDatePicker() {
     showDatePicker(
       barrierColor: ProductColor().seedColor.withOpacity(0.4),
       context: context,
-      initialDate: DateTime.now(),
+      initialDate: DateTime(1999),
       firstDate: DateTime(1900),
       lastDate: DateTime.now(),
     ).then((value) {
       if (value != null) {
-        _fullNameController.text = value.toString();
+        _birthofDateController.setDate(value);
       }
     });
+  }
+
+  void _formListener() {
+    final isFormFilled = checkFields();
+    '$isFormFilled'.log;
+
+    _valueNotifier.value = _valueNotifier.value.copyWith(isFormEmpty: isFormFilled);
+
+    _valueNotifier.value.isFormEmpty.w;
   }
 
   bool checkFields() {

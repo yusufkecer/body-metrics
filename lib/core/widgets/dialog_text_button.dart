@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 final class DialogTextButton extends StatelessWidget {
   final String title;
   final void Function() onPressed;
-  const DialogTextButton({required this.title, super.key, required this.onPressed});
+  const DialogTextButton({required this.title, required this.onPressed, super.key});
 
   @override
   Widget build(BuildContext context) {

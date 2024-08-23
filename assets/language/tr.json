@@ -14,8 +14,9 @@
         "cm": "Cm"
     },
     "register": {
-        "fullname": "İsim Soyisim",
-        "complete": "Kaydı Tamamla",
+        "full_name": "İsim Soyisim",
+        "birt_of_date": "Doğum Tarihi",
+        "complete": "Kaydını Tamamla",
         "skip": "Atla",
         "select_profile_picture": "Avatarınızı Seçin",
         "name_empty": "Kaydı tamamlamak için adınızı girmeniz gerekiyor."
@@ -29,9 +30,9 @@
         "enter_range": "Lütfen 25-635 aralığında geçerli bir kilo girin."
     },
     "bmi_result": {
-        "underweight": "Normal Kilonun Altında",
+        "under_weight": "Normal Kilonun Altında",
         "normal": "Normal",
-        "overweight": "Fazla Kilolu",
+        "over_weight": "Fazla Kilolu",
         "obese": "Obez",
         "severely_obese": "Aşırı Obez",
         "unkown": "Bilinmeyen"
