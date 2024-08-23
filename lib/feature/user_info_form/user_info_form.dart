@@ -6,7 +6,7 @@ import 'package:bodymetrics/injection/locator.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import 'package:flutter/material.dart';
-
+part './domain/entitiy.dart';
 part 'user_info_form_model.dart';
 
 @RoutePage(name: 'UserInfoFormView')
@@ -38,18 +38,19 @@ class _UserInfoFormState extends State<UserInfoForm> with DialogUtil, UserInfoFo
               ),
             ),
             Form(
-              canPop: !isAnyProgress,
+              key: _formKey,
+              onChanged: _formListener,
+              canPop: isAnyProgress,
               onPopInvoked: (didPop) async {
                 if (!isAnyProgress) {
-                  print("isAnyProgress: $isAnyProgress");
+                  'maybePop'.log;
                   await context.maybePop();
                   return;
                 }
-
+                'confirmDialog'.log;
                 final value = await confirmDialog('EMİN MİSİNİZ?');
-                print("valuesssssssssssssssssssssssss: $value");
+
                 if (value.isNotNull && !value!) return;
-                forcePop = true;
                 if (!context.mounted) return;
 
                 await context.router.pushAndPopUntil(AvatarPickerView(), predicate: (_) => false);
