@@ -1,10 +1,9 @@
-part of 'user_info_form.dart';
+part of 'create_profile.dart';
 
 mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
   final TextEditingController _fullNameController = TextEditingController();
-  final TextEditingController _birthofDateController = TextEditingController();
-  final ValueNotifier<UserInfoFormEntity> _valueNotifier =
-      ValueNotifier<UserInfoFormEntity>(const UserInfoFormEntity());
+  final DateController _birthofDateController = DateController();
+  final ValueNotifier<FormControl> _valueNotifier = ValueNotifier<FormControl>(const FormControl());
 
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
@@ -44,7 +43,7 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
       lastDate: DateTime.now(),
     ).then((value) {
       if (value != null) {
-        _birthofDateController.text = value.toString();
+        _birthofDateController.setDate(value);
       }
     });
   }

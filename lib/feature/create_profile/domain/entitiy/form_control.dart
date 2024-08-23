@@ -1,16 +1,16 @@
-part of '../user_info_form.dart';
+part of '../../create_profile.dart';
 
-class UserInfoFormEntity extends Equatable {
+class FormControl extends Equatable {
   final bool isFormEmpty;
 
-  const UserInfoFormEntity({
+  const FormControl({
     this.isFormEmpty = false,
   });
 
-  UserInfoFormEntity copyWith({
+  FormControl copyWith({
     bool? isFormEmpty,
   }) {
-    return UserInfoFormEntity(
+    return FormControl(
       isFormEmpty: isFormEmpty ?? this.isFormEmpty,
     );
   }
