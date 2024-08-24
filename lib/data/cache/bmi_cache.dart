@@ -43,7 +43,6 @@ final class BMICache extends ImpCache implements CacheMethods<UserMetric, UserMe
   }
 
   @override
-  // TODO: implement table
   String get table => 'result';
 
   @override

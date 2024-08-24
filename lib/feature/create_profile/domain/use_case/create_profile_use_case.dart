@@ -1,5 +1,6 @@
 part of '../../create_profile.dart';
 
+@injectable
 final class CreateProfileUseCase implements BaseUseCase<Future<bool?>, User> {
   final CreateProfileRepository _repository;
 

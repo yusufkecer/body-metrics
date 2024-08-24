@@ -37,7 +37,10 @@ dev_dependencies:
   json_serializable: ^6.8.0
   very_good_analysis: ^6.0.0
 
-
+flutter_launcher_icons:
+  android: "launcher_icon"
+  image_path: "assets/app_logo/app_logo.png"
+  min_sdk_android: 21
 
 flutter:
   uses-material-design: true
@@ -47,5 +50,6 @@ flutter:
     - assets/images/profiles/
     - assets/lotties/
     - assets/language/
+    - assets/app_logo/app_logo.png
 
 

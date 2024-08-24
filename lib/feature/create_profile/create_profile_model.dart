@@ -14,12 +14,23 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
   }
 
   Future<void> _onPressed() async {
-    if (_fullNameController.text.isEmpty || _birthOfDateController.text.isEmpty) {
-      if (!mounted) return;
+    if ((_fullNameController.text.isEmpty || _birthOfDateController.text.isEmpty) && mounted) {
       showLottieError(LocaleKeys.register_information_is_empty.tr());
       return;
     }
+    final result = await createProfile();
+    if (result.isNotNull && result! && mounted) {
+      'Success: $result'.log;
+      await context.pushRoute(const GenderView());
+    } else {
+      'Error: $result'.e;
+      showLottieError(
+        LocaleKeys.dialog_general_error.tr(),
+      );
+    }
+  }
 
+  Future<bool?> createProfile() async {
     final saveUseCase = Locator.sl<CreateProfileUseCase>(param1: CreateProfileRepository());
 
     final user = User(
@@ -28,14 +39,7 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
     );
 
     final result = await saveUseCase.executeWithParams(user);
-
-    if (result.isNotNull && result! && mounted) {
-      await context.pushRoute(const GenderView());
-    } else {
-      showLottieError(
-        LocaleKeys.dialog_general_error.tr(),
-      );
-    }
+    return result;
   }
 
   bool get isAnyProgress => _valueNotifier.value.isFormEmpty;
