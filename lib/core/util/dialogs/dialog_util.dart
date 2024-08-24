@@ -18,6 +18,18 @@ mixin DialogUtil {
     );
   }
 
+  void showLottieSuccess(String message) {
+    showDialog<void>(
+      context: Locator.sl<AppRouter>().navigatorKey.currentContext!,
+      builder: (BuildContext context) {
+        return LottieDialog(
+          assetValue: AssetValue.robotError.value.lottie, //TODO: change to success
+          title: message,
+        );
+      },
+    );
+  }
+
   Future<bool?> confirmDialog(String message) {
     return showDialog<bool>(
       context: Locator.sl<AppRouter>().navigatorKey.currentContext!,

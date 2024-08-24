@@ -39,6 +39,7 @@
     },
     "dialog": {
         "progress_lost": "Emin misiniz? Tüm ilerlemeniz kaybolacak.",
+        "general_error": "Bir hata oluştu. Lütfen tekrar deneyin.",
         "cancel": "İptal",
         "ok": "Tamam",
         "close": "Close",

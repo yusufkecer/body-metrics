@@ -40,6 +40,7 @@
     },
     "dialog": {
         "progress_lost": "Are you sure? All your progress will be lost.",
+        "general_error": "An error occurred. Please try again.",
         "cancel": "Cancel",
         "ok": "OK",
         "close": "Close",
