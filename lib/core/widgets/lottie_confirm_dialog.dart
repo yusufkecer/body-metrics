@@ -31,12 +31,12 @@ final class LottieConfirmDialog extends StatelessWidget {
       ),
       actions: [
         DialogTextButton(
-          onPressed: () => context.router.maybePop(true),
-          title: LocaleKeys.dialog_yes.tr(),
-        ),
-        DialogTextButton(
           title: LocaleKeys.dialog_cancel.tr(),
           onPressed: () => context.router.maybePop(false),
+        ),
+        DialogTextButton(
+          onPressed: () => context.router.maybePop(true),
+          title: LocaleKeys.dialog_yes.tr(),
         ),
       ],
     );

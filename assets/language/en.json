@@ -19,7 +19,7 @@
         "complete": "Complete Registration",
         "skip": "Skip",
         "select_profile_picture": "Select Your Avatar",
-        "name_empty": "To complete the registration, you need to enter your name."
+        "information_is_empty": "To complete the registration, you need to enter your name and date of birth."
     },
     "weight": {
         "weight_name": "Weight",

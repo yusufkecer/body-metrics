@@ -2,19 +2,19 @@ part of 'create_profile.dart';
 
 mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
   final TextEditingController _fullNameController = TextEditingController();
-  final DateController _birthofDateController = DateController();
+  final DateController _birthOfDateController = DateController();
   final ValueNotifier<FormControl> _valueNotifier = ValueNotifier<FormControl>(const FormControl());
 
   @override
   void dispose() {
     _fullNameController.dispose();
-    _birthofDateController.dispose();
+    _birthOfDateController.dispose();
     _valueNotifier.dispose();
     super.dispose();
   }
 
   Future<void> _onPressed() async {
-    if (_fullNameController.text.isEmpty) {
+    if (_fullNameController.text.isEmpty || _birthOfDateController.text.isEmpty) {
       if (!mounted) return;
       showLottieError(LocaleKeys.register_name_empty.tr());
       return;
@@ -25,7 +25,7 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
 
     final user = User(
       name: _fullNameController.text,
-      birthOfDay: _birthofDateController.text,
+      birthOfDay: _birthOfDateController.text,
     );
 
     await saveUseCase.execute(user);
@@ -37,13 +37,12 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
     showDatePicker(
       barrierColor: ProductColor().seedFourTenths,
       context: context,
-      initialDate: DateTime(1999),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
+      initialDate: ProductDateTime.birthInitialDate(),
+      firstDate: ProductDateTime.birthLastDate(),
+      lastDate: ProductDateTime.now(),
     ).then((value) {
-      if (value != null) {
-        _birthofDateController.setDate(value);
-      }
+      if (value == null) return;
+      _birthOfDateController.setDate(value);
     });
   }
 
@@ -57,18 +56,20 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
   }
 
   bool _checkFields() {
-    return _fullNameController.text.isNotEmpty || _birthofDateController.text.isNotEmpty;
+    return _fullNameController.text.isNotEmpty || _birthOfDateController.text.isNotEmpty;
   }
 
   Future<void> _didPop({required bool didPop, required bool isFormEmpty}) async {
-    if (isFormEmpty) {
-      await context.router.maybePop();
+    if (!isFormEmpty && mounted) {
+      await context.maybePop();
       return;
     }
 
     final result = await confirmDialog(LocaleKeys.dialog_progress_lost.tr());
     if ((result.isNotNull && !result!) || !context.mounted) return;
     _valueNotifier.value = _valueNotifier.value.copyWith(isFormEmpty: false);
-    await Future.delayed(Duration.zero, () => context.router.maybePop());
+    Future.delayed(const ProductDuration.ms100(), () {
+      context.maybePop();
+    });
   }
 }

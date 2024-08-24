@@ -18,7 +18,7 @@ final class BaseTheme {
       brightness: Brightness.dark,
       scaffoldBackgroundColor: ProductColor().transparent,
       checkboxTheme: _checkboxTheme,
-      dialogBackgroundColor: ProductColor().deepPurple,
+      dialogBackgroundColor: ProductColor().seedColor,
       datePickerTheme: _datePickerTheme,
       textSelectionTheme: _textSelectionTheme,
       colorScheme: ColorScheme.dark(
@@ -52,9 +52,10 @@ final class BaseTheme {
 
   final DialogTheme _dialogTheme = DialogTheme(
     barrierColor: ProductColor().seedFourTenths,
-    elevation: ThemeConstants.elevationZero,
+    elevation: 2,
+    shadowColor: ProductColor().white,
     shape: const RoundedRectangleBorder(
-      borderRadius: ProductRadius.ten(),
+      borderRadius: ProductRadius.fifteen(),
     ),
   );
 
