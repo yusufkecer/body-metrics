@@ -5,7 +5,6 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
   final DateController _birthofDateController = DateController();
   final ValueNotifier<FormControl> _valueNotifier = ValueNotifier<FormControl>(const FormControl());
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   void dispose() {
     _fullNameController.dispose();
@@ -36,7 +35,7 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
 
   void _openDatePicker() {
     showDatePicker(
-      barrierColor: ProductColor().seedColor.withOpacity(0.4),
+      barrierColor: ProductColor().seedFourTenths,
       context: context,
       initialDate: DateTime(1999),
       firstDate: DateTime(1900),
@@ -49,7 +48,7 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
   }
 
   void _formListener() {
-    final isFormFilled = checkFields();
+    final isFormFilled = _checkFields();
     '$isFormFilled'.log;
 
     _valueNotifier.value = _valueNotifier.value.copyWith(isFormEmpty: isFormFilled);
@@ -57,7 +56,19 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
     _valueNotifier.value.isFormEmpty.w;
   }
 
-  bool checkFields() {
+  bool _checkFields() {
     return _fullNameController.text.isNotEmpty || _birthofDateController.text.isNotEmpty;
+  }
+
+  Future<void> _didPop({required bool didPop, required bool isFormEmpty}) async {
+    if (isFormEmpty) {
+      await context.router.maybePop();
+      return;
+    }
+
+    final result = await confirmDialog(LocaleKeys.dialog_progress_lost.tr());
+    if ((result.isNotNull && !result!) || !context.mounted) return;
+    _valueNotifier.value = _valueNotifier.value.copyWith(isFormEmpty: false);
+    await Future.delayed(Duration.zero, () => context.router.maybePop());
   }
 }

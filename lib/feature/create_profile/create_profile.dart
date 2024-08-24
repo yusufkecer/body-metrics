@@ -41,21 +41,9 @@ class _UserInfoFormState extends State<UserInfoForm> with DialogUtil, UserInfoFo
               valueListenable: _valueNotifier,
               builder: (_, value, ___) {
                 return Form(
-                  key: _formKey,
                   onChanged: _formListener,
                   canPop: !value.isFormEmpty,
-                  onPopInvoked: (didPop) async {
-                    value.isFormEmpty.w;
-                    if (!value.isFormEmpty) {
-                      await context.router.maybePop();
-                      return;
-                    }
-
-                    final result = await confirmDialog(LocaleKeys.dialog_progress_lost.tr());
-                    if ((result.isNotNull && !result!) || !context.mounted) return;
-                    _valueNotifier.value = _valueNotifier.value.copyWith(isFormEmpty: false);
-                    await Future.delayed(Duration.zero, () => context.router.maybePop());
-                  },
+                  onPopInvoked: (isPop) => _didPop(didPop: isPop, isFormEmpty: value.isFormEmpty),
                   child: Column(
                     children: [
                       CustomTextField(
