@@ -2,54 +2,59 @@ part of 'create_profile.dart';
 
 mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
   final TextEditingController _fullNameController = TextEditingController();
-  final DateController _birthofDateController = DateController();
+  final DateController _birthOfDateController = DateController();
   final ValueNotifier<FormControl> _valueNotifier = ValueNotifier<FormControl>(const FormControl());
 
-  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
   @override
   void dispose() {
     _fullNameController.dispose();
-    _birthofDateController.dispose();
+    _birthOfDateController.dispose();
     _valueNotifier.dispose();
     super.dispose();
   }
 
   Future<void> _onPressed() async {
-    if (_fullNameController.text.isEmpty) {
+    if (_fullNameController.text.isEmpty || _birthOfDateController.text.isEmpty) {
       if (!mounted) return;
-      showLottieError(LocaleKeys.register_name_empty.tr());
+      showLottieError(LocaleKeys.register_information_is_empty.tr());
       return;
     }
-    final userInfoRepository = Locator.sl<GetUserRepository>();
 
-    final saveUseCase = Locator.sl<SaveUseCase>(param1: userInfoRepository);
+    final saveUseCase = Locator.sl<CreateProfileUseCase>(param1: CreateProfileRepository());
 
     final user = User(
       name: _fullNameController.text,
-      birthOfDay: _birthofDateController.text,
+      birthOfDay: _birthOfDateController.text,
     );
 
-    await saveUseCase.execute(user);
+    final result = await saveUseCase.executeWithParams(user);
+
+    if (result.isNotNull && result! && mounted) {
+      await context.pushRoute(const GenderView());
+    } else {
+      showLottieError(
+        LocaleKeys.dialog_general_error.tr(),
+      );
+    }
   }
 
   bool get isAnyProgress => _valueNotifier.value.isFormEmpty;
 
   void _openDatePicker() {
     showDatePicker(
-      barrierColor: ProductColor().seedColor.withOpacity(0.4),
+      barrierColor: ProductColor().seedFourTenths,
       context: context,
-      initialDate: DateTime(1999),
-      firstDate: DateTime(1900),
-      lastDate: DateTime.now(),
+      initialDate: ProductDateTime.birthInitialDate(),
+      firstDate: ProductDateTime.birthLastDate(),
+      lastDate: ProductDateTime.now(),
     ).then((value) {
-      if (value != null) {
-        _birthofDateController.setDate(value);
-      }
+      if (value == null) return;
+      _birthOfDateController.setDate(value);
     });
   }
 
   void _formListener() {
-    final isFormFilled = checkFields();
+    final isFormFilled = _checkFields();
     '$isFormFilled'.log;
 
     _valueNotifier.value = _valueNotifier.value.copyWith(isFormEmpty: isFormFilled);
@@ -57,7 +62,21 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
     _valueNotifier.value.isFormEmpty.w;
   }
 
-  bool checkFields() {
-    return _fullNameController.text.isNotEmpty || _birthofDateController.text.isNotEmpty;
+  bool _checkFields() {
+    return _fullNameController.text.isNotEmpty || _birthOfDateController.text.isNotEmpty;
+  }
+
+  Future<void> _didPop({required bool didPop, required bool isFormEmpty}) async {
+    if (!isFormEmpty && mounted) {
+      await context.maybePop();
+      return;
+    }
+
+    final result = await confirmDialog(LocaleKeys.dialog_progress_lost.tr());
+    if ((result.isNotNull && !result!) || !context.mounted) return;
+    _valueNotifier.value = _valueNotifier.value.copyWith(isFormEmpty: false);
+    Future.delayed(const ProductDuration.ms100(), () {
+      context.maybePop();
+    });
   }
 }

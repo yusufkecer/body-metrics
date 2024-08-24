@@ -12,10 +12,7 @@ final class CustomElevated extends StatelessWidget {
     return Container(
       margin: ProductPadding.ten(),
       decoration: ProductDecoration.buttonDecoration(),
-      child: ElevatedButton(
-        style: ElevatedButton.styleFrom(
-          backgroundColor: ProductColor().seedColor,
-        ),
+      child: FilledButton(
         onPressed: onPressed,
         child: Text(text, style: context.textTheme.titleMedium),
       ),

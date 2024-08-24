@@ -19,7 +19,7 @@
         "complete": "Complete Registration",
         "skip": "Skip",
         "select_profile_picture": "Select Your Avatar",
-        "name_empty": "To complete the registration, you need to enter your name."
+        "information_is_empty": "To complete the registration, you need to enter your name and date of birth."
     },
     "weight": {
         "weight_name": "Weight",
@@ -40,6 +40,7 @@
     },
     "dialog": {
         "progress_lost": "Are you sure? All your progress will be lost.",
+        "general_error": "An error occurred. Please try again.",
         "cancel": "Cancel",
         "ok": "OK",
         "close": "Close",

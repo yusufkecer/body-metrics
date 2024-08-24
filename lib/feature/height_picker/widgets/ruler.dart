@@ -39,13 +39,12 @@ final class Ruler extends StatelessWidget with HeightCalculate {
                   Text(
                     '$adjustedIndex',
                     style: TextStyle(
-                      color:
-                          isMultipleOfFive(adjustedIndex) ? ProductColor().white : ProductColor().white.withOpacity(.8),
+                      color: isMultipleOfFive(adjustedIndex) ? ProductColor().white : ProductColor().whiteEightTenths,
                       fontWeight: isMultipleOfFive(adjustedIndex) ? FontWeight.bold : null,
                     ),
                   ),
                 Container(
-                  color: isMultipleOfFive(adjustedIndex) ? ProductColor().white : ProductColor().white.withOpacity(.8),
+                  color: isMultipleOfFive(adjustedIndex) ? ProductColor().white : ProductColor().whiteEightTenths,
                   height: 2,
                   width: isMultipleOfFive(adjustedIndex) ? 15 : 10,
                 ),

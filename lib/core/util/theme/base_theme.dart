@@ -7,28 +7,39 @@ import 'package:injectable/injectable.dart';
 final class BaseTheme {
   ThemeData get theme {
     return ThemeData(
-      colorSchemeSeed: ProductColor().seedColor,
       useMaterial3: true,
       appBarTheme: _appBarTheme,
       cardTheme: _cardTheme,
       dialogTheme: _dialogTheme,
       expansionTileTheme: _expansionTileThemeData,
       listTileTheme: _listTileThemeData,
-      elevatedButtonTheme: _elevatedButtonTheme,
+      filledButtonTheme: _filledButtonTheme,
       inputDecorationTheme: _inputDecorationTheme,
       brightness: Brightness.dark,
-      scaffoldBackgroundColor: Colors.transparent,
+      scaffoldBackgroundColor: ProductColor().transparent,
       checkboxTheme: _checkboxTheme,
-      dialogBackgroundColor: ProductColor().deepPurple,
+      dialogBackgroundColor: ProductColor().seedColor,
       datePickerTheme: _datePickerTheme,
+      textSelectionTheme: _textSelectionTheme,
+      colorScheme: ColorScheme.dark(
+        primary: ProductColor().seedColor,
+        surface: ProductColor().seedColor,
+        surfaceBright: ProductColor().white,
+      ),
     );
   }
 
   final AppBarTheme _appBarTheme = AppBarTheme(
     backgroundColor: ProductColor().deepPurple,
     centerTitle: true,
-    elevation: 0,
-    surfaceTintColor: Colors.transparent,
+    elevation: ThemeConstants.elevationZero,
+    surfaceTintColor: ProductColor().transparent,
+  );
+
+  final TextSelectionThemeData _textSelectionTheme = TextSelectionThemeData(
+    cursorColor: ProductColor().white,
+    selectionColor: ProductColor().seedColor,
+    selectionHandleColor: ProductColor().seedColor,
   );
 
   final CardTheme _cardTheme = const CardTheme(
@@ -39,10 +50,12 @@ final class BaseTheme {
     ),
   );
 
-  final DialogTheme _dialogTheme = const DialogTheme(
-    elevation: ThemeConstants.elevation,
-    shape: RoundedRectangleBorder(
-      borderRadius: ProductRadius.ten(),
+  final DialogTheme _dialogTheme = DialogTheme(
+    barrierColor: ProductColor().seedFourTenths,
+    elevation: 2,
+    shadowColor: ProductColor().white,
+    shape: const RoundedRectangleBorder(
+      borderRadius: ProductRadius.fifteen(),
     ),
   );
 
@@ -55,10 +68,9 @@ final class BaseTheme {
     contentPadding: EdgeInsets.zero,
   );
 
-  final ElevatedButtonThemeData _elevatedButtonTheme = ElevatedButtonThemeData(
+  final FilledButtonThemeData _filledButtonTheme = FilledButtonThemeData(
     style: ElevatedButton.styleFrom(
       elevation: ThemeConstants.elevation,
-      minimumSize: const Size.fromHeight(kToolbarHeight),
       shape: const RoundedRectangleBorder(
         borderRadius: ProductRadius.ten(),
       ),
@@ -69,14 +81,40 @@ final class BaseTheme {
     border: OutlineInputBorder(borderRadius: ProductRadius.ten()),
   );
 
-  final CheckboxThemeData _checkboxTheme = const CheckboxThemeData(
-    side: BorderSide(color: Colors.white),
+  final CheckboxThemeData _checkboxTheme = CheckboxThemeData(
+    side: BorderSide(color: ProductColor().white),
+    fillColor: WidgetStateProperty.resolveWith((states) {
+      if (states.contains(WidgetState.selected)) {
+        return ProductColor().white;
+      }
+      return ProductColor().transparent;
+    }),
+    checkColor: WidgetStateProperty.all(ProductColor().seedColor),
   );
 
   final DatePickerThemeData _datePickerTheme = DatePickerThemeData(
     backgroundColor: ProductColor().seedColor,
     dividerColor: ProductColor().white,
+    dayForegroundColor: WidgetStateProperty.all(ProductColor().white),
+    yearForegroundColor: WidgetStateProperty.all(ProductColor().white),
+    dayBackgroundColor: WidgetStateProperty.resolveWith((states) {
+      if (states.contains(WidgetState.selected)) {
+        return ProductColor().seedColor;
+      }
+      return ProductColor().transparent;
+    }),
+    yearBackgroundColor: WidgetStateProperty.resolveWith((states) {
+      if (states.contains(WidgetState.selected)) {
+        return ProductColor().seedColor;
+      }
+      return ProductColor().transparent;
+    }),
+    yearOverlayColor: WidgetStateProperty.all(ProductColor().white),
+    headerForegroundColor: ProductColor().white,
+    cancelButtonStyle: ThemeConstants.datePickerButton,
     shadowColor: ProductColor().white,
+    elevation: ThemeConstants.elevation,
     surfaceTintColor: ProductColor().white,
+    confirmButtonStyle: ThemeConstants.datePickerButton,
   );
 }

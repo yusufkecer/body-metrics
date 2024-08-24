@@ -3,12 +3,18 @@ import 'package:flutter/material.dart';
 @immutable
 final class ProductColor {
   final Color _seedColor = Colors.deepPurple;
+  final Color _seedFourTenths = Colors.deepPurple.withOpacity(0.4);
+
   final Color _pink = Colors.pink;
   final Color _blue = Colors.blue;
 
   final Color _bg1 = const Color(0xFF6A1B9A);
   final Color _bg2 = const Color(0xFF9747FF);
+
   final Color _white = Colors.white;
+  final Color _whiteEightTenths = Colors.white.withOpacity(0.8);
+
+  final Color _transparent = Colors.transparent;
 
   final List<Color> animatedColorList = [
     const Color.fromARGB(255, 255, 255, 255),
@@ -26,11 +32,14 @@ final class ProductColor {
   Color get seedColor => _seedColor;
   Color get pink => _pink;
   Color get blue => _blue;
-
+  Color get seedFourTenths => _seedFourTenths;
   Color get deepPurple => _bg1;
   Color get lightPurple => _bg2;
+  Color get white => _white;
+  Color get whiteEightTenths => _whiteEightTenths;
+  Color get transparent => _transparent;
+
   List<Color> get backgroundColorList => _backgroundColorList;
 
   List<Color> get colorfulList => animatedColorList;
-  Color get white => _white;
 }
