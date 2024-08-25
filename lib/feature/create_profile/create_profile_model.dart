@@ -14,28 +14,32 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
   }
 
   Future<void> _onPressed() async {
-    if (_fullNameController.text.isEmpty || _birthOfDateController.text.isEmpty) {
-      if (!mounted) return;
+    if ((_fullNameController.text.isEmpty || _birthOfDateController.text.isEmpty) && mounted) {
       showLottieError(LocaleKeys.register_information_is_empty.tr());
       return;
     }
-
-    final saveUseCase = Locator.sl<CreateProfileUseCase>(param1: CreateProfileRepository());
-
-    final user = User(
-      name: _fullNameController.text,
-      birthOfDay: _birthOfDateController.text,
-    );
-
-    final result = await saveUseCase.executeWithParams(user);
-
+    final result = await createProfile();
     if (result.isNotNull && result! && mounted) {
+      'Success: $result'.log;
       await context.pushRoute(const GenderView());
     } else {
+      'Error: $result'.e;
       showLottieError(
         LocaleKeys.dialog_general_error.tr(),
       );
     }
+  }
+
+  Future<bool?> createProfile() async {
+    final saveUseCase = Locator.sl<CreateProfileUseCase>(param1: CreateProfileRepository());
+    final ymd = _birthOfDateController.text.toYMD;
+    final user = User(
+      name: _fullNameController.text,
+      birthOfDay: ymd,
+    );
+
+    final result = await saveUseCase.executeWithParams(user);
+    return result;
   }
 
   bool get isAnyProgress => _valueNotifier.value.isFormEmpty;
@@ -55,11 +59,8 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
 
   void _formListener() {
     final isFormFilled = _checkFields();
-    '$isFormFilled'.log;
 
     _valueNotifier.value = _valueNotifier.value.copyWith(isFormEmpty: isFormFilled);
-
-    _valueNotifier.value.isFormEmpty.w;
   }
 
   bool _checkFields() {

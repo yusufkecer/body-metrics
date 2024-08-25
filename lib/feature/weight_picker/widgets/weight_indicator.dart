@@ -5,8 +5,12 @@ final class WeightIndicator extends StatelessWidget {
   // ignore: avoid_positional_boolean_parameters
   final void Function(bool) fieldFocus;
   final void Function(String) textFieldChange;
-  const WeightIndicator(
-      {required this.weightTextController, required this.fieldFocus, required this.textFieldChange, super.key});
+  const WeightIndicator({
+    required this.weightTextController,
+    required this.fieldFocus,
+    required this.textFieldChange,
+    super.key,
+  });
 
   @override
   Widget build(BuildContext context) {

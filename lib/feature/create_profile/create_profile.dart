@@ -5,6 +5,7 @@ import 'package:bodymetrics/injection/locator.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 
 part 'create_profile_model.dart';
 part 'domain/entitiy/form_control.dart';

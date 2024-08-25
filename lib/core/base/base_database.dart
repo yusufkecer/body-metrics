@@ -6,4 +6,5 @@ abstract interface class BaseDatabase {
   Future<void> initializeDatabase();
   Future<void> closeDb();
   Future<void> deleteDb();
+  Future<void> deleteTable(String table);
 }

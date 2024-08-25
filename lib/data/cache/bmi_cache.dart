@@ -7,7 +7,7 @@ import 'package:sqflite/sqflite.dart';
 
 @injectable
 final class BMICache extends ImpCache implements CacheMethods<UserMetric, UserMetric> {
-  BMICache() : super(initTable: initializeTable);
+  BMICache();
 
   static FutureOr<void> initializeTable(Database db, int version) async {
     const table = 'result';
@@ -43,7 +43,6 @@ final class BMICache extends ImpCache implements CacheMethods<UserMetric, UserMe
   }
 
   @override
-  // TODO: implement table
   String get table => 'result';
 
   @override

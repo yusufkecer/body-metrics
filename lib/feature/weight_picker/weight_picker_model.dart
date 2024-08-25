@@ -119,7 +119,7 @@ mixin WeightPickerModel on State<_WeightPickerBody>, DialogUtil {
   }
 
   void _handleWeightOutOfRange() {
-    _setWeightText(_selectedWeight.toDouble(), isDecimal: false);
+    _setWeightText(_selectedWeight.toDouble());
     showLottieError(LocaleKeys.weight_enter_range.tr());
   }
 

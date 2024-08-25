@@ -7,7 +7,7 @@ import 'package:sqflite/sqlite_api.dart';
 
 @injectable
 final class UserCache extends ImpCache implements CacheMethods<Users, User> {
-  UserCache() : super(initTable: onCreate);
+  UserCache();
 
   static Future<void> onCreate(Database db, int version) async {
     await db.execute('''
@@ -16,7 +16,8 @@ final class UserCache extends ImpCache implements CacheMethods<Users, User> {
           name TEXT NOT NULL,
           surname TEXT NULL,
           gender INTEGER NULL,
-          avatar TEXT NULL
+          avatar TEXT NULL,
+          birthOfDate TEXT NULL,
         )
       ''');
 
@@ -33,7 +34,7 @@ final class UserCache extends ImpCache implements CacheMethods<Users, User> {
       return false;
     }
     final result = await db.insert(table, value);
-
+    await closeDb();
     if (result > 0) {
       'User inserted'.log;
       return true;

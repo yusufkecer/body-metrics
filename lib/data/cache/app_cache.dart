@@ -22,35 +22,35 @@
 
 //   @override
 //   Future<bool> delete(Database? db, int id) {
-//     // TODO: implement delete
+//     // `TODO`: implement delete
 //     throw UnimplementedError();
 //   }
 
 //   @override
 //   Future<bool> deleteAll(Database? db) {
-//     // TODO: implement deleteAll
+//     // `TODO`: implement deleteAll
 //     throw UnimplementedError();
 //   }
 
 //   @override
 //   Future<bool> insert(Database? db, Map<String, dynamic> value) {
-//     // TODO: implement insert
+//     // `TODO`: implement insert
 //     throw UnimplementedError();
 //   }
 
 //   @override
 //   Future<Settings> selectFirst(Database? db, Map<String, dynamic> value) {
-//     // TODO: implement select
+//     // `TODO`: implement select
 //     throw UnimplementedError();
 //   }
 
 //   @override
 //   Future<Settings> selectAll(Database? db) {
-//     // TODO: implement selectAll
+//     // `TODO`: implement selectAll
 //     throw UnimplementedError();
 //   }
 
 //   @override
-//   // TODO: implement table
+//   // `TODO`: implement table
 //   String get table => throw UnimplementedError();
 // }

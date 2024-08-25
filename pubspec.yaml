@@ -10,6 +10,7 @@ environment:
 dependencies:
   animated_text_kit: ^4.2.2
   auto_route: ^8.3.0
+  bloc: ^8.1.4
   easy_localization: ^3.0.7
   equatable: ^2.0.5
   fl_chart: ^0.68.0
@@ -37,7 +38,10 @@ dev_dependencies:
   json_serializable: ^6.8.0
   very_good_analysis: ^6.0.0
 
-
+flutter_launcher_icons:
+  android: "launcher_icon"
+  image_path: "assets/app_logo/app_logo.png"
+  min_sdk_android: 21
 
 flutter:
   uses-material-design: true
@@ -47,5 +51,16 @@ flutter:
     - assets/images/profiles/
     - assets/lotties/
     - assets/language/
+    - assets/app_logo/app_logo.png
+
+flutter_native_splash:
+  color: "#673AB7"
+  image: "assets/app_logo/app_logo.png"
+  branding_bottom_padding: 24
+
+  android_12:
+    image: "assets/app_logo/app_logo.png"
+    icon_background_color: "#673AB7"
 
 
+  web: false

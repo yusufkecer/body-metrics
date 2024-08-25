@@ -1,5 +1,6 @@
 part of '../../create_profile.dart';
 
+@injectable
 class CreateProfileRepository implements BaseUseCase<Future<bool?>, User> {
   CreateProfileRepository() {
     _userCache = Locator.sl<UserCache>();
@@ -15,6 +16,9 @@ class CreateProfileRepository implements BaseUseCase<Future<bool?>, User> {
   Future<bool> executeWithParams(User user) async {
     final db = await _userCache.initializeDatabase();
     final userMap = user.toJson();
-    return _userCache.insert(db, userMap);
+    'User Data: $userMap'.log;
+    final result = _userCache.insert(db, userMap);
+
+    return result;
   }
 }

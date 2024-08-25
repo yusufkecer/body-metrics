@@ -14,6 +14,8 @@ import 'package:bodymetrics/core/util/theme/base_theme.dart' as _i353;
 import 'package:bodymetrics/data/cache/bmi_cache.dart' as _i804;
 import 'package:bodymetrics/data/cache/imp_cache.dart' as _i956;
 import 'package:bodymetrics/data/cache/user_cache.dart' as _i333;
+import 'package:bodymetrics/feature/create_profile/create_profile.dart'
+    as _i244;
 import 'package:bodymetrics/feature/gender/cubit/gender_select/change_gender.dart'
     as _i42;
 import 'package:bodymetrics/feature/height_picker/height_picker.dart' as _i664;
@@ -33,17 +35,20 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     gh.factory<_i804.BMICache>(() => _i804.BMICache());
+    gh.factory<_i956.ImpCache>(() => _i956.ImpCache());
     gh.factory<_i333.UserCache>(() => _i333.UserCache());
     gh.factory<_i42.GenderCubit>(() => _i42.GenderCubit());
     gh.factory<_i664.HeightSelectorCubit>(() => _i664.HeightSelectorCubit());
+    gh.factory<_i244.CreateProfileRepository>(
+        () => _i244.CreateProfileRepository());
     gh.lazySingleton<_i125.AppRouter>(() => _i125.AppRouter());
     gh.lazySingleton<_i353.BaseTheme>(() => _i353.BaseTheme());
     gh.lazySingleton<_i782.ProductLocalization>(() => _i782.ProductLocalization(
           child: gh<_i409.Widget>(),
           key: gh<_i409.Key>(),
         ));
-    gh.factory<_i956.ImpCache>(
-        () => _i956.ImpCache(initTable: gh<_i956.InitTableFunction>()));
+    gh.factory<_i244.CreateProfileUseCase>(
+        () => _i244.CreateProfileUseCase(gh<_i244.CreateProfileRepository>()));
     return this;
   }
 }
