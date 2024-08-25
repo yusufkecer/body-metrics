@@ -10,6 +10,7 @@ environment:
 dependencies:
   animated_text_kit: ^4.2.2
   auto_route: ^8.3.0
+  bloc: ^8.1.4
   easy_localization: ^3.0.7
   equatable: ^2.0.5
   fl_chart: ^0.68.0
@@ -52,3 +53,14 @@ flutter:
     - assets/language/
     - assets/app_logo/app_logo.png
 
+flutter_native_splash:
+  color: "#673AB7"
+  image: "assets/app_logo/app_logo.png"
+  branding_bottom_padding: 24
+
+  android_12:
+    image: "assets/app_logo/app_logo.png"
+    icon_background_color: "#673AB7"
+
+
+  web: false
