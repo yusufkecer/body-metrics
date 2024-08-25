@@ -51,7 +51,7 @@ final class UserCache extends ImpCache implements CacheMethods<Users, User> {
 
   @override
   Future<Users?> select(Database? db, User user) async {
-    if (db.isNull) {
+    if (db.isNullOrEmpty) {
       'Database is null'.w;
       return null;
     }
@@ -69,7 +69,7 @@ final class UserCache extends ImpCache implements CacheMethods<Users, User> {
 
   @override
   Future<Users?> selectAll(Database? db) async {
-    if (db.isNull) {
+    if (db.isNullOrEmpty) {
       'Database is null'.w;
       return null;
     }
@@ -83,11 +83,6 @@ final class UserCache extends ImpCache implements CacheMethods<Users, User> {
       'User not selected'.w;
       return null;
     }
-  }
-
-  @override
-  Future<bool> deleteAll(Database? db) {
-    throw UnimplementedError();
   }
 
   @override

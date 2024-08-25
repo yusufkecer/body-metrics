@@ -1,7 +1,7 @@
 part of '../../create_profile.dart';
 
 @injectable
-class CreateProfileRepository implements BaseUseCase<Future<bool?>, User> {
+class CreateProfileRepository implements BaseUseCase<bool?, User> {
   CreateProfileRepository() {
     _userCache = Locator.sl<UserCache>();
   }
