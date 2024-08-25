@@ -32,10 +32,10 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
 
   Future<bool?> createProfile() async {
     final saveUseCase = Locator.sl<CreateProfileUseCase>(param1: CreateProfileRepository());
-
+    final ymd = _birthOfDateController.text.toYMD;
     final user = User(
       name: _fullNameController.text,
-      birthOfDay: _birthOfDateController.text,
+      birthOfDay: ymd,
     );
 
     final result = await saveUseCase.executeWithParams(user);
@@ -59,11 +59,8 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
 
   void _formListener() {
     final isFormFilled = _checkFields();
-    '$isFormFilled'.log;
 
     _valueNotifier.value = _valueNotifier.value.copyWith(isFormEmpty: isFormFilled);
-
-    _valueNotifier.value.isFormEmpty.w;
   }
 
   bool _checkFields() {

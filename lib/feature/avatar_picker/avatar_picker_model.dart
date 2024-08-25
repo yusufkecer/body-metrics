@@ -1,13 +1,14 @@
 part of 'avatar_picker.dart';
 
 mixin AvatarPickerModel on State<AvatarPicker> {
+  final ZoomDrawerController _zoomDrawerController = ZoomDrawerController();
   final List<String> avatarList = AssetValue.values.profileImageList;
 
-  void addNewProfile(int index) {
+  void _addNewProfile(int index) {
     context.pushRoute(UserInfoFormView(avatar: avatarList[index]));
   }
 
-  void onTapSkip() {
+  void _onTapSkip() {
     context.pushRoute(const GenderView());
   }
 }

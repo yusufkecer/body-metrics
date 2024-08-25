@@ -10,6 +10,8 @@ final class ProductColor {
 
   final Color _bg1 = const Color(0xFF6A1B9A);
   final Color _bg2 = const Color(0xFF9747FF);
+  final Color _drawerBg = Colors.deepPurple.withOpacity(0.5);
+  final Color _drawerBg2 = Colors.deepPurple.withOpacity(0.2);
 
   final Color _white = Colors.white;
   final Color _whiteEightTenths = Colors.white.withOpacity(0.8);
@@ -35,6 +37,8 @@ final class ProductColor {
   Color get seedFourTenths => _seedFourTenths;
   Color get deepPurple => _bg1;
   Color get lightPurple => _bg2;
+  Color get drawerBg => _drawerBg;
+  Color get drawerBg2 => _drawerBg2;
   Color get white => _white;
   Color get whiteEightTenths => _whiteEightTenths;
   Color get transparent => _transparent;

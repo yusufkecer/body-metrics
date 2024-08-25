@@ -4,11 +4,9 @@ import 'package:bodymetrics/core/index.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
-typedef InitTableFunction = void Function(Database db, int version);
-
 @injectable
 class ImpCache implements BaseDatabase {
-  ImpCache({required this.initTable});
+  ImpCache();
 
   Database? _db;
   Database? get db => _db;
@@ -19,16 +17,14 @@ class ImpCache implements BaseDatabase {
   @override
   int get version => 1;
 
-  InitTableFunction? initTable;
-
   @override
-  Future<Database?> initializeDatabase() async {
+  Future<Database?> initializeDatabase({void Function()? initTable}) async {
     'database log'.log;
     final path = await getDatabasesPath();
     _db = await openDatabase(
       '$path/${this.path}',
       version: version,
-      onCreate: initTable,
+      onCreate: (db, version) => initTable?.call(),
     );
     'database created'.log;
     return _db;
@@ -48,5 +44,13 @@ class ImpCache implements BaseDatabase {
     final path = await getDatabasesPath();
     await deleteDatabase('$path/${this.path}');
     'database deleted'.log;
+  }
+
+  @override
+  Future<void> deleteTable(String table) async {
+    if (_db != null) {
+      await _db?.execute('DROP TABLE IF EXISTS $table');
+      'table deleted'.log;
+    }
   }
 }
