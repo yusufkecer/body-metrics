@@ -18,14 +18,15 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, AppModel
     await db.execute('''
         CREATE TABLE $table (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
-          theme TEXT NOT NULL,
+          theme TEXT NULL,
           language TEXT NOT NULL,
-          is_completed_onboarding INTEGER NOT NULL
+          is_completed_onboarding INTEGER NULL
+          active_user INTEGER NULL
         )
       ''');
   }
 
-  final List<String> tables = ['theme', 'language', 'is_completed_onboarding'];
+  final List<String> tables = ['theme', 'language', 'is_completed_onboarding', 'active_user'];
 
   @override
   Future<bool> insert(Database? db, Map<String, dynamic> value) async {
