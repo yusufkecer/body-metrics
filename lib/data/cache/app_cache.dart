@@ -7,8 +7,11 @@ import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
 @injectable
-final class AppCache extends ImpCache implements CacheMethods<Settings, Settings> {
+final class AppCache extends ImpCache implements CacheMethods<JsonList, Settings> {
   AppCache() : super();
+
+  @override
+  String get table => 'settings';
 
   static FutureOr<void> initializeTable(Database db, int version) async {
     const table = 'settings';
@@ -44,22 +47,18 @@ final class AppCache extends ImpCache implements CacheMethods<Settings, Settings
   }
 
   @override
-  String get table => 'settings';
-
-  @override
-  Future<Settings> select(Database? db, Settings value) {
-    // TODO: implement select
+  Future<JsonList> select(Database? db, Settings value) {
     throw UnimplementedError();
   }
 
   @override
-  Future<Settings> selectAll(Database? db) {
-    throw UnimplementedError();
+  Future<JsonList> selectAll(Database? db) async {
+    final value = await db!.query(table);
+    return value;
   }
 
   @override
   Future<bool> update(Database? db, Map<String, dynamic> value) {
-    // TODO: implement update
     throw UnimplementedError();
   }
 

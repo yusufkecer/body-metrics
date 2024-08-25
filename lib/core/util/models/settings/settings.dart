@@ -11,17 +11,17 @@ final class Settings extends Equatable implements BaseModel<Settings> {
   final String? theme;
   final String? language;
   final Pages? page;
-  final bool? completedOnboarding;
+  final bool? isCompleteOnboarding;
 
   const Settings({
     this.theme,
     this.language,
-    this.completedOnboarding,
+    this.isCompleteOnboarding,
     this.page,
   });
 
   @override
-  List<Object?> get props => [theme, language, completedOnboarding, page];
+  List<Object?> get props => [theme, language, isCompleteOnboarding, page];
 
   @override
   factory Settings.fromJson(Map<String, dynamic> json) => _$SettingsFromJson(json);

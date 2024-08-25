@@ -9,7 +9,8 @@ final class SplashRepository implements BaseUseCase<Settings?, Object> {
   Future<Settings> execute() async {
     final db = await _appCache.initializeDatabase();
     final values = await _appCache.selectAll(db);
-    return values;
+    final settings = Settings.fromJson(values.first);
+    return settings;
   }
 
   @override
