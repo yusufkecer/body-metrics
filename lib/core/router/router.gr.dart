@@ -42,6 +42,12 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    SplashView.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const Splash(),
+      );
+    },
     UserInfoFormView.name: (routeData) {
       final args = routeData.argsAs<UserInfoFormViewArgs>();
       return AutoRoutePage<dynamic>(
@@ -148,6 +154,20 @@ class HeightViewArgs {
   String toString() {
     return 'HeightViewArgs{isFemale: $isFemale, key: $key}';
   }
+}
+
+/// generated route for
+/// [Splash]
+class SplashView extends PageRouteInfo<void> {
+  const SplashView({List<PageRouteInfo>? children})
+      : super(
+          SplashView.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'SplashView';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

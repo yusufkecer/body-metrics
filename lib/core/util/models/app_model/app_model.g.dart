@@ -6,18 +6,20 @@ part of 'app_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-Settings _$SettingsFromJson(Map<String, dynamic> json) => Settings(
+AppModel _$AppModelFromJson(Map<String, dynamic> json) => AppModel(
       theme: json['theme'] as String?,
       language: json['language'] as String?,
       isCompleteOnboarding: json['isCompleteOnboarding'] as bool?,
       page: $enumDecodeNullable(_$PagesEnumMap, json['page']),
+      activeUser: (json['activeUser'] as num?)?.toInt(),
     );
 
-Map<String, dynamic> _$SettingsToJson(Settings instance) => <String, dynamic>{
+Map<String, dynamic> _$AppModelToJson(AppModel instance) => <String, dynamic>{
       'theme': instance.theme,
       'language': instance.language,
       'page': _$PagesEnumMap[instance.page],
       'isCompleteOnboarding': instance.isCompleteOnboarding,
+      'activeUser': instance.activeUser,
     };
 
 const _$PagesEnumMap = {
