@@ -1,6 +1,6 @@
 part of '../gender.dart';
 
-final class GenderAsset extends StatelessWidget {
+final class _GenderAsset extends StatelessWidget {
   // ignore: avoid_positional_boolean_parameters
   final void Function(bool? value)? onChanged;
   final String asset;
@@ -9,13 +9,12 @@ final class GenderAsset extends StatelessWidget {
   final IconData? icon;
   final bool? value;
 
-  const GenderAsset({
+  const _GenderAsset({
     required this.asset,
     required this.gender,
     this.value,
     this.color,
     this.icon,
-    super.key,
     this.onChanged,
   });
 

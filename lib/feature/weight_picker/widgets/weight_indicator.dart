@@ -1,11 +1,11 @@
 part of '../weight_picker.dart';
 
-final class WeightIndicator extends StatelessWidget {
+final class _WeightIndicator extends StatelessWidget {
   final TextEditingController weightTextController;
   // ignore: avoid_positional_boolean_parameters
   final void Function(bool) fieldFocus;
   final void Function(String) textFieldChange;
-  const WeightIndicator({
+  const _WeightIndicator({
     required this.weightTextController,
     required this.fieldFocus,
     required this.textFieldChange,

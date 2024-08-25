@@ -1,56 +1,69 @@
-// import 'dart:async';
+import 'dart:async';
 
-// import 'package:bodymetrics/data/index.dart';
-// import 'package:bodymetrics/domain/index.dart';
-// import 'package:injectable/injectable.dart';
-// import 'package:sqflite/sqflite.dart';
+import 'package:bodymetrics/core/index.dart';
+import 'package:bodymetrics/data/index.dart';
 
-// @Injectable(as: CacheMethods<Settings>)
-// final class AppCache extends ImpCache<Settings> implements CacheMethods<Settings> {
-//   AppCache() : super(initTable: initializeTable);
+import 'package:injectable/injectable.dart';
+import 'package:sqflite/sqflite.dart';
 
-//   static FutureOr<void> initializeTable(Database db, int version) async {
-//     const table = 'settings';
-//     await db.execute('''
-//         CREATE TABLE $table (
-//           id INTEGER PRIMARY KEY AUTOINCREMENT,
-//           theme TEXT NOT NULL,
-//           language TEXT NOT NULL
-//         )
-//       ''');
-//   }
+@injectable
+final class AppCache extends ImpCache implements CacheMethods<JsonList, AppModel> {
+  AppCache() : super();
 
-//   @override
-//   Future<bool> delete(Database? db, int id) {
-//     // `TODO`: implement delete
-//     throw UnimplementedError();
-//   }
+  @override
+  String get table => 'app';
 
-//   @override
-//   Future<bool> deleteAll(Database? db) {
-//     // `TODO`: implement deleteAll
-//     throw UnimplementedError();
-//   }
+  static FutureOr<void> initializeTable(Database db, int version) async {
+    const table = 'app';
+    await db.execute('''
+        CREATE TABLE $table (
+          id INTEGER PRIMARY KEY AUTOINCREMENT,
+          theme TEXT NOT NULL,
+          language TEXT NOT NULL,
+          is_completed_onboarding INTEGER NOT NULL
+        )
+      ''');
+  }
 
-//   @override
-//   Future<bool> insert(Database? db, Map<String, dynamic> value) {
-//     // `TODO`: implement insert
-//     throw UnimplementedError();
-//   }
+  final List<String> tables = ['theme', 'language', 'is_completed_onboarding'];
 
-//   @override
-//   Future<Settings> selectFirst(Database? db, Map<String, dynamic> value) {
-//     // `TODO`: implement select
-//     throw UnimplementedError();
-//   }
+  @override
+  Future<bool> insert(Database? db, Map<String, dynamic> value) async {
+    if (value.isNullOrEmpty || db.isNullOrEmpty) {
+      'Value is empty'.e;
+      return false;
+    }
 
-//   @override
-//   Future<Settings> selectAll(Database? db) {
-//     // `TODO`: implement selectAll
-//     throw UnimplementedError();
-//   }
+    var result = 0;
 
-//   @override
-//   // `TODO`: implement table
-//   String get table => throw UnimplementedError();
-// }
+    for (final key in tables) {
+      if (value.containsKey(key)) {
+        result = await db!.insert(table, {key: value[key]});
+        '$key inserted, success -> ${result.boolResult}'.log;
+      }
+    }
+    await closeDb();
+    return result.boolResult;
+  }
+
+  @override
+  Future<JsonList> select(Database? db, AppModel value) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<JsonList> selectAll(Database? db) async {
+    final value = await db!.query(table);
+    return value;
+  }
+
+  @override
+  Future<bool> update(Database? db, Map<String, dynamic> value) {
+    throw UnimplementedError();
+  }
+
+  @override
+  Future<bool> delete(Database? db, int id) {
+    throw UnimplementedError();
+  }
+}

@@ -1,18 +1,17 @@
 part of '../weight_picker.dart';
 
-class WeightPickerWidget extends StatelessWidget {
+class _WeightPickerWidget extends StatelessWidget {
   final int selectedWeight;
   final PageController weightPickerController;
   final double minVal;
   final double maxVal;
   final bool isDisabled;
-  const WeightPickerWidget({
+  const _WeightPickerWidget({
     required this.selectedWeight,
     required this.weightPickerController,
     required this.minVal,
     required this.maxVal,
     this.isDisabled = false,
-    super.key,
   });
 
   @override

@@ -1,6 +1,6 @@
 part of '../weight_picker.dart';
 
-class IndicatorClipper extends CustomClipper<Path> {
+class _IndicatorClipper extends CustomClipper<Path> {
   @override
   Path getClip(Size size) {
     final width = size.width;

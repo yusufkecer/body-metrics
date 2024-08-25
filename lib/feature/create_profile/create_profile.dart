@@ -45,8 +45,8 @@ class _UserInfoFormState extends State<UserInfoForm> with DialogUtil, UserInfoFo
               builder: (_, value, ___) {
                 return Form(
                   onChanged: _formListener,
-                  canPop: !value.isFormEmpty,
-                  onPopInvoked: (isPop) async => _didPop(didPop: isPop, isFormEmpty: value.isFormEmpty),
+                  canPop: !value._isFormEmpty,
+                  onPopInvoked: (isPop) async => _didPop(didPop: isPop, isFormEmpty: value._isFormEmpty),
                   child: Column(
                     children: [
                       CustomTextField(

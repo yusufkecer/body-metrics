@@ -36,7 +36,7 @@ class _GenderView extends StatefulWidget {
   State<_GenderView> createState() => __GenderViewState();
 }
 
-class __GenderViewState extends State<_GenderView> with GenderModel {
+class __GenderViewState extends State<_GenderView> with _GenderModel {
   @override
   Widget build(BuildContext context) {
     return GradientScafflod(
@@ -47,7 +47,7 @@ class __GenderViewState extends State<_GenderView> with GenderModel {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
-              GenderAsset(
+              _GenderAsset(
                 value: context.watch<GenderCubit>().state.genderValue == GenderValue.female,
                 onChanged: (bool? value) => onChange(value: value, isFemale: true),
                 asset: AssetValue.female.value.lottie,
@@ -55,7 +55,7 @@ class __GenderViewState extends State<_GenderView> with GenderModel {
                 color: ProductColor().pink,
                 icon: ProductIcon.venus.icon,
               ),
-              GenderAsset(
+              _GenderAsset(
                 value: context.watch<GenderCubit>().state.genderValue == GenderValue.male,
                 onChanged: (bool? value) => onChange(value: value, isMale: true),
                 asset: AssetValue.male.value.lottie,
@@ -78,7 +78,7 @@ class __GenderViewState extends State<_GenderView> with GenderModel {
             text: LocaleKeys.cont.tr(),
             onTap: () => context.router.push(
               HeightView(
-                isFemale: isFemale!,
+                isFemale: _isFemale!,
               ),
             ),
           )
