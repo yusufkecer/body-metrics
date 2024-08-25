@@ -7,14 +7,14 @@ import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
 @injectable
-final class AppCache extends ImpCache implements CacheMethods<JsonList, Settings> {
+final class AppCache extends ImpCache implements CacheMethods<JsonList, AppModel> {
   AppCache() : super();
 
   @override
-  String get table => 'settings';
+  String get table => 'app';
 
   static FutureOr<void> initializeTable(Database db, int version) async {
-    const table = 'settings';
+    const table = 'app';
     await db.execute('''
         CREATE TABLE $table (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -47,7 +47,7 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, Settings
   }
 
   @override
-  Future<JsonList> select(Database? db, Settings value) {
+  Future<JsonList> select(Database? db, AppModel value) {
     throw UnimplementedError();
   }
 

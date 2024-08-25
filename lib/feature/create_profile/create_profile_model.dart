@@ -3,7 +3,7 @@ part of 'create_profile.dart';
 mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
   final TextEditingController _fullNameController = TextEditingController();
   final DateController _birthOfDateController = DateController();
-  final ValueNotifier<FormControl> _valueNotifier = ValueNotifier<FormControl>(const FormControl());
+  final ValueNotifier<_FormControl> _valueNotifier = ValueNotifier<_FormControl>(const _FormControl());
 
   @override
   void dispose() {
@@ -42,7 +42,7 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
     return result;
   }
 
-  bool get isAnyProgress => _valueNotifier.value.isFormEmpty;
+  bool get isAnyProgress => _valueNotifier.value._isFormEmpty;
 
   void _openDatePicker() {
     showDatePicker(

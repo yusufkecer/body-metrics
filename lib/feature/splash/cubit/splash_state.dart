@@ -1,14 +1,14 @@
-part of 'splash_cubit.dart';
+part of '../splash.dart';
 
 sealed class SplashState extends Equatable {
-  const SplashState({this.onboardingCompleted});
+  const SplashState({this.appModel});
 
-  final bool? onboardingCompleted;
+  final AppModel? appModel;
 
   @override
-  List<Object?> get props => [onboardingCompleted];
+  List<Object?> get props => [appModel];
 }
 
 final class SplashInitial extends SplashState {
-  const SplashInitial({super.onboardingCompleted});
+  const SplashInitial({super.appModel});
 }

@@ -1,6 +1,6 @@
 part of 'height_picker.dart';
 
-mixin HeightModel on State<_HeightBody> {
+mixin _HeightModel on State<_HeightBody> {
   late PageController _pageController;
 
   HeightSelectorCubit? cubit;

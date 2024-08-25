@@ -2,17 +2,17 @@ part of '../../splash.dart';
 
 @immutable
 @injectable
-final class SplashRepository implements BaseUseCase<Settings?, Object> {
+final class SplashRepository implements BaseUseCase<AppModel?, Object> {
   final AppCache _appCache = Locator.sl<AppCache>();
 
   @override
-  Future<Settings> execute() async {
+  Future<AppModel> execute() async {
     final db = await _appCache.initializeDatabase();
     final values = await _appCache.selectAll(db);
-    final settings = Settings.fromJson(values.first);
-    return settings;
+    final appModel = AppModel.fromJson(values.first);
+    return appModel;
   }
 
   @override
-  Future<Settings>? executeWithParams(_) => null;
+  Future<AppModel>? executeWithParams(_) => null;
 }

@@ -21,7 +21,7 @@ class AvatarPicker extends StatefulWidget {
   State<AvatarPicker> createState() => _AvatarPickerState();
 }
 
-class _AvatarPickerState extends State<AvatarPicker> with AvatarPickerModel {
+class _AvatarPickerState extends State<AvatarPicker> with _AvatarPickerModel {
   @override
   Widget build(BuildContext context) {
     return ZoomDrawer(

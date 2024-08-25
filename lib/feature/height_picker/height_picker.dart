@@ -55,7 +55,7 @@ class _HeightBody extends StatefulWidget {
   State<_HeightBody> createState() => _HeightBodyState();
 }
 
-class _HeightBodyState extends State<_HeightBody> with HeightModel {
+class _HeightBodyState extends State<_HeightBody> with _HeightModel {
   @override
   Widget build(BuildContext context) {
     cubit = context.watch<HeightSelectorCubit>();
@@ -71,7 +71,7 @@ class _HeightBodyState extends State<_HeightBody> with HeightModel {
           _lottie!.lottie,
           height: cubit!.state._height,
         ),
-        Ruler(
+        _Ruler(
           pageController: _pageController,
           maxValue: _maxValue,
           minValue: _minValue,

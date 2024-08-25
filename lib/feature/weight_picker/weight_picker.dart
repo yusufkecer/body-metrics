@@ -32,7 +32,7 @@ final class _WeightPickerBody extends StatefulWidget {
   State<_WeightPickerBody> createState() => __WeightPickerBodyState();
 }
 
-class __WeightPickerBodyState extends State<_WeightPickerBody> with DialogUtil, WeightPickerModel {
+class __WeightPickerBodyState extends State<_WeightPickerBody> with DialogUtil, _WeightPickerModel {
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -40,7 +40,7 @@ class __WeightPickerBodyState extends State<_WeightPickerBody> with DialogUtil, 
         child: Column(
           children: [
             ClipPath(
-              clipper: IndicatorClipper(),
+              clipper: _IndicatorClipper(),
               child: ClipRRect(
                 child: Container(
                   height: context.weightIndicatorHeight,
@@ -53,19 +53,19 @@ class __WeightPickerBodyState extends State<_WeightPickerBody> with DialogUtil, 
                   child: Column(
                     mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                     children: [
-                      WeightIndicator(
+                      _WeightIndicator(
                         weightTextController: _weightTextController,
                         fieldFocus: _fieldFocus,
                         textFieldChange: _textFieldChange,
                       ),
-                      WeightPickerWidget(
+                      _WeightPickerWidget(
                         weightPickerController: _weightController,
                         minVal: _minWeight,
                         selectedWeight: _selectedWeight,
                         maxVal: _maxWeight,
                         isDisabled: isFocused,
                       ),
-                      WeightPickerWidget(
+                      _WeightPickerWidget(
                         weightPickerController: _decimalWeightController,
                         minVal: 0,
                         selectedWeight: _selectedDecimalWeight,

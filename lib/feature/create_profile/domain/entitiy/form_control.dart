@@ -1,20 +1,20 @@
 part of '../../create_profile.dart';
 
-class FormControl extends Equatable {
-  final bool isFormEmpty;
+class _FormControl extends Equatable {
+  final bool _isFormEmpty;
 
-  const FormControl({
-    this.isFormEmpty = false,
-  });
+  const _FormControl({
+    bool isFormEmpty = false,
+  }) : _isFormEmpty = isFormEmpty;
 
-  FormControl copyWith({
+  _FormControl copyWith({
     bool? isFormEmpty,
   }) {
-    return FormControl(
-      isFormEmpty: isFormEmpty ?? this.isFormEmpty,
+    return _FormControl(
+      isFormEmpty: isFormEmpty ?? _isFormEmpty,
     );
   }
 
   @override
-  List<Object?> get props => [isFormEmpty];
+  List<Object?> get props => [_isFormEmpty];
 }

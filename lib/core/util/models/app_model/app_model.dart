@@ -3,17 +3,17 @@ import 'package:bodymetrics/core/util/constants/index.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
-part 'settings.g.dart';
+part 'app_model.g.dart';
 
 @immutable
 @JsonSerializable()
-final class Settings extends Equatable implements BaseModel<Settings> {
+final class AppModel extends Equatable implements BaseModel<AppModel> {
   final String? theme;
   final String? language;
   final Pages? page;
   final bool? isCompleteOnboarding;
 
-  const Settings({
+  const AppModel({
     this.theme,
     this.language,
     this.isCompleteOnboarding,
@@ -24,7 +24,7 @@ final class Settings extends Equatable implements BaseModel<Settings> {
   List<Object?> get props => [theme, language, isCompleteOnboarding, page];
 
   @override
-  factory Settings.fromJson(Map<String, dynamic> json) => _$SettingsFromJson(json);
+  factory AppModel.fromJson(Map<String, dynamic> json) => _$SettingsFromJson(json);
   @override
   Map<String, dynamic> toJson() => _$SettingsToJson(this);
 }

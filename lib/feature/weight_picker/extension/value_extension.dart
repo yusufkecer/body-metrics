@@ -1,6 +1,6 @@
 part of '../weight_picker.dart';
 
-extension DecimalAdjustment on String {
+extension _DecimalAdjustment on String {
   int converter() {
     if (!contains('.')) return 0;
 
