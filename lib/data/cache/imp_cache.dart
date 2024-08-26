@@ -18,13 +18,13 @@ class ImpCache implements BaseDatabase {
   int get version => 1;
 
   @override
-  Future<Database?> initializeDatabase({void Function()? initTable}) async {
-    'database log'.log;
+  Future<Database?> initializeDatabase({Future<void> Function()? initTable}) async {
     final path = await getDatabasesPath();
+    'initializing'.log;
     _db = await openDatabase(
       '$path/${this.path}',
       version: version,
-      onCreate: (db, version) => initTable?.call(),
+      onCreate: (db, version) async => initTable,
     );
     'database created'.log;
     return _db;
@@ -52,5 +52,17 @@ class ImpCache implements BaseDatabase {
       await _db?.execute('DROP TABLE IF EXISTS $table');
       'table deleted'.log;
     }
+  }
+
+  @override
+  Future<void> getTables() async {
+    if (db == null) return;
+    await db!.query('sqlite_master', where: 'type = ?', whereArgs: ['table']).then((value) {
+      for (final element in value) {
+        element.forEach((key, value) {
+          '$key -> $value'.log;
+        });
+      }
+    });
   }
 }

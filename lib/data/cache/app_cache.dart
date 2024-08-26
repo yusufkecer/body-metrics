@@ -13,7 +13,8 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, AppModel
   @override
   String get table => 'app';
 
-  static FutureOr<void> initializeTable(Database db, int version) async {
+  @override
+  Future<void> initializeTable(Database db, int version) async {
     const table = 'app';
     await db.execute('''
         CREATE TABLE $table (
@@ -21,12 +22,13 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, AppModel
           theme TEXT NULL,
           language TEXT NOT NULL,
           is_completed_onboarding INTEGER NULL
-          active_user INTEGER NULL
+          active_user INTEGER NULL,
+          page TEXT NULL,
         )
       ''');
   }
 
-  final List<String> tables = ['theme', 'language', 'is_completed_onboarding', 'active_user'];
+  final List<String> tables = ['theme', 'language', 'is_completed_onboarding', 'active_user', 'page'];
 
   @override
   Future<bool> insert(Database? db, Map<String, dynamic> value) async {

@@ -9,7 +9,8 @@ import 'package:sqflite/sqlite_api.dart';
 final class UserCache extends ImpCache implements CacheMethods<Users, User> {
   UserCache();
 
-  static Future<void> onCreate(Database db, int version) async {
+  @override
+  Future<void> initializeTable(Database db, int version) async {
     await db.execute('''
         CREATE TABLE user (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
