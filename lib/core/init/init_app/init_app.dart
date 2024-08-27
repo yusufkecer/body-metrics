@@ -10,6 +10,5 @@ abstract final class InitApp {
     FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
     await Locator.locateServices();
     await EasyLocalization.ensureInitialized();
-    FlutterNativeSplash.remove();
   }
 }

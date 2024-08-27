@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'dart:convert';
 
 import 'package:bodymetrics/core/index.dart';
 import 'package:injectable/injectable.dart';
@@ -20,13 +21,12 @@ class ImpCache implements BaseDatabase {
   @override
   Future<Database?> initializeDatabase({Future<void> Function()? initTable}) async {
     final path = await getDatabasesPath();
-    'initializing'.log;
+
     _db = await openDatabase(
       '$path/${this.path}',
       version: version,
-      onCreate: (db, version) async => initTable,
     );
-    'database created'.log;
+    'opened'.log;
     return _db;
   }
 
@@ -55,14 +55,19 @@ class ImpCache implements BaseDatabase {
   }
 
   @override
-  Future<void> getTables() async {
-    if (db == null) return;
-    await db!.query('sqlite_master', where: 'type = ?', whereArgs: ['table']).then((value) {
-      for (final element in value) {
-        element.forEach((key, value) {
-          '$key -> $value'.log;
-        });
-      }
-    });
+  Future<bool> isExist() async {
+    print(db == null);
+    if (db == null) return false;
+
+    final tableNames = ['app', 'user', 'result'];
+    final rowList = await db!.query(
+      'sqlite_master',
+      columns: ['name'],
+      where: 'type = ? AND name IN (?, ?, ?)',
+      whereArgs: ['table', ...tableNames],
+    );
+    print(rowList);
+    jsonEncode(rowList).log;
+    return rowList.length == tableNames.length;
   }
 }

@@ -6,7 +6,7 @@ final class SplashUseCase implements BaseUseCase<AppModel?, Object> {
   final SplashRepository _splashRepository = Locator.sl<SplashRepository>();
 
   @override
-  Future<AppModel> execute() {
+  Future<AppModel?> execute() {
     return _splashRepository.execute();
   }
 

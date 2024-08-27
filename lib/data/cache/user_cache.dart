@@ -18,7 +18,7 @@ final class UserCache extends ImpCache implements CacheMethods<Users, User> {
           surname TEXT NULL,
           gender INTEGER NULL,
           avatar TEXT NULL,
-          birthOfDate TEXT NULL,
+          birthOfDate TEXT NULL
         )
       ''');
 

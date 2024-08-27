@@ -4,7 +4,7 @@ part of '../splash.dart';
 class SplashCubit extends Cubit<SplashState> {
   SplashCubit() : super(const SplashInitial());
 
-  Future<AppModel> init() async {
+  Future<AppModel?> init() async {
     final appModel = Locator.sl<SplashRepository>();
     return appModel.execute();
   }
