@@ -1,5 +1,6 @@
 part of '../weight_picker.dart';
 
+@immutable
 final class _WeightIndicator extends StatelessWidget {
   final TextEditingController weightTextController;
   // ignore: avoid_positional_boolean_parameters

@@ -1,3 +1,6 @@
+import 'package:flutter/material.dart';
+
+@immutable
 final class ProductDateTime extends DateTime {
   ProductDateTime(super.year);
   ProductDateTime.now() : super.now();

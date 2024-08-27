@@ -45,5 +45,13 @@
         "ok": "OK",
         "close": "Close",
         "yes": "Yes"
+    },
+    "onboard": {
+        "welcome": "Welcome!",
+        "onboarding_1": "Welcome to BodyMetrics! This app is designed to calculate your Body Mass Index (BMI) and help you track your weight and BMI values. ⚖️",
+        "onboarding_2": "We don't store your data, so there's no need to worry about privacy. 🛡️",
+        "onboarding_3": "You can create separate profiles for your family members and track their BMI as well. If you prefer, you can skip these steps and jump straight into calculating your BMI. 📊",
+        "onboarding_4": "You can export your results to back up your data, and if you wish, you can restore it later. 💾",
+        "onboarding_5": "Let's get started! 🚀"
     }
 }

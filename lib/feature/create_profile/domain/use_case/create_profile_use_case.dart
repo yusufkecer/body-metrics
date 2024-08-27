@@ -1,10 +1,11 @@
 part of '../../create_profile.dart';
 
 @injectable
+@immutable
 final class CreateProfileUseCase implements BaseUseCase<bool?, User> {
   final CreateProfileRepository _repository;
 
-  CreateProfileUseCase(this._repository);
+  const CreateProfileUseCase(this._repository);
 
   @override
   Future<bool?> execute() async {

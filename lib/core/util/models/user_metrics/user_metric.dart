@@ -1,12 +1,14 @@
 import 'package:bodymetrics/core/index.dart';
 import 'package:equatable/equatable.dart';
+import 'package:flutter/material.dart';
 
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_metric.g.dart';
 
 @JsonSerializable()
-class UserMetric extends Equatable implements BaseModel<UserMetric> {
+@immutable
+final class UserMetric extends Equatable implements BaseModel<UserMetric> {
   const UserMetric({this.date, this.height, this.weight, this.bodymetricsResult});
 
   const UserMetric.copyWith({this.date, this.height, this.weight, this.bodymetricsResult});

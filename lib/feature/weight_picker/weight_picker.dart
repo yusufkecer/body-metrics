@@ -11,6 +11,7 @@ part 'widgets/indicator_clipper.dart';
 part 'extension/value_extension.dart';
 
 @RoutePage(name: 'WeightView')
+@immutable
 final class WeightPicker extends StatelessWidget {
   const WeightPicker({super.key});
 
@@ -25,6 +26,7 @@ final class WeightPicker extends StatelessWidget {
   }
 }
 
+@immutable
 final class _WeightPickerBody extends StatefulWidget {
   const _WeightPickerBody();
 

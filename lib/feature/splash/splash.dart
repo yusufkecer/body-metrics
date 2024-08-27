@@ -16,7 +16,8 @@ part 'domain/use_case/splash_use_case.dart';
 part 'splash_model.dart';
 
 @RoutePage(name: 'SplashView')
-class Splash extends StatelessWidget {
+@immutable
+final class Splash extends StatelessWidget {
   const Splash({super.key});
 
   @override
@@ -30,7 +31,8 @@ class Splash extends StatelessWidget {
   }
 }
 
-class _SplashBody extends StatefulWidget {
+@immutable
+final class _SplashBody extends StatefulWidget {
   const _SplashBody();
 
   @override

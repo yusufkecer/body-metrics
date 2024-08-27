@@ -10,7 +10,8 @@ part 'avatar_picker_model.dart';
 part 'widgets/util_button.dart';
 
 @RoutePage(name: 'AvatarPickerView')
-class AvatarPicker extends StatefulWidget {
+@immutable
+final class AvatarPicker extends StatefulWidget {
   final bool canSkip;
   const AvatarPicker({
     super.key,

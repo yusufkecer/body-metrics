@@ -1,6 +1,7 @@
 part of '../../create_profile.dart';
 
-class _FormControl extends Equatable {
+@immutable
+final class _FormControl extends Equatable {
   final bool _isFormEmpty;
 
   const _FormControl({

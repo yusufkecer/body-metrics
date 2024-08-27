@@ -13,7 +13,8 @@ part 'domain/repository/create_profile_repository.dart';
 part 'domain/use_case/create_profile_use_case.dart';
 
 @RoutePage(name: 'UserInfoFormView')
-class UserInfoForm extends StatefulWidget {
+@immutable
+final class UserInfoForm extends StatefulWidget {
   final String avatar;
   const UserInfoForm({
     required this.avatar,
