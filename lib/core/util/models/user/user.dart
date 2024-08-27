@@ -1,12 +1,10 @@
 import 'package:bodymetrics/core/index.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/material.dart';
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user.g.dart';
 
 @JsonSerializable()
-@immutable
 class User extends Equatable implements BaseModel<User>, IdModel {
   @override
   final int? id;

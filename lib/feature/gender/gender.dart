@@ -12,7 +12,8 @@ part 'gender_model.dart';
 part 'widgets/gender_asset.dart';
 
 @RoutePage(name: 'GenderView')
-class Gender extends StatefulWidget {
+@immutable
+final class Gender extends StatefulWidget {
   const Gender({super.key});
 
   @override
@@ -29,7 +30,8 @@ class _GenderState extends State<Gender> {
   }
 }
 
-class _GenderView extends StatefulWidget {
+@immutable
+final class _GenderView extends StatefulWidget {
   const _GenderView();
 
   @override

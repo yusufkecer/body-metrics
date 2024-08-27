@@ -7,7 +7,7 @@ import 'package:injectable/injectable.dart';
 abstract final class Locator {
   static final sl = GetIt.instance;
 
-  static Future<void> locateServices() async {
+  static Future<void> initializeService() async {
     sl.init();
   }
 }

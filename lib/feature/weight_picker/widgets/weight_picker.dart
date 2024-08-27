@@ -1,6 +1,7 @@
 part of '../weight_picker.dart';
 
-class _WeightPickerWidget extends StatelessWidget {
+@immutable
+final class _WeightPickerWidget extends StatelessWidget {
   final int selectedWeight;
   final PageController weightPickerController;
   final double minVal;

@@ -44,5 +44,13 @@
         "ok": "Tamam",
         "close": "Close",
         "yes": "Evet"
+    },
+    "onboard": {
+        "welcome": "Hoş Geldiniz!",
+        "onboarding_1": "BodyMetrics'e hoş geldiniz! Bu uygulama, vücut kitle indeksinizi (BMI) hesaplamak ve kilo ile BMI değerlerinizi takip etmek için geliştirildi. ⚖️",
+        "onboarding_2": "Verilerinizi saklamıyoruz, bu yüzden gizliliğiniz konusunda endişelenmenize gerek yok. 🛡️",
+        "onboarding_3": "Aile bireyleriniz için ayrı profiller oluşturabilir ve onların BMI değerlerini de takip edebilirsiniz. İsterseniz bu adımları atlayarak doğrudan BMI hesaplamaya geçebilirsiniz. 📊",
+        "onboarding_4": "Sonuçları dışa aktararak verilerinizi yedekleyebilir ve dilerseniz daha sonra geri yükleyebilirsiniz. 💾",
+        "onboarding_5": "Hadi başlayalım! 🚀"
     }
 }

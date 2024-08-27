@@ -1,7 +1,8 @@
 import 'package:bodymetrics/core/index.dart';
 import 'package:flutter/material.dart';
 
-class SelectedHeight extends StatelessWidget {
+@immutable
+final class SelectedHeight extends StatelessWidget {
   final int selectedHeight;
   const SelectedHeight({
     required this.selectedHeight,

@@ -1,5 +1,6 @@
 part of '../gender.dart';
 
+@immutable
 final class _GenderAsset extends StatelessWidget {
   // ignore: avoid_positional_boolean_parameters
   final void Function(bool? value)? onChanged;

@@ -8,7 +8,7 @@ abstract final class InitApp {
   static Future<void> init() async {
     final widgetsBinding = WidgetsFlutterBinding.ensureInitialized();
     FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
-    await Locator.locateServices();
+    await Locator.initializeService();
     await EasyLocalization.ensureInitialized();
   }
 }

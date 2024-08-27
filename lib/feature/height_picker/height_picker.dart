@@ -14,7 +14,8 @@ part 'height_picker_model.dart';
 part 'widgets/ruler.dart';
 
 @RoutePage(name: 'HeightView')
-class Height extends StatelessWidget {
+@immutable
+final class Height extends StatelessWidget {
   final bool isFemale;
   const Height({
     required this.isFemale,
@@ -45,7 +46,8 @@ class Height extends StatelessWidget {
   }
 }
 
-class _HeightBody extends StatefulWidget {
+@immutable
+final class _HeightBody extends StatefulWidget {
   final bool isFemale;
   const _HeightBody({
     required this.isFemale,
