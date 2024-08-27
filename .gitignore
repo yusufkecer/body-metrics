@@ -39,5 +39,6 @@ app.*.map.json
 
 # Android Studio will place build artifacts here
 /android/app/debug
+/android/app/agconnect-services.json
 /android/app/profile
 /android/app/release
