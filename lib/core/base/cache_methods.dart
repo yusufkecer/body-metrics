@@ -10,4 +10,6 @@ abstract interface class CacheMethods<T, U> {
   Future<T?> selectAll(Database? db);
 
   Future<bool> delete(Database? db, int id);
+
+  Future<void> initializeTable(Database db, int version);
 }

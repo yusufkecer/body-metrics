@@ -7,4 +7,5 @@ abstract interface class BaseDatabase {
   Future<void> closeDb();
   Future<void> deleteDb();
   Future<void> deleteTable(String table);
+  Future<bool> isExist();
 }

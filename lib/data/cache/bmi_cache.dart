@@ -9,14 +9,15 @@ import 'package:sqflite/sqflite.dart';
 final class BMICache extends ImpCache implements CacheMethods<UserMetrics, UserMetric> {
   BMICache();
 
-  static FutureOr<void> initializeTable(Database db, int version) async {
+  @override
+  Future<void> initializeTable(Database db, int version) async {
     const table = 'result';
     await db.execute('''
         CREATE TABLE $table (
           id INTEGER PRIMARY KEY AUTOINCREMENT,
           date TEXT NOT NULL,
           weight TEXT NULL,
-          height int NOT NULL 
+          height int NOT NULL, 
           user_id INTEGER NOT NULL,
           result int NOT NULL,
           FOREIGN KEY (user_id) REFERENCES user(id)

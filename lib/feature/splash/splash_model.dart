@@ -1,6 +1,6 @@
 part of 'splash.dart';
 
-mixin _SplashModel on State<Splash> {
+mixin _SplashModel on State<_SplashBody>, DialogUtil {
   @override
   void initState() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
@@ -10,13 +10,55 @@ mixin _SplashModel on State<Splash> {
   }
 
   Future<void> _asyncInitState() async {
+    final impCache = Locator.sl<ImpCache>();
+    await impCache.initializeDatabase();
+
+    final isExist = await impCache.isExist();
+    if (!isExist) {
+      await initializeTables(impCache);
+    }
+
+    if (!mounted) return;
     final cubit = context.read<SplashCubit>();
     final result = await cubit.init();
-    // final activeUser = result.activeUser;
-    final isCompleteOnboarding = result.isCompleteOnboarding;
 
-    if ((isCompleteOnboarding ?? false) && mounted) {
-      await context.pushRoute(AvatarPickerView());
+    if (!mounted) return;
+    'result: $result'.log;
+
+    if (result == null) {
+      await context.pushRoute(const GenderView());
+      FlutterNativeSplash.remove();
+      return;
     }
+
+    final isCompleteOnboarding = result.isCompleteOnboarding ?? false;
+
+    if (isCompleteOnboarding) {
+      await context.router.pushAndPopUntil(
+        const GenderView(),
+        predicate: (route) => false,
+      );
+    } else {
+      await context.pushRoute(const GenderView());
+    }
+
+    await impCache.closeDb();
+    FlutterNativeSplash.remove();
+  }
+
+  Future<void> initializeTables(ImpCache impCache) async {
+    final appCache = Locator.sl<AppCache>();
+    final bmiCache = Locator.sl<BMICache>();
+    final userCache = Locator.sl<UserCache>();
+
+    if (impCache.db == null) {
+      showLottieError(LocaleKeys.dialog_general_error.tr());
+
+      throw ArgumentError.notNull('db is null');
+    }
+    'initializing tables'.log;
+    await appCache.initializeTable(impCache.db!, impCache.version);
+    await userCache.initializeTable(impCache.db!, impCache.version);
+    await bmiCache.initializeTable(impCache.db!, impCache.version);
   }
 }
