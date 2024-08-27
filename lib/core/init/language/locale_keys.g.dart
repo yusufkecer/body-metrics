@@ -42,5 +42,12 @@ abstract class  LocaleKeys {
   static const dialog_close = 'dialog.close';
   static const dialog_yes = 'dialog.yes';
   static const dialog = 'dialog';
+  static const onboard_welcome = 'onboard.welcome';
+  static const onboard_onboarding_1 = 'onboard.onboarding_1';
+  static const onboard_onboarding_2 = 'onboard.onboarding_2';
+  static const onboard_onboarding_3 = 'onboard.onboarding_3';
+  static const onboard_onboarding_4 = 'onboard.onboarding_4';
+  static const onboard_onboarding_5 = 'onboard.onboarding_5';
+  static const onboard = 'onboard';
 
 }
