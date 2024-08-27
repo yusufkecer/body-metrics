@@ -21,12 +21,12 @@ mixin _SplashModel on State<_SplashBody>, DialogUtil {
     if (!mounted) return;
     final cubit = context.read<SplashCubit>();
     final result = await cubit.init();
-
+    await impCache.closeDb();
     if (!mounted) return;
     'result: $result'.log;
 
     if (result == null) {
-      await context.pushRoute(const GenderView());
+      pushGenderView();
       FlutterNativeSplash.remove();
       return;
     }
@@ -34,15 +34,10 @@ mixin _SplashModel on State<_SplashBody>, DialogUtil {
     final isCompleteOnboarding = result.isCompleteOnboarding ?? false;
 
     if (isCompleteOnboarding) {
-      await context.router.pushAndPopUntil(
-        const GenderView(),
-        predicate: (route) => false,
-      );
+      pushGenderView();
     } else {
-      await context.pushRoute(const GenderView());
+      pushGenderView();
     }
-
-    await impCache.closeDb();
     FlutterNativeSplash.remove();
   }
 
@@ -60,5 +55,12 @@ mixin _SplashModel on State<_SplashBody>, DialogUtil {
     await appCache.initializeTable(impCache.db!, impCache.version);
     await userCache.initializeTable(impCache.db!, impCache.version);
     await bmiCache.initializeTable(impCache.db!, impCache.version);
+  }
+
+  void pushGenderView() {
+    context.router.pushAndPopUntil(
+      const GenderView(),
+      predicate: (route) => false,
+    );
   }
 }
