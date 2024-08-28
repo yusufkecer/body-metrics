@@ -12,7 +12,6 @@ final class _Ruler extends StatelessWidget with HeightCalculate {
     required this.maxValue,
     required this.minValue,
     required this.selectedHeight,
-    super.key,
   });
 
   @override

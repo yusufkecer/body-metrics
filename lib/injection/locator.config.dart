@@ -40,10 +40,10 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i804.BMICache>(() => _i804.BMICache());
     gh.factory<_i956.ImpCache>(() => _i956.ImpCache());
     gh.factory<_i333.UserCache>(() => _i333.UserCache());
-    gh.factory<_i42.GenderCubit>(() => _i42.GenderCubit());
-    gh.factory<_i664.HeightSelectorCubit>(() => _i664.HeightSelectorCubit());
     gh.factory<_i244.CreateProfileRepository>(
         () => _i244.CreateProfileRepository());
+    gh.factory<_i42.GenderCubit>(() => _i42.GenderCubit());
+    gh.factory<_i664.HeightSelectorCubit>(() => _i664.HeightSelectorCubit());
     gh.factory<_i463.SplashCubit>(() => _i463.SplashCubit());
     gh.factory<_i463.SplashRepository>(() => _i463.SplashRepository());
     gh.factory<_i463.SplashUseCase>(() => _i463.SplashUseCase());

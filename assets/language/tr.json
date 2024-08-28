@@ -47,10 +47,14 @@
     },
     "onboard": {
         "welcome": "Hoş Geldiniz!",
-        "onboarding_1": "BodyMetrics'e hoş geldiniz! Bu uygulama, vücut kitle indeksinizi (BMI) hesaplamak ve kilo ile BMI değerlerinizi takip etmek için geliştirildi. ⚖️",
-        "onboarding_2": "Verilerinizi saklamıyoruz, bu yüzden gizliliğiniz konusunda endişelenmenize gerek yok. 🛡️",
-        "onboarding_3": "Aile bireyleriniz için ayrı profiller oluşturabilir ve onların BMI değerlerini de takip edebilirsiniz. İsterseniz bu adımları atlayarak doğrudan BMI hesaplamaya geçebilirsiniz. 📊",
-        "onboarding_4": "Sonuçları dışa aktararak verilerinizi yedekleyebilir ve dilerseniz daha sonra geri yükleyebilirsiniz. 💾",
+        "onboarding_1_title": "BodyMetrics'e Hoş Geldiniz! ⚖️",
+        "onboarding_1": "Bu uygulama, vücut kitle indeksinizi (BMI) hesaplamak ve kilo ile BMI değerlerinizi takip etmek için geliştirildi.",
+        "onboarding_2_title": "Veri Güvenliği 🛡️",
+        "onboarding_2": "Verilerinizi saklamıyoruz, bu yüzden gizliliğiniz konusunda endişelenmenize gerek yok.",
+        "onboarding_3_title": "Birden Fazla Profil 📊",
+        "onboarding_3": "Aile bireyleriniz için ayrı profiller oluşturabilir ve onların BMI değerlerini takip edebilirsiniz. İsterseniz bu adımları atlayarak doğrudan BMI hesaplamaya geçebilirsiniz.",
+        "onboarding_4_title": "Yedekleme ve Geri Yükleme 💾",
+        "onboarding_4": "Sonuçları dışa aktararak verilerinizi yedekleyebilirsiniz. Yedek dosyanız kaybolmadığı sürece, verileriniz asla kaybolmaz.",
         "onboarding_5": "Hadi başlayalım! 🚀"
     }
 }

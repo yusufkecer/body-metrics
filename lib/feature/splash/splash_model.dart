@@ -25,19 +25,12 @@ mixin _SplashModel on State<_SplashBody>, DialogUtil {
     if (!mounted) return;
     'result: $result'.log;
 
-    if (result == null) {
-      pushGenderView();
-      FlutterNativeSplash.remove();
-      return;
-    }
-
-    final isCompleteOnboarding = result.isCompleteOnboarding ?? false;
-
-    if (isCompleteOnboarding) {
-      pushGenderView();
+    if (!result.isNotNull) {
+      pushNewView(const OnboardView());
     } else {
-      pushGenderView();
+      pushNewView(const GenderView());
     }
+
     FlutterNativeSplash.remove();
   }
 
@@ -51,15 +44,17 @@ mixin _SplashModel on State<_SplashBody>, DialogUtil {
 
       throw ArgumentError.notNull('db is null');
     }
+
     'initializing tables'.log;
+
     await appCache.initializeTable(impCache.db!, impCache.version);
     await userCache.initializeTable(impCache.db!, impCache.version);
     await bmiCache.initializeTable(impCache.db!, impCache.version);
   }
 
-  void pushGenderView() {
+  void pushNewView(PageRouteInfo arguments) {
     context.router.pushAndPopUntil(
-      const GenderView(),
+      arguments,
       predicate: (route) => false,
     );
   }
