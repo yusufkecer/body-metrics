@@ -23,6 +23,7 @@ mixin _SplashModel on State<_SplashBody>, DialogUtil {
     final result = await cubit.init();
     await impCache.closeDb();
     if (!mounted) return;
+
     'result: $result'.log;
 
     if (!result.isNotNull) {

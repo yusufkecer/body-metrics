@@ -8,7 +8,7 @@ final class _PageView extends PageViewModel {
     Image? super.image,
     PageDecoration decoration = const PageDecoration(
       titleTextStyle: TextStyle(),
-      bodyTextStyle: TextStyle(fontSize: 18),
+      bodyTextStyle: TextStyle(),
     ),
     BuildContext? context,
   }) {
@@ -17,7 +17,9 @@ final class _PageView extends PageViewModel {
       bodyTextStyle: context?.textTheme.bodyMedium ?? decoration.bodyTextStyle,
     );
   }
+}
 
+mixin _PageViewMixin {
   final List<PageViewModel> _pageViewList = [
     _PageView(
       title: LocaleKeys.onboard_onboarding_1_title.tr(),
@@ -41,6 +43,7 @@ final class _PageView extends PageViewModel {
     ),
     _PageView(
       title: LocaleKeys.onboard_onboarding_5.tr(),
+      body: '',
       image: Image.asset(AssetValue.ob5.value.onboard),
     ),
   ];

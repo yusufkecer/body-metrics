@@ -117,4 +117,12 @@ final class BaseTheme {
     surfaceTintColor: ProductColor().white,
     confirmButtonStyle: ThemeConstants.datePickerButton,
   );
+
+  final ButtonStyle _onboardButton = ButtonStyle(
+    foregroundColor: WidgetStateProperty.resolveWith(
+      (states) => states.contains(WidgetState.pressed) ? ProductColor().seedColor : ProductColor().white,
+    ),
+  );
+
+  ButtonStyle get onboardButton => _onboardButton;
 }
