@@ -1,13 +1,14 @@
 part of 'onboard_cubit.dart';
 
 sealed class OnboardState extends Equatable {
-  const OnboardState(this.introKey);
+  const OnboardState({this.currentPage = 0});
 
-  final GlobalKey<IntroductionScreenState> introKey;
+  final int currentPage;
+
   @override
-  List<Object> get props => [introKey];
+  List<Object?> get props => [currentPage];
 }
 
-final class OnboardInitial extends OnboardState {
-  const OnboardInitial(super.introKey);
+class OnboardInitial extends OnboardState {
+  const OnboardInitial({super.currentPage});
 }

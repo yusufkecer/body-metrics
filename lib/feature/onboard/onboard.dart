@@ -24,7 +24,7 @@ class _OnboardState extends State<Onboard> {
   Widget build(BuildContext context) {
     return BlocProvider(
       create: (context) => Locator.sl<OnboardCubit>(),
-      child: _OnboardBody(),
+      child: const _OnboardBody(),
     );
   }
 }
@@ -42,44 +42,39 @@ class __OnboardBodyState extends State<_OnboardBody> with _PageViewMixin, _Onboa
     return GradientScafflod(
       appBar: CustomAppBar(
         title: LocaleKeys.onboard_welcome.tr(),
-        action: ColorfulText(
-          colors: ProductColor().animatedColorList,
-          speed: Durations.long3,
-          text: LocaleKeys.onboard_skip.tr(),
-          onTap: _skip,
-        ),
+        action: _isEnd ? colorfulbttn() : const SizedBox.shrink(),
       ),
-      body: Column(
-        children: [
-          ColorfulText(
-            colors: ProductColor().animatedColorList,
-            speed: Durations.long3,
-            text: LocaleKeys.onboard_skip.tr(),
-            onTap: _skip,
-          ),
-          Expanded(
-            child: IntroductionScreen(
-              key: context.read<OnboardCubit>().state.introKey,
-              pages: _pageViewList,
-              showBackButton: true,
-              next: Icon(ProductIcon.arrowRight.icon),
-              done: Icon(ProductIcon.check.icon),
-              back: Icon(ProductIcon.arrowLeft.icon),
-              onDone: () {},
-              baseBtnStyle: BaseTheme().onboardButton,
-              dotsDecorator: DotsDecorator(
-                size: const CustomSize.activeDot(),
-                activeSize: const CustomSize.dots(),
-                activeColor: context.colorScheme.surfaceBright,
-                color: ProductColor().seedColor,
-                activeShape: const RoundedRectangleBorder(
-                  borderRadius: ProductRadius.twentyFive(),
-                ),
-              ),
+      body: Center(
+        child: IntroductionScreen(
+          key: pageController,
+          onChange: _onChange,
+          pages: _pageViewList,
+          showBackButton: true,
+          next: Icon(ProductIcon.arrowRight.icon),
+          done: Icon(ProductIcon.check.icon),
+          back: Icon(ProductIcon.arrowLeft.icon),
+          onDone: _onDone,
+          baseBtnStyle: BaseTheme().onboardButton,
+          dotsDecorator: DotsDecorator(
+            size: const CustomSize.activeDot(),
+            activeSize: const CustomSize.dots(),
+            activeColor: context.colorScheme.surfaceBright,
+            color: ProductColor().seedColor,
+            activeShape: const RoundedRectangleBorder(
+              borderRadius: ProductRadius.twentyFive(),
             ),
           ),
-        ],
+        ),
       ),
+    );
+  }
+
+  ColorfulText colorfulbttn() {
+    return ColorfulText(
+      colors: ProductColor().animatedColorList,
+      speed: Durations.long3,
+      text: LocaleKeys.onboard_skip.tr(),
+      onTap: _skip,
     );
   }
 }
