@@ -11,4 +11,8 @@ final class ProductRadius extends BorderRadius {
       : super.all(
           const Radius.circular(15),
         );
+  const ProductRadius.twentyFive()
+      : super.all(
+          const Radius.circular(25),
+        );
 }

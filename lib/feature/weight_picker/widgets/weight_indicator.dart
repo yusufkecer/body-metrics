@@ -10,7 +10,6 @@ final class _WeightIndicator extends StatelessWidget {
     required this.weightTextController,
     required this.fieldFocus,
     required this.textFieldChange,
-    super.key,
   });
 
   @override

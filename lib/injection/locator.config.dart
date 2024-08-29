@@ -20,6 +20,7 @@ import 'package:bodymetrics/feature/create_profile/create_profile.dart'
 import 'package:bodymetrics/feature/gender/cubit/gender_select/change_gender.dart'
     as _i42;
 import 'package:bodymetrics/feature/height_picker/height_picker.dart' as _i664;
+import 'package:bodymetrics/feature/onboard/cubit/onboard_cubit.dart' as _i40;
 import 'package:bodymetrics/feature/splash/splash.dart' as _i463;
 import 'package:flutter/material.dart' as _i409;
 import 'package:get_it/get_it.dart' as _i174;
@@ -40,13 +41,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i804.BMICache>(() => _i804.BMICache());
     gh.factory<_i956.ImpCache>(() => _i956.ImpCache());
     gh.factory<_i333.UserCache>(() => _i333.UserCache());
-    gh.factory<_i42.GenderCubit>(() => _i42.GenderCubit());
-    gh.factory<_i664.HeightSelectorCubit>(() => _i664.HeightSelectorCubit());
     gh.factory<_i244.CreateProfileRepository>(
         () => _i244.CreateProfileRepository());
+    gh.factory<_i42.GenderCubit>(() => _i42.GenderCubit());
+    gh.factory<_i664.HeightSelectorCubit>(() => _i664.HeightSelectorCubit());
     gh.factory<_i463.SplashCubit>(() => _i463.SplashCubit());
     gh.factory<_i463.SplashRepository>(() => _i463.SplashRepository());
     gh.factory<_i463.SplashUseCase>(() => _i463.SplashUseCase());
+    gh.factory<_i40.OnboardCubit>(() => _i40.OnboardCubit());
     gh.lazySingleton<_i125.AppRouter>(() => _i125.AppRouter());
     gh.lazySingleton<_i353.BaseTheme>(() => _i353.BaseTheme());
     gh.lazySingleton<_i782.ProductLocalization>(() => _i782.ProductLocalization(
