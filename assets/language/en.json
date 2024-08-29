@@ -56,6 +56,7 @@
         "onboarding_3": "You can create separate profiles for your family members and track their BMI values. If you prefer, you can skip these steps and go straight to calculating your BMI.",
         "onboarding_4_title": "Backup and Restore 💾",
         "onboarding_4": "You can export your results to back up your data. As long as your backup file is safe, your data will never be lost.",
-        "onboarding_5": "Let's get started! 🚀"
+        "onboarding_5": "Let's get started! 🚀",
+        "skip": "Skip"
     }
 }

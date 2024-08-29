@@ -52,6 +52,7 @@ abstract class  LocaleKeys {
   static const onboard_onboarding_4_title = 'onboard.onboarding_4_title';
   static const onboard_onboarding_4 = 'onboard.onboarding_4';
   static const onboard_onboarding_5 = 'onboard.onboarding_5';
+  static const onboard_skip = 'onboard.skip';
   static const onboard = 'onboard';
 
 }
