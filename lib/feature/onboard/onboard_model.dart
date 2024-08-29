@@ -2,6 +2,7 @@ part of 'onboard.dart';
 
 mixin _OnboardModel on State<_OnboardBody>, _PageViewMixin {
   IntroKey pageController = IntroKey();
+  int get _pageListCount => _pageViewList.length - 1;
 
   @override
   void initState() {
@@ -18,7 +19,7 @@ mixin _OnboardModel on State<_OnboardBody>, _PageViewMixin {
   }
 
   void _skip() {
-    context.read<OnboardCubit>().skip(_pageViewList.length - 1, pageController);
+    context.read<OnboardCubit>().skip(_pageListCount, pageController);
   }
 
   void _onDone() {}
@@ -27,5 +28,5 @@ mixin _OnboardModel on State<_OnboardBody>, _PageViewMixin {
     context.read<OnboardCubit>().updateIndex(value);
   }
 
-  bool get _isEnd => context.watch<OnboardCubit>().state.currentPage != _pageViewList.length - 1;
+  bool get _isEnd => context.watch<OnboardCubit>().state.currentPage != _pageListCount;
 }
