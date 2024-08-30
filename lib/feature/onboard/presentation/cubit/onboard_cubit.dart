@@ -10,6 +10,11 @@ final class OnboardCubit extends Cubit<OnboardState> {
 
   void updateIndex(int index) {
     emit(OnboardInitial(currentPage: index));
-    '${state.currentPage} $index'.log;
+  }
+
+  Future<bool> done(AppModel entity) async {
+    final useCase = Locator.sl<OnboardUseCase>();
+    final result = await useCase.executeWithParams(entity);
+    return result ?? false;
   }
 }

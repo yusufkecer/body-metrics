@@ -1,14 +1,18 @@
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/feature/onboard/domain/index.dart';
+import 'package:bodymetrics/feature/onboard/domain/repository/onboard_repository.dart';
+import 'package:bodymetrics/injection/locator.dart';
+import 'package:injectable/injectable.dart';
 
-final class OnboardUseCase implements BaseUseCase<bool, OnboardEntity> {
+@injectable
+final class OnboardUseCase implements BaseUseCase<bool, AppModel> {
+  final onboardRepository = Locator.sl<OnboardRepository>();
   @override
   Future<bool>? execute() {
-    throw UnimplementedError();
+    return null;
   }
 
   @override
-  Future<bool>? executeWithParams(OnboardEntity params) {
-    throw UnimplementedError();
+  Future<bool>? executeWithParams(AppModel params) {
+    return onboardRepository.executeWithParams(params);
   }
 }

@@ -7,7 +7,7 @@ import 'package:flutter/material.dart';
 Future<void> main() async {
   await InitApp.init();
   runApp(
-    ProductLocalization(
+    AppLocalization(
       child: const Bodymetrics(),
     ),
   );

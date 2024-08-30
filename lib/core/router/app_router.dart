@@ -3,7 +3,7 @@ import 'package:bodymetrics/feature/index.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
-part 'router.gr.dart';
+part 'app_router.gr.dart';
 
 @lazySingleton
 @AutoRouterConfig()

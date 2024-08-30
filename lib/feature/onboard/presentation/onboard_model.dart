@@ -22,7 +22,19 @@ mixin _OnboardModel on State<_OnboardBody>, _PageViewMixin {
     context.read<OnboardCubit>().skip(_pageListCount, pageController);
   }
 
-  void _onDone() {}
+  Future<void> _onDone() async {
+    const entity = AppModel(
+      isCompleteOnboard: true,
+    );
+    final result = await context.read<OnboardCubit>().done(entity);
+
+    if (result) {
+      await context.router.pushAndPopUntil(
+        const GenderView(),
+        predicate: (route) => false,
+      );
+    }
+  }
 
   void _onChange(int value) {
     context.read<OnboardCubit>().updateIndex(value);

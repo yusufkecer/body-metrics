@@ -10,46 +10,44 @@ import 'package:sqflite/sqflite.dart';
 part 'app_cache_tables.dart';
 
 @injectable
-final class AppCache extends ImpCache implements CacheMethods<JsonList, AppModel> {
+final class AppCache extends ImpCache implements CacheMethods<JsonList, Json> {
   AppCache() : super();
 
   @override
-  String get table => _Table.table.value;
+  String get table => AppTable.table.value;
 
   @override
   Future<void> initializeTable(Database db, int version) async {
     await db.execute('''
     CREATE TABLE $table (
-      ${_Table.theme.value} TEXT NULL,
-      ${_Table.language.value} TEXT NOT NULL,
-      ${_Table.isCompletedOnboard.value} INTEGER NULL,
-      ${_Table.activeUser.value} INTEGER NULL,
-      ${_Table.page} TEXT NULL
+      ${AppTable.theme.value} TEXT NULL,
+      ${AppTable.language.value} TEXT NULL,
+      ${AppTable.isCompletedOnboard.value} INTEGER NULL,
+      ${AppTable.activeUser.value} INTEGER NULL,
+      ${AppTable.page.value} TEXT NULL
     )
   ''');
   }
 
   final List<String> _columns = [
-    _Table.theme.value,
-    _Table.language.value,
-    _Table.isCompletedOnboard.value,
-    _Table.activeUser.value,
-    _Table.page.value,
+    AppTable.theme.value,
+    AppTable.language.value,
+    AppTable.isCompletedOnboard.value,
+    AppTable.activeUser.value,
+    AppTable.page.value,
   ];
 
   ///There should be only one row
   ///will only work [Onboard]
   ///another business logic should use [update] method
   @override
-  Future<bool> insert(Database? db, AppModel value) async {
+  Future<bool> insert(Database? db, Json value) async {
     if (value.isNullOrEmpty || db.isNullOrEmpty) {
       'Value is empty'.e;
       return false;
     }
 
-    final json = value.toJson();
-
-    final result = await db!.insert(table, json);
+    final result = await db!.insert(table, value);
 
     'value inserted $result'.log;
 
@@ -59,7 +57,7 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, AppModel
   }
 
   @override
-  Future<JsonList> select(Database? db, AppModel value) {
+  Future<JsonList> select(Database? db, Json value) {
     throw UnimplementedError();
   }
 
@@ -70,17 +68,17 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, AppModel
   }
 
   @override
-  Future<bool> update(Database? db, AppModel value) async {
+  Future<bool> update(Database? db, Json value) async {
     if (value.isNullOrEmpty || db.isNullOrEmpty) {
       'Value is empty'.e;
       return false;
     }
 
-    JsonMap? json;
+    Json? json;
 
     for (final element in _columns) {
-      if (value.toJson().containsKey(element)) {
-        json?[element] = value.toJson()[element];
+      if (value.containsKey(element)) {
+        json?[element] = value[element];
       }
     }
     if (json.isNullOrEmpty) return false;

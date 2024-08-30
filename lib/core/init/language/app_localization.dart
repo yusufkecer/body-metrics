@@ -5,8 +5,8 @@ import 'package:injectable/injectable.dart';
 
 @immutable
 @lazySingleton
-final class ProductLocalization extends EasyLocalization {
-  ProductLocalization({
+final class AppLocalization extends EasyLocalization {
+  AppLocalization({
     required super.child,
     super.key,
   }) : super(
