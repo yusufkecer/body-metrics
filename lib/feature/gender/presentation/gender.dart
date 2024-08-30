@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/feature/gender/cubit/gender_select/change_gender.dart';
+import 'package:bodymetrics/feature/gender/presentation/cubit/change_gender.dart';
 import 'package:bodymetrics/injection/locator.dart';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -41,7 +41,7 @@ final class _GenderView extends StatefulWidget {
 class __GenderViewState extends State<_GenderView> with _GenderModel {
   @override
   Widget build(BuildContext context) {
-    return GradientScafflod(
+    return GradientScaffold(
       appBar: CustomAppBar(
         title: LocaleKeys.gender_gender_name.tr(),
         action: appbarWiget(),

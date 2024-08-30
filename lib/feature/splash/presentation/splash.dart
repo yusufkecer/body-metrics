@@ -11,8 +11,8 @@ import 'package:injectable/injectable.dart';
 
 part 'cubit/splash_cubit.dart';
 part 'cubit/splash_state.dart';
-part 'domain/repository/splash_repository.dart';
-part 'domain/use_case/splash_use_case.dart';
+part '../domain/repository/splash_repository.dart';
+part '../domain/use_case/splash_use_case.dart';
 part 'splash_model.dart';
 
 @RoutePage(name: 'SplashView')
@@ -22,7 +22,7 @@ final class Splash extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GradientScafflod(
+    return GradientScaffold(
       body: BlocProvider(
         create: (context) => Locator.sl<SplashCubit>(),
         child: const _SplashBody(),

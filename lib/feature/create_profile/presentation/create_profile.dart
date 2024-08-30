@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 part 'create_profile_model.dart';
-part 'domain/entitiy/form_control.dart';
-part 'domain/repository/create_profile_repository.dart';
-part 'domain/use_case/create_profile_use_case.dart';
+part '../domain/entity/form_control.dart';
+part '../domain/repository/create_profile_repository.dart';
+part '../domain/use_case/create_profile_use_case.dart';
 
 @RoutePage(name: 'UserInfoFormView')
 @immutable
@@ -28,7 +28,7 @@ final class UserInfoForm extends StatefulWidget {
 class _UserInfoFormState extends State<UserInfoForm> with DialogUtil, UserInfoFormModel {
   @override
   Widget build(BuildContext context) {
-    return GradientScafflod(
+    return GradientScaffold(
       appBar: CustomAppBar(
         title: LocaleKeys.register_complete.tr(),
       ),

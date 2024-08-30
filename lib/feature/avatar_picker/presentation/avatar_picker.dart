@@ -44,7 +44,7 @@ class _AvatarPickerState extends State<AvatarPicker> with _AvatarPickerModel {
           ),
         ),
       ),
-      mainScreen: GradientScafflod(
+      mainScreen: GradientScaffold(
         appBar: CustomAppBar(
           leading: IconButton(
             onPressed: () {

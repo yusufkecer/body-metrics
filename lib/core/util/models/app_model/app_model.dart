@@ -11,19 +11,19 @@ final class AppModel extends Equatable implements BaseModel<AppModel> {
   final String? theme;
   final String? language;
   final Pages? page;
-  final bool? isCompleteOnboarding;
+  final bool? isCompleteOnboard;
   final int? activeUser;
 
   const AppModel({
     this.theme,
     this.language,
-    this.isCompleteOnboarding,
+    this.isCompleteOnboard,
     this.page,
     this.activeUser,
   });
 
   @override
-  List<Object?> get props => [theme, language, isCompleteOnboarding, page, activeUser];
+  List<Object?> get props => [theme, language, isCompleteOnboard, page, activeUser];
 
   @override
   factory AppModel.fromJson(Map<String, dynamic> json) => _$AppModelFromJson(json);

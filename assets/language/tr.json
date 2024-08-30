@@ -15,7 +15,7 @@
     },
     "register": {
         "full_name": "İsim Soyisim",
-        "birt_of_date": "Doğum Tarihi",
+        "birth_of_date": "Doğum Tarihi",
         "complete": "Kaydını Tamamla",
         "skip": "Atla",
         "select_profile_picture": "Avatarınızı Seçin",
