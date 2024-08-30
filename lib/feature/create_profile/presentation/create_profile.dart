@@ -56,7 +56,7 @@ class _UserInfoFormState extends State<UserInfoForm> with DialogUtil, UserInfoFo
                         controller: _fullNameController,
                       ),
                       CustomTextField(
-                        label: LocaleKeys.register_birt_of_date.tr(),
+                        label: LocaleKeys.register_birth_of_date.tr(),
                         readOnly: true,
                         onTap: _openDatePicker,
                         prefixIcon: ProductIcon.birthDay.icon,

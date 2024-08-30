@@ -4,6 +4,7 @@ abstract class  LocaleKeys {
   static const calculator = 'calculator';
   static const cont = 'cont';
   static const save = 'save';
+  static const back = 'back';
   static const gender_gender_name = 'gender.gender_name';
   static const gender_select_gender = 'gender.select_gender';
   static const gender_fm = 'gender.fm';
@@ -14,7 +15,7 @@ abstract class  LocaleKeys {
   static const height_cm = 'height.cm';
   static const height = 'height';
   static const register_full_name = 'register.full_name';
-  static const register_birt_of_date = 'register.birt_of_date';
+  static const register_birth_of_date = 'register.birth_of_date';
   static const register_complete = 'register.complete';
   static const register_skip = 'register.skip';
   static const register_select_profile_picture = 'register.select_profile_picture';
