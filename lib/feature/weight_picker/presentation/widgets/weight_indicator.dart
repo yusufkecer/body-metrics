@@ -25,7 +25,7 @@ final class _WeightIndicator extends StatelessWidget {
             child: TextField(
               controller: weightTextController,
               keyboardType: TextInputType.number,
-              onTapOutside: (_) => context.unfocus,
+              onTapOutside: (_) => context.unfocus(),
               inputFormatters: [
                 LengthLimitingTextInputFormatter(6),
               ],

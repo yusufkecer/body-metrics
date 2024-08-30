@@ -38,7 +38,7 @@ class _UserInfoFormState extends State<UserInfoForm> with DialogUtil, UserInfoFo
             ClipOval(
               child: Image.asset(
                 widget.avatar,
-                width: 150,
+                width: context.width * 0.4,
               ),
             ),
             ValueListenableBuilder(
@@ -56,7 +56,7 @@ class _UserInfoFormState extends State<UserInfoForm> with DialogUtil, UserInfoFo
                         controller: _fullNameController,
                       ),
                       CustomTextField(
-                        label: LocaleKeys.register_birt_of_date.tr(),
+                        label: LocaleKeys.register_birth_of_date.tr(),
                         readOnly: true,
                         onTap: _openDatePicker,
                         prefixIcon: ProductIcon.birthDay.icon,
@@ -67,7 +67,7 @@ class _UserInfoFormState extends State<UserInfoForm> with DialogUtil, UserInfoFo
                 );
               },
             ),
-            CustomElevated(
+            CustomFilled(
               text: LocaleKeys.save.tr(),
               onPressed: _onPressed,
             ),

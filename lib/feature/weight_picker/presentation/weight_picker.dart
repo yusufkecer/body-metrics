@@ -20,6 +20,10 @@ final class WeightPicker extends StatelessWidget {
     return GradientScaffold(
       appBar: CustomAppBar(
         title: LocaleKeys.weight_select_weight.tr(),
+        action: ColorfulText(
+          text: LocaleKeys.cont.tr(),
+          onTap: () {},
+        ),
       ),
       body: const _WeightPickerBody(),
     );
