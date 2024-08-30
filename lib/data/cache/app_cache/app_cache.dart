@@ -14,11 +14,10 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, AppModel
   AppCache() : super();
 
   @override
-  String get table => 'app';
+  String get table => _Table.table.value;
 
   @override
   Future<void> initializeTable(Database db, int version) async {
-    const table = 'app';
     await db.execute('''
     CREATE TABLE $table (
       ${_Table.theme.value} TEXT NULL,
@@ -38,11 +37,10 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, AppModel
     _Table.page.value,
   ];
 
-  @override
-
   ///There should be only one row
   ///will only work [Onboard]
   ///another business logic should use [update] method
+  @override
   Future<bool> insert(Database? db, AppModel value) async {
     if (value.isNullOrEmpty || db.isNullOrEmpty) {
       'Value is empty'.e;

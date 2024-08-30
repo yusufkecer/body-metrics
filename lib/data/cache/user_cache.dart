@@ -6,7 +6,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 
 @injectable
-final class UserCache extends ImpCache implements CacheMethods<Users, User> {
+final class UserCache extends ImpCache implements CacheMethods<Users, JsonMap> {
   UserCache();
 
   @override
@@ -29,7 +29,7 @@ final class UserCache extends ImpCache implements CacheMethods<Users, User> {
   String get table => 'user';
 
   @override
-  Future<bool> insert(Database? db, Map<String, dynamic> value) async {
+  Future<bool> insert(Database? db, JsonMap value) async {
     if (db == null) {
       'Database is null'.w;
       return false;
@@ -51,7 +51,7 @@ final class UserCache extends ImpCache implements CacheMethods<Users, User> {
   }
 
   @override
-  Future<Users?> select(Database? db, User user) async {
+  Future<Users?> select(Database? db, JsonMap user) async {
     if (db.isNullOrEmpty) {
       'Database is null'.w;
       return null;

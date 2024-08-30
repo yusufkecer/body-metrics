@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
 @injectable
-final class BMICache extends ImpCache implements CacheMethods<UserMetrics, UserMetric> {
+final class BMICache extends ImpCache implements CacheMethods<UserMetrics, JsonMap> {
   BMICache();
 
   @override
@@ -32,7 +32,7 @@ final class BMICache extends ImpCache implements CacheMethods<UserMetrics, UserM
   }
 
   @override
-  Future<bool> insert(Database? db, Map<String, dynamic> value) {
+  Future<bool> insert(Database? db, JsonMap value) {
     // TODO: implement insert
     throw UnimplementedError();
   }
@@ -41,13 +41,13 @@ final class BMICache extends ImpCache implements CacheMethods<UserMetrics, UserM
   String get table => 'result';
 
   @override
-  Future<bool> update(Database? db, Map<String, dynamic> value) {
+  Future<bool> update(Database? db, JsonMap value) {
     // TODO: implement update
     throw UnimplementedError();
   }
 
   @override
-  Future<UserMetrics?> select(Database? db, UserMetric value) {
+  Future<UserMetrics?> select(Database? db, JsonMap value) {
     throw UnimplementedError();
   }
 

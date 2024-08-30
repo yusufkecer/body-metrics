@@ -1,4 +1,4 @@
-part of '../../create_profile.dart';
+part of '../../presentation/create_profile.dart';
 
 @immutable
 final class _FormControl extends Equatable {

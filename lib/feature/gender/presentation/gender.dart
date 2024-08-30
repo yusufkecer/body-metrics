@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/feature/gender/cubit/gender_select/change_gender.dart';
+import 'package:bodymetrics/feature/gender/presentation/cubit/change_gender.dart';
 import 'package:bodymetrics/injection/locator.dart';
 
 import 'package:easy_localization/easy_localization.dart';

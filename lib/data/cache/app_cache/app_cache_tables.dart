@@ -5,7 +5,8 @@ enum _Table {
   language,
   isCompletedOnboard,
   activeUser,
-  page;
+  page,
+  table;
 
   String get value {
     switch (this) {
@@ -19,6 +20,8 @@ enum _Table {
         return 'active_user';
       case _Table.page:
         return 'page';
+      case _Table.table:
+        return 'app';
     }
   }
 }

@@ -8,9 +8,9 @@ import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 part 'create_profile_model.dart';
-part 'domain/entity/form_control.dart';
-part 'domain/repository/create_profile_repository.dart';
-part 'domain/use_case/create_profile_use_case.dart';
+part '../domain/entity/form_control.dart';
+part '../domain/repository/create_profile_repository.dart';
+part '../domain/use_case/create_profile_use_case.dart';
 
 @RoutePage(name: 'UserInfoFormView')
 @immutable
