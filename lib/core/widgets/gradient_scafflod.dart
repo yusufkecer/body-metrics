@@ -2,8 +2,8 @@ import 'package:bodymetrics/core/index.dart';
 import 'package:flutter/material.dart';
 
 @immutable
-final class GradientScafflod extends Scaffold {
-  GradientScafflod({super.key, Widget? body, super.appBar})
+final class GradientScaffold extends Scaffold {
+  GradientScaffold({super.key, Widget? body, super.appBar})
       : super(
           body: Container(
             height: double.infinity,

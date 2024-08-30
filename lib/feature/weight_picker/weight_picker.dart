@@ -17,7 +17,7 @@ final class WeightPicker extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GradientScafflod(
+    return GradientScaffold(
       appBar: CustomAppBar(
         title: LocaleKeys.weight_select_weight.tr(),
       ),

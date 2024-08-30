@@ -1,10 +1,4 @@
-import 'package:bloc/bloc.dart';
-import 'package:bodymetrics/core/index.dart';
-import 'package:equatable/equatable.dart';
-
-import 'package:injectable/injectable.dart';
-
-part 'onboard_state.dart';
+part of '../onboard.dart';
 
 @injectable
 final class OnboardCubit extends Cubit<OnboardState> {

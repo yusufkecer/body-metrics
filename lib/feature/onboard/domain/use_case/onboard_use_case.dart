@@ -1,9 +1,7 @@
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/feature/onboard/domain/index.dart';
 
-final class OnboardRepository implements BaseUseCase<bool, OnboardEntity> {
-  OnboardRepository();
-
+final class OnboardUseCase implements BaseUseCase<bool, OnboardEntity> {
   @override
   Future<bool>? execute() {
     throw UnimplementedError();

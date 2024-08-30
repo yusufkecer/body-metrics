@@ -1,4 +1,4 @@
-part of 'onboard_cubit.dart';
+part of '../onboard.dart';
 
 sealed class OnboardState extends Equatable {
   const OnboardState({this.currentPage = 0});

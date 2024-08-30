@@ -56,7 +56,6 @@ class ImpCache implements BaseDatabase {
 
   @override
   Future<bool> isExist() async {
-    print(db == null);
     if (db == null) return false;
 
     final tableNames = ['app', 'user', 'result'];
@@ -66,7 +65,9 @@ class ImpCache implements BaseDatabase {
       where: 'type = ? AND name IN (?, ?, ?)',
       whereArgs: ['table', ...tableNames],
     );
-    print(rowList);
+
+    'rowList: $rowList'.log;
+
     jsonEncode(rowList).log;
     return rowList.length == tableNames.length;
   }

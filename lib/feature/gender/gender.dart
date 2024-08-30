@@ -41,7 +41,7 @@ final class _GenderView extends StatefulWidget {
 class __GenderViewState extends State<_GenderView> with _GenderModel {
   @override
   Widget build(BuildContext context) {
-    return GradientScafflod(
+    return GradientScaffold(
       appBar: CustomAppBar(
         title: LocaleKeys.gender_gender_name.tr(),
         action: appbarWiget(),

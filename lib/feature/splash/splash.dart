@@ -22,7 +22,7 @@ final class Splash extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return GradientScafflod(
+    return GradientScaffold(
       body: BlocProvider(
         create: (context) => Locator.sl<SplashCubit>(),
         child: const _SplashBody(),

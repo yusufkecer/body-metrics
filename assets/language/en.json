@@ -15,7 +15,7 @@
     },
     "register": {
         "full_name": "Full Name",
-        "birt_of_date": "Birth of Date",
+        "birth_of_date": "Birth of Date",
         "complete": "Complete Registration",
         "skip": "Skip",
         "select_profile_picture": "Select Your Avatar",
