@@ -139,13 +139,13 @@ mixin _WeightPickerModel on State<_WeightPickerBody>, DialogUtil {
 
     _decimalWeightController.animateToPage(
       value,
-      duration: const Duration(milliseconds: 350),
+      duration: Durations.medium3,
       curve: Curves.fastOutSlowIn,
     );
 
     _weightController.animateToPage(
       integer,
-      duration: const Duration(milliseconds: 350),
+      duration: Durations.medium3,
       curve: Curves.fastOutSlowIn,
     );
   }

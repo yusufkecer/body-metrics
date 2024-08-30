@@ -5,14 +5,15 @@ import 'package:flutter/material.dart';
 @immutable
 final class ColorfulText extends StatelessWidget {
   final List<Color>? colors;
-  final String? text;
-  final Duration? speed;
+  final String text;
+  final Duration speed;
   final void Function() onTap;
+
   const ColorfulText({
-    required this.colors,
     required this.text,
-    required this.speed,
     required this.onTap,
+    this.speed = Durations.long3,
+    this.colors,
     super.key,
   });
 
@@ -24,9 +25,9 @@ final class ColorfulText extends StatelessWidget {
         repeatForever: true,
         animatedTexts: [
           ColorizeAnimatedText(
-            text!,
-            speed: speed!,
-            colors: colors!,
+            text,
+            speed: speed,
+            colors: colors ?? ProductColor().colorfulList,
             textStyle: context.textTheme.titleMedium!,
           ),
         ],

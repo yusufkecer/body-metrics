@@ -30,8 +30,6 @@ final class Height extends StatelessWidget {
         appBar: CustomAppBar(
           title: LocaleKeys.height_select_height.tr(),
           action: ColorfulText(
-            colors: ProductColor().animatedColorList,
-            speed: Durations.long3,
             text: LocaleKeys.cont.tr(),
             onTap: () {
               context.pushRoute(const WeightView());
@@ -61,9 +59,9 @@ class _HeightBodyState extends State<_HeightBody> with _HeightModel {
   @override
   Widget build(BuildContext context) {
     cubit = context.watch<HeightSelectorCubit>();
+
     if (cubit == null) {
-      //TODO : Add error widget
-      return const SizedBox.shrink();
+      return const CustomError();
     }
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,

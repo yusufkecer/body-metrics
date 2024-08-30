@@ -44,7 +44,7 @@ class __GenderViewState extends State<_GenderView> with _GenderModel {
     return GradientScaffold(
       appBar: CustomAppBar(
         title: LocaleKeys.gender_gender_name.tr(),
-        action: appbarWiget(),
+        action: buildAction(),
       ),
       body: Center(
         child: Padding(
@@ -75,11 +75,9 @@ class __GenderViewState extends State<_GenderView> with _GenderModel {
     );
   }
 
-  Widget appbarWiget() {
+  Widget buildAction() {
     return isSelected()
         ? ColorfulText(
-            colors: ProductColor().animatedColorList,
-            speed: Durations.long3,
             text: LocaleKeys.cont.tr(),
             onTap: () => context.router.push(
               HeightView(

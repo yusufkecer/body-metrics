@@ -5,4 +5,5 @@ export 'package:bodymetrics/core/init/index.dart';
 export 'package:bodymetrics/core/router/app_router.dart';
 export 'package:bodymetrics/core/type_def.dart';
 export 'package:bodymetrics/core/util/index.dart';
+export 'package:bodymetrics/core/widgets/custom_error.dart';
 export 'package:bodymetrics/core/widgets/index.dart';

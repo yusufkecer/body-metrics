@@ -11,7 +11,7 @@ abstract final class AssetPath {
 extension AssetPathExtension on String {
   String get lottie => '${AssetPath.lottie}/$this.json';
   String get image => '${AssetPath.image}/$this';
-  String get profile => '${AssetPath.image}/profile/$this';
+  String get profile => '${AssetPath.image}/profiles/$this';
   String get onboard => '${AssetPath.image}/onboard/$this';
   String get language => '${AssetPath.language}/$this.json';
 }
@@ -22,6 +22,7 @@ enum AssetValue {
   maleBody('male_body'),
   femaleBody('female_body'),
   robotError('robot_error'),
+  generalError('general_error'),
   confirm('confirm'),
   profile1('pr1.png'),
   profile2('pr2.png'),

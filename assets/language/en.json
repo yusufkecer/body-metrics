@@ -2,6 +2,7 @@
     "calculator": "BodyMetrics Calculator",
     "cont": "Continue",
     "save": "Save",
+    "back": "Go Back",
     "gender": {
         "gender_name": "Gender",
         "select_gender": "Select Your Gender",

@@ -28,9 +28,9 @@ mixin _OnboardModel on State<_OnboardBody>, _PageViewMixin {
     );
     final result = await context.read<OnboardCubit>().done(entity);
 
-    if (result) {
+    if (result && mounted) {
       await context.router.pushAndPopUntil(
-        const GenderView(),
+        AvatarPickerView(),
         predicate: (route) => false,
       );
     }
