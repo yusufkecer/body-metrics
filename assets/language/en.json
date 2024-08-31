@@ -61,6 +61,11 @@
         "skip": "Skip"
     },
     "home": {
-        "home": "Home"
+        "home": "Home Page",
+        "yearly": "Yearly",
+        "monthly": "Monthly",
+        "weekly": "Weekly",
+        "hello": "Hello",
+        "see_all": "See All"
     }
 }

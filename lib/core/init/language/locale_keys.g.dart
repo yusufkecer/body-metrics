@@ -55,5 +55,10 @@ abstract class  LocaleKeys {
   static const onboard_onboarding_5 = 'onboard.onboarding_5';
   static const onboard_skip = 'onboard.skip';
   static const onboard = 'onboard';
+  static const home_home = 'home.home';
+  static const home_yearly = 'home.yearly';
+  static const home_monthly = 'home.monthly';
+  static const home_weekly = 'home.weekly';
+  static const home = 'home';
 
 }

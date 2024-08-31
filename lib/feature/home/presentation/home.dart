@@ -1,7 +1,14 @@
 import 'package:bodymetrics/core/index.dart';
+import 'package:bodymetrics/core/widgets/chip_button.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
-class Home extends StatefulWidget {
+part 'home_model.dart';
+part 'widgets/data_list.dart';
+part 'widgets/period_select.dart';
+
+@immutable
+final class Home extends StatefulWidget {
   const Home({super.key});
 
   @override
@@ -12,29 +19,36 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
-      appBar: const CustomAppBar(
-        title: 'Home',
+      appBar: CustomAppBar(
+        title: LocaleKeys.home.tr(),
       ),
       body: const _HomeBody(),
     );
   }
 }
 
-class _HomeBody extends StatefulWidget {
+@immutable
+final class _HomeBody extends StatefulWidget {
   const _HomeBody();
 
   @override
   State<_HomeBody> createState() => __HomeBodyState();
 }
 
-class __HomeBodyState extends State<_HomeBody> {
+class __HomeBodyState extends State<_HomeBody> with HomeModel {
   @override
   Widget build(BuildContext context) {
-    return const Center(
+    return Center(
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          Text('Home'),
+        children: [
+          Text('Hello, $_userName'),
+          _PeriodSelect(
+            homePeriod: _homePeriod,
+            onYearlySelected: _yearlyPeriod,
+            onMonthlySelected: _monthlyPeriod,
+            onWeeklySelected: _weeklyPeriod,
+          ),
         ],
       ),
     );

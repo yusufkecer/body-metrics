@@ -4,7 +4,7 @@ mixin _WeightPickerModel on State<_WeightPickerBody>, DialogUtil {
   late final PageController _weightController;
   late final PageController _decimalWeightController;
   final TextEditingController _weightTextController = TextEditingController();
-  bool isFocused = false;
+  bool _isFocused = false;
 
   int _selectedWeight = 70;
   int _selectedDecimalWeight = 0;
@@ -74,10 +74,10 @@ mixin _WeightPickerModel on State<_WeightPickerBody>, DialogUtil {
 
   void _fieldFocus(bool hasFocus) {
     if (hasFocus) {
-      isFocused = true;
+      _isFocused = true;
       return;
     } else {
-      isFocused = false;
+      _isFocused = false;
     }
 
     final text = _weightTextController.text;

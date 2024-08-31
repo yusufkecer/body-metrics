@@ -50,7 +50,7 @@ class __OnboardBodyState extends State<_OnboardBody> with _PageViewMixin, _Onboa
       ),
       body: Center(
         child: IntroductionScreen(
-          key: pageController,
+          key: _pageController,
           onChange: _onChange,
           pages: _pageViewList,
           showBackButton: true,

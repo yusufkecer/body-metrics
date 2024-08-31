@@ -60,6 +60,11 @@
         "skip": "Atla"
     },
     "home": {
-        "home": "Ana Sayfa"
+        "home": "Ana Sayfa",
+        "yearly": "Yıllık",
+        "monthly": "Aylık",
+        "weekly": "Haftalık",
+        "hello": "Merhaba",
+        "see_all": "Tümünü Gör"
     }
 }
