@@ -3,9 +3,9 @@ part of '../home.dart';
 @immutable
 final class _PeriodSelect extends StatelessWidget {
   final HomePeriod homePeriod;
-  final void Function() onYearlySelected;
-  final void Function() onMonthlySelected;
-  final void Function() onWeeklySelected;
+  final void Function({required bool value}) onYearlySelected;
+  final void Function({required bool value}) onMonthlySelected;
+  final void Function({required bool value}) onWeeklySelected;
 
   const _PeriodSelect({
     required this.homePeriod,
@@ -40,7 +40,7 @@ final class _PeriodSelect extends StatelessWidget {
 
 class _Chip extends StatelessWidget {
   final String text;
-  final void Function() onPressed;
+  final void Function({required bool value}) onPressed;
   final bool isSelected;
 
   const _Chip({
@@ -53,7 +53,9 @@ class _Chip extends StatelessWidget {
   Widget build(BuildContext context) {
     final white = ProductColor().white;
     final deepPurple = ProductColor().deepPurple;
+
     return ChipButton(
+      isSelected: isSelected,
       text: text,
       onPressed: onPressed,
       borderColor: !isSelected ? white : deepPurple,

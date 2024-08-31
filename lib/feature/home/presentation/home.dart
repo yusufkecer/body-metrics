@@ -53,11 +53,15 @@ class __HomeBodyState extends State<_HomeBody> with HomeModel {
           //         ),
           //   ),
           // ),
+
           _PeriodSelect(
             homePeriod: _homePeriod,
             onYearlySelected: _yearlyPeriod,
             onMonthlySelected: _monthlyPeriod,
             onWeeklySelected: _weeklyPeriod,
+          ),
+          _DataList(
+            period: 'Weekly',
           ),
         ],
       ),

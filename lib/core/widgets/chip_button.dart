@@ -4,7 +4,9 @@ import 'package:flutter/material.dart';
 @immutable
 final class ChipButton extends StatelessWidget {
   final String text;
-  final void Function() onPressed;
+
+  final void Function({required bool value}) onPressed;
+  final bool isSelected;
   final Color backgroundColor;
   final Color? borderColor;
   final Color? textColor;
@@ -12,6 +14,7 @@ final class ChipButton extends StatelessWidget {
     required this.text,
     required this.onPressed,
     required this.backgroundColor,
+    required this.isSelected,
     this.borderColor,
     super.key,
     this.textColor,
@@ -21,28 +24,27 @@ final class ChipButton extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: ProductPadding.ten(),
-      child: InkWell(
-        onTap: onPressed,
-        child: Chip(
-          materialTapTargetSize: MaterialTapTargetSize.padded,
-          side: borderColor.isNotNull
-              ? BorderSide(
-                  color: borderColor!,
-                  width: 3,
-                )
-              : null,
-          backgroundColor: backgroundColor,
-          labelPadding: ProductPadding.four(),
-          label: SizedBox(
-            width: context.width * 0.15,
-            child: Text(
-              text,
-              style: context.textTheme.titleSmall?.copyWith(
-                color: textColor,
-                fontWeight: FontWeight.bold,
-              ),
-              textAlign: TextAlign.center,
+      child: ChoiceChip(
+        selected: false,
+        onSelected: (value) => onPressed(value: value),
+        materialTapTargetSize: MaterialTapTargetSize.padded,
+        side: borderColor.isNotNull
+            ? BorderSide(
+                color: borderColor!,
+                width: 2,
+              )
+            : null,
+        backgroundColor: backgroundColor,
+        labelPadding: ProductPadding.four(),
+        label: SizedBox(
+          width: context.width * 0.15,
+          child: Text(
+            text,
+            style: context.textTheme.titleSmall?.copyWith(
+              color: textColor,
+              fontWeight: FontWeight.bold,
             ),
+            textAlign: TextAlign.center,
           ),
         ),
       ),
