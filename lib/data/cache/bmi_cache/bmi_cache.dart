@@ -1,26 +1,26 @@
 import 'dart:async';
 
 import 'package:bodymetrics/core/index.dart';
+import 'package:bodymetrics/data/cache/bmi_cache/bmi_cache_columns.dart';
 import 'package:bodymetrics/data/index.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
 @injectable
-final class BMICache extends ImpCache implements CacheMethods<UserMetrics, Json> {
-  BMICache();
+final class BmiCache extends ImpCache implements CacheMethods<UserMetrics, Json> {
+  BmiCache();
 
   @override
   Future<void> initializeTable(Database db, int version) async {
-    const table = 'result';
     await db.execute('''
         CREATE TABLE $table (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          date TEXT NOT NULL,
-          weight TEXT NULL,
-          height int NOT NULL, 
-          user_id INTEGER NOT NULL,
-          result int NOT NULL,
-          FOREIGN KEY (user_id) REFERENCES user(id)
+          ${BmiCacheColumns.id.value} INTEGER PRIMARY KEY AUTOINCREMENT,
+          ${BmiCacheColumns.date.value} TEXT NOT NULL,
+          ${BmiCacheColumns.weight.value} TEXT NULL,
+          ${BmiCacheColumns.height.value} int NOT NULL, 
+          ${BmiCacheColumns.userId.value} INTEGER NOT NULL,
+          ${BmiCacheColumns.result.value} int NOT NULL,
+          FOREIGN KEY (${BmiCacheColumns.userId.value}) REFERENCES user(id)
         )
       ''');
   }
@@ -38,7 +38,7 @@ final class BMICache extends ImpCache implements CacheMethods<UserMetrics, Json>
   }
 
   @override
-  String get table => 'result';
+  String get table => BmiCacheColumns.table.value;
 
   @override
   Future<bool> update(Database? db, Json value) {

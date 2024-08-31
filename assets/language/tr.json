@@ -58,5 +58,8 @@
         "onboarding_4": "Sonuçları dışa aktararak verilerinizi yedekleyebilirsiniz. Yedek dosyanız kaybolmadığı sürece, verileriniz asla kaybolmaz.",
         "onboarding_5": "Hadi başlayalım! 🚀",
         "skip": "Atla"
+    },
+    "home": {
+        "home": "Ana Sayfa"
     }
 }

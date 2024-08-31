@@ -16,7 +16,7 @@ final class UserMetric extends Equatable implements BaseModel<UserMetric> {
   final String? date;
   final String? height;
   final String? weight;
-  final BMIResult? bodymetricsResult;
+  final BmiResult? bodymetricsResult;
 
   @override
   factory UserMetric.fromJson(Map<String, dynamic> json) => _$UserMetricFromJson(json);

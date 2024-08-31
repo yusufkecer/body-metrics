@@ -36,7 +36,7 @@ mixin _SplashModel on State<_SplashBody>, DialogUtil {
 
   Future<void> initializeTables(ImpCache impCache) async {
     final appCache = Locator.sl<AppCache>();
-    final bmiCache = Locator.sl<BMICache>();
+    final bmiCache = Locator.sl<BmiCache>();
     final userCache = Locator.sl<UserCache>();
 
     if (impCache.db == null) {
