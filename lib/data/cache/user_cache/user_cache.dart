@@ -1,5 +1,6 @@
 import 'dart:async';
 import 'package:bodymetrics/core/index.dart';
+import 'package:bodymetrics/data/cache/user_cache/user_cache_tables.dart';
 import 'package:bodymetrics/data/index.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
@@ -13,12 +14,12 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json> {
   Future<void> initializeTable(Database db, int version) async {
     await db.execute('''
         CREATE TABLE user (
-          id INTEGER PRIMARY KEY AUTOINCREMENT,
-          name TEXT NOT NULL,
-          surname TEXT NULL,
-          gender INTEGER NULL,
-          avatar TEXT NULL,
-          birthOfDate TEXT NULL
+          ${UserCacheTables.id.value} INTEGER PRIMARY KEY AUTOINCREMENT,
+          ${UserCacheTables.name.value} TEXT NOT NULL,
+          ${UserCacheTables.surname.value} TEXT NULL,
+          ${UserCacheTables.gender.value} INTEGER NULL,
+          ${UserCacheTables.avatar.value} TEXT NULL,
+          ${UserCacheTables.birthOfDate.value} TEXT NULL
         )
       ''');
 
@@ -26,7 +27,7 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json> {
   }
 
   @override
-  String get table => 'user';
+  String get table => UserCacheTables.table.value;
 
   @override
   Future<bool> insert(Database? db, Json value) async {

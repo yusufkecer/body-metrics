@@ -1,7 +1,7 @@
 part of 'onboard.dart';
 
 mixin _OnboardModel on State<_OnboardBody>, _PageViewMixin {
-  IntroKey pageController = IntroKey();
+  final IntroKey _pageController = IntroKey();
   int get _pageListCount => _pageViewList.length - 1;
 
   @override
@@ -14,12 +14,12 @@ mixin _OnboardModel on State<_OnboardBody>, _PageViewMixin {
 
   @override
   void dispose() {
-    pageController.currentState?.dispose();
+    _pageController.currentState?.dispose();
     super.dispose();
   }
 
   void _skip() {
-    context.read<OnboardCubit>().skip(_pageListCount, pageController);
+    context.read<OnboardCubit>().skip(_pageListCount, _pageController);
   }
 
   Future<void> _onDone() async {

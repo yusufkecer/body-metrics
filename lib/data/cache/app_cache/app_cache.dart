@@ -7,34 +7,34 @@ import 'package:bodymetrics/feature/index.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
-part 'app_cache_tables.dart';
+part 'app_cache_columns.dart';
 
 @injectable
 final class AppCache extends ImpCache implements CacheMethods<JsonList, Json> {
   AppCache() : super();
 
   @override
-  String get table => AppTable.table.value;
+  String get table => AppColumns.table.value;
 
   @override
   Future<void> initializeTable(Database db, int version) async {
     await db.execute('''
     CREATE TABLE $table (
-      ${AppTable.theme.value} TEXT NULL,
-      ${AppTable.language.value} TEXT NULL,
-      ${AppTable.isCompletedOnboard.value} INTEGER NULL,
-      ${AppTable.activeUser.value} INTEGER NULL,
-      ${AppTable.page.value} TEXT NULL
+      ${AppColumns.theme.value} TEXT NULL,
+      ${AppColumns.language.value} TEXT NULL,
+      ${AppColumns.isCompletedOnboard.value} INTEGER NULL,
+      ${AppColumns.activeUser.value} INTEGER NULL,
+      ${AppColumns.page.value} TEXT NULL
     )
   ''');
   }
 
   final List<String> _columns = [
-    AppTable.theme.value,
-    AppTable.language.value,
-    AppTable.isCompletedOnboard.value,
-    AppTable.activeUser.value,
-    AppTable.page.value,
+    AppColumns.theme.value,
+    AppColumns.language.value,
+    AppColumns.isCompletedOnboard.value,
+    AppColumns.activeUser.value,
+    AppColumns.page.value,
   ];
 
   ///There should be only one row

@@ -1,42 +1,42 @@
 import 'package:bodymetrics/core/index.dart';
 import 'package:easy_localization/easy_localization.dart';
 
-enum BMIResult { underweight, normal, overweight, obese, morbidlyObese, unknown }
+enum BmiResult { underweight, normal, overweight, obese, morbidlyObese, unknown }
 
-extension ResultExtension on BMIResult {
+extension ResultExtension on BmiResult {
   String get result {
     switch (this) {
-      case BMIResult.underweight:
+      case BmiResult.underweight:
         return LocaleKeys.bmi_result_under_weight.tr();
-      case BMIResult.normal:
+      case BmiResult.normal:
         return LocaleKeys.bmi_result_normal.tr();
-      case BMIResult.overweight:
+      case BmiResult.overweight:
         return LocaleKeys.bmi_result_over_weight.tr();
-      case BMIResult.obese:
+      case BmiResult.obese:
         return LocaleKeys.bmi_result_obese.tr();
-      case BMIResult.morbidlyObese:
+      case BmiResult.morbidlyObese:
         return LocaleKeys.bmi_result_severely_obese.tr();
-      case BMIResult.unknown:
+      case BmiResult.unknown:
         return LocaleKeys.bmi_result_unkown.tr();
     }
   }
 }
 
 extension ParseExtension on int {
-  BMIResult get resultParse {
+  BmiResult get resultParse {
     switch (this) {
       case 0:
-        return BMIResult.underweight;
+        return BmiResult.underweight;
       case 1:
-        return BMIResult.normal;
+        return BmiResult.normal;
       case 2:
-        return BMIResult.overweight;
+        return BmiResult.overweight;
       case 3:
-        return BMIResult.obese;
+        return BmiResult.obese;
       case 4:
-        return BMIResult.morbidlyObese;
+        return BmiResult.morbidlyObese;
       default:
-        return BMIResult.unknown;
+        return BmiResult.unknown;
     }
   }
 }

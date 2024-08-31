@@ -35,10 +35,6 @@ mixin _SplashModel on State<_SplashBody>, DialogUtil {
   }
 
   Future<void> initializeTables(ImpCache impCache) async {
-    final appCache = Locator.sl<AppCache>();
-    final bmiCache = Locator.sl<BMICache>();
-    final userCache = Locator.sl<UserCache>();
-
     if (impCache.db == null) {
       showLottieError(LocaleKeys.dialog_general_error.tr());
 
@@ -47,9 +43,9 @@ mixin _SplashModel on State<_SplashBody>, DialogUtil {
 
     'initializing tables'.log;
 
-    await appCache.initializeTable(impCache.db!, impCache.version);
-    await userCache.initializeTable(impCache.db!, impCache.version);
-    await bmiCache.initializeTable(impCache.db!, impCache.version);
+    await Locator.sl<AppCache>().initializeTable(impCache.db!, impCache.version);
+    await Locator.sl<BmiCache>().initializeTable(impCache.db!, impCache.version);
+    await Locator.sl<UserCache>().initializeTable(impCache.db!, impCache.version);
   }
 
   void pushNewView(PageRouteInfo arguments) {

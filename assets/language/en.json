@@ -59,5 +59,13 @@
         "onboarding_4": "You can export your results to back up your data. As long as your backup file is safe, your data will never be lost.",
         "onboarding_5": "Let's get started! 🚀",
         "skip": "Skip"
+    },
+    "home": {
+        "home": "Home Page",
+        "yearly": "Yearly",
+        "monthly": "Monthly",
+        "weekly": "Weekly",
+        "hello": "Hello",
+        "see_all": "See All"
     }
 }
