@@ -11,7 +11,7 @@ UserMetric _$UserMetricFromJson(Map<String, dynamic> json) => UserMetric(
       height: json['height'] as String?,
       weight: json['weight'] as String?,
       bodymetricsResult:
-          $enumDecodeNullable(_$BMIResultEnumMap, json['bodymetricsResult']),
+          $enumDecodeNullable(_$BmiResultEnumMap, json['bodymetricsResult']),
     );
 
 Map<String, dynamic> _$UserMetricToJson(UserMetric instance) =>
@@ -19,14 +19,14 @@ Map<String, dynamic> _$UserMetricToJson(UserMetric instance) =>
       'date': instance.date,
       'height': instance.height,
       'weight': instance.weight,
-      'bodymetricsResult': _$BMIResultEnumMap[instance.bodymetricsResult],
+      'bodymetricsResult': _$BmiResultEnumMap[instance.bodymetricsResult],
     };
 
-const _$BMIResultEnumMap = {
-  BMIResult.underweight: 'underweight',
-  BMIResult.normal: 'normal',
-  BMIResult.overweight: 'overweight',
-  BMIResult.obese: 'obese',
-  BMIResult.morbidlyObese: 'morbidlyObese',
-  BMIResult.unknown: 'unknown',
+const _$BmiResultEnumMap = {
+  BmiResult.underweight: 'underweight',
+  BmiResult.normal: 'normal',
+  BmiResult.overweight: 'overweight',
+  BmiResult.obese: 'obese',
+  BmiResult.morbidlyObese: 'morbidlyObese',
+  BmiResult.unknown: 'unknown',
 };

@@ -56,8 +56,9 @@ class _Chip extends StatelessWidget {
     return ChipButton(
       text: text,
       onPressed: onPressed,
-      borderColor: isSelected ? white : deepPurple,
-      backgroundColor: isSelected ? deepPurple : white,
+      borderColor: !isSelected ? white : deepPurple,
+      backgroundColor: !isSelected ? deepPurple : white,
+      textColor: !isSelected ? white : deepPurple,
     );
   }
 }

@@ -42,6 +42,12 @@ abstract class _$AppRouter extends RootStackRouter {
         ),
       );
     },
+    HomeView.name: (routeData) {
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: const Home(),
+      );
+    },
     OnboardView.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -160,6 +166,20 @@ class HeightViewArgs {
   String toString() {
     return 'HeightViewArgs{isFemale: $isFemale, key: $key}';
   }
+}
+
+/// generated route for
+/// [Home]
+class HomeView extends PageRouteInfo<void> {
+  const HomeView({List<PageRouteInfo>? children})
+      : super(
+          HomeView.name,
+          initialChildren: children,
+        );
+
+  static const String name = 'HomeView';
+
+  static const PageInfo<void> page = PageInfo<void>(name);
 }
 
 /// generated route for

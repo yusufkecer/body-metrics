@@ -6,14 +6,18 @@ mixin HomeModel on State<_HomeBody> {
 
   void _yearlyPeriod() {
     _homePeriod = HomePeriod.yearly;
+    setState(() {});
   }
 
   void _monthlyPeriod() {
     _homePeriod = HomePeriod.monthly;
+
+    setState(() {});
   }
 
   void _weeklyPeriod() {
     _homePeriod = HomePeriod.weekly;
+    setState(() {});
   }
 }
 

@@ -7,12 +7,14 @@ final class ChipButton extends StatelessWidget {
   final void Function() onPressed;
   final Color backgroundColor;
   final Color? borderColor;
+  final Color? textColor;
   const ChipButton({
     required this.text,
     required this.onPressed,
     required this.backgroundColor,
     this.borderColor,
     super.key,
+    this.textColor,
   });
 
   @override
@@ -20,12 +22,27 @@ final class ChipButton extends StatelessWidget {
     return Padding(
       padding: ProductPadding.ten(),
       child: InkWell(
+        onTap: onPressed,
         child: Chip(
-          side: borderColor.isNotNull ? BorderSide(color: borderColor!) : null,
+          materialTapTargetSize: MaterialTapTargetSize.padded,
+          side: borderColor.isNotNull
+              ? BorderSide(
+                  color: borderColor!,
+                  width: 3,
+                )
+              : null,
           backgroundColor: backgroundColor,
-          labelPadding: ProductPadding.ten(),
-          label: Text(
-            text,
+          labelPadding: ProductPadding.four(),
+          label: SizedBox(
+            width: context.width * 0.15,
+            child: Text(
+              text,
+              style: context.textTheme.titleSmall?.copyWith(
+                color: textColor,
+                fontWeight: FontWeight.bold,
+              ),
+              textAlign: TextAlign.center,
+            ),
           ),
         ),
       ),
