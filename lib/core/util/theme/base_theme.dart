@@ -10,6 +10,7 @@ final class BaseTheme {
       useMaterial3: true,
       appBarTheme: _appBarTheme,
       cardTheme: _cardTheme,
+      chipTheme: _chipTheme,
       dialogTheme: _dialogTheme,
       expansionTileTheme: _expansionTileThemeData,
       listTileTheme: _listTileThemeData,
@@ -43,13 +44,17 @@ final class BaseTheme {
   );
 
   final CardTheme _cardTheme = const CardTheme(
-    margin: EdgeInsets.zero,
     elevation: ThemeConstants.elevation,
     shape: RoundedRectangleBorder(
-      borderRadius: ProductRadius.ten(),
+      borderRadius: ProductRadius.fifteen(),
     ),
   );
-
+  final ChipThemeData _chipTheme = const ChipThemeData(
+    elevation: ThemeConstants.elevation,
+    shape: RoundedRectangleBorder(
+      borderRadius: ProductRadius.fifteen(),
+    ),
+  );
   final DialogTheme _dialogTheme = DialogTheme(
     barrierColor: ProductColor().seedFourTenths,
     elevation: 2,

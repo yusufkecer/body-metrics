@@ -1,3 +1,4 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/core/widgets/chip_button.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -8,6 +9,7 @@ part 'widgets/data_list.dart';
 part 'widgets/period_select.dart';
 
 @immutable
+@RoutePage(name: 'HomeView')
 final class Home extends StatefulWidget {
   const Home({super.key});
 
@@ -20,7 +22,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return GradientScaffold(
       appBar: CustomAppBar(
-        title: LocaleKeys.home.tr(),
+        title: "Hello, Jon Doe",
       ),
       body: const _HomeBody(),
     );
@@ -38,16 +40,28 @@ final class _HomeBody extends StatefulWidget {
 class __HomeBodyState extends State<_HomeBody> with HomeModel {
   @override
   Widget build(BuildContext context) {
-    return Center(
+    return Padding(
+      padding: ProductPadding.ten(),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
         children: [
-          Text('Hello, $_userName'),
+          // Align(
+          //   alignment: Alignment.topLeft,
+          //   child: Text(
+          //     'Hello, $_userName',
+          //     style: Theme.of(context).textTheme.titleLarge?.copyWith(
+          //           fontWeight: FontWeight.bold,
+          //         ),
+          //   ),
+          // ),
+
           _PeriodSelect(
             homePeriod: _homePeriod,
             onYearlySelected: _yearlyPeriod,
             onMonthlySelected: _monthlyPeriod,
             onWeeklySelected: _weeklyPeriod,
+          ),
+          _DataList(
+            period: 'Weekly',
           ),
         ],
       ),

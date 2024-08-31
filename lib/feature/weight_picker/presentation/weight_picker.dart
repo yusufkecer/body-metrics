@@ -22,7 +22,9 @@ final class WeightPicker extends StatelessWidget {
         title: LocaleKeys.weight_select_weight.tr(),
         action: ColorfulText(
           text: LocaleKeys.cont.tr(),
-          onTap: () {},
+          onTap: () {
+            context.pushRoute(const HomeView());
+          },
         ),
       ),
       body: const _WeightPickerBody(),

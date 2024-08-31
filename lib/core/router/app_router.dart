@@ -17,5 +17,6 @@ final class AppRouter extends _$AppRouter {
         AutoRoute(page: GenderView.page),
         AutoRoute(page: HeightView.page),
         AutoRoute(page: WeightView.page),
+        AutoRoute(page: HomeView.page),
       ];
 }
