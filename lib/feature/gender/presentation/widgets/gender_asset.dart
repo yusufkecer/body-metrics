@@ -36,7 +36,7 @@ final class _GenderAsset extends StatelessWidget {
                   textAlign: TextAlign.center,
                   style: context.textTheme.titleLarge?.copyWith(color: color),
                 ),
-                HorizantalSpace.xs(),
+                HorizontalSpace.xs(),
                 Icon(icon, color: color),
               ],
             ),
