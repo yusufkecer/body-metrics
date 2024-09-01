@@ -34,7 +34,7 @@ abstract class  LocaleKeys {
   static const bmi_result_obese = 'bmi_result.obese';
   static const bmi_result_severely_obese = 'bmi_result.severely_obese';
   static const bmi_result_very_severely_obese = 'bmi_result.very_severely_obese';
-  static const bmi_result_unkown = 'bmi_result.unkown';
+  static const bmi_result_unknown = 'bmi_result.unknown';
   static const bmi_result = 'bmi_result';
   static const dialog_progress_lost = 'dialog.progress_lost';
   static const dialog_general_error = 'dialog.general_error';
@@ -59,6 +59,15 @@ abstract class  LocaleKeys {
   static const home_yearly = 'home.yearly';
   static const home_monthly = 'home.monthly';
   static const home_weekly = 'home.weekly';
+  static const home_hello = 'home.hello';
+  static const home_see_more = 'home.see_more';
+  static const home_bmi = 'home.bmi';
+  static const home_weight = 'home.weight';
+  static const home_situation = 'home.situation';
+  static const home_date = 'home.date';
+  static const home_change = 'home.change';
+  static const home_report = 'home.report';
+  static const home_chart = 'home.chart';
   static const home = 'home';
 
 }

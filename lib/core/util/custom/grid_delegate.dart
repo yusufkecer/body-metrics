@@ -14,4 +14,10 @@ final class GridDelegate extends SliverGridDelegateWithFixedCrossAxisCount {
           crossAxisSpacing: 2,
           childAspectRatio: 1.25,
         );
+  const GridDelegate.dashBoard()
+      : super(
+          crossAxisCount: 2,
+          crossAxisSpacing: 12,
+          childAspectRatio: 1.1,
+        );
 }

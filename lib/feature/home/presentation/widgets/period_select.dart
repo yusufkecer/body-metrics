@@ -2,7 +2,7 @@ part of '../home.dart';
 
 @immutable
 final class _PeriodSelect extends StatelessWidget {
-  final HomePeriod homePeriod;
+  final _HomePeriod homePeriod;
   final void Function({required bool value}) onYearlySelected;
   final void Function({required bool value}) onMonthlySelected;
   final void Function({required bool value}) onWeeklySelected;
@@ -21,17 +21,17 @@ final class _PeriodSelect extends StatelessWidget {
         _Chip(
           text: LocaleKeys.home_weekly.tr(),
           onPressed: onWeeklySelected,
-          isSelected: homePeriod == HomePeriod.weekly,
+          isSelected: homePeriod == _HomePeriod.weekly,
         ),
         _Chip(
           text: LocaleKeys.home_monthly.tr(),
           onPressed: onMonthlySelected,
-          isSelected: homePeriod == HomePeriod.monthly,
+          isSelected: homePeriod == _HomePeriod.monthly,
         ),
         _Chip(
           text: LocaleKeys.home_yearly.tr(),
           onPressed: onYearlySelected,
-          isSelected: homePeriod == HomePeriod.yearly,
+          isSelected: homePeriod == _HomePeriod.yearly,
         ),
       ],
     );

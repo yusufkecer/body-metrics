@@ -37,7 +37,7 @@
         "obese": "Obese",
         "severely_obese": "Severely Obese",
         "very_severely_obese": "Very Severely Obese",
-        "unkown": "Unknown"
+        "unknown": "Unknown"
     },
     "dialog": {
         "progress_lost": "Are you sure? All your progress will be lost.",
@@ -65,7 +65,14 @@
         "yearly": "Yearly",
         "monthly": "Monthly",
         "weekly": "Weekly",
-        "hello": "Hello",
-        "see_all": "See All"
+        "hello": "Hello {}",
+        "see_more": "See More",
+        "bmi": "BMI",
+        "weight": "Weight",
+        "situation": "Situation",
+        "date": "Date",
+        "change": "change",
+        "report": "Report",
+        "chart": "Chart"
     }
 }
