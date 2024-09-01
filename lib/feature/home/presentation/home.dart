@@ -1,10 +1,17 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
+import 'package:bodymetrics/core/util/constants/index.dart';
+import 'package:bodymetrics/core/util/index.dart';
 import 'package:bodymetrics/core/widgets/chip_button.dart';
+import 'package:bodymetrics/core/widgets/custom_rich_text.dart';
+import 'package:bodymetrics/core/widgets/space_column.dart';
 import 'package:easy_localization/easy_localization.dart';
+import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 part 'home_model.dart';
+part 'widgets/card_widget.dart';
+part 'widgets/chart.dart';
 part 'widgets/data_list.dart';
 part 'widgets/period_select.dart';
 
@@ -22,7 +29,7 @@ class _HomeState extends State<Home> {
   Widget build(BuildContext context) {
     return GradientScaffold(
       appBar: CustomAppBar(
-        title: "Hello, Jon Doe",
+        title: LocaleKeys.home_hello.tr(args: ['John Doe']),
       ),
       body: const _HomeBody(),
     );
@@ -42,28 +49,20 @@ class __HomeBodyState extends State<_HomeBody> with HomeModel {
   Widget build(BuildContext context) {
     return Padding(
       padding: ProductPadding.ten(),
-      child: Column(
-        children: [
-          // Align(
-          //   alignment: Alignment.topLeft,
-          //   child: Text(
-          //     'Hello, $_userName',
-          //     style: Theme.of(context).textTheme.titleLarge?.copyWith(
-          //           fontWeight: FontWeight.bold,
-          //         ),
-          //   ),
-          // ),
-
-          _PeriodSelect(
-            homePeriod: _homePeriod,
-            onYearlySelected: _yearlyPeriod,
-            onMonthlySelected: _monthlyPeriod,
-            onWeeklySelected: _weeklyPeriod,
-          ),
-          _DataList(
-            period: 'Weekly',
-          ),
-        ],
+      child: SingleChildScrollView(
+        child: Column(
+          children: [
+            _PeriodSelect(
+              homePeriod: _period,
+              onYearlySelected: _yearlyPeriod,
+              onMonthlySelected: _monthlyPeriod,
+              onWeeklySelected: _weeklyPeriod,
+            ),
+            const _DataList(),
+            VerticalSpace.m(),
+            const _Chart(),
+          ],
+        ),
       ),
     );
   }

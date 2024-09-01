@@ -6,12 +6,13 @@ enum ProductIcon {
   mars(FontAwesomeIcons.mars),
   user(FontAwesomeIcons.userAstronaut),
   share(FontAwesomeIcons.arrowUpRightFromSquare),
-
   plus(FontAwesomeIcons.plus),
   birthDay(FontAwesomeIcons.cakeCandles),
   arrowLeft(FontAwesomeIcons.arrowLeft),
   arrowRight(FontAwesomeIcons.arrowRight),
   check(FontAwesomeIcons.check),
+  weight(FontAwesomeIcons.weightScale),
+  chart(FontAwesomeIcons.chartLine),
   ;
 
   final IconData icon;

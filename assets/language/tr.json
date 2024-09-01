@@ -36,7 +36,7 @@
         "over_weight": "Fazla Kilolu",
         "obese": "Obez",
         "severely_obese": "Aşırı Obez",
-        "unkown": "Bilinmeyen"
+        "unknown": "Bilinmeyen"
     },
     "dialog": {
         "progress_lost": "Emin misiniz? Tüm ilerlemeniz kaybolacak.",
@@ -64,7 +64,14 @@
         "yearly": "Yıllık",
         "monthly": "Aylık",
         "weekly": "Haftalık",
-        "hello": "Merhaba",
-        "see_all": "Tümünü Gör"
+        "hello": "Merhaba {}",
+        "see_more": "Tümünü Gör",
+        "bmi": "VTİ",
+        "weight": "Kilo",
+        "situation": "Durum",
+        "date": "Tarih",
+        "change": "Değişim",
+        "report": "Rapor",
+        "chart": "Grafik"
     }
 }

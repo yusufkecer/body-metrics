@@ -1,34 +1,58 @@
 part of '../home.dart';
 
 class _DataList extends StatelessWidget {
-  final String period;
-
-  const _DataList({required this.period, super.key});
+  const _DataList();
 
   @override
   Widget build(BuildContext context) {
-    return Card(
-      child: Padding(
-        padding: ProductPadding.ten(),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Expanded(
-                  child: Text(period),
+    return _CardWidget(
+        buttonTitle: LocaleKeys.home_see_more.tr(),
+        onPressed: () {
+          'Button pressed'.log;
+        },
+        title: LocaleKeys.home_report.tr(),
+        icon: ProductIcon.weight.icon,
+        children: [
+          GridView.builder(
+            physics: const NeverScrollableScrollPhysics(),
+            shrinkWrap: true,
+            itemCount: 2,
+            gridDelegate: const GridDelegate.dashBoard(),
+            itemBuilder: (context, index) {
+              return DecoratedBox(
+                decoration: BoxDecoration(
+                  border: Border.all(
+                    color: ProductColor().white,
+                  ),
+                  borderRadius: BorderRadius.circular(10),
                 ),
-                TextButton(
-                  onPressed: () {
-                    'Button pressed'.log;
-                  },
-                  child: const Text('See All'),
+                child: Padding(
+                  padding: ProductPadding.ten(),
+                  child: SpaceColumn(
+                    space: SpaceValues.xs.value,
+                    children: [
+                      CustomRichText(
+                        title: LocaleKeys.home_weight.tr(),
+                        subTitle: 'Sub Title',
+                      ),
+                      CustomRichText(
+                        title: LocaleKeys.home_bmi.tr(),
+                        subTitle: 'Sub Title',
+                      ),
+                      CustomRichText(
+                        title: LocaleKeys.home_situation.tr(),
+                        subTitle: 'Sub Title',
+                      ),
+                      CustomRichText(
+                        title: LocaleKeys.home_change.tr(),
+                        subTitle: 'Sub Title',
+                      ),
+                    ],
+                  ),
                 ),
-              ],
-            ),
-          ],
-        ),
-      ),
-    );
+              );
+            },
+          ),
+        ]);
   }
 }

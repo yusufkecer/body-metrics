@@ -17,7 +17,7 @@ extension ResultExtension on BmiResult {
       case BmiResult.morbidlyObese:
         return LocaleKeys.bmi_result_severely_obese.tr();
       case BmiResult.unknown:
-        return LocaleKeys.bmi_result_unkown.tr();
+        return LocaleKeys.bmi_result_unknown.tr();
     }
   }
 }
