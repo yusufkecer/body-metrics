@@ -1,7 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/core/util/constants/index.dart';
-import 'package:bodymetrics/core/util/index.dart';
 import 'package:bodymetrics/core/widgets/chip_button.dart';
 import 'package:bodymetrics/core/widgets/custom_rich_text.dart';
 import 'package:bodymetrics/core/widgets/space_column.dart';

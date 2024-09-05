@@ -1,5 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
+import 'package:bodymetrics/core/theme/custom_theme.dart';
 import 'package:bodymetrics/feature/onboard/domain/use_case/onboard_use_case.dart';
 import 'package:bodymetrics/injection/locator.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -58,7 +59,7 @@ class __OnboardBodyState extends State<_OnboardBody> with _PageViewMixin, _Onboa
           done: Icon(ProductIcon.check.icon),
           back: Icon(ProductIcon.arrowLeft.icon),
           onDone: _onDone,
-          baseBtnStyle: BaseTheme().onboardButton,
+          baseBtnStyle: Locator.sl<CustomTheme>().onboardButton,
           dotsDecorator: DotsDecorator(
             size: const CustomSize.activeDot(),
             activeSize: const CustomSize.dots(),
