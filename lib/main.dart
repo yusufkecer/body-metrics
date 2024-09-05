@@ -1,4 +1,5 @@
 import 'package:bodymetrics/core/index.dart';
+import 'package:bodymetrics/core/theme/custom_theme.dart';
 import 'package:bodymetrics/injection/locator.dart';
 
 import 'package:easy_localization/easy_localization.dart';
@@ -20,7 +21,7 @@ class Bodymetrics extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp.router(
       title: 'BodyMetrics',
-      theme: Locator.sl<BaseTheme>().theme,
+      theme: Locator.sl<CustomTheme>().theme,
       routerConfig: Locator.sl<AppRouter>().config(),
       debugShowCheckedModeBanner: false,
       localizationsDelegates: context.localizationDelegates,

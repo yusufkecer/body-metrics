@@ -1,7 +1,8 @@
 part of '../home.dart';
 
+@immutable
 class _Chart extends StatelessWidget {
-  const _Chart({super.key});
+  const _Chart();
 
   @override
   Widget build(BuildContext context) {
@@ -19,8 +20,9 @@ class _Chart extends StatelessWidget {
   }
 }
 
-class _CustomChart extends StatefulWidget {
-  const _CustomChart({super.key});
+@immutable
+final class _CustomChart extends StatefulWidget {
+  const _CustomChart();
 
   @override
   State<_CustomChart> createState() => _CustomChartState();

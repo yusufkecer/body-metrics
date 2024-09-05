@@ -1,7 +1,6 @@
 part of 'home.dart';
 
 mixin HomeModel on State<_HomeBody> {
-  String get _userName => 'John Doe';
   _HomePeriod _period = _HomePeriod.weekly;
 
   void _yearlyPeriod({required bool value}) {

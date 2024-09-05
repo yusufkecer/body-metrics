@@ -2,7 +2,8 @@ import 'package:bodymetrics/core/index.dart';
 import 'package:flutter/material.dart';
 
 @immutable
-abstract class ThemeConstants {
+final class ThemeConstants {
+  const ThemeConstants._();
   static const elevationZero = 0.0;
   static const elevation = 2.0;
 

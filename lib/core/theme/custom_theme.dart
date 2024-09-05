@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 
 @lazySingleton
 @immutable
-final class BaseTheme {
+class CustomTheme implements BaseTheme {
   ThemeData get theme {
     return ThemeData(
       useMaterial3: true,
@@ -129,5 +129,39 @@ final class BaseTheme {
     ),
   );
 
+  @override
+  AppBarTheme get appBarTheme => _appBarTheme;
+
+  @override
+  CardTheme get cardTheme => _cardTheme;
+
+  @override
+  CheckboxThemeData get checkboxTheme => _checkboxTheme;
+
+  @override
+  ChipThemeData get chipTheme => _chipTheme;
+
+  @override
+  DatePickerThemeData get datePickerTheme => _datePickerTheme;
+
+  @override
+  DialogTheme get dialogTheme => _dialogTheme;
+
+  @override
+  ExpansionTileThemeData get expansionTileThemeData => _expansionTileThemeData;
+
+  @override
+  FilledButtonThemeData get filledButtonTheme => _filledButtonTheme;
+
+  @override
+  InputDecorationTheme get inputDecorationTheme => _inputDecorationTheme;
+
+  @override
+  ListTileThemeData get listTileThemeData => _listTileThemeData;
+
+  @override
   ButtonStyle get onboardButton => _onboardButton;
+
+  @override
+  TextSelectionThemeData get textSelectionTheme => _textSelectionTheme;
 }
