@@ -1,15 +1,14 @@
 part of 'create_profile.dart';
 
-mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
+mixin UserInfoFormModel on State<_UserInfoFormBody>, DialogUtil {
   final TextEditingController _fullNameController = TextEditingController();
   final DateController _birthOfDateController = DateController();
-  final ValueNotifier<_FormControl> _valueNotifier = ValueNotifier<_FormControl>(const _FormControl());
 
   @override
   void dispose() {
     _fullNameController.dispose();
     _birthOfDateController.dispose();
-    _valueNotifier.dispose();
+
     super.dispose();
   }
 
@@ -42,7 +41,7 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
     return result;
   }
 
-  bool get isAnyProgress => _valueNotifier.value._isFormEmpty;
+  bool get isAnyProgress => context.read<UserInfoFormCubit>().state.createProfileEntity.isFormEmpty;
 
   void _openDatePicker() {
     showDatePicker(
@@ -59,8 +58,7 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
 
   void _formListener() {
     final isFormFilled = _checkFields();
-
-    _valueNotifier.value = _valueNotifier.value.copyWith(isFormEmpty: isFormFilled);
+    context.read<UserInfoFormCubit>().setFormEmpty(isFormEmpty: isFormFilled);
   }
 
   bool _checkFields() {
@@ -75,7 +73,7 @@ mixin UserInfoFormModel on State<UserInfoForm>, DialogUtil {
 
     final result = await confirmDialog(LocaleKeys.dialog_progress_lost.tr());
     if ((result.isNotNull && !result!) || !context.mounted) return;
-    _valueNotifier.value = _valueNotifier.value.copyWith(isFormEmpty: false);
+    context.read<UserInfoFormCubit>().setFormEmpty(isFormEmpty: false);
     Future.delayed(const ProductDuration.ms100(), () {
       context.maybePop();
     });

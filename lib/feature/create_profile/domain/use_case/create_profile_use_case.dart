@@ -1,4 +1,7 @@
-part of '../../presentation/create_profile.dart';
+import 'package:bodymetrics/core/index.dart';
+import 'package:bodymetrics/feature/create_profile/domain/repository/create_profile_repository.dart';
+import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
