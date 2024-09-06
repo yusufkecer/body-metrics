@@ -65,20 +65,21 @@ mixin UserInfoFormModel on State<_UserInfoFormBody>, DialogUtil {
     return _fullNameController.text.isNotEmpty || _birthOfDateController.text.isNotEmpty;
   }
 
-  Future<void> _didPop({required bool didPop, required bool isFormEmpty}) async {
-    print("did ${isFormEmpty}");
-    if (!isFormEmpty && mounted) {
+  Future<void> _didPop({required bool isFormNotEmpty}) async {
+    print("is form empty ${context.read<UserInfoFormCubit>().state.isFormEmpty}");
+    'isFormNotEmpty $isFormNotEmpty'.log;
+    if (!isFormNotEmpty && mounted) {
       await context.maybePop();
       return;
     }
-    print("did2 ${isFormEmpty}");
+
     final result = await confirmDialog(LocaleKeys.dialog_progress_lost.tr());
-    print("did3 ${isFormEmpty}");
-    if (!mounted || (result.isNotNull && !result!)) return;
+
+    if (!mounted || (result.isNotNull && !result!)) {
+      return;
+    }
     context.read<UserInfoFormCubit>().setFormEmpty(param: false);
 
-    Future.delayed(const ProductDuration.ms100(), () {
-      context.maybePop();
-    });
+    await context.maybePop();
   }
 }

@@ -62,10 +62,9 @@ class _UserInfoFormBodyState extends State<_UserInfoFormBody> with DialogUtil, U
           ),
           Form(
             onChanged: _formListener,
-            canPop: context.read<UserInfoFormCubit>().state.isFormEmpty,
+            canPop: context.watch<UserInfoFormCubit>().state.isFormEmpty,
             onPopInvoked: (isPop) async => _didPop(
-              didPop: isPop,
-              isFormEmpty: context.read<UserInfoFormCubit>().state.isFormEmpty ?? false,
+              isFormNotEmpty: context.read<UserInfoFormCubit>().state.isFormEmpty ?? false,
             ),
             child: Column(
               children: [
