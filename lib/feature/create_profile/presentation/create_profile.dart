@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/feature/create_profile/cubit/profile_cubit.dart';
-import 'package:bodymetrics/feature/create_profile/domain/entity/create_profile_entity.dart';
 import 'package:bodymetrics/feature/create_profile/domain/repository/create_profile_repository.dart';
 import 'package:bodymetrics/feature/create_profile/domain/use_case/create_profile_use_case.dart';
 import 'package:bodymetrics/injection/locator.dart';
@@ -28,7 +27,7 @@ class _UserInfoFormState extends State<UserInfoForm> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
-      create: (_) => Locator.sl<UserInfoFormCubit>(instanceName: Locator.sl<CreateProfileEntity>().toString()),
+      create: (_) => Locator.sl<UserInfoFormCubit>(),
       child: GradientScaffold(
         appBar: CustomAppBar(
           title: LocaleKeys.register_complete.tr(),
@@ -43,7 +42,6 @@ class _UserInfoFormBody extends StatefulWidget {
   final String avatar;
   const _UserInfoFormBody({
     required this.avatar,
-    super.key,
   });
 
   @override
@@ -64,9 +62,11 @@ class _UserInfoFormBodyState extends State<_UserInfoFormBody> with DialogUtil, U
           ),
           Form(
             onChanged: _formListener,
-            canPop: context.read<UserInfoFormCubit>().state.createProfileEntity.isFormEmpty,
+            canPop: context.read<UserInfoFormCubit>().state.isFormEmpty,
             onPopInvoked: (isPop) async => _didPop(
-                didPop: isPop, isFormEmpty: context.read<UserInfoFormCubit>().state.createProfileEntity.isFormEmpty),
+              didPop: isPop,
+              isFormEmpty: context.read<UserInfoFormCubit>().state.isFormEmpty ?? false,
+            ),
             child: Column(
               children: [
                 CustomTextField(
