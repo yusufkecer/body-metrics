@@ -5,7 +5,7 @@ class HeightSelectorCubit extends Cubit<HeightSelectorState> {
   HeightSelectorCubit()
       : super(
           HeightSelectorInitial(
-            _initPage.toInt(),
+            _initPage.toInt(), //FIXME unnecessary conversion
             _initPage,
           ),
         );
