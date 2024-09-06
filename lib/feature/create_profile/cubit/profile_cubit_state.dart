@@ -1,13 +1,14 @@
 part of 'profile_cubit.dart';
 
 sealed class UserInfoFOrmCubitState extends Equatable {
-  final CreateProfileEntity createProfileEntity;
-  const UserInfoFOrmCubitState({required this.createProfileEntity});
+  final bool? isFormEmpty;
+
+  const UserInfoFOrmCubitState({this.isFormEmpty});
 
   @override
   List<Object> get props => [];
 }
 
-final class UserInfoFormCubitInitial extends UserInfoFOrmCubitState {
-  const UserInfoFormCubitInitial({required super.createProfileEntity});
+class UserInfoFormCubitInitial extends UserInfoFOrmCubitState {
+  const UserInfoFormCubitInitial({super.isFormEmpty});
 }

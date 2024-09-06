@@ -41,7 +41,7 @@ mixin UserInfoFormModel on State<_UserInfoFormBody>, DialogUtil {
     return result;
   }
 
-  bool get isAnyProgress => context.read<UserInfoFormCubit>().state.createProfileEntity.isFormEmpty;
+  bool get isAnyProgress => context.read<UserInfoFormCubit>().state.isFormEmpty ?? false;
 
   void _openDatePicker() {
     showDatePicker(
@@ -58,7 +58,7 @@ mixin UserInfoFormModel on State<_UserInfoFormBody>, DialogUtil {
 
   void _formListener() {
     final isFormFilled = _checkFields();
-    context.read<UserInfoFormCubit>().setFormEmpty(isFormEmpty: isFormFilled);
+    context.read<UserInfoFormCubit>().setFormEmpty(param: isFormFilled);
   }
 
   bool _checkFields() {
@@ -66,14 +66,17 @@ mixin UserInfoFormModel on State<_UserInfoFormBody>, DialogUtil {
   }
 
   Future<void> _didPop({required bool didPop, required bool isFormEmpty}) async {
+    print("did ${isFormEmpty}");
     if (!isFormEmpty && mounted) {
       await context.maybePop();
       return;
     }
-
+    print("did2 ${isFormEmpty}");
     final result = await confirmDialog(LocaleKeys.dialog_progress_lost.tr());
-    if ((result.isNotNull && !result!) || !context.mounted) return;
-    context.read<UserInfoFormCubit>().setFormEmpty(isFormEmpty: false);
+    print("did3 ${isFormEmpty}");
+    if (!mounted || (result.isNotNull && !result!)) return;
+    context.read<UserInfoFormCubit>().setFormEmpty(param: false);
+
     Future.delayed(const ProductDuration.ms100(), () {
       context.maybePop();
     });

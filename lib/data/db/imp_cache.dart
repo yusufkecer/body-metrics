@@ -68,7 +68,7 @@ class ImpCache implements BaseDatabase {
 
     'rowList: $rowList'.log;
 
-    jsonEncode(rowList).log;
-    return rowList.length == tableNames.length;
+    'columns ${jsonEncode(rowList)}'.log;
+    return rowList.isNotEmpty;
   }
 }
