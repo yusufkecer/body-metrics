@@ -6,13 +6,9 @@ part 'profile_cubit_state.dart';
 
 @injectable
 class UserInfoFormCubit extends Cubit<UserInfoFOrmCubitState> {
-  UserInfoFormCubit() : super(UserInfoFormCubitInitial());
+  UserInfoFormCubit() : super(const UserInfoFormCubitInitial(isFormEmpty: true));
 
   void setFormEmpty({required bool param}) {
-    emit(
-      UserInfoFormCubitInitial(
-        isFormEmpty: param,
-      ),
-    );
+    emit(UserInfoFormCubitInitial(isFormEmpty: param));
   }
 }

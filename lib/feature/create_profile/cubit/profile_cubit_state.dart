@@ -6,7 +6,7 @@ sealed class UserInfoFOrmCubitState extends Equatable {
   const UserInfoFOrmCubitState({this.isFormEmpty});
 
   @override
-  List<Object> get props => [];
+  List<Object> get props => [isFormEmpty ?? false];
 }
 
 class UserInfoFormCubitInitial extends UserInfoFOrmCubitState {

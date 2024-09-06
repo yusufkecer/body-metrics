@@ -41,8 +41,6 @@ mixin UserInfoFormModel on State<_UserInfoFormBody>, DialogUtil {
     return result;
   }
 
-  bool get isAnyProgress => context.read<UserInfoFormCubit>().state.isFormEmpty ?? false;
-
   void _openDatePicker() {
     showDatePicker(
       barrierColor: ProductColor().seedFourTenths,
@@ -62,23 +60,24 @@ mixin UserInfoFormModel on State<_UserInfoFormBody>, DialogUtil {
   }
 
   bool _checkFields() {
-    return _fullNameController.text.isNotEmpty || _birthOfDateController.text.isNotEmpty;
+    return _fullNameController.text.isEmpty && _birthOfDateController.text.isEmpty;
   }
 
-  Future<void> _didPop({required bool didPop, required bool isFormEmpty}) async {
-    print("did ${isFormEmpty}");
-    if (!isFormEmpty && mounted) {
+  Future<void> _didPop({required bool isFormEmpty}) async {
+    if (isFormEmpty) {
       await context.maybePop();
       return;
     }
-    print("did2 ${isFormEmpty}");
-    final result = await confirmDialog(LocaleKeys.dialog_progress_lost.tr());
-    print("did3 ${isFormEmpty}");
-    if (!mounted || (result.isNotNull && !result!)) return;
-    context.read<UserInfoFormCubit>().setFormEmpty(param: false);
 
-    Future.delayed(const ProductDuration.ms100(), () {
-      context.maybePop();
-    });
+    final result = await confirmDialog(LocaleKeys.dialog_progress_lost.tr());
+
+    if (!mounted || (result.isNotNull && !result!)) {
+      return;
+    }
+
+    context.read<UserInfoFormCubit>().setFormEmpty(param: true);
+
+    await Future<void>.delayed(Duration.zero);
+    if (mounted) await context.maybePop();
   }
 }
