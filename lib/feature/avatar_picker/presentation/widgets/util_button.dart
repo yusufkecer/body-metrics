@@ -2,9 +2,10 @@ part of '../avatar_picker.dart';
 
 @immutable
 final class UtilButton extends StatelessWidget {
+  const UtilButton({required this.icon, required this.onPressed, super.key});
+
   final IconData icon;
   final VoidCallback onPressed;
-  const UtilButton({required this.icon, required this.onPressed, super.key});
 
   @override
   Widget build(BuildContext context) {

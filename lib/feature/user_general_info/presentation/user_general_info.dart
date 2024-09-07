@@ -14,11 +14,12 @@ part 'user_general_info_model.dart';
 @RoutePage(name: 'UserInfoFormView')
 @immutable
 final class UserGeneralInfo extends StatefulWidget {
-  final String avatar;
   const UserGeneralInfo({
     required this.avatar,
     super.key,
   });
+
+  final String avatar;
 
   @override
   State<UserGeneralInfo> createState() => _UserGeneralInfoState();
@@ -40,10 +41,11 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
 }
 
 class _UserInfoFormBody extends StatefulWidget {
-  final String avatar;
   const _UserInfoFormBody({
     required this.avatar,
   });
+
+  final String avatar;
 
   @override
   State<_UserInfoFormBody> createState() => _UserInfoFormBodyState();

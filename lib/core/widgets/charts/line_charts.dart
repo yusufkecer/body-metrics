@@ -5,15 +5,16 @@ import 'package:flutter/material.dart';
 
 @immutable
 final class LineChartWidget extends StatefulWidget {
-  final List<FlSpot> spots;
-  final List<Map<int, String>> titles;
-  final List<Map<int, String>> bottomTitles;
   const LineChartWidget({
     required this.spots,
-    required this.titles,
+    required this.leftTitles,
     required this.bottomTitles,
     super.key,
   });
+
+  final List<FlSpot> spots;
+  final List<Map<int, String>> leftTitles;
+  final List<Map<int, String>> bottomTitles;
 
   @override
   State<LineChartWidget> createState() => _LineChartWidgetState();
@@ -63,7 +64,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
   Widget leftTitleWidgets(double value, TitleMeta meta) {
     Text? text;
 
-    for (final element in widget.titles) {
+    for (final element in widget.leftTitles) {
       if (element.containsKey(value.toInt())) {
         text = Text(
           element[value.toInt()]!,

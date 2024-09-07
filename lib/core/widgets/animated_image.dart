@@ -3,9 +3,14 @@ import 'package:flutter/material.dart';
 
 @immutable
 final class AnimatedImage extends StatelessWidget {
+  const AnimatedImage({
+    required this.child,
+    required this.size,
+    super.key,
+  });
+
   final Widget child;
   final double size;
-  const AnimatedImage({required this.child, required this.size, super.key});
 
   @override
   Widget build(BuildContext context) {

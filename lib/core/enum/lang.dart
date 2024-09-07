@@ -6,6 +6,6 @@ enum Lang {
   en(Locale('en', 'US'));
 
   final Locale locale;
-
+  // ignore: sort_constructors_first
   const Lang(this.locale);
 }

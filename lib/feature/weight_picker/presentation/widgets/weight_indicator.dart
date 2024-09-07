@@ -2,15 +2,16 @@ part of '../weight_picker.dart';
 
 @immutable
 final class _WeightIndicator extends StatelessWidget {
-  final TextEditingController weightTextController;
-  // ignore: avoid_positional_boolean_parameters
-  final void Function(bool) fieldFocus;
-  final void Function(String) textFieldChange;
   const _WeightIndicator({
     required this.weightTextController,
     required this.fieldFocus,
     required this.textFieldChange,
   });
+
+  final TextEditingController weightTextController;
+
+  final void Function({bool value}) fieldFocus;
+  final void Function(String) textFieldChange;
 
   @override
   Widget build(BuildContext context) {
@@ -21,7 +22,7 @@ final class _WeightIndicator extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Focus(
-            onFocusChange: fieldFocus,
+            onFocusChange: (value) => fieldFocus(value: value),
             child: TextField(
               controller: weightTextController,
               keyboardType: TextInputType.number,

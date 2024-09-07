@@ -2,17 +2,17 @@ part of '../home.dart';
 
 @immutable
 final class _PeriodSelect extends StatelessWidget {
-  final _HomePeriod homePeriod;
-  final void Function({required bool value}) onYearlySelected;
-  final void Function({required bool value}) onMonthlySelected;
-  final void Function({required bool value}) onWeeklySelected;
-
   const _PeriodSelect({
     required this.homePeriod,
     required this.onYearlySelected,
     required this.onMonthlySelected,
     required this.onWeeklySelected,
   });
+
+  final _HomePeriod homePeriod;
+  final void Function({required bool value}) onYearlySelected;
+  final void Function({required bool value}) onMonthlySelected;
+  final void Function({required bool value}) onWeeklySelected;
 
   @override
   Widget build(BuildContext context) {
@@ -39,15 +39,15 @@ final class _PeriodSelect extends StatelessWidget {
 }
 
 class _Chip extends StatelessWidget {
-  final String text;
-  final void Function({required bool value}) onPressed;
-  final bool isSelected;
-
   const _Chip({
     required this.text,
     required this.onPressed,
     required this.isSelected,
   });
+
+  final String text;
+  final void Function({required bool value}) onPressed;
+  final bool isSelected;
 
   @override
   Widget build(BuildContext context) {

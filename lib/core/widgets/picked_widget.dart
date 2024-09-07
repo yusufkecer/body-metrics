@@ -3,11 +3,12 @@ import 'package:flutter/material.dart';
 
 @immutable
 final class PickedWidget extends StatelessWidget {
-  final int selectedValue;
   const PickedWidget({
     required this.selectedValue,
     super.key,
   });
+
+  final int selectedValue;
 
   @override
   Widget build(BuildContext context) {

@@ -6,9 +6,9 @@ import 'package:lottie/lottie.dart';
 
 @immutable
 final class CustomError extends StatelessWidget {
-  final String? text;
-
   const CustomError({this.text, super.key});
+
+  final String? text;
 
   @override
   Widget build(BuildContext context) {

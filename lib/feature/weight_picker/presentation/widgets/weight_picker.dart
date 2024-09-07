@@ -2,11 +2,6 @@ part of '../weight_picker.dart';
 
 @immutable
 final class _WeightPickerWidget extends StatelessWidget {
-  final int selectedWeight;
-  final PageController weightPickerController;
-  final double minVal;
-  final double maxVal;
-  final bool isDisabled;
   const _WeightPickerWidget({
     required this.selectedWeight,
     required this.weightPickerController,
@@ -14,6 +9,12 @@ final class _WeightPickerWidget extends StatelessWidget {
     required this.maxVal,
     this.isDisabled = false,
   });
+
+  final int selectedWeight;
+  final PageController weightPickerController;
+  final double minVal;
+  final double maxVal;
+  final bool isDisabled;
 
   @override
   Widget build(BuildContext context) {

@@ -16,11 +16,12 @@ part 'widgets/ruler.dart';
 @RoutePage(name: 'HeightView')
 @immutable
 final class Height extends StatelessWidget {
-  final bool isFemale;
   const Height({
     required this.isFemale,
     super.key,
   });
+
+  final bool isFemale;
 
   @override
   Widget build(BuildContext context) {
@@ -46,10 +47,11 @@ final class Height extends StatelessWidget {
 
 @immutable
 final class _HeightBody extends StatefulWidget {
-  final bool isFemale;
   const _HeightBody({
     required this.isFemale,
   });
+
+  final bool isFemale;
 
   @override
   State<_HeightBody> createState() => _HeightBodyState();

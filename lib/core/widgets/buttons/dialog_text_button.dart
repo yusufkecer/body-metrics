@@ -3,9 +3,10 @@ import 'package:flutter/material.dart';
 
 @immutable
 final class DialogTextButton extends StatelessWidget {
+  const DialogTextButton({required this.title, required this.onPressed, super.key});
+
   final String title;
   final void Function() onPressed;
-  const DialogTextButton({required this.title, required this.onPressed, super.key});
 
   @override
   Widget build(BuildContext context) {

@@ -44,7 +44,7 @@ mixin _SplashModel on State<_SplashBody>, DialogUtil {
     'initializing tables'.log;
 
     await Locator.sl<AppCache>().initializeTable(impCache.db!, impCache.version);
-    await Locator.sl<BmiCache>().initializeTable(impCache.db!, impCache.version);
+    await Locator.sl<UserMetricsCache>().initializeTable(impCache.db!, impCache.version);
     await Locator.sl<UserCache>().initializeTable(impCache.db!, impCache.version);
   }
 

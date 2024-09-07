@@ -1,9 +1,10 @@
 part of '../height_picker.dart';
 
 sealed class HeightSelectorState extends Equatable {
+  const HeightSelectorState({this.page, this.height});
+
   final int? page;
   final double? height;
-  const HeightSelectorState({this.page, this.height});
 
   @override
   List<Object> get props => [page ?? 0, height ?? 0];

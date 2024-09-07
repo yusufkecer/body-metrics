@@ -2,17 +2,17 @@ part of '../height_picker.dart';
 
 @immutable
 final class _Ruler extends StatelessWidget with HeightCalculate {
-  final PageController pageController;
-  final int maxValue;
-  final int minValue;
-  final int selectedHeight;
-
   const _Ruler({
     required this.pageController,
     required this.maxValue,
     required this.minValue,
     required this.selectedHeight,
   });
+
+  final PageController pageController;
+  final int maxValue;
+  final int minValue;
+  final int selectedHeight;
 
   @override
   Widget build(BuildContext context) {

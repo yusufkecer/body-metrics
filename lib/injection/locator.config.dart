@@ -47,7 +47,7 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     gh.factory<_i458.AppCache>(() => _i458.AppCache());
-    gh.factory<_i226.BmiCache>(() => _i226.BmiCache());
+    gh.factory<_i226.UserMetricsCache>(() => _i226.UserMetricsCache());
     gh.factory<_i981.UserCache>(() => _i981.UserCache());
     gh.factory<_i46.ImpCache>(() => _i46.ImpCache());
     gh.factory<_i348.GenderCubit>(() => _i348.GenderCubit());

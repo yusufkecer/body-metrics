@@ -19,7 +19,7 @@ mixin HomeModel on State<_HomeBody> {
     setState(() {});
   }
 
-  List<FlSpot> spots = const [
+  final List<FlSpot> _spots = const [
     FlSpot(0, 120),
     FlSpot(2, 108),
     FlSpot(4, 89),
@@ -29,27 +29,31 @@ mixin HomeModel on State<_HomeBody> {
     FlSpot(12, 120),
   ];
 
-  List<Map<int, String>> get bottomTitles {
-    return [
-      {0: 'PT'},
-      {2: 'S'},
-      {4: 'Ç'},
-      {6: 'P'},
-      {8: 'C'},
-      {10: 'CT'},
-      {12: 'P'},
-    ];
-  }
+  final List<Map<int, String>> _bottomTitles = const [
+    {0: 'PT'},
+    {2: 'S'},
+    {4: 'Ç'},
+    {6: 'P'},
+    {8: 'C'},
+    {10: 'CT'},
+    {12: 'P'},
+  ];
 
-  List<Map<int, String>> get titles {
-    return [
-      {1: '60'},
-      {3: '80'},
-      {5: '100'},
-      {7: '120'},
-      {9: '140'},
-    ];
-  }
+  final List<Map<int, String>> _leftTitles = const [
+    {1: '60'},
+    {3: '80'},
+    {5: '100'},
+    {7: '120'},
+    {9: '140'},
+    {11: '160'},
+  ];
+
+  final UserMetrics _userMetrics = const UserMetrics(
+    userMetrics: [
+      UserMetric(userMetric: BodyMetricResult.normal, date: '12.12.2021', weight: 80, bmi: 24.69),
+      UserMetric(userMetric: BodyMetricResult.overweight, date: '18.12.2021', weight: 90, bmi: 24.69),
+    ],
+  );
 }
 
 enum _HomePeriod {

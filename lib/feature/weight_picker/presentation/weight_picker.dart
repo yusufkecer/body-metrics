@@ -63,7 +63,7 @@ class __WeightPickerBodyState extends State<_WeightPickerBody> with DialogUtil, 
                     children: [
                       _WeightIndicator(
                         weightTextController: _weightTextController,
-                        fieldFocus: _fieldFocus,
+                        fieldFocus: ({bool? value}) => _fieldFocus(value ?? false),
                         textFieldChange: _textFieldChange,
                       ),
                       _WeightPickerWidget(
