@@ -54,7 +54,7 @@ class __GenderViewState extends State<_GenderView> with _GenderModel {
             children: [
               _GenderAsset(
                 value: context.watch<GenderCubit>().state.genderValue == GenderValue.female,
-                onChanged: (bool? value) => onChange(value: value, isFemale: true),
+                onChanged: ({bool? value}) => onChange(value: value, isFemale: true),
                 asset: AssetValue.female.value.lottie,
                 gender: LocaleKeys.gender_fm.tr(),
                 color: ProductColor().pink,
@@ -62,7 +62,7 @@ class __GenderViewState extends State<_GenderView> with _GenderModel {
               ),
               _GenderAsset(
                 value: context.watch<GenderCubit>().state.genderValue == GenderValue.male,
-                onChanged: (bool? value) => onChange(value: value, isMale: true),
+                onChanged: ({bool? value}) => onChange(value: value, isMale: true),
                 asset: AssetValue.male.value.lottie,
                 gender: LocaleKeys.gender_ml.tr(),
                 color: ProductColor().blue,

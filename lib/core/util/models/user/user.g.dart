@@ -7,6 +7,7 @@ part of 'user.dart';
 // **************************************************************************
 
 User _$UserFromJson(Map<String, dynamic> json) => User(
+      height: (json['height'] as num?)?.toDouble(),
       id: (json['id'] as num?)?.toInt(),
       avatar: json['avatar'] as String?,
       name: json['name'] as String?,
@@ -22,6 +23,7 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'name': instance.name,
       'avatar': instance.avatar,
       'gender': _$GenderValueEnumMap[instance.gender],
+      'height': instance.height,
       'birthOfDay': instance.birthOfDay,
     };
 
