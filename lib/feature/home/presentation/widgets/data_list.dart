@@ -1,15 +1,16 @@
 part of '../home.dart';
 
-class _DataList extends StatelessWidget {
-  const _DataList();
+@immutable
+final class _DataList extends StatelessWidget {
+  final UserMetrics userMetrics;
+  const _DataList(this.userMetrics);
 
   @override
   Widget build(BuildContext context) {
-    return _CardWidget(
+    final metrics = userMetrics.userMetrics;
+    return HomeCard(
       buttonTitle: LocaleKeys.home_see_more.tr(),
-      onPressed: () {
-        'Button pressed'.log;
-      },
+      onPressed: () {},
       title: LocaleKeys.home_report.tr(),
       icon: ProductIcon.weight.icon,
       children: [
@@ -33,15 +34,19 @@ class _DataList extends StatelessWidget {
                   children: [
                     CustomRichText(
                       title: LocaleKeys.home_weight.tr(),
-                      subTitle: 'Sub Title',
+                      subTitle: metrics![index].weight.toString(),
                     ),
                     CustomRichText(
                       title: LocaleKeys.home_bmi.tr(),
-                      subTitle: 'Sub Title',
+                      subTitle: metrics[index].bmi.toString(),
                     ),
                     CustomRichText(
                       title: LocaleKeys.home_situation.tr(),
-                      subTitle: 'Sub Title',
+                      subTitle: metrics[index].userMetric?.result ?? '',
+                    ),
+                    CustomRichText(
+                      title: LocaleKeys.home_date.tr(),
+                      subTitle: metrics[index].date ?? '',
                     ),
                     CustomRichText(
                       title: LocaleKeys.home_change.tr(),

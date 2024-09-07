@@ -29,4 +29,8 @@ final class AppModel extends Equatable implements BaseModel<AppModel> {
   factory AppModel.fromJson(Map<String, dynamic> json) => _$AppModelFromJson(json);
   @override
   Map<String, dynamic> toJson() => _$AppModelToJson(this);
+
+  @override
+  // TODO: implement id
+  int? get id => throw UnimplementedError();
 }

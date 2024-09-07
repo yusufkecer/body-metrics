@@ -7,26 +7,30 @@ part of 'user_metric.dart';
 // **************************************************************************
 
 UserMetric _$UserMetricFromJson(Map<String, dynamic> json) => UserMetric(
+      bmi: (json['bmi'] as num?)?.toDouble(),
+      id: (json['id'] as num?)?.toInt(),
       date: json['date'] as String?,
-      height: json['height'] as String?,
-      weight: json['weight'] as String?,
-      bodymetricsResult:
-          $enumDecodeNullable(_$BmiResultEnumMap, json['bodymetricsResult']),
+      height: (json['height'] as num?)?.toDouble(),
+      weight: (json['weight'] as num?)?.toDouble(),
+      userMetric:
+          $enumDecodeNullable(_$BodyMetricResultEnumMap, json['userMetric']),
     );
 
 Map<String, dynamic> _$UserMetricToJson(UserMetric instance) =>
     <String, dynamic>{
+      'id': instance.id,
       'date': instance.date,
       'height': instance.height,
       'weight': instance.weight,
-      'bodymetricsResult': _$BmiResultEnumMap[instance.bodymetricsResult],
+      'bmi': instance.bmi,
+      'userMetric': _$BodyMetricResultEnumMap[instance.userMetric],
     };
 
-const _$BmiResultEnumMap = {
-  BmiResult.underweight: 'underweight',
-  BmiResult.normal: 'normal',
-  BmiResult.overweight: 'overweight',
-  BmiResult.obese: 'obese',
-  BmiResult.morbidlyObese: 'morbidlyObese',
-  BmiResult.unknown: 'unknown',
+const _$BodyMetricResultEnumMap = {
+  BodyMetricResult.underweight: 'underweight',
+  BodyMetricResult.normal: 'normal',
+  BodyMetricResult.overweight: 'overweight',
+  BodyMetricResult.obese: 'obese',
+  BodyMetricResult.morbidlyObese: 'morbidlyObese',
+  BodyMetricResult.unknown: 'unknown',
 };

@@ -19,4 +19,8 @@ final class Users extends Equatable implements BaseModel<Users> {
 
   @override
   Map<String, dynamic> toJson() => _$UsersToJson(this);
+
+  @override
+  // TODO: implement id
+  int? get id => throw UnimplementedError();
 }

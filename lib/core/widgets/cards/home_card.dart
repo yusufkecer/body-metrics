@@ -1,23 +1,28 @@
-part of '../home.dart';
+import 'package:bodymetrics/core/index.dart';
+import 'package:flutter/material.dart';
 
-class _CardWidget extends StatelessWidget {
+class HomeCard extends StatelessWidget {
   final void Function()? onPressed;
   final List<Widget> children;
   final String title;
   final String buttonTitle;
   final IconData icon;
-  const _CardWidget({
+  final double? height;
+
+  const HomeCard({
     required this.onPressed,
     required this.title,
     required this.icon,
     required this.children,
     required this.buttonTitle,
+    this.height,
+    super.key,
   });
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: context.height * 0.38,
+      height: height ?? context.height * 0.38,
       child: Card(
         child: Padding(
           padding: ProductPadding.ten(),

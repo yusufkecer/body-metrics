@@ -7,12 +7,12 @@ part of 'user_metrics.dart';
 // **************************************************************************
 
 UserMetrics _$UserMetricsFromJson(Map<String, dynamic> json) => UserMetrics(
-      bodymetricss: (json['bodymetricss'] as List<dynamic>?)
-          ?.map((e) => UserMetrics.fromJson(e as Map<String, dynamic>))
+      userMetrics: (json['userMetrics'] as List<dynamic>?)
+          ?.map((e) => UserMetric.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
 
 Map<String, dynamic> _$UserMetricsToJson(UserMetrics instance) =>
     <String, dynamic>{
-      'bodymetricss': instance.bodymetricss,
+      'userMetrics': instance.userMetrics,
     };

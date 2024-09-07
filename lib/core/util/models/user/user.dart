@@ -5,7 +5,7 @@ import 'package:json_annotation/json_annotation.dart';
 part 'user.g.dart';
 
 @JsonSerializable()
-class User extends Equatable implements BaseModel<User>, IdModel {
+class User extends Equatable implements BaseModel<User> {
   @override
   final int? id;
   final String? name;

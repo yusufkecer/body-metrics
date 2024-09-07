@@ -8,14 +8,17 @@ part 'user_metrics.g.dart';
 @immutable
 @JsonSerializable()
 final class UserMetrics extends Equatable implements BaseModel<UserMetrics> {
-  final List<UserMetrics>? bodymetricss;
+  const UserMetrics({this.userMetrics});
+  final List<UserMetric>? userMetrics;
 
-  const UserMetrics({this.bodymetricss});
   @override
-  List<Object?> get props => [bodymetricss];
+  List<Object?> get props => [userMetrics];
 
   factory UserMetrics.fromJson(Map<String, dynamic> json) => _$UserMetricsFromJson(json);
 
   @override
   Map<String, dynamic> toJson() => _$UserMetricsToJson(this);
+
+  @override
+  int? get id => throw UnimplementedError();
 }
