@@ -3,10 +3,10 @@ import 'package:flutter/material.dart';
 
 @immutable
 final class CustomRichText extends StatelessWidget {
+  const CustomRichText({required this.title, required this.subTitle, super.key});
+
   final String title;
   final String subTitle;
-
-  const CustomRichText({required this.title, required this.subTitle, super.key});
 
   @override
   Widget build(BuildContext context) {

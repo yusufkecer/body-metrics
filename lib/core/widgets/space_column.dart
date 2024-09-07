@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
 
 class SpaceColumn extends StatelessWidget {
-  final List<Widget> children;
-  final double space;
-  final MainAxisAlignment mainAxisAlignment;
-  final CrossAxisAlignment crossAxisAlignment;
   const SpaceColumn({
     required this.children,
     required this.space,
@@ -12,6 +8,11 @@ class SpaceColumn extends StatelessWidget {
     this.crossAxisAlignment = CrossAxisAlignment.start,
     super.key,
   });
+
+  final List<Widget> children;
+  final double space;
+  final MainAxisAlignment mainAxisAlignment;
+  final CrossAxisAlignment crossAxisAlignment;
 
   @override
   Widget build(BuildContext context) {

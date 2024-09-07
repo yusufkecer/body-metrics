@@ -17,5 +17,6 @@ enum ProductIcon {
 
   final IconData icon;
 
+  // ignore: sort_constructors_first
   const ProductIcon(this.icon);
 }

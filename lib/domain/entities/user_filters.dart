@@ -1,8 +1,6 @@
 import 'package:bodymetrics/core/index.dart';
 
 class UserFilters extends User {
-  final int? bmiId;
-
   const UserFilters({
     super.id,
     super.birthOfDay,
@@ -10,4 +8,6 @@ class UserFilters extends User {
     super.userMetrics,
     this.bmiId,
   });
+
+  final int? bmiId;
 }

@@ -4,11 +4,6 @@ import 'package:flutter/material.dart';
 
 @immutable
 final class ColorfulTextButton extends StatelessWidget {
-  final List<Color>? colors;
-  final String text;
-  final Duration speed;
-  final void Function() onTap;
-
   const ColorfulTextButton({
     required this.text,
     required this.onTap,
@@ -16,6 +11,11 @@ final class ColorfulTextButton extends StatelessWidget {
     this.colors,
     super.key,
   });
+
+  final List<Color>? colors;
+  final String text;
+  final Duration speed;
+  final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {

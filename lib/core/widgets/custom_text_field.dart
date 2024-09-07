@@ -3,14 +3,6 @@ import 'package:flutter/material.dart';
 
 @immutable
 final class CustomTextField extends StatelessWidget {
-  final String? label;
-  final TextEditingController? controller;
-  final void Function(String)? onChanged;
-  final void Function()? onTap;
-  final IconData? prefixIcon;
-  final String? hintText;
-  final bool readOnly;
-
   const CustomTextField({
     this.hintText,
     super.key,
@@ -21,6 +13,14 @@ final class CustomTextField extends StatelessWidget {
     this.onTap,
     this.readOnly = false,
   });
+
+  final String? label;
+  final TextEditingController? controller;
+  final void Function(String)? onChanged;
+  final void Function()? onTap;
+  final IconData? prefixIcon;
+  final String? hintText;
+  final bool readOnly;
 
   @override
   Widget build(BuildContext context) {

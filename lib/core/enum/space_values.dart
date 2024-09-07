@@ -9,5 +9,6 @@ enum SpaceValues {
 
   final double value;
 
+  // ignore: sort_constructors_first
   const SpaceValues(this.value);
 }

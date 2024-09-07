@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 
 @immutable
 final class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
-  final IconButton? leading;
-  final Widget? action;
-  final String? title;
-
   const CustomAppBar({
     super.key,
     this.leading,
     this.action,
     this.title,
   });
+
+  final IconButton? leading;
+  final Widget? action;
+  final String? title;
 
   @override
   Widget build(BuildContext context) {

@@ -5,15 +5,16 @@ import 'package:flutter/material.dart';
 
 @immutable
 final class LineChartWidget extends StatefulWidget {
-  final List<FlSpot> spots;
-  final List<Map<int, String>> leftTitles;
-  final List<Map<int, String>> bottomTitles;
   const LineChartWidget({
     required this.spots,
     required this.leftTitles,
     required this.bottomTitles,
     super.key,
   });
+
+  final List<FlSpot> spots;
+  final List<Map<int, String>> leftTitles;
+  final List<Map<int, String>> bottomTitles;
 
   @override
   State<LineChartWidget> createState() => _LineChartWidgetState();

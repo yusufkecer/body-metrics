@@ -5,9 +5,14 @@ import 'package:lottie/lottie.dart';
 
 @immutable
 final class LottieDialog extends StatelessWidget {
+  const LottieDialog({
+    required this.assetValue,
+    required this.title,
+    super.key,
+  });
+
   final String assetValue;
   final String title;
-  const LottieDialog({required this.assetValue, required this.title, super.key});
 
   @override
   Widget build(BuildContext context) {

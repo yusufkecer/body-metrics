@@ -2,14 +2,6 @@ part of '../gender.dart';
 
 @immutable
 final class _GenderAsset extends StatelessWidget {
-  // ignore: avoid_positional_boolean_parameters
-  final void Function(bool? value)? onChanged;
-  final String asset;
-  final String gender;
-  final Color? color;
-  final IconData? icon;
-  final bool? value;
-
   const _GenderAsset({
     required this.asset,
     required this.gender,
@@ -19,12 +11,19 @@ final class _GenderAsset extends StatelessWidget {
     this.onChanged,
   });
 
+  final void Function({bool? value})? onChanged;
+  final String asset;
+  final String gender;
+  final Color? color;
+  final IconData? icon;
+  final bool? value;
+
   @override
   Widget build(BuildContext context) {
     var size = 200.0;
     size = (value ?? false) ? 300.0 : 250.0;
     return GestureDetector(
-      onTap: () => onChanged?.call(!(value ?? false)),
+      onTap: () => onChanged!(value: !(value ?? false)),
       child: AnimatedImage(
         size: size,
         child: Column(
@@ -52,7 +51,7 @@ final class _GenderAsset extends StatelessWidget {
                   right: 10,
                   child: Checkbox(
                     value: value ?? false,
-                    onChanged: onChanged,
+                    onChanged: (value) => onChanged!(value: value),
                   ),
                 ),
               ],

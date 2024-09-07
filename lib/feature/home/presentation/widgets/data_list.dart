@@ -2,8 +2,9 @@ part of '../home.dart';
 
 @immutable
 final class _DataList extends StatelessWidget {
-  final UserMetrics userMetrics;
   const _DataList(this.userMetrics);
+
+  final UserMetrics userMetrics;
 
   @override
   Widget build(BuildContext context) {

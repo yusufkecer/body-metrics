@@ -50,8 +50,8 @@ mixin HomeModel on State<_HomeBody> {
 
   final UserMetrics _userMetrics = const UserMetrics(
     userMetrics: [
-      UserMetric(userMetric: BodyMetricResult.normal, date: '12.12.2021', height: 180, weight: 80, bmi: 24.69),
-      UserMetric(userMetric: BodyMetricResult.overweight, date: '18.12.2021', height: 180, weight: 90, bmi: 24.69),
+      UserMetric(userMetric: BodyMetricResult.normal, date: '12.12.2021', weight: 80, bmi: 24.69),
+      UserMetric(userMetric: BodyMetricResult.overweight, date: '18.12.2021', weight: 90, bmi: 24.69),
     ],
   );
 }

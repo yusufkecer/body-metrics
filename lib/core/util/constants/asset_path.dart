@@ -39,6 +39,7 @@ enum AssetValue {
 
   final String value;
 
+  // ignore: sort_constructors_first
   const AssetValue(this.value);
 }
 

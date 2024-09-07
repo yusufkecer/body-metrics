@@ -30,4 +30,3 @@ class Bodymetrics extends StatelessWidget {
     );
   }
 }
-//

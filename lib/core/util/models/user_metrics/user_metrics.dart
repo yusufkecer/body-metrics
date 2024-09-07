@@ -9,12 +9,12 @@ part 'user_metrics.g.dart';
 @JsonSerializable()
 final class UserMetrics extends Equatable implements BaseModel<UserMetrics> {
   const UserMetrics({this.userMetrics});
+
+  factory UserMetrics.fromJson(Map<String, dynamic> json) => _$UserMetricsFromJson(json);
   final List<UserMetric>? userMetrics;
 
   @override
   List<Object?> get props => [userMetrics];
-
-  factory UserMetrics.fromJson(Map<String, dynamic> json) => _$UserMetricsFromJson(json);
 
   @override
   Map<String, dynamic> toJson() => _$UserMetricsToJson(this);

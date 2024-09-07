@@ -6,16 +6,8 @@ part 'user.g.dart';
 
 @JsonSerializable()
 class User extends Equatable implements BaseModel<User> {
-  @override
-  final int? id;
-  final String? name;
-  final String? avatar;
-  final GenderValue? gender;
-  @JsonKey(includeToJson: false)
-  final UserMetric? userMetrics;
-  final String? birthOfDay;
-
   const User({
+    this.height,
     this.id,
     this.avatar,
     this.name,
@@ -24,7 +16,11 @@ class User extends Equatable implements BaseModel<User> {
     this.birthOfDay,
   });
 
+  @override
+  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+
   const User.copyWith({
+    this.height,
     this.id,
     this.avatar,
     this.name,
@@ -37,8 +33,15 @@ class User extends Equatable implements BaseModel<User> {
   List<Object?> get props => [name, gender, userMetrics, id, birthOfDay];
 
   @override
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  Map<String, dynamic> toJson() => _$UserToJson(this);
 
   @override
-  Map<String, dynamic> toJson() => _$UserToJson(this);
+  final int? id;
+  final String? name;
+  final String? avatar;
+  final GenderValue? gender;
+  final double? height;
+  @JsonKey(includeToJson: false)
+  final UserMetric? userMetrics;
+  final String? birthOfDay;
 }

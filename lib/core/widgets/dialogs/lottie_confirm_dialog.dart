@@ -8,14 +8,14 @@ import 'package:lottie/lottie.dart';
 
 @immutable
 final class LottieConfirmDialog extends StatelessWidget {
-  final String assetValue;
-  final String title;
-
   const LottieConfirmDialog({
     required this.assetValue,
     required this.title,
     super.key,
   });
+
+  final String assetValue;
+  final String title;
 
   @override
   Widget build(BuildContext context) {

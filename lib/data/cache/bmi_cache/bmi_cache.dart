@@ -7,8 +7,8 @@ import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
 @injectable
-final class BmiCache extends ImpCache implements CacheMethods<UserMetrics, Json> {
-  BmiCache();
+final class UserMetricsCache extends ImpCache implements CacheMethods<UserMetrics, Json> {
+  UserMetricsCache();
 
   @override
   Future<void> initializeTable(Database db, int version) async {

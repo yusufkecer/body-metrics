@@ -2,13 +2,6 @@ import 'package:bodymetrics/core/index.dart';
 import 'package:flutter/material.dart';
 
 class HomeCard extends StatelessWidget {
-  final void Function()? onPressed;
-  final List<Widget> children;
-  final String title;
-  final String buttonTitle;
-  final IconData icon;
-  final double? height;
-
   const HomeCard({
     required this.onPressed,
     required this.title,
@@ -18,6 +11,13 @@ class HomeCard extends StatelessWidget {
     this.height,
     super.key,
   });
+
+  final void Function()? onPressed;
+  final List<Widget> children;
+  final String title;
+  final String buttonTitle;
+  final IconData icon;
+  final double? height;
 
   @override
   Widget build(BuildContext context) {

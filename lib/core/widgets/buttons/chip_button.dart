@@ -3,13 +3,6 @@ import 'package:flutter/material.dart';
 
 @immutable
 final class ChipButton extends StatelessWidget {
-  final String text;
-
-  final void Function({required bool value}) onPressed;
-  final bool isSelected;
-  final Color backgroundColor;
-  final Color? borderColor;
-  final Color? textColor;
   const ChipButton({
     required this.text,
     required this.onPressed,
@@ -19,6 +12,13 @@ final class ChipButton extends StatelessWidget {
     super.key,
     this.textColor,
   });
+
+  final String text;
+  final void Function({required bool value}) onPressed;
+  final bool isSelected;
+  final Color backgroundColor;
+  final Color? borderColor;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {

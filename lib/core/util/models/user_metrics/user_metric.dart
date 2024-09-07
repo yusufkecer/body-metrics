@@ -9,9 +9,9 @@ part 'user_metric.g.dart';
 @JsonSerializable()
 @immutable
 final class UserMetric extends Equatable implements BaseModel<UserMetric> {
-  const UserMetric({this.bmi, this.id, this.date, this.height, this.weight, this.userMetric});
+  const UserMetric({this.bmi, this.id, this.date, this.weight, this.userMetric});
 
-  const UserMetric.copyWith({this.bmi, this.id, this.date, this.height, this.weight, this.userMetric});
+  const UserMetric.copyWith({this.bmi, this.id, this.date, this.weight, this.userMetric});
 
   @override
   factory UserMetric.fromJson(Map<String, dynamic> json) => _$UserMetricFromJson(json);
@@ -22,11 +22,10 @@ final class UserMetric extends Equatable implements BaseModel<UserMetric> {
   @override
   final int? id;
   final String? date;
-  final double? height;
   final double? weight;
   final double? bmi;
   final BodyMetricResult? userMetric;
 
   @override
-  List<Object?> get props => [date, height, weight, userMetric];
+  List<Object?> get props => [id, date, weight, userMetric];
 }
