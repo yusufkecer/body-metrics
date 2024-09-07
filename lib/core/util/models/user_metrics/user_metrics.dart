@@ -11,6 +11,7 @@ final class UserMetrics extends Equatable implements BaseModel<UserMetrics> {
   const UserMetrics({this.userMetrics});
 
   factory UserMetrics.fromJson(Map<String, dynamic> json) => _$UserMetricsFromJson(json);
+
   final List<UserMetric>? userMetrics;
 
   @override
@@ -21,4 +22,19 @@ final class UserMetrics extends Equatable implements BaseModel<UserMetrics> {
 
   @override
   int? get id => throw UnimplementedError();
+}
+
+extension WeightDiff on UserMetrics {
+  void get weightDiff {
+    if (userMetrics.isNullOrEmpty) return;
+
+    for (var i = userMetrics!.length; i >= 0; i--) {
+      if (i == 0) {
+        userMetrics![i].copyWith(weightDiff: 0);
+        continue;
+      }
+
+      userMetrics![i].copyWith(weightDiff: userMetrics![i].weight! - userMetrics![i - 1].weight!);
+    }
+  }
 }

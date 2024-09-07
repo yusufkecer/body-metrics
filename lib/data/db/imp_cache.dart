@@ -32,7 +32,7 @@ class ImpCache implements BaseDatabase {
 
   @override
   Future<void> closeDb() async {
-    if (_db != null) {
+    if (_db.isNotNull) {
       await _db?.close();
       _db = null;
       'database closed'.log;
@@ -48,7 +48,7 @@ class ImpCache implements BaseDatabase {
 
   @override
   Future<void> deleteTable(String table) async {
-    if (_db != null) {
+    if (_db.isNotNull) {
       await _db?.execute('DROP TABLE IF EXISTS $table');
       'table deleted'.log;
     }

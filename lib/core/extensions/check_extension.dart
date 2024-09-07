@@ -3,6 +3,6 @@ extension TinyInt on int {
 }
 
 extension NullExtension on Object? {
-  bool get isNullOrEmpty => this == null || this == '';
+  bool get isNullOrEmpty => this == null || this == '' || this == <Object?>[];
   bool get isNotNull => this != null;
 }

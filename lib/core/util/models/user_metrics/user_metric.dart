@@ -1,7 +1,6 @@
 import 'package:bodymetrics/core/index.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
-
 import 'package:json_annotation/json_annotation.dart';
 
 part 'user_metric.g.dart';
@@ -9,12 +8,36 @@ part 'user_metric.g.dart';
 @JsonSerializable()
 @immutable
 final class UserMetric extends Equatable implements BaseModel<UserMetric> {
-  const UserMetric({this.bmi, this.id, this.date, this.weight, this.userMetric});
-
-  const UserMetric.copyWith({this.bmi, this.id, this.date, this.weight, this.userMetric});
+  const UserMetric(this.weightDiff, {this.bmi, this.id, this.date, this.weight, this.userMetric});
 
   @override
   factory UserMetric.fromJson(Map<String, dynamic> json) => _$UserMetricFromJson(json);
+
+  UserMetric.copyWith(UserMetric userMetric)
+      : this(userMetric.weightDiff,
+            bmi: userMetric.bmi,
+            id: userMetric.id,
+            date: userMetric.date,
+            weight: userMetric.weight,
+            userMetric: userMetric.userMetric);
+
+  UserMetric copyWith({
+    int? id,
+    String? date,
+    double? weight,
+    double? bmi,
+    double? weightDiff,
+    BodyMetricResult? userMetric,
+  }) {
+    return UserMetric(
+      weightDiff ?? this.weightDiff,
+      bmi: bmi ?? this.bmi,
+      id: id ?? this.id,
+      date: date ?? this.date,
+      weight: weight ?? this.weight,
+      userMetric: userMetric ?? this.userMetric,
+    );
+  }
 
   @override
   Map<String, dynamic> toJson() => _$UserMetricToJson(this);
@@ -24,6 +47,7 @@ final class UserMetric extends Equatable implements BaseModel<UserMetric> {
   final String? date;
   final double? weight;
   final double? bmi;
+  final double? weightDiff;
   final BodyMetricResult? userMetric;
 
   @override

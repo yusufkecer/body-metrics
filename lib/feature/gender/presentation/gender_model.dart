@@ -24,5 +24,5 @@ mixin _GenderModel on State<_GenderView> {
     }
   }
 
-  bool isSelected() => _isMale != null || _isFemale != null;
+  bool isSelected() => _isMale.isNotNull || _isFemale.isNotNull;
 }
