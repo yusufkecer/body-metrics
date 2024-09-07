@@ -1,6 +1,6 @@
-part of 'create_profile.dart';
+part of 'user_general_info.dart';
 
-mixin UserInfoFormModel on State<_UserInfoFormBody>, DialogUtil {
+mixin UserGeneralInfoModel on State<_UserInfoFormBody>, DialogUtil {
   final TextEditingController _fullNameController = TextEditingController();
   final DateController _birthOfDateController = DateController();
 

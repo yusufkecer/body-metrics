@@ -64,7 +64,7 @@ abstract class _$AppRouter extends RootStackRouter {
       final args = routeData.argsAs<UserInfoFormViewArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
-        child: UserInfoForm(
+        child: UserGeneralInfo(
           avatar: args.avatar,
           key: args.key,
         ),
@@ -211,7 +211,7 @@ class SplashView extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [UserInfoForm]
+/// [UserGeneralInfo]
 class UserInfoFormView extends PageRouteInfo<UserInfoFormViewArgs> {
   UserInfoFormView({
     required String avatar,

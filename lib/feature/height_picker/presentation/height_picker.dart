@@ -29,7 +29,7 @@ final class Height extends StatelessWidget {
       child: GradientScaffold(
         appBar: CustomAppBar(
           title: LocaleKeys.height_select_height.tr(),
-          action: ColorfulText(
+          action: ColorfulTextButton(
             text: LocaleKeys.cont.tr(),
             onTap: () {
               context.pushRoute(const WeightView());

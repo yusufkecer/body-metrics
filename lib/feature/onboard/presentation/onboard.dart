@@ -76,7 +76,7 @@ class __OnboardBodyState extends State<_OnboardBody> with _PageViewMixin, _Onboa
 
   Widget buildColorfulButton() {
     return _isEnd
-        ? ColorfulText(
+        ? ColorfulTextButton(
             text: LocaleKeys.onboard_skip.tr(),
             onTap: _skip,
           )
