@@ -1,29 +1,30 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/feature/create_profile/cubit/profile_cubit.dart';
-import 'package:bodymetrics/feature/create_profile/domain/repository/create_profile_repository.dart';
-import 'package:bodymetrics/feature/create_profile/domain/use_case/create_profile_use_case.dart';
+import 'package:bodymetrics/feature/user_general_info/cubit/user_general_info_state.dart';
+import 'package:bodymetrics/feature/user_general_info/domain/repository/user_general_repository.dart';
+import 'package:bodymetrics/feature/user_general_info/domain/use_case/user_general_use_case.dart';
+
 import 'package:bodymetrics/injection/locator.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-part 'create_profile_model.dart';
+part 'user_general_info_model.dart';
 
 @RoutePage(name: 'UserInfoFormView')
 @immutable
-final class UserInfoForm extends StatefulWidget {
+final class UserGeneralInfo extends StatefulWidget {
   final String avatar;
-  const UserInfoForm({
+  const UserGeneralInfo({
     required this.avatar,
     super.key,
   });
 
   @override
-  State<UserInfoForm> createState() => _UserInfoFormState();
+  State<UserGeneralInfo> createState() => _UserGeneralInfoState();
 }
 
-class _UserInfoFormState extends State<UserInfoForm> {
+class _UserGeneralInfoState extends State<UserGeneralInfo> {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -48,7 +49,7 @@ class _UserInfoFormBody extends StatefulWidget {
   State<_UserInfoFormBody> createState() => _UserInfoFormBodyState();
 }
 
-class _UserInfoFormBodyState extends State<_UserInfoFormBody> with DialogUtil, UserInfoFormModel {
+class _UserInfoFormBodyState extends State<_UserInfoFormBody> with DialogUtil, UserGeneralInfoModel {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

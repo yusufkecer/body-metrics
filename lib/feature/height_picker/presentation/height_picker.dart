@@ -29,7 +29,7 @@ final class Height extends StatelessWidget {
       child: GradientScaffold(
         appBar: CustomAppBar(
           title: LocaleKeys.height_select_height.tr(),
-          action: ColorfulText(
+          action: ColorfulTextButton(
             text: LocaleKeys.cont.tr(),
             onTap: () {
               context.pushRoute(const WeightView());
@@ -69,13 +69,13 @@ class _HeightBodyState extends State<_HeightBody> with _HeightModel {
         const SizedBox.shrink(),
         Lottie.asset(
           _lottie!.lottie,
-          height: cubit!.state._height,
+          height: cubit!.state.height,
         ),
         _Ruler(
           pageController: _pageController,
           maxValue: _maxValue,
           minValue: _minValue,
-          selectedHeight: cubit!.state._page,
+          selectedHeight: cubit!.state.page ?? 0,
         ),
       ],
     );

@@ -2,10 +2,10 @@ import 'package:bodymetrics/core/index.dart';
 import 'package:flutter/material.dart';
 
 @immutable
-final class SelectedHeight extends StatelessWidget {
-  final int selectedHeight;
-  const SelectedHeight({
-    required this.selectedHeight,
+final class PickedWidget extends StatelessWidget {
+  final int selectedValue;
+  const PickedWidget({
+    required this.selectedValue,
     super.key,
   });
 
@@ -32,7 +32,7 @@ final class SelectedHeight extends StatelessWidget {
             ),
           ),
           Text(
-            '$selectedHeight',
+            '$selectedValue',
             style: context.textTheme.titleMedium?.copyWith(
               color: ProductColor().deepPurple,
             ),

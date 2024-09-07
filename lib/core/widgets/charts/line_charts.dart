@@ -1,46 +1,33 @@
-part of '../home.dart';
+import 'package:bodymetrics/core/index.dart';
 
-/* final class _Chart extends StatelessWidget {
-  const _Chart();
-
-  @override
-  Widget build(BuildContext context) {
-    return _CardWidget(
-      buttonTitle: LocaleKeys.home_see_more.tr(),
-      onPressed: () {
-        'Button pressed'.log;
-      },
-      title: LocaleKeys.home_chart.tr(),
-      icon: ProductIcon.chart.icon,
-      children: const [
-        _CustomChart(),
-      ],
-    );
-  }
-}
+import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
 
 @immutable
-final class _CustomChart extends StatefulWidget {
-  const _CustomChart();
+final class LineChartWidget extends StatefulWidget {
+  final List<FlSpot> spots;
+  final List<Map<int, String>> titles;
+  final List<Map<int, String>> bottomTitles;
+  const LineChartWidget({
+    required this.spots,
+    required this.titles,
+    required this.bottomTitles,
+    super.key,
+  });
 
   @override
-  State<_CustomChart> createState() => _CustomChartState();
+  State<LineChartWidget> createState() => _LineChartWidgetState();
 }
 
-class _CustomChartState extends State<_CustomChart> {
+class _LineChartWidgetState extends State<LineChartWidget> {
   @override
   Widget build(BuildContext context) {
     return Stack(
-      children: <Widget>[
+      children: [
         AspectRatio(
           aspectRatio: 1.70,
           child: Padding(
-            padding: const EdgeInsets.only(
-              right: 18,
-              left: 12,
-              top: 24,
-              bottom: 12,
-            ),
+            padding: ProductPadding.ten(),
             child: LineChart(
               avgData(),
             ),
@@ -55,57 +42,42 @@ class _CustomChartState extends State<_CustomChart> {
       fontWeight: FontWeight.bold,
       fontSize: 16,
     );
-    Widget text;
-    switch (value.toInt()) {
-      case 0:
-        text = const Text('PT', style: style);
-      case 2:
-        text = const Text('S', style: style);
-      case 4:
-        text = const Text('Ç', style: style);
-      case 6:
-        text = const Text('P', style: style);
-      case 8:
-        text = const Text('C', style: style);
-      case 10:
-        text = const Text('CT', style: style);
-      case 12:
-        text = const Text('P', style: style);
-      default:
-        text = const Text('', style: style);
-        break;
+
+    Text? text;
+
+    for (final element in widget.bottomTitles) {
+      if (element.containsKey(value.toInt())) {
+        text = Text(
+          element[value.toInt()]!,
+          style: style,
+        );
+      }
     }
 
     return SideTitleWidget(
       axisSide: meta.axisSide,
-      child: text,
+      child: text ?? const SizedBox.shrink(),
     );
   }
 
   Widget leftTitleWidgets(double value, TitleMeta meta) {
-    String text;
-    switch (value.toInt()) {
-      case 1:
-        text = '60';
-      case 3:
-        text = '80';
-      case 5:
-        text = '100';
-      case 7:
-        text = '120';
-      case 9:
-        text = '140';
+    Text? text;
 
-      default:
-        return const SizedBox.shrink();
+    for (final element in widget.titles) {
+      if (element.containsKey(value.toInt())) {
+        text = Text(
+          element[value.toInt()]!,
+          style: context.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.left,
+        );
+      }
     }
 
-    return Text(
-      text,
-      style: context.textTheme.titleMedium?.copyWith(
-        fontWeight: FontWeight.bold,
-      ),
-      textAlign: TextAlign.left,
+    return SideTitleWidget(
+      axisSide: meta.axisSide,
+      child: text ?? const SizedBox.shrink(),
     );
   }
 
@@ -191,21 +163,3 @@ extension _CalculateEquation on num {
     return (this - 50) / 10;
   }
 }
- */
-
-/*
-/*   @override
-  Widget build(BuildContext context) {
-    return _CardWidget(
-      buttonTitle: LocaleKeys.home_see_more.tr(),
-      onPressed: () {
-        'Button pressed'.log;
-      },
-      title: LocaleKeys.home_chart.tr(),
-      icon: ProductIcon.chart.icon,
-      children: const [
-        _CustomChart(),
-      ],
-    );
-  }
-} */*/

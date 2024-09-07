@@ -3,13 +3,13 @@ import 'package:bodymetrics/core/index.dart';
 import 'package:flutter/material.dart';
 
 @immutable
-final class ColorfulText extends StatelessWidget {
+final class ColorfulTextButton extends StatelessWidget {
   final List<Color>? colors;
   final String text;
   final Duration speed;
   final void Function() onTap;
 
-  const ColorfulText({
+  const ColorfulTextButton({
     required this.text,
     required this.onTap,
     this.speed = Durations.long3,

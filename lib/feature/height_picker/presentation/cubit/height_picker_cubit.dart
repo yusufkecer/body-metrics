@@ -2,27 +2,18 @@ part of '../height_picker.dart';
 
 @injectable
 class HeightSelectorCubit extends Cubit<HeightSelectorState> {
-  HeightSelectorCubit()
-      : super(
-          HeightSelectorInitial(
-            _initPage.toInt(), //FIXME unnecessary conversion
-            _initPage,
-          ),
-        );
-
-  static const double _initPage = 165;
-
-  int _currentPosition = 0;
-  double _currentHeight = 0;
+  HeightSelectorCubit() : super(const HeightSelectorInitial());
 
   void updateHeight(double page, int minValue, int maxValue) {
+    var currentPosition = 0;
+    var currentHeight = 0.0;
     final position = page.floor() + minValue + 1;
 
-    if (position != _currentPosition && position <= maxValue) {
-      _currentPosition = position;
-      _currentHeight = _calculateHeight(position);
+    if (position != currentPosition && position <= maxValue) {
+      currentPosition = position;
+      currentHeight = _calculateHeight(position);
 
-      emit(HeightSelectorInitial(_currentPosition, _currentHeight));
+      emit(HeightSelectorInitial(page: currentPosition, height: currentHeight));
     }
   }
 

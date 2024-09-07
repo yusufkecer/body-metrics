@@ -33,7 +33,7 @@ final class _Ruler extends StatelessWidget with HeightCalculate {
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
                 if (selectedCentimeter)
-                  SelectedHeight(selectedHeight: adjustedIndex)
+                  PickedWidget(selectedValue: adjustedIndex)
                 else
                   Text(
                     '$adjustedIndex',

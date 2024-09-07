@@ -77,7 +77,7 @@ class __GenderViewState extends State<_GenderView> with _GenderModel {
 
   Widget buildAction() {
     return isSelected()
-        ? ColorfulText(
+        ? ColorfulTextButton(
             text: LocaleKeys.cont.tr(),
             onTap: () => context.router.push(
               HeightView(

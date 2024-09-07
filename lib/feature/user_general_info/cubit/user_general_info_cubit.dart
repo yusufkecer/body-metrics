@@ -1,4 +1,4 @@
-part of 'profile_cubit.dart';
+part of 'user_general_info_state.dart';
 
 sealed class UserInfoFOrmCubitState extends Equatable {
   final bool? isFormEmpty;

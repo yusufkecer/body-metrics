@@ -18,6 +18,38 @@ mixin HomeModel on State<_HomeBody> {
     _period = _HomePeriod.weekly;
     setState(() {});
   }
+
+  List<FlSpot> spots = const [
+    FlSpot(0, 120),
+    FlSpot(2, 108),
+    FlSpot(4, 89),
+    FlSpot(6, 97),
+    FlSpot(8, 78),
+    FlSpot(10, 70),
+    FlSpot(12, 120),
+  ];
+
+  List<Map<int, String>> get bottomTitles {
+    return [
+      {0: 'PT'},
+      {2: 'S'},
+      {4: 'Ç'},
+      {6: 'P'},
+      {8: 'C'},
+      {10: 'CT'},
+      {12: 'P'},
+    ];
+  }
+
+  List<Map<int, String>> get titles {
+    return [
+      {1: '60'},
+      {3: '80'},
+      {5: '100'},
+      {7: '120'},
+      {9: '140'},
+    ];
+  }
 }
 
 enum _HomePeriod {
