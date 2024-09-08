@@ -11,6 +11,7 @@ dependencies:
   animated_text_kit: ^4.2.2
   auto_route: ^8.3.0
 
+  bloc: ^8.1.4
   easy_localization: ^3.0.7
   equatable: ^2.0.5
   fl_chart: ^0.68.0

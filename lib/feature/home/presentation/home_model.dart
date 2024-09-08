@@ -29,46 +29,10 @@ mixin HomeModel on State<_HomeBody> {
     FlSpot(12, 120),
   ];
 
-  final List<Map<int, String>> _bottomTitles = const [
-    {0: 'PT'},
-    {2: 'S'},
-    {4: 'Ç'},
-    {6: 'P'},
-    {8: 'C'},
-    {10: 'CT'},
-    {12: 'P'},
-  ];
-
-  final List<Map<int, String>> _leftTitles = const [
-    {1: '60'},
-    {3: '80'},
-    {5: '100'},
-    {7: '120'},
-    {9: '140'},
-    {11: '160'},
-  ];
-
   final UserMetrics _userMetrics = const UserMetrics(
     userMetrics: [
       UserMetric(userMetric: BodyMetricResult.normal, date: '12.12.2021', weight: 80, bmi: 24.69),
       UserMetric(userMetric: BodyMetricResult.overweight, date: '18.12.2021', weight: 90, bmi: 24.69),
     ],
   );
-}
-
-enum _HomePeriod {
-  weekly,
-  monthly,
-  yearly;
-
-  String get name {
-    switch (this) {
-      case _HomePeriod.weekly:
-        return LocaleKeys.home_weekly.tr();
-      case _HomePeriod.monthly:
-        return LocaleKeys.home_monthly.tr();
-      case _HomePeriod.yearly:
-        return LocaleKeys.home_yearly.tr();
-    }
-  }
 }

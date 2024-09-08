@@ -69,5 +69,27 @@ abstract class  LocaleKeys {
   static const home_report = 'home.report';
   static const home_chart = 'home.chart';
   static const home = 'home';
+  static const chart_month_jan = 'chart.month.jan';
+  static const chart_month_fab = 'chart.month.fab';
+  static const chart_month_mar = 'chart.month.mar';
+  static const chart_month_apr = 'chart.month.apr';
+  static const chart_month_may = 'chart.month.may';
+  static const chart_month_jun = 'chart.month.jun';
+  static const chart_month_jul = 'chart.month.jul';
+  static const chart_month_aug = 'chart.month.aug';
+  static const chart_month_sep = 'chart.month.sep';
+  static const chart_month_oct = 'chart.month.oct';
+  static const chart_month_nov = 'chart.month.nov';
+  static const chart_month_dec = 'chart.month.dec';
+  static const chart_month = 'chart.month';
+  static const chart_week_mon = 'chart.week.mon';
+  static const chart_week_tue = 'chart.week.tue';
+  static const chart_week_wed = 'chart.week.wed';
+  static const chart_week_thu = 'chart.week.thu';
+  static const chart_week_fri = 'chart.week.fri';
+  static const chart_week_sat = 'chart.week.sat';
+  static const chart_week_sun = 'chart.week.sun';
+  static const chart_week = 'chart.week';
+  static const chart = 'chart';
 
 }

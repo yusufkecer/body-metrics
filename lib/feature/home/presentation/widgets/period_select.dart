@@ -19,17 +19,17 @@ final class _PeriodSelect extends StatelessWidget {
     return Wrap(
       children: [
         _Chip(
-          text: LocaleKeys.home_weekly.tr(),
+          text: homePeriod._name,
           onPressed: onWeeklySelected,
           isSelected: homePeriod == _HomePeriod.weekly,
         ),
         _Chip(
-          text: LocaleKeys.home_monthly.tr(),
+          text: homePeriod._name,
           onPressed: onMonthlySelected,
           isSelected: homePeriod == _HomePeriod.monthly,
         ),
         _Chip(
-          text: LocaleKeys.home_yearly.tr(),
+          text: homePeriod._name,
           onPressed: onYearlySelected,
           isSelected: homePeriod == _HomePeriod.yearly,
         ),
@@ -38,7 +38,8 @@ final class _PeriodSelect extends StatelessWidget {
   }
 }
 
-class _Chip extends StatelessWidget {
+@immutable
+final class _Chip extends StatelessWidget {
   const _Chip({
     required this.text,
     required this.onPressed,

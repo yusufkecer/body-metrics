@@ -54,6 +54,17 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const Onboard(),
       );
     },
+    ResultListView.name: (routeData) {
+      final args = routeData.argsAs<ResultListViewArgs>(
+          orElse: () => const ResultListViewArgs());
+      return AutoRoutePage<dynamic>(
+        routeData: routeData,
+        child: ResultList(
+          key: args.key,
+          userMetrics: args.userMetrics,
+        ),
+      );
+    },
     SplashView.name: (routeData) {
       return AutoRoutePage<dynamic>(
         routeData: routeData,
@@ -194,6 +205,44 @@ class OnboardView extends PageRouteInfo<void> {
   static const String name = 'OnboardView';
 
   static const PageInfo<void> page = PageInfo<void>(name);
+}
+
+/// generated route for
+/// [ResultList]
+class ResultListView extends PageRouteInfo<ResultListViewArgs> {
+  ResultListView({
+    Key? key,
+    UserMetrics? userMetrics,
+    List<PageRouteInfo>? children,
+  }) : super(
+          ResultListView.name,
+          args: ResultListViewArgs(
+            key: key,
+            userMetrics: userMetrics,
+          ),
+          initialChildren: children,
+        );
+
+  static const String name = 'ResultListView';
+
+  static const PageInfo<ResultListViewArgs> page =
+      PageInfo<ResultListViewArgs>(name);
+}
+
+class ResultListViewArgs {
+  const ResultListViewArgs({
+    this.key,
+    this.userMetrics,
+  });
+
+  final Key? key;
+
+  final UserMetrics? userMetrics;
+
+  @override
+  String toString() {
+    return 'ResultListViewArgs{key: $key, userMetrics: $userMetrics}';
+  }
 }
 
 /// generated route for
