@@ -8,18 +8,20 @@ part 'user_metric.g.dart';
 @JsonSerializable()
 @immutable
 final class UserMetric extends Equatable implements BaseModel<UserMetric> {
-  const UserMetric(this.weightDiff, {this.bmi, this.id, this.date, this.weight, this.userMetric});
+  const UserMetric({this.weightDiff, this.bmi, this.id, this.date, this.weight, this.userMetric});
 
   @override
   factory UserMetric.fromJson(Map<String, dynamic> json) => _$UserMetricFromJson(json);
 
   UserMetric.copyWith(UserMetric userMetric)
-      : this(userMetric.weightDiff,
-            bmi: userMetric.bmi,
-            id: userMetric.id,
-            date: userMetric.date,
-            weight: userMetric.weight,
-            userMetric: userMetric.userMetric);
+      : this(
+          weightDiff: userMetric.weightDiff,
+          bmi: userMetric.bmi,
+          id: userMetric.id,
+          date: userMetric.date,
+          weight: userMetric.weight,
+          userMetric: userMetric.userMetric,
+        );
 
   UserMetric copyWith({
     int? id,
@@ -30,7 +32,7 @@ final class UserMetric extends Equatable implements BaseModel<UserMetric> {
     BodyMetricResult? userMetric,
   }) {
     return UserMetric(
-      weightDiff ?? this.weightDiff,
+      weightDiff: weightDiff ?? this.weightDiff,
       bmi: bmi ?? this.bmi,
       id: id ?? this.id,
       date: date ?? this.date,
@@ -51,5 +53,5 @@ final class UserMetric extends Equatable implements BaseModel<UserMetric> {
   final BodyMetricResult? userMetric;
 
   @override
-  List<Object?> get props => [id, date, weight, userMetric];
+  List<Object?> get props => [id, date, weight, userMetric, bmi, weightDiff];
 }
