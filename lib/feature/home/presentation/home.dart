@@ -9,7 +9,8 @@ import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 
 part 'home_model.dart';
-
+part 'mixin/title_mixin.dart';
+part 'enum/period_enum.dart';
 part 'widgets/chart.dart';
 part 'widgets/data_list.dart';
 part 'widgets/period_select.dart';
@@ -23,7 +24,7 @@ final class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> {
+class _HomeState extends State<Home> with _TitleMixin {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
@@ -43,7 +44,7 @@ final class _HomeBody extends StatefulWidget {
   State<_HomeBody> createState() => __HomeBodyState();
 }
 
-class __HomeBodyState extends State<_HomeBody> with HomeModel {
+class __HomeBodyState extends State<_HomeBody> with HomeModel, _TitleMixin {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -62,7 +63,7 @@ class __HomeBodyState extends State<_HomeBody> with HomeModel {
             _Chart(
               spot: _spots,
               leftTitles: _leftTitles,
-              bottomTitles: _bottomTitles,
+              bottomTitles: _bottomTitlesWeek,
             ),
           ],
         ),

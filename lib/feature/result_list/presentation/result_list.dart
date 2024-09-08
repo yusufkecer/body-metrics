@@ -1,8 +1,11 @@
+import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:flutter/material.dart';
 
 part 'result_list_model.dart';
 
+@RoutePage(name: 'ResultListView')
+@immutable
 final class ResultList extends StatefulWidget {
   const ResultList({super.key, this.userMetrics});
 

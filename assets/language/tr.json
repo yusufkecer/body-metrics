@@ -73,5 +73,30 @@
         "change": "Değişim",
         "report": "Rapor",
         "chart": "Grafik"
+    },
+    "chart": {
+        "month": {
+            "jan": "Oc",
+            "feb": "Şub",
+            "mar": "Mar",
+            "apr": "Nis",
+            "may": "May",
+            "jun": "Haz",
+            "jul": "Tem",
+            "aug": "Ağu",
+            "sep": "Eyl",
+            "oct": "Eki",
+            "nov": "Kas",
+            "dec": "Ara"
+        },
+        "week": {
+            "mon": "Pzt",
+            "tue": "Sal",
+            "wed": "Çar",
+            "thu": "Per",
+            "fri": "Cum",
+            "sat": "Cmt",
+            "sun": "Paz"
+        }
     }
 }
