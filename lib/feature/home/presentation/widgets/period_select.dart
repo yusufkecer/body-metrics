@@ -19,17 +19,17 @@ final class _PeriodSelect extends StatelessWidget {
     return Wrap(
       children: [
         _Chip(
-          text: homePeriod._name,
+          text: LocaleKeys.home_weekly.tr(),
           onPressed: onWeeklySelected,
           isSelected: homePeriod == _HomePeriod.weekly,
         ),
         _Chip(
-          text: homePeriod._name,
+          text: LocaleKeys.home_monthly.tr(),
           onPressed: onMonthlySelected,
           isSelected: homePeriod == _HomePeriod.monthly,
         ),
         _Chip(
-          text: homePeriod._name,
+          text: LocaleKeys.home_yearly.tr(),
           onPressed: onYearlySelected,
           isSelected: homePeriod == _HomePeriod.yearly,
         ),

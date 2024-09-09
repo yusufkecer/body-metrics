@@ -1,6 +1,7 @@
 part of '../home.dart';
 
 mixin _TitleMixin {
+  // ignore: unused_field
   final List<Map<int, String>> _bottomTitlesMonth = [
     {0: LocaleKeys.chart_month_jan.tr()},
     {2: LocaleKeys.chart_month_fab.tr()},
@@ -16,14 +17,14 @@ mixin _TitleMixin {
     {22: LocaleKeys.chart_month_dec.tr()},
   ];
 
-  final List<Map<int, String>> _bottomTitlesWeek = const [
-    {0: LocaleKeys.chart_week_mon},
-    {2: LocaleKeys.chart_week_tue},
-    {4: LocaleKeys.chart_week_wed},
-    {6: LocaleKeys.chart_week_thu},
-    {8: LocaleKeys.chart_week_fri},
-    {10: LocaleKeys.chart_week_sat},
-    {12: LocaleKeys.chart_week_sun},
+  final List<Map<int, String>> _bottomTitlesWeek = [
+    {0: LocaleKeys.chart_week_mon.tr()},
+    {2: LocaleKeys.chart_week_tue.tr()},
+    {4: LocaleKeys.chart_week_wed.tr()},
+    {6: LocaleKeys.chart_week_thu.tr()},
+    {8: LocaleKeys.chart_week_fri.tr()},
+    {10: LocaleKeys.chart_week_sat.tr()},
+    {12: LocaleKeys.chart_week_sun.tr()},
   ];
 
   final List<Map<int, String>> _leftTitles = const [

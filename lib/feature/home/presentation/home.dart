@@ -14,6 +14,7 @@ part 'enum/period_enum.dart';
 part 'widgets/chart.dart';
 part 'widgets/data_list.dart';
 part 'widgets/period_select.dart';
+part 'enum/expanded.dart';
 
 @immutable
 @RoutePage(name: 'HomeView')
@@ -44,7 +45,7 @@ final class _HomeBody extends StatefulWidget {
   State<_HomeBody> createState() => __HomeBodyState();
 }
 
-class __HomeBodyState extends State<_HomeBody> with HomeModel, _TitleMixin {
+class __HomeBodyState extends State<_HomeBody> with _TitleMixin, _HomeModel {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -58,13 +59,20 @@ class __HomeBodyState extends State<_HomeBody> with HomeModel, _TitleMixin {
               onMonthlySelected: _monthlyPeriod,
               onWeeklySelected: _weeklyPeriod,
             ),
-            _DataList(_userMetrics),
-            VerticalSpace.s(),
-            _Chart(
-              spot: _spots,
-              leftTitles: _leftTitles,
-              bottomTitles: _bottomTitlesWeek,
-            ),
+            if (_expandedCard != _ExpandedCard.chart) ...[
+              _DataList(
+                userMetrics: _userMetrics,
+                onPressed: _dataListOnPressed,
+              ),
+              VerticalSpace.s(),
+            ],
+            if (_expandedCard != _ExpandedCard.list)
+              _Chart(
+                onPressed: _chartOnPressed,
+                spot: _spots,
+                leftTitles: _leftTitles,
+                bottomTitles: _bottomTitlesWeek,
+              ),
           ],
         ),
       ),
