@@ -2,16 +2,17 @@ part of '../home.dart';
 
 @immutable
 final class _DataList extends StatelessWidget {
-  const _DataList(this.userMetrics);
+  const _DataList({required this.userMetrics, this.onPressed});
 
-  final UserMetrics userMetrics;
+  final UserMetrics? userMetrics;
+  final void Function()? onPressed;
 
   @override
   Widget build(BuildContext context) {
-    final metrics = userMetrics.userMetrics;
+    final metrics = userMetrics!.userMetrics;
     return HomeCard(
       buttonTitle: LocaleKeys.home_see_more.tr(),
-      onPressed: () {},
+      onPressed: onPressed,
       title: LocaleKeys.home_report.tr(),
       icon: ProductIcon.weight.icon,
       children: [

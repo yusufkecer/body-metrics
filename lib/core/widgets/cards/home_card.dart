@@ -8,7 +8,7 @@ class HomeCard extends StatelessWidget {
     required this.icon,
     required this.children,
     required this.buttonTitle,
-    this.height,
+    this.size,
     super.key,
   });
 
@@ -17,12 +17,13 @@ class HomeCard extends StatelessWidget {
   final String title;
   final String buttonTitle;
   final IconData icon;
-  final double? height;
+  final Size? size;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: height ?? context.height * 0.38,
+      height: size?.height ?? context.height * 0.38,
+      width: size?.width ?? context.width,
       child: Card(
         child: Padding(
           padding: ProductPadding.ten(),
