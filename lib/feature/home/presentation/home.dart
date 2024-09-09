@@ -63,6 +63,7 @@ class __HomeBodyState extends State<_HomeBody> with _TitleMixin, _HomeModel {
               _DataList(
                 userMetrics: _userMetrics,
                 onPressed: _dataListOnPressed,
+                expandedCard: _expandedCard,
               ),
               VerticalSpace.s(),
             ],
@@ -71,7 +72,7 @@ class __HomeBodyState extends State<_HomeBody> with _TitleMixin, _HomeModel {
                 onPressed: _chartOnPressed,
                 spot: _spots,
                 leftTitles: _leftTitles,
-                bottomTitles: _bottomTitlesWeek,
+                bottomTitles: _bottomTitle,
               ),
           ],
         ),

@@ -15,6 +15,7 @@ mixin _HomeModel on State<_HomeBody>, _TitleMixin {
 
   void _yearlyPeriod({required bool value}) {
     _period = _HomePeriod.yearly;
+    _bottomTitle = _bottomTitlesYear;
     setState(() {});
   }
 
