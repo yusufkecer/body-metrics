@@ -70,7 +70,7 @@ abstract class  LocaleKeys {
   static const home_chart = 'home.chart';
   static const home = 'home';
   static const chart_month_jan = 'chart.month.jan';
-  static const chart_month_fab = 'chart.month.fab';
+  static const chart_month_feb = 'chart.month.feb';
   static const chart_month_mar = 'chart.month.mar';
   static const chart_month_apr = 'chart.month.apr';
   static const chart_month_may = 'chart.month.may';

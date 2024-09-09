@@ -2,15 +2,17 @@ part of '../home.dart';
 
 @immutable
 final class _DataList extends StatelessWidget {
-  const _DataList({required this.userMetrics, this.onPressed});
+  const _DataList({required this.userMetrics, this.onPressed, this.expandedCard});
 
   final UserMetrics? userMetrics;
   final void Function()? onPressed;
+  final _ExpandedCard? expandedCard;
 
   @override
   Widget build(BuildContext context) {
     final metrics = userMetrics!.userMetrics;
     return HomeCard(
+      size: expandedCard?.size(context),
       buttonTitle: LocaleKeys.home_see_more.tr(),
       onPressed: onPressed,
       title: LocaleKeys.home_report.tr(),
@@ -19,7 +21,7 @@ final class _DataList extends StatelessWidget {
         GridView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: 2,
+          itemCount: expandedCard?.length(metrics!.length),
           gridDelegate: const GridDelegate.dashBoard(),
           itemBuilder: (context, index) {
             return DecoratedBox(

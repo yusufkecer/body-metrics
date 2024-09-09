@@ -4,7 +4,7 @@ mixin _TitleMixin {
   // ignore: unused_field
   final List<Map<int, String>> _bottomTitlesMonth = [
     {0: LocaleKeys.chart_month_jan.tr()},
-    {2: LocaleKeys.chart_month_fab.tr()},
+    {2: LocaleKeys.chart_month_feb.tr()},
     {4: LocaleKeys.chart_month_mar.tr()},
     {6: LocaleKeys.chart_month_apr.tr()},
     {8: LocaleKeys.chart_month_may.tr()},
@@ -26,6 +26,8 @@ mixin _TitleMixin {
     {10: LocaleKeys.chart_week_sat.tr()},
     {12: LocaleKeys.chart_week_sun.tr()},
   ];
+
+  final List<Map<int, String>> _bottomTitlesYear = []..years;
 
   final List<Map<int, String>> _leftTitles = const [
     {1: '60'},
