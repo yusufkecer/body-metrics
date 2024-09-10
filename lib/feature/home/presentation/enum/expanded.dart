@@ -5,23 +5,17 @@ enum _ExpandedCard {
   chart,
   list;
 
-  int length(int length) {
-    switch (this) {
-      case _ExpandedCard.list:
-        return length;
-      // ignore: no_default_cases
-      default:
-        return 2;
+  int adjustLength(int length) {
+    if (this == _ExpandedCard.list) {
+      return length;
     }
+    return length >= 2 ? 2 : length;
   }
 
-  Size? size(BuildContext context) {
-    switch (this) {
-      case _ExpandedCard.none:
-        return Size(context.width, context.height * 0.38);
-      // ignore: no_default_cases
-      default:
-        return Size(context.width, 0);
-    }
+  Size? customSize(BuildContext context) {
+    final Size size;
+    final height = context.height * ThemeConstants.homeCardSize;
+    this != _ExpandedCard.none ? size = Size(context.width, 0) : size = Size(context.width, height);
+    return size;
   }
 }
