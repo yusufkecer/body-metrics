@@ -8,72 +8,83 @@ class HomeCard extends StatelessWidget {
     required this.icon,
     required this.children,
     required this.buttonTitle,
+    required this.animationController,
     this.size,
     super.key,
   });
 
-  final void Function()? onPressed;
+  final void Function() onPressed;
   final List<Widget> children;
   final String title;
   final String buttonTitle;
   final IconData icon;
   final Size? size;
+  final AnimationController animationController;
 
   @override
   Widget build(BuildContext context) {
-    return SizedBox(
-      height: size?.height ?? context.height * 0.38,
-      width: size?.width ?? context.width,
-      child: Card(
-        child: Padding(
-          padding: ProductPadding.ten(),
+    print(animationController);
+    return SizeTransition(
+      axisAlignment: -1,
+      sizeFactor: CurvedAnimation(
+        reverseCurve: Curves.easeInOut,
+        parent: animationController,
+        curve: Curves.easeInOut,
+      ),
+      child: SizedBox(
+        height: 300,
+        width: size?.width ?? context.width,
+        child: Card(
           child: Padding(
-            padding: ProductPadding.four().copyWith(top: 0, bottom: 0),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    SizedBox(
-                      width: const CustomSize.dashboardTitle().width,
-                      child: Align(
-                        alignment: Alignment.topLeft,
-                        child: Icon(
-                          icon,
-                        ),
-                      ),
-                    ),
-                    Center(
-                      child: Text(
-                        title,
-                        style: context.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.bold,
-                        ),
-                      ),
-                    ),
-                    SizedBox(
-                      width: const CustomSize.dashboardTitle().width,
-                      child: Align(
-                        alignment: Alignment.topRight,
-                        child: TextButton(
-                          onPressed: onPressed,
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.zero,
+            padding: ProductPadding.ten(),
+            child: Padding(
+              padding: ProductPadding.four().copyWith(top: 0, bottom: 0),
+              child: Column(
+                children: [
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      SizedBox(
+                        width: const CustomSize.dashboardTitle().width,
+                        child: Align(
+                          alignment: Alignment.topLeft,
+                          child: Icon(
+                            icon,
                           ),
-                          child: Text(
-                            buttonTitle,
-                            style: context.textTheme.titleMedium?.copyWith(
-                              color: ProductColor().white,
+                        ),
+                      ),
+                      Center(
+                        child: Text(
+                          title,
+                          style: context.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ),
+                      SizedBox(
+                        width: const CustomSize.dashboardTitle().width,
+                        child: Align(
+                          alignment: Alignment.topRight,
+                          child: TextButton(
+                            onPressed: onPressed,
+                            style: TextButton.styleFrom(
+                              padding: EdgeInsets.zero,
+                            ),
+                            child: Text(
+                              buttonTitle,
+                              style: context.textTheme.titleMedium?.copyWith(
+                                color: ProductColor().white,
+                              ),
                             ),
                           ),
                         ),
                       ),
-                    ),
-                  ],
-                ),
-                ...children,
-                VerticalSpace.s(),
-              ],
+                    ],
+                  ),
+                  ...children,
+                  VerticalSpace.s(),
+                ],
+              ),
             ),
           ),
         ),

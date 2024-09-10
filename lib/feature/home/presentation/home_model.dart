@@ -1,15 +1,22 @@
 part of 'home.dart';
 
-mixin _HomeModel on State<_HomeBody>, _TitleMixin {
+mixin _HomeModel on TickerProviderStateMixin<_HomeBody>, _TitleMixin {
   _HomePeriod _period = _HomePeriod.weekly;
 
   List<Map<int, String>> _bottomTitle = [];
 
   _ExpandedCard _expandedCard = _ExpandedCard.none;
 
+  late AnimationController _animatedController;
+
   @override
   void initState() {
     _bottomTitle = _bottomTitlesWeek;
+    _animatedController = AnimationController(
+      vsync: this,
+      debugLabel: 'animation',
+      duration: const Duration(milliseconds: 200),
+    );
     super.initState();
   }
 
@@ -60,11 +67,13 @@ mixin _HomeModel on State<_HomeBody>, _TitleMixin {
     userMetrics: [
       UserMetric(userMetric: BodyMetricResult.normal, date: '12.12.2021', weight: 80, bmi: 24.69),
       UserMetric(userMetric: BodyMetricResult.overweight, date: '18.12.2021', weight: 90, bmi: 24.69),
+      UserMetric(userMetric: BodyMetricResult.overweight, date: '18.12.2021', weight: 90, bmi: 24.69),
     ],
   );
 
   void _dataListOnPressed() {
     _expandedCard = _expandedCard == _ExpandedCard.list ? _ExpandedCard.none : _ExpandedCard.list;
+
     setState(() {});
   }
 

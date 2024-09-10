@@ -45,7 +45,7 @@ final class _HomeBody extends StatefulWidget {
   State<_HomeBody> createState() => __HomeBodyState();
 }
 
-class __HomeBodyState extends State<_HomeBody> with _TitleMixin, _HomeModel {
+class __HomeBodyState extends State<_HomeBody> with _TitleMixin, TickerProviderStateMixin, _HomeModel {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -61,6 +61,7 @@ class __HomeBodyState extends State<_HomeBody> with _TitleMixin, _HomeModel {
             ),
             if (_expandedCard != _ExpandedCard.chart) ...[
               _DataList(
+                animatedController: _animatedController,
                 userMetrics: _userMetrics,
                 onPressed: _dataListOnPressed,
                 expandedCard: _expandedCard,
@@ -69,6 +70,7 @@ class __HomeBodyState extends State<_HomeBody> with _TitleMixin, _HomeModel {
             ],
             if (_expandedCard != _ExpandedCard.list)
               _Chart(
+                animatedController: _animatedController,
                 onPressed: _chartOnPressed,
                 spot: _spots,
                 leftTitles: _leftTitles,
