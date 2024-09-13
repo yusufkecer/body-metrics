@@ -20,7 +20,6 @@ final class _DataList extends StatelessWidget {
 
     return HomeCard(
       animationController: animatedController,
-      size: expandedCard?.customSize(context),
       buttonTitle: LocaleKeys.home_see_more.tr(),
       onPressed: onPressed,
       title: LocaleKeys.home_report.tr(),

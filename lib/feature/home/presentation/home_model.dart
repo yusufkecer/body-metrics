@@ -1,23 +1,37 @@
 part of 'home.dart';
 
-mixin _HomeModel on TickerProviderStateMixin<_HomeBody>, _TitleMixin {
+mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
   _HomePeriod _period = _HomePeriod.weekly;
-
+  final ZoomDrawerController _zoomDrawerController = ZoomDrawerController();
   List<Map<int, String>> _bottomTitle = [];
 
   _ExpandedCard _expandedCard = _ExpandedCard.none;
 
-  late AnimationController _animatedController;
-
+  late AnimationController _animatedListController;
+  late AnimationController _animatedChartController;
   @override
   void initState() {
     _bottomTitle = _bottomTitlesWeek;
-    _animatedController = AnimationController(
+    _animatedListController = AnimationController(
       vsync: this,
-      debugLabel: 'animation',
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 500),
     );
+
+    _animatedChartController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+    _animatedChartController.forward();
+    _animatedListController.forward();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animatedListController.dispose();
+    _animatedChartController.dispose();
+    _zoomDrawerController.close!();
+    super.dispose();
   }
 
   void _yearlyPeriod({required bool value}) {
@@ -74,11 +88,24 @@ mixin _HomeModel on TickerProviderStateMixin<_HomeBody>, _TitleMixin {
   void _dataListOnPressed() {
     _expandedCard = _expandedCard == _ExpandedCard.list ? _ExpandedCard.none : _ExpandedCard.list;
 
+    if (_expandedCard == _ExpandedCard.list) {
+      _animatedListController.forward();
+      _animatedChartController.reverse();
+    } else {
+      _animatedChartController.forward();
+    }
+
     setState(() {});
   }
 
   void _chartOnPressed() {
     _expandedCard = _expandedCard == _ExpandedCard.chart ? _ExpandedCard.none : _ExpandedCard.chart;
+    if (_expandedCard == _ExpandedCard.chart) {
+      _animatedChartController.forward();
+      _animatedListController.reverse();
+    } else {
+      _animatedListController.forward();
+    }
     setState(() {});
   }
 }

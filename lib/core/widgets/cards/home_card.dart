@@ -9,7 +9,6 @@ class HomeCard extends StatelessWidget {
     required this.children,
     required this.buttonTitle,
     required this.animationController,
-    this.size,
     super.key,
   });
 
@@ -18,22 +17,15 @@ class HomeCard extends StatelessWidget {
   final String title;
   final String buttonTitle;
   final IconData icon;
-  final Size? size;
+
   final AnimationController animationController;
 
   @override
   Widget build(BuildContext context) {
-    print(animationController);
     return SizeTransition(
-      axisAlignment: -1,
-      sizeFactor: CurvedAnimation(
-        reverseCurve: Curves.easeInOut,
-        parent: animationController,
-        curve: Curves.easeInOut,
-      ),
-      child: SizedBox(
-        height: 300,
-        width: size?.width ?? context.width,
+      sizeFactor: animationController,
+      child: AnimatedSize(
+        duration: const Duration(milliseconds: 500),
         child: Card(
           child: Padding(
             padding: ProductPadding.ten(),

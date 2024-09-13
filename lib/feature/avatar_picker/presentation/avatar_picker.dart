@@ -3,7 +3,6 @@ import 'package:bodymetrics/core/index.dart';
 import 'package:easy_localization/easy_localization.dart';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 part 'avatar_picker_model.dart';
@@ -26,44 +25,18 @@ final class AvatarPicker extends StatefulWidget {
 class _AvatarPickerState extends State<AvatarPicker> with _AvatarPickerModel {
   @override
   Widget build(BuildContext context) {
-    return ZoomDrawer(
-      controller: _zoomDrawerController,
-      borderRadius: 50,
-      menuBackgroundColor: ProductColor().seedColor,
-      openCurve: Curves.fastOutSlowIn,
-      slideWidth: MediaQuery.of(context).size.width * 0.6,
-      duration: const Duration(milliseconds: 100),
-      menuScreenTapClose: true,
-      mainScreenTapClose: true,
-      showShadow: true,
-      shadowLayer2Color: ProductColor().drawerBg,
-      shadowLayer1Color: ProductColor().drawerBg2,
-      menuScreen: const SafeArea(
-        child: Scaffold(
-          body: Column(
-            children: [Text('asdf')],
-          ),
-        ),
+    return GradientScaffold(
+      appBar: CustomAppBar(
+        title: LocaleKeys.register_select_profile_picture.tr(),
       ),
-      mainScreen: GradientScaffold(
-        appBar: CustomAppBar(
-          leading: IconButton(
-            onPressed: () {
-              _zoomDrawerController.toggle!();
-            },
-            icon: const Icon(Icons.menu),
-          ),
-          title: LocaleKeys.register_select_profile_picture.tr(),
-        ),
-        body: SingleChildScrollView(
-          physics: const BouncingScrollPhysics(),
-          child: Column(
-            children: [
-              grid(),
-              utilButtons(),
-              VerticalSpace.m(),
-            ],
-          ),
+      body: SingleChildScrollView(
+        physics: const BouncingScrollPhysics(),
+        child: Column(
+          children: [
+            grid(),
+            utilButtons(),
+            VerticalSpace.m(),
+          ],
         ),
       ),
     );
