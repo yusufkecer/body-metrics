@@ -20,7 +20,7 @@ class Bodymetrics extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      title: 'BodyMetrics',
+      title: AppUtil.appName,
       theme: Locator.sl<CustomTheme>().theme,
       routerConfig: Locator.sl<AppRouter>().config(),
       debugShowCheckedModeBanner: false,
