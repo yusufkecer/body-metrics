@@ -13,9 +13,10 @@ enum _ExpandedCard {
   }
 
   Size? customSize(BuildContext context) {
-    final Size size;
+    final Size? size;
     final height = context.height * ThemeConstants.homeCardSize;
-    this != _ExpandedCard.none ? size = Size(context.width, 0) : size = Size(context.width, height);
+    this != _ExpandedCard.none ? size = null : size = Size(context.width, height);
+
     return size;
   }
 }

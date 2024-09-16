@@ -70,7 +70,7 @@
         "weight": "Kilo",
         "situation": "Durum",
         "date": "Tarih",
-        "change": "Değişim",
+        "weight_change": "Değişim",
         "report": "Rapor",
         "chart": "Grafik"
     },

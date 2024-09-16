@@ -28,7 +28,7 @@ mixin _SplashModel on State<_SplashBody>, DialogUtil {
     if (!result.isNotNull) {
       pushNewView(const OnboardView());
     } else {
-      pushNewView(AvatarPickerView());
+      pushNewView(const HomeView());
     }
 
     FlutterNativeSplash.remove();

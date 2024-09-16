@@ -71,7 +71,7 @@
         "weight": "Weight",
         "situation": "Situation",
         "date": "Date",
-        "change": "change",
+        "weight_change": "Change",
         "report": "Report",
         "chart": "Chart"
     },

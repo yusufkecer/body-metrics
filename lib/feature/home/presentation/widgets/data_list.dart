@@ -20,7 +20,6 @@ final class _DataList extends StatelessWidget {
 
     return HomeCard(
       animationController: animatedController,
-      size: expandedCard?.customSize(context),
       buttonTitle: LocaleKeys.home_see_more.tr(),
       onPressed: onPressed,
       title: LocaleKeys.home_report.tr(),
@@ -44,25 +43,40 @@ final class _DataList extends StatelessWidget {
                 child: SpaceColumn(
                   space: SpaceValues.xs.value,
                   children: [
-                    CustomRichText(
-                      title: LocaleKeys.home_weight.tr(),
-                      subTitle: metrics![index].weight.toString(),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustomRichText(
+                          icon: ProductIcon.weight.icon,
+                          title: '${LocaleKeys.home_weight.tr()}:',
+                          subTitle: metrics![index].weight.toString(),
+                        ),
+                        CustomRichText(
+                          icon: ProductIcon.userCheck.icon,
+                          title: '${LocaleKeys.home_situation.tr()}:',
+                          subTitle: metrics[index].userMetric?.result ?? '',
+                        ),
+                      ],
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        CustomRichText(
+                          icon: ProductIcon.chart.icon,
+                          title: '${LocaleKeys.home_bmi.tr()}:',
+                          subTitle: metrics[index].bmi.toString(),
+                        ),
+                        CustomRichText(
+                          icon: ProductIcon.calendar.icon,
+                          title: '${LocaleKeys.home_date.tr()}:',
+                          subTitle: metrics[index].date ?? '',
+                        ),
+                      ],
                     ),
                     CustomRichText(
-                      title: LocaleKeys.home_bmi.tr(),
-                      subTitle: metrics[index].bmi.toString(),
-                    ),
-                    CustomRichText(
-                      title: LocaleKeys.home_situation.tr(),
-                      subTitle: metrics[index].userMetric?.result ?? '',
-                    ),
-                    CustomRichText(
-                      title: LocaleKeys.home_date.tr(),
-                      subTitle: metrics[index].date ?? '',
-                    ),
-                    CustomRichText(
-                      title: LocaleKeys.home_change.tr(),
-                      subTitle: 'Sub Title',
+                      icon: metrics[index].statusIcon,
+                      title: LocaleKeys.home_weight_change.tr(),
+                      subTitle: metrics[index].weightDiff.toString(),
                     ),
                   ],
                 ),

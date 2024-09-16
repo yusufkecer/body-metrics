@@ -1,23 +1,37 @@
 part of 'home.dart';
 
-mixin _HomeModel on TickerProviderStateMixin<_HomeBody>, _TitleMixin {
+mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
   _HomePeriod _period = _HomePeriod.weekly;
-
+  final ZoomDrawerController _zoomDrawerController = ZoomDrawerController();
   List<Map<int, String>> _bottomTitle = [];
 
   _ExpandedCard _expandedCard = _ExpandedCard.none;
 
-  late AnimationController _animatedController;
-
+  late AnimationController _animatedListController;
+  late AnimationController _animatedChartController;
   @override
   void initState() {
     _bottomTitle = _bottomTitlesWeek;
-    _animatedController = AnimationController(
+    _animatedListController = AnimationController(
       vsync: this,
-      debugLabel: 'animation',
-      duration: const Duration(milliseconds: 200),
+      duration: const Duration(milliseconds: 500),
     );
+
+    _animatedChartController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 500),
+    );
+    _animatedChartController.forward();
+    _animatedListController.forward();
     super.initState();
+  }
+
+  @override
+  void dispose() {
+    _animatedListController.dispose();
+    _animatedChartController.dispose();
+    _zoomDrawerController.close!();
+    super.dispose();
   }
 
   void _yearlyPeriod({required bool value}) {
@@ -63,22 +77,56 @@ mixin _HomeModel on TickerProviderStateMixin<_HomeBody>, _TitleMixin {
     FlSpot(12, 120),
   ];
 
-  final UserMetrics _userMetrics = const UserMetrics(
+  final UserMetrics _userMetrics = UserMetrics(
     userMetrics: [
-      UserMetric(userMetric: BodyMetricResult.normal, date: '12.12.2021', weight: 80, bmi: 24.69),
-      UserMetric(userMetric: BodyMetricResult.overweight, date: '18.12.2021', weight: 90, bmi: 24.69),
-      UserMetric(userMetric: BodyMetricResult.overweight, date: '18.12.2021', weight: 90, bmi: 24.69),
+      UserMetric(
+        userMetric: BodyMetricResult.normal,
+        date: '12.12.2021',
+        weight: 80,
+        bmi: 24.69,
+        weightDiff: 0,
+        statusIcon: ProductIcon.straight.icon,
+      ),
+      UserMetric(
+        userMetric: BodyMetricResult.overweight,
+        date: '18.12.2021',
+        weight: 90,
+        bmi: 24.69,
+        weightDiff: 10,
+        statusIcon: ProductIcon.plus.icon,
+      ),
+      UserMetric(
+        userMetric: BodyMetricResult.overweight,
+        date: '18.12.2021',
+        weight: 70,
+        bmi: 24.69,
+        weightDiff: 20,
+        statusIcon: ProductIcon.minus.icon,
+      ),
     ],
   );
 
   void _dataListOnPressed() {
     _expandedCard = _expandedCard == _ExpandedCard.list ? _ExpandedCard.none : _ExpandedCard.list;
 
+    if (_expandedCard == _ExpandedCard.list) {
+      _animatedListController.forward();
+      _animatedChartController.reverse();
+    } else {
+      _animatedChartController.forward();
+    }
+
     setState(() {});
   }
 
   void _chartOnPressed() {
     _expandedCard = _expandedCard == _ExpandedCard.chart ? _ExpandedCard.none : _ExpandedCard.chart;
+    if (_expandedCard == _ExpandedCard.chart) {
+      _animatedChartController.forward();
+      _animatedListController.reverse();
+    } else {
+      _animatedListController.forward();
+    }
     setState(() {});
   }
 }

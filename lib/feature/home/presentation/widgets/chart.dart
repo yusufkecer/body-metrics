@@ -2,12 +2,13 @@ part of '../home.dart';
 
 @immutable
 final class _Chart extends StatelessWidget {
-  const _Chart(
-      {required this.spot,
-      required this.leftTitles,
-      required this.bottomTitles,
-      required this.onPressed,
-      required this.animatedController});
+  const _Chart({
+    required this.spot,
+    required this.leftTitles,
+    required this.bottomTitles,
+    required this.onPressed,
+    required this.animatedController,
+  });
 
   final List<FlSpot> spot;
   final List<Map<int, String>> leftTitles;

@@ -65,7 +65,7 @@ abstract class  LocaleKeys {
   static const home_weight = 'home.weight';
   static const home_situation = 'home.situation';
   static const home_date = 'home.date';
-  static const home_change = 'home.change';
+  static const home_weight_change = 'home.weight_change';
   static const home_report = 'home.report';
   static const home_chart = 'home.chart';
   static const home = 'home';

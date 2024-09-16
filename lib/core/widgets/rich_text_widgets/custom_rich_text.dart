@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 
 @immutable
 final class CustomRichText extends StatelessWidget {
-  const CustomRichText({required this.title, required this.subTitle, super.key});
+  const CustomRichText({required this.title, required this.subTitle, this.icon, super.key});
 
+  final IconData? icon;
   final String title;
   final String subTitle;
 
@@ -12,15 +13,25 @@ final class CustomRichText extends StatelessWidget {
   Widget build(BuildContext context) {
     return RichText(
       text: TextSpan(
-        style: context.textTheme.titleMedium,
+        style: context.textTheme.bodyLarge,
         children: [
+          if (icon != null) ...[
+            WidgetSpan(
+              child: Icon(icon),
+            ),
+            WidgetSpan(
+              child: HorizontalSpace.s(),
+            ),
+          ],
           TextSpan(
             text: title,
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
           ),
-          WidgetSpan(child: HorizontalSpace.xxs()),
+          WidgetSpan(
+            child: HorizontalSpace.xxs(),
+          ),
           TextSpan(
             text: subTitle,
           ),

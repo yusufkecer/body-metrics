@@ -2,11 +2,12 @@ import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/core/widgets/buttons/chip_button.dart';
 
-import 'package:bodymetrics/core/widgets/custom_rich_text.dart';
+import 'package:bodymetrics/core/widgets/rich_text_widgets/custom_rich_text.dart';
 import 'package:bodymetrics/core/widgets/space_column.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
 part 'home_model.dart';
 part 'mixin/title_mixin.dart';
@@ -25,27 +26,76 @@ final class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> with _TitleMixin {
+class _HomeState extends State<Home> with _TitleMixin, TickerProviderStateMixin, _HomeModel {
   @override
   Widget build(BuildContext context) {
-    return GradientScaffold(
-      appBar: CustomAppBar(
-        title: LocaleKeys.home_hello.tr(args: ['John Doe']),
+    return CustomDrawer(
+      zoomDrawerController: _zoomDrawerController,
+      borderRadius: 25,
+      menuBackgroundColor: ProductColor().seedColor,
+      menuScreen: const _MenuView(),
+      mainScreen: GradientScaffold(
+        appBar: CustomAppBar(
+          leading: IconButton(
+            onPressed: () {
+              _zoomDrawerController.toggle!();
+            },
+            icon: const Icon(Icons.menu),
+          ),
+          title: LocaleKeys.home_hello.tr(args: ['John Doe']),
+        ),
+        body: _HomeBody(
+          period: _period,
+          yearlyPeriod: _yearlyPeriod,
+          monthlyPeriod: _monthlyPeriod,
+          weeklyPeriod: _weeklyPeriod,
+          dataListOnPressed: _dataListOnPressed,
+          chartOnPressed: _chartOnPressed,
+          spots: _spots,
+          leftTitles: _leftTitles,
+          bottomTitle: _bottomTitle,
+          expandedCard: _expandedCard,
+          animatedListController: _animatedListController,
+          animatedChartController: _animatedChartController,
+          userMetrics: _userMetrics,
+        ),
       ),
-      body: const _HomeBody(),
     );
   }
 }
 
 @immutable
-final class _HomeBody extends StatefulWidget {
-  const _HomeBody();
+final class _HomeBody extends StatelessWidget {
+  const _HomeBody({
+    required this.period,
+    required this.yearlyPeriod,
+    required this.monthlyPeriod,
+    required this.weeklyPeriod,
+    required this.dataListOnPressed,
+    required this.chartOnPressed,
+    required this.spots,
+    required this.leftTitles,
+    required this.bottomTitle,
+    required this.expandedCard,
+    required this.animatedListController,
+    required this.animatedChartController,
+    required this.userMetrics,
+  });
 
-  @override
-  State<_HomeBody> createState() => __HomeBodyState();
-}
+  final _HomePeriod period;
+  final void Function({required bool value}) yearlyPeriod;
+  final void Function({required bool value}) monthlyPeriod;
+  final void Function({required bool value}) weeklyPeriod;
+  final void Function() dataListOnPressed;
+  final void Function() chartOnPressed;
+  final List<FlSpot> spots;
+  final List<Map<int, String>> leftTitles;
+  final List<Map<int, String>> bottomTitle;
+  final _ExpandedCard expandedCard;
+  final AnimationController animatedListController;
+  final AnimationController animatedChartController;
+  final UserMetrics userMetrics;
 
-class __HomeBodyState extends State<_HomeBody> with _TitleMixin, TickerProviderStateMixin, _HomeModel {
   @override
   Widget build(BuildContext context) {
     return Padding(
@@ -54,29 +104,68 @@ class __HomeBodyState extends State<_HomeBody> with _TitleMixin, TickerProviderS
         child: Column(
           children: [
             _PeriodSelect(
-              homePeriod: _period,
-              onYearlySelected: _yearlyPeriod,
-              onMonthlySelected: _monthlyPeriod,
-              onWeeklySelected: _weeklyPeriod,
+              homePeriod: period,
+              onYearlySelected: yearlyPeriod,
+              onMonthlySelected: monthlyPeriod,
+              onWeeklySelected: weeklyPeriod,
             ),
-            if (_expandedCard != _ExpandedCard.chart) ...[
-              _DataList(
-                animatedController: _animatedController,
-                userMetrics: _userMetrics,
-                onPressed: _dataListOnPressed,
-                expandedCard: _expandedCard,
+            _DataList(
+              animatedController: animatedListController,
+              userMetrics: userMetrics,
+              onPressed: dataListOnPressed,
+              expandedCard: expandedCard,
+            ),
+            VerticalSpace.s(),
+            _Chart(
+              animatedController: animatedChartController,
+              onPressed: chartOnPressed,
+              spot: spots,
+              leftTitles: leftTitles,
+              bottomTitles: bottomTitle,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _MenuView extends StatelessWidget {
+  const _MenuView();
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const ProductPadding.fifTeen(),
+      child: SafeArea(
+        child: Scaffold(
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Align(
+                child: Column(
+                  children: [
+                    CircleAvatar(
+                      backgroundImage: AssetImage(AssetValue.profile1.value.profile),
+                      radius: 50,
+                    ),
+                    VerticalSpace.s(),
+                    Text(
+                      'John Doe',
+                      style: context.textTheme.titleMedium,
+                    ),
+                    VerticalSpace.s(),
+                  ],
+                ),
               ),
               VerticalSpace.s(),
-            ],
-            if (_expandedCard != _ExpandedCard.list)
-              _Chart(
-                animatedController: _animatedController,
-                onPressed: _chartOnPressed,
-                spot: _spots,
-                leftTitles: _leftTitles,
-                bottomTitles: _bottomTitle,
+              TextIconButton(
+                title: LocaleKeys.home_home.tr(),
+                icon: Icons.home,
+                onPressed: () {},
               ),
-          ],
+            ],
+          ),
         ),
       ),
     );
