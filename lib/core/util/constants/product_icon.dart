@@ -7,12 +7,17 @@ enum ProductIcon {
   user(FontAwesomeIcons.userAstronaut),
   share(FontAwesomeIcons.arrowUpRightFromSquare),
   plus(FontAwesomeIcons.plus),
+  minus(FontAwesomeIcons.minus),
+  straight(FontAwesomeIcons.lock),
+  calendar(FontAwesomeIcons.calendar),
   birthDay(FontAwesomeIcons.cakeCandles),
   arrowLeft(FontAwesomeIcons.arrowLeft),
   arrowRight(FontAwesomeIcons.arrowRight),
   check(FontAwesomeIcons.check),
   weight(FontAwesomeIcons.weightScale),
   chart(FontAwesomeIcons.chartLine),
+  userCheck(FontAwesomeIcons.userCheck),
+  diff(FontAwesomeIcons.codeCompare),
   ;
 
   final IconData icon;

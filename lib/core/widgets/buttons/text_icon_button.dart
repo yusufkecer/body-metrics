@@ -13,7 +13,9 @@ class TextIconButton extends StatelessWidget {
     return TextButton.icon(
       onPressed: onPressed,
       label: Text(title),
-      icon: Icon(icon, color: context.theme.),
+      icon: Icon(
+        icon,
+      ),
     );
   }
 }

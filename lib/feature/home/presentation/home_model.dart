@@ -77,11 +77,32 @@ mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
     FlSpot(12, 120),
   ];
 
-  final UserMetrics _userMetrics = const UserMetrics(
+  final UserMetrics _userMetrics = UserMetrics(
     userMetrics: [
-      UserMetric(userMetric: BodyMetricResult.normal, date: '12.12.2021', weight: 80, bmi: 24.69),
-      UserMetric(userMetric: BodyMetricResult.overweight, date: '18.12.2021', weight: 90, bmi: 24.69),
-      UserMetric(userMetric: BodyMetricResult.overweight, date: '18.12.2021', weight: 90, bmi: 24.69),
+      UserMetric(
+        userMetric: BodyMetricResult.normal,
+        date: '12.12.2021',
+        weight: 80,
+        bmi: 24.69,
+        weightDiff: 0,
+        statusIcon: ProductIcon.straight.icon,
+      ),
+      UserMetric(
+        userMetric: BodyMetricResult.overweight,
+        date: '18.12.2021',
+        weight: 90,
+        bmi: 24.69,
+        weightDiff: 10,
+        statusIcon: ProductIcon.plus.icon,
+      ),
+      UserMetric(
+        userMetric: BodyMetricResult.overweight,
+        date: '18.12.2021',
+        weight: 70,
+        bmi: 24.69,
+        weightDiff: 20,
+        statusIcon: ProductIcon.minus.icon,
+      ),
     ],
   );
 

@@ -4,10 +4,10 @@ import 'package:flutter/material.dart';
 final class GridDelegate extends SliverGridDelegateWithFixedCrossAxisCount {
   const GridDelegate.dashBoard()
       : super(
-          crossAxisCount: 2,
+          crossAxisCount: 1,
           crossAxisSpacing: 12,
           mainAxisSpacing: 12,
-          childAspectRatio: 0.81,
+          childAspectRatio: 2.5,
         );
 
   const GridDelegate.profileImageGrid()
