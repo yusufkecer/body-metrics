@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/core/widgets/buttons/chip_button.dart';
-
 import 'package:bodymetrics/core/widgets/rich_text_widgets/custom_rich_text.dart';
 import 'package:bodymetrics/core/widgets/space_column.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -14,8 +13,11 @@ part 'mixin/title_mixin.dart';
 part 'enum/period_enum.dart';
 part 'widgets/chart.dart';
 part 'widgets/data_list.dart';
+part 'widgets/menu_view.dart';
 part 'widgets/period_select.dart';
 part 'enum/expanded.dart';
+part '../domain/repository/user_repository.dart';
+part '../domain/use_case/user_use_case.dart';
 
 @immutable
 @RoutePage(name: 'HomeView')
@@ -124,48 +126,6 @@ final class _HomeBody extends StatelessWidget {
               bottomTitles: bottomTitle,
             ),
           ],
-        ),
-      ),
-    );
-  }
-}
-
-class _MenuView extends StatelessWidget {
-  const _MenuView();
-
-  @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const ProductPadding.fifTeen(),
-      child: SafeArea(
-        child: Scaffold(
-          body: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Align(
-                child: Column(
-                  children: [
-                    CircleAvatar(
-                      backgroundImage: AssetImage(AssetValue.profile1.value.profile),
-                      radius: 50,
-                    ),
-                    VerticalSpace.s(),
-                    Text(
-                      'John Doe',
-                      style: context.textTheme.titleMedium,
-                    ),
-                    VerticalSpace.s(),
-                  ],
-                ),
-              ),
-              VerticalSpace.s(),
-              TextIconButton(
-                title: LocaleKeys.home_home.tr(),
-                icon: Icons.home,
-                onPressed: () {},
-              ),
-            ],
-          ),
         ),
       ),
     );

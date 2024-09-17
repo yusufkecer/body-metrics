@@ -25,6 +25,9 @@ mixin _SplashModel on State<_SplashBody>, DialogUtil {
 
     'result: $result'.log;
 
+    AppUtil.currentUserId = result?.activeUser;
+    AppUtil.lastPage = result?.page;
+
     if (!result.isNotNull) {
       pushNewView(const OnboardView());
     } else {
