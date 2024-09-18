@@ -1,9 +1,7 @@
-import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/data/index.dart';
-import 'package:bodymetrics/injection/locator.dart';
-import 'package:injectable/injectable.dart';
+part of '../../presentation/onboard.dart';
 
 @injectable
+@immutable
 final class OnboardRepository implements BaseUseCase<bool, AppModel> {
   final userCache = Locator.sl<AppCache>();
 

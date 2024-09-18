@@ -13,7 +13,7 @@ class User extends Equatable implements BaseModel<User> {
     this.name,
     this.gender,
     this.userMetrics,
-    this.birthOfDay,
+    this.birthOfDate,
   });
 
   @override
@@ -26,11 +26,11 @@ class User extends Equatable implements BaseModel<User> {
     this.name,
     this.gender,
     this.userMetrics,
-    this.birthOfDay,
+    this.birthOfDate,
   });
 
   @override
-  List<Object?> get props => [name, gender, userMetrics, id, birthOfDay];
+  List<Object?> get props => [name, gender, userMetrics, id, birthOfDate];
 
   @override
   Map<String, dynamic> toJson() => _$UserToJson(this);
@@ -43,5 +43,5 @@ class User extends Equatable implements BaseModel<User> {
   final double? height;
   @JsonKey(includeToJson: false)
   final UserMetric? userMetrics;
-  final String? birthOfDay;
+  final String? birthOfDate;
 }

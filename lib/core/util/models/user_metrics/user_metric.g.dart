@@ -7,6 +7,9 @@ part of 'user_metric.dart';
 // **************************************************************************
 
 UserMetric _$UserMetricFromJson(Map<String, dynamic> json) => UserMetric(
+      statusIcon: json['statusIcon'] == null
+          ? null
+          : IconDataModel.fromJson(json['statusIcon'] as Map<String, dynamic>),
       weightDiff: (json['weightDiff'] as num?)?.toDouble(),
       bmi: (json['bmi'] as num?)?.toDouble(),
       id: (json['id'] as num?)?.toInt(),
@@ -24,6 +27,7 @@ Map<String, dynamic> _$UserMetricToJson(UserMetric instance) =>
       'bmi': instance.bmi,
       'weightDiff': instance.weightDiff,
       'userMetric': _$BodyMetricResultEnumMap[instance.userMetric],
+      'statusIcon': instance.statusIcon,
     };
 
 const _$BodyMetricResultEnumMap = {

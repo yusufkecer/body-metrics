@@ -1,9 +1,7 @@
-import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/feature/onboard/domain/repository/onboard_repository.dart';
-import 'package:bodymetrics/injection/locator.dart';
-import 'package:injectable/injectable.dart';
+part of '../../presentation/onboard.dart';
 
 @injectable
+@immutable
 final class OnboardUseCase implements BaseUseCase<bool, AppModel> {
   final onboardRepository = Locator.sl<OnboardRepository>();
   @override

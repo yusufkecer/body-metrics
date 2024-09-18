@@ -15,7 +15,7 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       userMetrics: json['userMetrics'] == null
           ? null
           : UserMetric.fromJson(json['userMetrics'] as Map<String, dynamic>),
-      birthOfDay: json['birthOfDay'] as String?,
+      birthOfDate: json['birthOfDate'] as String?,
     );
 
 Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
@@ -24,7 +24,7 @@ Map<String, dynamic> _$UserToJson(User instance) => <String, dynamic>{
       'avatar': instance.avatar,
       'gender': _$GenderValueEnumMap[instance.gender],
       'height': instance.height,
-      'birthOfDay': instance.birthOfDay,
+      'birthOfDate': instance.birthOfDate,
     };
 
 const _$GenderValueEnumMap = {

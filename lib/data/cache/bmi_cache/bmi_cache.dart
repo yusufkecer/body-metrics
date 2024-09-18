@@ -47,12 +47,12 @@ final class UserMetricsCache extends ImpCache implements CacheMethods<UserMetric
   }
 
   @override
-  Future<UserMetrics?> select(Database? db, Json value) {
+  Future<UserMetrics?> select(Database? db, Json value, [List<String>? columns]) {
     throw UnimplementedError();
   }
 
   @override
-  Future<UserMetrics?> selectAll(Database? db) {
+  Future<UserMetrics?> selectAll(Database? db, [List<String>? columns]) {
     // TODO: implement selectAll
     throw UnimplementedError();
   }

@@ -13,4 +13,11 @@ class GenderCubit extends Cubit<GenderState> {
   void changeGender(SelectGender newGender) {
     emit(SelectGender(genderValue: newGender.genderValue));
   }
+
+  bool? saveGender() {
+    if (state.genderValue.isNotNull) {
+      return true;
+    }
+    return false;
+  }
 }
