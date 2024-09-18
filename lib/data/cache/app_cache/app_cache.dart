@@ -49,7 +49,7 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, Json> {
 
     final result = await db!.insert(table, value);
 
-    'value inserted $result'.log;
+    'value inserted'.log;
 
     await closeDb();
 
@@ -57,13 +57,20 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, Json> {
   }
 
   @override
-  Future<JsonList> select(Database? db, Json value) {
+  Future<JsonList> select(Database? db, Json value, [List<String>? columns]) {
     throw UnimplementedError();
   }
 
   @override
-  Future<JsonList> selectAll(Database? db) async {
-    final value = await db!.query(table);
+  Future<JsonList> selectAll(Database? db, [List<String>? columns]) async {
+    if (db.isNullOrEmpty) {
+      'Database is empty'.e;
+      return [];
+    }
+
+    columns ??= _columns;
+
+    final value = await db!.query(table, columns: columns);
     return value;
   }
 

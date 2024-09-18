@@ -6,8 +6,8 @@ abstract interface class CacheMethods<T, U> {
   Future<bool> insert(Database? db, U value);
   Future<bool> update(Database? db, U value);
 
-  Future<T?> select(Database? db, U value);
-  Future<T?> selectAll(Database? db);
+  Future<T?> select(Database? db, U value, [List<String>? columns]);
+  Future<T?> selectAll(Database? db, [List<String>? columns]);
 
   Future<bool> delete(Database? db, int id);
 

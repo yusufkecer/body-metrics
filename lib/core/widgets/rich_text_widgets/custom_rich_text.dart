@@ -17,7 +17,10 @@ final class CustomRichText extends StatelessWidget {
         children: [
           if (icon != null) ...[
             WidgetSpan(
-              child: Icon(icon),
+              child: Icon(
+                icon,
+                size: 16,
+              ),
             ),
             WidgetSpan(
               child: HorizontalSpace.s(),

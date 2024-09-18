@@ -17,6 +17,7 @@ final class _DataList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final metrics = userMetrics!.userMetrics;
+    final statusIcon = metrics?.first.statusIcon;
 
     return HomeCard(
       animationController: animatedController,
@@ -74,7 +75,10 @@ final class _DataList extends StatelessWidget {
                       ],
                     ),
                     CustomRichText(
-                      icon: metrics[index].statusIcon,
+                      icon: IconData(
+                        statusIcon!.codePoint,
+                        fontFamily: statusIcon.fontFamily,
+                      ),
                       title: LocaleKeys.home_weight_change.tr(),
                       subTitle: metrics[index].weightDiff.toString(),
                     ),

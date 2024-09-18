@@ -51,7 +51,7 @@ final class UserMetric extends Equatable implements BaseModel<UserMetric> {
   final double? bmi;
   final double? weightDiff;
   final BodyMetricResult? userMetric;
-  final IconData? statusIcon;
+  final IconDataModel? statusIcon;
 
   @override
   List<Object?> get props => [id, date, weight, userMetric, bmi, weightDiff];

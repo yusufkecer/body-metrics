@@ -4,6 +4,7 @@ enum UserCacheTables {
   surname,
   gender,
   avatar,
+  height,
   birthOfDate,
   table;
 
@@ -21,6 +22,8 @@ enum UserCacheTables {
         return 'avatar';
       case UserCacheTables.birthOfDate:
         return 'birthOfDate';
+      case UserCacheTables.height:
+        return 'height';
       case UserCacheTables.table:
         return 'user';
     }

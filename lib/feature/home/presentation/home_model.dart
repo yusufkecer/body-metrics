@@ -86,7 +86,9 @@ mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
         weight: 80,
         bmi: 24.69,
         weightDiff: 0,
-        statusIcon: ProductIcon.straight.icon,
+        statusIcon: IconDataModel(
+          codePoint: ProductIcon.straight.icon.codePoint,
+        ),
       ),
       UserMetric(
         userMetric: BodyMetricResult.overweight,
@@ -94,7 +96,7 @@ mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
         weight: 90,
         bmi: 24.69,
         weightDiff: 10,
-        statusIcon: ProductIcon.plus.icon,
+        statusIcon: IconDataModel(codePoint: ProductIcon.plus.icon.codePoint),
       ),
       UserMetric(
         userMetric: BodyMetricResult.overweight,
@@ -102,7 +104,7 @@ mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
         weight: 70,
         bmi: 24.69,
         weightDiff: 20,
-        statusIcon: ProductIcon.minus.icon,
+        statusIcon: IconDataModel(codePoint: ProductIcon.plus.icon.codePoint),
       ),
     ],
   );

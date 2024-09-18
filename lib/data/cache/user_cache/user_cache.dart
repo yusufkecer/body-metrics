@@ -19,6 +19,7 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json> {
           ${UserCacheTables.surname.value} TEXT NULL,
           ${UserCacheTables.gender.value} INTEGER NULL,
           ${UserCacheTables.avatar.value} TEXT NULL,
+          ${UserCacheTables.height.value} FLOAT NULL,
           ${UserCacheTables.birthOfDate.value} TEXT NULL
         )
       ''');
@@ -52,7 +53,7 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json> {
   }
 
   @override
-  Future<Users?> select(Database? db, Json user) async {
+  Future<Users?> select(Database? db, Json user, [List<String>? columns]) async {
     if (db.isNullOrEmpty) {
       'Database is null'.w;
       return null;
@@ -70,7 +71,7 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json> {
   }
 
   @override
-  Future<Users?> selectAll(Database? db) async {
+  Future<Users?> selectAll(Database? db, [List<String>? columns]) async {
     if (db.isNullOrEmpty) {
       'Database is null'.w;
       return null;

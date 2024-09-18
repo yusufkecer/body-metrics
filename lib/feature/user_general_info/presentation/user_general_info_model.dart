@@ -18,7 +18,7 @@ mixin UserGeneralInfoModel on State<_UserInfoFormBody>, DialogUtil {
       return;
     }
     final result = await createProfile();
-    if (result.isNotNull && result! && mounted) {
+    if ((result.isNotNull && result!) && mounted) {
       'Success: $result'.log;
       await context.pushRoute(const GenderView());
     } else {
@@ -31,10 +31,10 @@ mixin UserGeneralInfoModel on State<_UserInfoFormBody>, DialogUtil {
 
   Future<bool?> createProfile() async {
     final saveUseCase = Locator.sl<CreateProfileUseCase>(param1: CreateProfileRepository());
-    final ymd = _birthOfDateController.text.toYMD;
+    final birthDay = _birthOfDateController.text.toYMD;
     final user = User(
       name: _fullNameController.text,
-      birthOfDay: ymd,
+      birthOfDate: birthDay,
     );
 
     final result = await saveUseCase.executeWithParams(user);
