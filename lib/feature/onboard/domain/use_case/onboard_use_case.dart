@@ -2,7 +2,7 @@ part of '../../presentation/onboard.dart';
 
 @injectable
 @immutable
-final class OnboardUseCase implements BaseUseCase<bool, AppModel> {
+final class OnboardUseCase implements BaseUseCase<bool, bool, AppModel> {
   final onboardRepository = Locator.sl<OnboardRepository>();
   @override
   Future<bool>? execute() {

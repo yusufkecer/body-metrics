@@ -2,7 +2,7 @@ part of '../../presentation/splash.dart';
 
 @immutable
 @injectable
-final class SplashRepository implements BaseUseCase<AppModel?, Object> {
+final class SplashRepository implements BaseUseCase<AppModel, AppModel, Object> {
   final AppCache _appCache = Locator.sl<AppCache>();
 
   @override
