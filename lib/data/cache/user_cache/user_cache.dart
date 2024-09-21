@@ -31,24 +31,24 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json> {
   String get table => UserCacheTables.table.value;
 
   @override
-  Future<bool> insert(Database? db, Json value) async {
+  Future<int> insert(Database? db, Json value) async {
     if (db == null) {
       'Database is null'.w;
-      return false;
+      return 0;
     }
     final result = await db.insert(table, value);
     await closeDb();
     if (result > 0) {
       'User inserted'.log;
-      return true;
+      return 1;
     } else {
       'User not inserted'.w;
-      return false;
+      return 0;
     }
   }
 
   @override
-  Future<bool> delete(Database? db, int id) {
+  Future<int> delete(Database? db, int id) {
     throw UnimplementedError();
   }
 
@@ -89,7 +89,7 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json> {
   }
 
   @override
-  Future<bool> update(Database? db, Map<String, dynamic> value) {
+  Future<int> update(Database? db, Map<String, dynamic> value) {
     throw UnimplementedError();
   }
 }

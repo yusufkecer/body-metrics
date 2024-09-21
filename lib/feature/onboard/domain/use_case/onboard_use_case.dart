@@ -10,7 +10,8 @@ final class OnboardUseCase implements BaseUseCase<bool, bool, AppModel> {
   }
 
   @override
-  Future<bool>? executeWithParams(AppModel params) {
-    return onboardRepository.executeWithParams(params);
+  Future<bool?> executeWithParams(AppModel params) async {
+    final result = await onboardRepository.executeWithParams(params);
+    return result.boolResult;
   }
 }

@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class PageRepository implements BaseUseCase<String, bool, Json> {
+final class PageRepository implements BaseUseCase<String, int, Json> {
   final String _column = AppColumns.page.value;
 
   final AppCache _appCache = Locator.sl<AppCache>();
@@ -32,7 +32,7 @@ final class PageRepository implements BaseUseCase<String, bool, Json> {
   @override
 
   ///Set the current page to the cache
-  Future<bool?> executeWithParams(Json params) async {
+  Future<int?> executeWithParams(Json params) async {
     final db = await _appCache.initializeDatabase();
     return _appCache.insert(
       db,

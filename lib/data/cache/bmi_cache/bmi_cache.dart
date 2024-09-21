@@ -26,13 +26,13 @@ final class UserMetricsCache extends ImpCache implements CacheMethods<UserMetric
   }
 
   @override
-  Future<bool> delete(Database? db, int id) {
+  Future<int> delete(Database? db, int id) {
     // TODO: implement delete
     throw UnimplementedError();
   }
 
   @override
-  Future<bool> insert(Database? db, Json value) {
+  Future<int> insert(Database? db, Json value) {
     // TODO: implement insert
     throw UnimplementedError();
   }
@@ -41,7 +41,7 @@ final class UserMetricsCache extends ImpCache implements CacheMethods<UserMetric
   String get table => BmiCacheColumns.table.value;
 
   @override
-  Future<bool> update(Database? db, Json value) {
+  Future<int> update(Database? db, Json value) {
     // TODO: implement update
     throw UnimplementedError();
   }

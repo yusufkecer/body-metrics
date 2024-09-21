@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class CreateProfileRepository implements BaseUseCase<bool, bool, User> {
+final class CreateProfileRepository implements BaseUseCase<bool, int, User> {
   CreateProfileRepository() {
     _userCache = Locator.sl<UserCache>();
   }
@@ -18,7 +18,7 @@ final class CreateProfileRepository implements BaseUseCase<bool, bool, User> {
   }
 
   @override
-  Future<bool> executeWithParams(User user) async {
+  Future<int> executeWithParams(User user) async {
     final db = await _userCache.initializeDatabase();
     final userMap = user.toJson();
     'User Data: $userMap'.log;

@@ -2,16 +2,16 @@ part of '../../presentation/onboard.dart';
 
 @injectable
 @immutable
-final class OnboardRepository implements BaseUseCase<bool, bool, AppModel> {
+final class OnboardRepository implements BaseUseCase<bool, int, AppModel> {
   final userCache = Locator.sl<AppCache>();
 
   @override
-  Future<bool>? execute() {
+  Future<bool> execute() {
     throw UnimplementedError();
   }
 
   @override
-  Future<bool>? executeWithParams(AppModel params) async {
+  Future<int> executeWithParams(AppModel params) async {
     final db = await userCache.initializeDatabase();
     final isComplete = (params.isCompleteOnboard ?? false) ? 1 : 0;
 

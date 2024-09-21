@@ -41,10 +41,10 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, Json> {
   ///will only work [Onboard]
   ///another business logic should use [update] method
   @override
-  Future<bool> insert(Database? db, Json value) async {
+  Future<int> insert(Database? db, Json value) async {
     if (value.isNullOrEmpty || db.isNullOrEmpty) {
       'Value is empty'.e;
-      return false;
+      return 0;
     }
 
     final result = await db!.insert(table, value);
@@ -53,7 +53,7 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, Json> {
 
     await closeDb();
 
-    return result.boolResult;
+    return result;
   }
 
   @override
@@ -75,10 +75,10 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, Json> {
   }
 
   @override
-  Future<bool> update(Database? db, Json value) async {
+  Future<int> update(Database? db, Json value) async {
     if (value.isNullOrEmpty || db.isNullOrEmpty) {
       'Value is empty'.e;
-      return false;
+      return 0;
     }
 
     Json? json;
@@ -88,7 +88,7 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, Json> {
         json?[element] = value[element];
       }
     }
-    if (json.isNullOrEmpty) return false;
+    if (json.isNullOrEmpty) return 0;
 
     final result = await db!.update(table, json!);
 
@@ -96,11 +96,11 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, Json> {
 
     await closeDb();
 
-    return result.boolResult;
+    return result;
   }
 
   @override
-  Future<bool> delete(Database? db, int id) {
+  Future<int> delete(Database? db, int id) {
     throw UnimplementedError();
   }
 }
