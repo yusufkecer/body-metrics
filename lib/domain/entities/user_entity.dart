@@ -6,6 +6,9 @@ class UserFilters extends User {
     super.birthOfDate,
     super.name,
     super.userMetrics,
+    super.avatar,
+    super.gender,
+    super.height,
     this.bmiId,
   });
 
