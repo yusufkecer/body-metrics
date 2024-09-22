@@ -2,6 +2,9 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:bodymetrics/core/index.dart';
+import 'package:bodymetrics/data/cache/app_cache/app_cache.dart';
+import 'package:bodymetrics/data/cache/bmi_cache/bmi_cache_columns.dart';
+import 'package:bodymetrics/data/cache/user_cache/user_cache_tables.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -11,6 +14,12 @@ class ImpCache implements BaseDatabase {
 
   Database? _db;
   Database? get db => _db;
+
+  final tables = [
+    UserCacheColumns.table.value,
+    BmiCacheColumns.table.value,
+    AppCacheColumns.table.value,
+  ];
 
   @override
   String? path = 'bodymetrics.db';
@@ -58,15 +67,12 @@ class ImpCache implements BaseDatabase {
   Future<bool> isExist() async {
     if (db == null) return false;
 
-    final tableNames = ['app', 'user', 'result'];
     final rowList = await db!.query(
       'sqlite_master',
       columns: ['name'],
       where: 'type = ? AND name IN (?, ?, ?)',
-      whereArgs: ['table', ...tableNames],
+      whereArgs: ['table', ...tables],
     );
-
-    'rowList: $rowList'.log;
 
     'columns ${jsonEncode(rowList)}'.log;
     return rowList.isNotEmpty;

@@ -71,8 +71,8 @@ abstract class _$AppRouter extends RootStackRouter {
         child: const Splash(),
       );
     },
-    UserInfoFormView.name: (routeData) {
-      final args = routeData.argsAs<UserInfoFormViewArgs>();
+    UserGeneralInfoView.name: (routeData) {
+      final args = routeData.argsAs<UserGeneralInfoViewArgs>();
       return AutoRoutePage<dynamic>(
         routeData: routeData,
         child: UserGeneralInfo(
@@ -261,28 +261,28 @@ class SplashView extends PageRouteInfo<void> {
 
 /// generated route for
 /// [UserGeneralInfo]
-class UserInfoFormView extends PageRouteInfo<UserInfoFormViewArgs> {
-  UserInfoFormView({
+class UserGeneralInfoView extends PageRouteInfo<UserGeneralInfoViewArgs> {
+  UserGeneralInfoView({
     required String avatar,
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
-          UserInfoFormView.name,
-          args: UserInfoFormViewArgs(
+          UserGeneralInfoView.name,
+          args: UserGeneralInfoViewArgs(
             avatar: avatar,
             key: key,
           ),
           initialChildren: children,
         );
 
-  static const String name = 'UserInfoFormView';
+  static const String name = 'UserGeneralInfoView';
 
-  static const PageInfo<UserInfoFormViewArgs> page =
-      PageInfo<UserInfoFormViewArgs>(name);
+  static const PageInfo<UserGeneralInfoViewArgs> page =
+      PageInfo<UserGeneralInfoViewArgs>(name);
 }
 
-class UserInfoFormViewArgs {
-  const UserInfoFormViewArgs({
+class UserGeneralInfoViewArgs {
+  const UserGeneralInfoViewArgs({
     required this.avatar,
     this.key,
   });
@@ -293,7 +293,7 @@ class UserInfoFormViewArgs {
 
   @override
   String toString() {
-    return 'UserInfoFormViewArgs{avatar: $avatar, key: $key}';
+    return 'UserGeneralInfoViewArgs{avatar: $avatar, key: $key}';
   }
 }
 

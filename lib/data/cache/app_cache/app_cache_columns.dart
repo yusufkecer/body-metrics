@@ -1,6 +1,6 @@
 part of 'app_cache.dart';
 
-enum AppColumns {
+enum AppCacheColumns {
   theme,
   language,
   isCompletedOnboard,
@@ -10,17 +10,17 @@ enum AppColumns {
 
   String get value {
     switch (this) {
-      case AppColumns.theme:
+      case AppCacheColumns.theme:
         return 'theme';
-      case AppColumns.language:
+      case AppCacheColumns.language:
         return 'language';
-      case AppColumns.isCompletedOnboard:
+      case AppCacheColumns.isCompletedOnboard:
         return 'is_completed_onboard';
-      case AppColumns.activeUser:
+      case AppCacheColumns.activeUser:
         return 'active_user';
-      case AppColumns.page:
+      case AppCacheColumns.page:
         return 'page';
-      case AppColumns.table:
+      case AppCacheColumns.table:
         return 'app';
     }
   }

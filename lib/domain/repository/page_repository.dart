@@ -7,7 +7,7 @@ import 'package:injectable/injectable.dart';
 @injectable
 @immutable
 final class PageRepository implements BaseUseCase<String, int, Json> {
-  final String _column = AppColumns.page.value;
+  final String _column = AppCacheColumns.page.value;
 
   final AppCache _appCache = Locator.sl<AppCache>();
 
@@ -24,7 +24,7 @@ final class PageRepository implements BaseUseCase<String, int, Json> {
       return null;
     }
 
-    final data = result[0]['page'] as String;
+    final data = result.first['page'] as String;
 
     return data;
   }

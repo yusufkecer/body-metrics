@@ -13,7 +13,6 @@ final class PageUseCase implements BaseUseCase<Pages, bool, Json> {
   @override
 
   ///Get the current page to the [AppCache]
-
   Future<Pages> execute() async {
     final result = await repository.execute();
     if (result.isNullOrEmpty) {

@@ -16,7 +16,7 @@ final class OnboardRepository implements BaseUseCase<bool, int, AppModel> {
     final isComplete = (params.isCompleteOnboard ?? false) ? 1 : 0;
 
     final data = {
-      AppColumns.isCompletedOnboard.value: isComplete,
+      AppCacheColumns.isCompletedOnboard.value: isComplete,
     };
 
     return userCache.insert(db, data);

@@ -11,7 +11,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'user_general_info_model.dart';
 
-@RoutePage(name: 'UserInfoFormView')
+@RoutePage(name: 'UserGeneralInfoView')
 @immutable
 final class UserGeneralInfo extends StatefulWidget {
   const UserGeneralInfo({

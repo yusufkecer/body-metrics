@@ -14,13 +14,13 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json> {
   Future<void> initializeTable(Database db, int version) async {
     await db.execute('''
         CREATE TABLE user (
-          ${UserCacheTables.id.value} INTEGER PRIMARY KEY AUTOINCREMENT,
-          ${UserCacheTables.name.value} TEXT NOT NULL,
-          ${UserCacheTables.surname.value} TEXT NULL,
-          ${UserCacheTables.gender.value} INTEGER NULL,
-          ${UserCacheTables.avatar.value} TEXT NULL,
-          ${UserCacheTables.height.value} FLOAT NULL,
-          ${UserCacheTables.birthOfDate.value} TEXT NULL
+          ${UserCacheColumns.id.value} INTEGER PRIMARY KEY AUTOINCREMENT,
+          ${UserCacheColumns.name.value} TEXT NOT NULL,
+          ${UserCacheColumns.surname.value} TEXT NULL,
+          ${UserCacheColumns.gender.value} INTEGER NULL,
+          ${UserCacheColumns.avatar.value} TEXT NULL,
+          ${UserCacheColumns.height.value} FLOAT NULL,
+          ${UserCacheColumns.birthOfDate.value} TEXT NULL
         )
       ''');
 
@@ -28,7 +28,7 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json> {
   }
 
   @override
-  String get table => UserCacheTables.table.value;
+  String get table => UserCacheColumns.table.value;
 
   @override
   Future<int> insert(Database? db, Json value) async {
