@@ -14,27 +14,27 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, Json> {
   AppCache() : super();
 
   @override
-  String get table => AppColumns.table.value;
+  String get table => AppCacheColumns.table.value;
 
   @override
   Future<void> initializeTable(Database db, int version) async {
     await db.execute('''
     CREATE TABLE $table (
-      ${AppColumns.theme.value} TEXT NULL,
-      ${AppColumns.language.value} TEXT NULL,
-      ${AppColumns.isCompletedOnboard.value} INTEGER NULL,
-      ${AppColumns.activeUser.value} INTEGER NULL,
-      ${AppColumns.page.value} TEXT NULL
+      ${AppCacheColumns.theme.value} TEXT NULL,
+      ${AppCacheColumns.language.value} TEXT NULL,
+      ${AppCacheColumns.isCompletedOnboard.value} INTEGER NULL,
+      ${AppCacheColumns.activeUser.value} INTEGER NULL,
+      ${AppCacheColumns.page.value} TEXT NULL
     )
   ''');
   }
 
   final List<String> _columns = [
-    AppColumns.theme.value,
-    AppColumns.language.value,
-    AppColumns.isCompletedOnboard.value,
-    AppColumns.activeUser.value,
-    AppColumns.page.value,
+    AppCacheColumns.theme.value,
+    AppCacheColumns.language.value,
+    AppCacheColumns.isCompletedOnboard.value,
+    AppCacheColumns.activeUser.value,
+    AppCacheColumns.page.value,
   ];
 
   ///There should be only one row

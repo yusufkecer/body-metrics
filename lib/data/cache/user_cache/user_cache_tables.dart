@@ -1,4 +1,4 @@
-enum UserCacheTables {
+enum UserCacheColumns {
   id,
   name,
   surname,
@@ -10,21 +10,21 @@ enum UserCacheTables {
 
   String get value {
     switch (this) {
-      case UserCacheTables.id:
+      case UserCacheColumns.id:
         return 'id';
-      case UserCacheTables.name:
+      case UserCacheColumns.name:
         return 'name';
-      case UserCacheTables.surname:
+      case UserCacheColumns.surname:
         return 'surname';
-      case UserCacheTables.gender:
+      case UserCacheColumns.gender:
         return 'gender';
-      case UserCacheTables.avatar:
+      case UserCacheColumns.avatar:
         return 'avatar';
-      case UserCacheTables.birthOfDate:
+      case UserCacheColumns.birthOfDate:
         return 'birthOfDate';
-      case UserCacheTables.height:
+      case UserCacheColumns.height:
         return 'height';
-      case UserCacheTables.table:
+      case UserCacheColumns.table:
         return 'user';
     }
   }
