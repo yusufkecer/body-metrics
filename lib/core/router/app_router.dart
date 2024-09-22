@@ -8,13 +8,13 @@ part 'app_router.gr.dart';
 
 @lazySingleton
 @AutoRouterConfig()
-final class AppRouter extends _$AppRouter {
+final class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
         AutoRoute(page: SplashView.page, initial: true),
         AutoRoute(page: OnboardView.page),
         AutoRoute(page: AvatarPickerView.page),
-        AutoRoute(page: UserInfoFormView.page),
+        AutoRoute(page: UserGeneralInfoView.page),
         AutoRoute(page: GenderView.page),
         AutoRoute(page: HeightView.page),
         AutoRoute(page: WeightView.page),

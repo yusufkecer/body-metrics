@@ -9,87 +9,6 @@
 
 part of 'app_router.dart';
 
-abstract class _$AppRouter extends RootStackRouter {
-  // ignore: unused_element
-  _$AppRouter({super.navigatorKey});
-
-  @override
-  final Map<String, PageFactory> pagesMap = {
-    AvatarPickerView.name: (routeData) {
-      final args = routeData.argsAs<AvatarPickerViewArgs>(
-          orElse: () => const AvatarPickerViewArgs());
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: AvatarPicker(
-          key: args.key,
-          canSkip: args.canSkip,
-        ),
-      );
-    },
-    GenderView.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const Gender(),
-      );
-    },
-    HeightView.name: (routeData) {
-      final args = routeData.argsAs<HeightViewArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: Height(
-          isFemale: args.isFemale,
-          key: args.key,
-        ),
-      );
-    },
-    HomeView.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const Home(),
-      );
-    },
-    OnboardView.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const Onboard(),
-      );
-    },
-    ResultListView.name: (routeData) {
-      final args = routeData.argsAs<ResultListViewArgs>(
-          orElse: () => const ResultListViewArgs());
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: ResultList(
-          key: args.key,
-          userMetrics: args.userMetrics,
-        ),
-      );
-    },
-    SplashView.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const Splash(),
-      );
-    },
-    UserGeneralInfoView.name: (routeData) {
-      final args = routeData.argsAs<UserGeneralInfoViewArgs>();
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: UserGeneralInfo(
-          avatar: args.avatar,
-          key: args.key,
-        ),
-      );
-    },
-    WeightView.name: (routeData) {
-      return AutoRoutePage<dynamic>(
-        routeData: routeData,
-        child: const WeightPicker(),
-      );
-    },
-  };
-}
-
 /// generated route for
 /// [AvatarPicker]
 class AvatarPickerView extends PageRouteInfo<AvatarPickerViewArgs> {
@@ -108,8 +27,17 @@ class AvatarPickerView extends PageRouteInfo<AvatarPickerViewArgs> {
 
   static const String name = 'AvatarPickerView';
 
-  static const PageInfo<AvatarPickerViewArgs> page =
-      PageInfo<AvatarPickerViewArgs>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<AvatarPickerViewArgs>(
+          orElse: () => const AvatarPickerViewArgs());
+      return AvatarPicker(
+        key: args.key,
+        canSkip: args.canSkip,
+      );
+    },
+  );
 }
 
 class AvatarPickerViewArgs {
@@ -139,7 +67,12 @@ class GenderView extends PageRouteInfo<void> {
 
   static const String name = 'GenderView';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const Gender();
+    },
+  );
 }
 
 /// generated route for
@@ -160,7 +93,16 @@ class HeightView extends PageRouteInfo<HeightViewArgs> {
 
   static const String name = 'HeightView';
 
-  static const PageInfo<HeightViewArgs> page = PageInfo<HeightViewArgs>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<HeightViewArgs>();
+      return Height(
+        isFemale: args.isFemale,
+        key: args.key,
+      );
+    },
+  );
 }
 
 class HeightViewArgs {
@@ -190,7 +132,12 @@ class HomeView extends PageRouteInfo<void> {
 
   static const String name = 'HomeView';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const Home();
+    },
+  );
 }
 
 /// generated route for
@@ -204,7 +151,12 @@ class OnboardView extends PageRouteInfo<void> {
 
   static const String name = 'OnboardView';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const Onboard();
+    },
+  );
 }
 
 /// generated route for
@@ -225,8 +177,17 @@ class ResultListView extends PageRouteInfo<ResultListViewArgs> {
 
   static const String name = 'ResultListView';
 
-  static const PageInfo<ResultListViewArgs> page =
-      PageInfo<ResultListViewArgs>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<ResultListViewArgs>(
+          orElse: () => const ResultListViewArgs());
+      return ResultList(
+        key: args.key,
+        userMetrics: args.userMetrics,
+      );
+    },
+  );
 }
 
 class ResultListViewArgs {
@@ -256,7 +217,12 @@ class SplashView extends PageRouteInfo<void> {
 
   static const String name = 'SplashView';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const Splash();
+    },
+  );
 }
 
 /// generated route for
@@ -277,8 +243,16 @@ class UserGeneralInfoView extends PageRouteInfo<UserGeneralInfoViewArgs> {
 
   static const String name = 'UserGeneralInfoView';
 
-  static const PageInfo<UserGeneralInfoViewArgs> page =
-      PageInfo<UserGeneralInfoViewArgs>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      final args = data.argsAs<UserGeneralInfoViewArgs>();
+      return UserGeneralInfo(
+        avatar: args.avatar,
+        key: args.key,
+      );
+    },
+  );
 }
 
 class UserGeneralInfoViewArgs {
@@ -308,5 +282,10 @@ class WeightView extends PageRouteInfo<void> {
 
   static const String name = 'WeightView';
 
-  static const PageInfo<void> page = PageInfo<void>(name);
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const WeightPicker();
+    },
+  );
 }

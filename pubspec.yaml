@@ -9,12 +9,12 @@ environment:
 
 dependencies:
   animated_text_kit: ^4.2.2
-  auto_route: ^8.3.0
+  auto_route: ^9.2.2
 
   bloc: ^8.1.4
   easy_localization: ^3.0.7
   equatable: ^2.0.5
-  fl_chart: ^0.68.0
+  fl_chart: ^0.69.0
   flutter:
     sdk: flutter
   flutter_bloc: ^8.1.6
@@ -23,7 +23,7 @@ dependencies:
   flutter_zoom_drawer: ^3.2.0 
 
   font_awesome_flutter: ^10.7.0
-  get_it: ^7.7.0
+  get_it: ^7.2.0
   injectable: ^2.4.4
   introduction_screen: ^3.1.14
   json_annotation: ^4.9.0
@@ -32,8 +32,8 @@ dependencies:
   sqflite: ^2.3.3+1
 
 dev_dependencies:
-  auto_route_generator: ^8.1.0
-  build_runner: ^2.4.11
+  auto_route_generator: ^9.0.0
+  build_runner: ^2.4.12
   flutter_test:
     sdk: flutter
   injectable_generator: ^2.6.2
