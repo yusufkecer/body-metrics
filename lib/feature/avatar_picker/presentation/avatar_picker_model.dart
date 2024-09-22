@@ -4,7 +4,7 @@ mixin _AvatarPickerModel on State<AvatarPicker> {
   final List<String> avatarList = AssetValue.values.profileImageList;
 
   void _addNewProfile(int index) {
-    context.pushRoute(UserInfoFormView(avatar: avatarList[index]));
+    context.pushRoute(UserGeneralInfoView(avatar: avatarList[index]));
   }
 
   void _onTapSkip() {

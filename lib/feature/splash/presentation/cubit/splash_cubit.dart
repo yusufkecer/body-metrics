@@ -4,8 +4,13 @@ part of '../splash.dart';
 class SplashCubit extends Cubit<SplashState> {
   SplashCubit() : super(const SplashInitial());
 
+  final appModel = Locator.sl<SplashUseCase>();
+
   Future<AppModel?> init() async {
-    final appModel = Locator.sl<SplashRepository>();
     return appModel.execute();
+  }
+
+  Future<String?> getAvatar(ParamsEntity params) async {
+    return appModel.executeWithParams(params);
   }
 }

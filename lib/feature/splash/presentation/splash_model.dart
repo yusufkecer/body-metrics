@@ -36,8 +36,13 @@ mixin _SplashModel on State<_SplashBody>, DialogUtil {
     } else if (result?.page == Pages.avatarPage) {
       pushNewView(AvatarPickerView());
     } else if (result?.page == Pages.createProfilePage) {
-      final getUserProfileImage = await Locator.sl<UserCache>().;
-      pushNewView(UserGeneralInfoView(avatar: getUserProfileImage ?? ''));
+      final params = ParamsEntity(
+        columns: [UserCacheColumns.avatar.value],
+        filters: {UserCacheColumns.id.value: AppUtil.currentUserId},
+      );
+      final userAavatar = await cubit.getAvatar(params);
+
+      pushNewView(UserGeneralInfoView(avatar: userAavatar ?? ''));
     } else if (result?.page == Pages.heightPage) {
       pushNewView(HeightView(isFemale: false)); //TODO: change this
     } else if (result?.page == Pages.weightPage) {
