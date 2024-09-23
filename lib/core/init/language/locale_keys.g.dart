@@ -20,6 +20,7 @@ abstract class  LocaleKeys {
   static const register_skip = 'register.skip';
   static const register_select_profile_picture = 'register.select_profile_picture';
   static const register_information_is_empty = 'register.information_is_empty';
+  static const register_avatar_select_failed = 'register.avatar_select_failed';
   static const register = 'register';
   static const weight_weight_name = 'weight.weight_name';
   static const weight_select_weight = 'weight.select_weight';
