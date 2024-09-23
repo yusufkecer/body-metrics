@@ -20,7 +20,8 @@
         "complete": "Kaydını Tamamla",
         "skip": "Atla",
         "select_profile_picture": "Avatarınızı Seçin",
-        "information_is_empty": "Kaydı tamamlamak için adınızı ve doğum tarihinizi girmeniz gerekiyor."
+        "information_is_empty": "Kaydı tamamlamak için adınızı ve doğum tarihinizi girmeniz gerekiyor.",
+        "avatar_select_failed": "Avatar seçilirken bir sorun oluştu. Hesaplama adımına geçmek ister misiniz?"
     },
     "weight": {
         "weight_name": "Kilo",

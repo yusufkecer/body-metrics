@@ -1,13 +1,34 @@
 part of 'avatar_picker.dart';
 
-mixin _AvatarPickerModel on State<AvatarPicker> {
+mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil {
   final List<String> avatarList = AssetValue.values.profileImageList;
-
-  void _addNewProfile(int index) {
-    context.pushRoute(UserGeneralInfoView(avatar: avatarList[index]));
-  }
 
   void _onTapSkip() {
     context.pushRoute(const GenderView());
+  }
+
+  Future<void> _addNewProfile(int index) async {
+    final user = UserFilters(
+      avatar: avatarList[index],
+    );
+
+    final avatarUseCase = Locator.sl<SaveAvatarUseCase>();
+    final result = await avatarUseCase.executeWithParams(user);
+
+    if ((result.isNotNull && result!) && mounted) {
+      await context.router.push(UserGeneralInfoView(avatar: avatarList[index]));
+    } else {
+      await _continueNotRegistered();
+    }
+  }
+
+  Future<void> _continueNotRegistered() async {
+    final result = await confirmDialog(LocaleKeys.register_avatar_select_failed.tr());
+
+    if ((result.isNullOrEmpty || !result!) && !mounted) {
+      return;
+    }
+
+    await context.router.push(const GenderView());
   }
 }
