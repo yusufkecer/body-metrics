@@ -101,7 +101,7 @@ final class _HomeBody extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: ProductPadding.ten(),
+      padding: ProductPadding.ten().copyWith(bottom: 0),
       child: SingleChildScrollView(
         child: Column(
           children: [

@@ -26,6 +26,6 @@ final class PageUseCase implements BaseUseCase<Pages, bool, Json> {
   ///Set the current page to the [AppCache]
   Future<bool?> executeWithParams(Json params) async {
     final result = await repository.executeWithParams(params);
-    return result?.boolResult;
+    return result?.convertBoolResult;
   }
 }

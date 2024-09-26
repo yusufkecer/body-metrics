@@ -1,6 +1,6 @@
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/domain/index.dart';
-import 'package:bodymetrics/feature/avatar_picker/domain/repository/save_repository.dart';
+import 'package:bodymetrics/feature/avatar_picker/domain/repository/save_avatar_repository.dart';
 import 'package:bodymetrics/injection/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
@@ -15,7 +15,8 @@ class SaveAvatarUseCase implements BaseUseCase<bool, bool, UserFilters> {
   }
 
   @override
-  Future<bool?> executeWithParams(UserFilters params) {
-    throw UnimplementedError();
+  Future<bool?> executeWithParams(UserFilters params) async {
+    final result = await useCase.executeWithParams(params);
+    return result?.convertBoolResult;
   }
 }
