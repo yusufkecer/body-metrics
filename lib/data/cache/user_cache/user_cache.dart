@@ -15,7 +15,7 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json> {
     await db.execute('''
         CREATE TABLE user (
           ${UserCacheColumns.id.value} INTEGER PRIMARY KEY AUTOINCREMENT,
-          ${UserCacheColumns.name.value} TEXT NOT NULL,
+          ${UserCacheColumns.name.value} TEXT NULL,
           ${UserCacheColumns.surname.value} TEXT NULL,
           ${UserCacheColumns.gender.value} INTEGER NULL,
           ${UserCacheColumns.avatar.value} TEXT NULL,
