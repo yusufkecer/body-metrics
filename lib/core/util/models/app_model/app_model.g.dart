@@ -24,7 +24,7 @@ Map<String, dynamic> _$AppModelToJson(AppModel instance) => <String, dynamic>{
 
 const _$PagesEnumMap = {
   Pages.avatarPage: 'avatarPage',
-  Pages.createProfilePage: 'createProfilePage',
+  Pages.userGeneralInfo: 'userGeneralInfo',
   Pages.genderPage: 'genderPage',
   Pages.heightPage: 'heightPage',
   Pages.weightPage: 'weightPage',

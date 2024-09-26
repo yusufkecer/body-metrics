@@ -15,8 +15,15 @@ mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil {
     final avatarUseCase = Locator.sl<SaveAvatarUseCase>();
     final result = await avatarUseCase.executeWithParams(user);
 
-    if ((result.isNotNull && result!) && mounted) {
-      await context.router.push(UserGeneralInfoView(avatar: avatarList[index]));
+    if (result.isNotNull && result!) {
+      await _updatePage();
+      if (mounted) {
+        await context.router.push(
+          UserGeneralInfoView(
+            avatar: avatarList[index],
+          ),
+        );
+      }
     } else {
       await _continueNotRegistered();
     }
@@ -30,5 +37,12 @@ mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil {
     }
 
     await context.router.push(const GenderView());
+  }
+
+  Future<void> _updatePage() async {
+    final pageCase = Locator.sl<PageUseCase>();
+    const appModel = AppModel(page: Pages.userGeneralInfo);
+    final result = await pageCase.executeWithParams(appModel);
+    print("result: $result");
   }
 }
