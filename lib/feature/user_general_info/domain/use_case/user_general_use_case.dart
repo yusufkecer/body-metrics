@@ -18,6 +18,6 @@ final class CreateProfileUseCase implements BaseUseCase<bool, bool, User> {
   @override
   Future<bool?> executeWithParams(User params) async {
     final result = await _repository.executeWithParams(params);
-    return result.boolResult;
+    return result.convertBoolResult;
   }
 }

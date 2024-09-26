@@ -17,15 +17,22 @@ import 'package:bodymetrics/data/cache/user_cache/user_cache.dart' as _i981;
 import 'package:bodymetrics/data/db/imp_cache.dart' as _i46;
 import 'package:bodymetrics/domain/repository/page_repository.dart' as _i352;
 import 'package:bodymetrics/domain/use_case/page_use_case.dart' as _i660;
-import 'package:bodymetrics/feature/avatar_picker/domain/repository/save_avatar_repository.dart' as _i388;
-import 'package:bodymetrics/feature/avatar_picker/domain/use_case/save_avatar_use_case.dart' as _i406;
-import 'package:bodymetrics/feature/gender/presentation/cubit/change_gender_cubit/change_gender.dart' as _i778;
-import 'package:bodymetrics/feature/height/presentation/height_picker.dart' as _i617;
+import 'package:bodymetrics/feature/avatar_picker/domain/repository/save_avatar_repository.dart'
+    as _i388;
+import 'package:bodymetrics/feature/avatar_picker/domain/use_case/save_avatar_use_case.dart'
+    as _i406;
+import 'package:bodymetrics/feature/gender/presentation/cubit/change_gender_cubit/change_gender.dart'
+    as _i778;
+import 'package:bodymetrics/feature/height/presentation/height_picker.dart'
+    as _i617;
 import 'package:bodymetrics/feature/onboard/presentation/onboard.dart' as _i566;
 import 'package:bodymetrics/feature/splash/presentation/splash.dart' as _i71;
-import 'package:bodymetrics/feature/user_general_info/cubit/user_general_info_state.dart' as _i1018;
-import 'package:bodymetrics/feature/user_general_info/domain/repository/user_general_repository.dart' as _i463;
-import 'package:bodymetrics/feature/user_general_info/domain/use_case/user_general_use_case.dart' as _i150;
+import 'package:bodymetrics/feature/user_general_info/cubit/user_general_info_state.dart'
+    as _i1018;
+import 'package:bodymetrics/feature/user_general_info/domain/repository/user_general_repository.dart'
+    as _i463;
+import 'package:bodymetrics/feature/user_general_info/domain/use_case/user_general_use_case.dart'
+    as _i150;
 import 'package:flutter/material.dart' as _i409;
 import 'package:get_it/get_it.dart' as _i174;
 import 'package:injectable/injectable.dart' as _i526;
@@ -56,12 +63,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i71.SplashRepository>(() => _i71.SplashRepository());
     gh.factory<_i71.SplashUseCase>(() => _i71.SplashUseCase());
     gh.factory<_i1018.UserInfoFormCubit>(() => _i1018.UserInfoFormCubit());
-    gh.factory<_i463.CreateProfileRepository>(() => _i463.CreateProfileRepository());
+    gh.factory<_i463.CreateProfileRepository>(
+        () => _i463.CreateProfileRepository());
     gh.factory<_i388.SaveAvatarRepository>(() => _i388.SaveAvatarRepository());
     gh.factory<_i406.SaveAvatarUseCase>(() => _i406.SaveAvatarUseCase());
     gh.lazySingleton<_i1072.AppRouter>(() => _i1072.AppRouter());
     gh.lazySingleton<_i906.CustomTheme>(() => _i906.CustomTheme());
-    gh.factory<_i150.CreateProfileUseCase>(() => _i150.CreateProfileUseCase(gh<_i463.CreateProfileRepository>()));
+    gh.factory<_i150.CreateProfileUseCase>(
+        () => _i150.CreateProfileUseCase(gh<_i463.CreateProfileRepository>()));
     gh.lazySingleton<_i782.AppLocalization>(() => _i782.AppLocalization(
           child: gh<_i409.Widget>(),
           key: gh<_i409.Key>(),
