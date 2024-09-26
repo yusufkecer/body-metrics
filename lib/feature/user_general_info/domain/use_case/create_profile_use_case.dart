@@ -1,5 +1,5 @@
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/feature/user_general_info/domain/repository/user_general_repository.dart';
+import 'package:bodymetrics/feature/user_general_info/domain/repository/create_profile_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 

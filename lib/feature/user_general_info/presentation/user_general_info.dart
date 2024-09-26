@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/feature/user_general_info/cubit/user_general_info_state.dart';
+import 'package:bodymetrics/feature/user_general_info/domain/index.dart';
 
 import 'package:bodymetrics/injection/locator.dart';
 import 'package:easy_localization/easy_localization.dart';

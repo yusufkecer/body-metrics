@@ -1,6 +1,6 @@
 enum Pages {
   avatarPage,
-  createProfilePage,
+  userGeneralInfo,
   genderPage,
   heightPage,
   weightPage,
@@ -12,7 +12,7 @@ extension StringToPages on String {
       case 'avatarPage':
         return Pages.avatarPage;
       case 'createProfilePage':
-        return Pages.createProfilePage;
+        return Pages.userGeneralInfo;
       case 'genderPage':
         return Pages.genderPage;
       case 'heightPage':

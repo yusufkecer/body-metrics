@@ -7,7 +7,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class PageUseCase implements BaseUseCase<Pages, bool, Json> {
+final class PageUseCase implements BaseUseCase<Pages, bool, AppModel> {
   final PageRepository repository = Locator.sl<PageRepository>();
 
   @override
@@ -24,7 +24,7 @@ final class PageUseCase implements BaseUseCase<Pages, bool, Json> {
   @override
 
   ///Set the current page to the [AppCache]
-  Future<bool?> executeWithParams(Json params) async {
+  Future<bool?> executeWithParams(AppModel params) async {
     final result = await repository.executeWithParams(params);
     return result?.convertBoolResult;
   }

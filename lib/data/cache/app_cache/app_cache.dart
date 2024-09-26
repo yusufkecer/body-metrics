@@ -76,21 +76,28 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, Json> {
 
   @override
   Future<int> update(Database? db, Json value) async {
-    if (value.isNullOrEmpty || db.isNullOrEmpty) {
+    if (value.isEmpty || db == null) {
       'Value is empty'.e;
       return 0;
     }
 
-    Json? json;
+    final filteredValue = value.entries.where((entry) => entry.value != null).toList();
 
-    for (final element in _columns) {
-      if (value.containsKey(element)) {
-        json?[element] = value[element];
-      }
+    if (filteredValue.isEmpty) {
+      'No values to update'.e;
+      return 0;
     }
-    if (json.isNullOrEmpty) return 0;
 
-    final result = await db!.update(table, json!);
+    final columns = filteredValue.map((e) => '${e.key} = ?').join(', ');
+
+    "columns: $columns".log;
+
+    final values = filteredValue.map((e) => e.value).toList();
+
+    final result = await db.rawUpdate(
+      'UPDATE $table SET $columns',
+      values,
+    );
 
     'value updated $result'.log;
 

@@ -30,7 +30,7 @@ mixin UserGeneralInfoModel on State<_UserInfoFormBody>, DialogUtil {
   }
 
   Future<bool?> createProfile() async {
-    final saveUseCase = Locator.sl<CreateProfileUseCase>(param1: CreateProfileRepository());
+    final saveUseCase = Locator.sl<CreateProfileUseCase>();
     final birthDay = _birthOfDateController.text.toYMD;
     final user = User(
       name: _fullNameController.text,
