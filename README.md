@@ -62,19 +62,21 @@ Uygulama, gelişmiş işlevsellik sağlamak için aşağıdaki paketleri kullan�
   SQLite kullanarak yerel veritabanı yönetimi için.
 
 # Screenshots | Ekran Görüntüleri
-![Screenshot_1727416549](https://github.com/user-attachments/assets/8a30f988-3539-445c-9c32-4dedfba5ea4c)
-![Screenshot_1727416546](https://github.com/user-attachments/assets/ae4e844e-d60b-4852-829e-48038004606f)
-![Screenshot_1727416544](https://github.com/user-attachments/assets/daf551b3-94ec-4901-af0e-f25e7793db4a)
-![Screenshot_1727416541](https://github.com/user-attachments/assets/05de34dd-4bed-4e0e-a5bb-dc48eb1bbc87)
 ![Screenshot_1727416538](https://github.com/user-attachments/assets/3dc7c29a-31e6-4b2e-a9dd-997ae97a02b5)
-![Screenshot_1727416502](https://github.com/user-attachments/assets/e9dca6e6-e81a-4206-8188-a5e5d85e2ce3)
-![Screenshot_1727416625](https://github.com/user-attachments/assets/0374fc31-ac16-41cf-b2b8-6b0acdda4c3a)
-![Screenshot_1727416614](https://github.com/user-attachments/assets/97da48b1-4f9c-42d2-8e1c-b7da897b662c)
-![Screenshot_1727416608](https://github.com/user-attachments/assets/7d19be4b-1bcf-4cfb-a26f-942d1b418213)
-![Screenshot_1727416603](https://github.com/user-attachments/assets/8d558ad1-49c3-452f-a757-a9e12a743ddd)
-![Screenshot_1727416581](https://github.com/user-attachments/assets/c6abed00-f35b-428f-8c11-b1b708708ed6)
-![Screenshot_1727416576](https://github.com/user-attachments/assets/b2e68aeb-b551-484e-8694-f23560448f22)
-![Screenshot_1727416568](https://github.com/user-attachments/assets/e084c199-4e18-4bfe-a972-0b70a5fdbcc3)
+![Screenshot_1727416541](https://github.com/user-attachments/assets/05de34dd-4bed-4e0e-a5bb-dc48eb1bbc87)
+![Screenshot_1727416544](https://github.com/user-attachments/assets/daf551b3-94ec-4901-af0e-f25e7793db4a)
+![Screenshot_1727416546](https://github.com/user-attachments/assets/ae4e844e-d60b-4852-829e-48038004606f)
+![Screenshot_1727416549](https://github.com/user-attachments/assets/8a30f988-3539-445c-9c32-4dedfba5ea4c)
 ![Screenshot_1727416555](https://github.com/user-attachments/assets/41da5a87-6f06-4337-be12-14ae903116d9)
+![Screenshot_1727416568](https://github.com/user-attachments/assets/e084c199-4e18-4bfe-a972-0b70a5fdbcc3)
+![Screenshot_1727416502](https://github.com/user-attachments/assets/e9dca6e6-e81a-4206-8188-a5e5d85e2ce3)
+![Screenshot_1727416581](https://github.com/user-attachments/assets/c6abed00-f35b-428f-8c11-b1b708708ed6)
+![Screenshot_1727416603](https://github.com/user-attachments/assets/8d558ad1-49c3-452f-a757-a9e12a743ddd)
+![Screenshot_1727416614](https://github.com/user-attachments/assets/97da48b1-4f9c-42d2-8e1c-b7da897b662c)
+![Screenshot_1727416625](https://github.com/user-attachments/assets/0374fc31-ac16-41cf-b2b8-6b0acdda4c3a)
+
+
+
+
 
 
