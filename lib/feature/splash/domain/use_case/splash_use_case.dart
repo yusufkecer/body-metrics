@@ -13,10 +13,11 @@ final class SplashUseCase implements BaseUseCase<AppModel, String, ParamsEntity>
   @override
   Future<String?> executeWithParams(ParamsEntity params) async {
     final value = await _splashRepository.executeWithParams(params);
-    if (value.isNullOrEmpty || value is! List) {
+
+    if (value.isNullOrEmpty || value!.users is! List) {
       return null;
     }
 
-    return value?.users?.first.avatar;
+    return value.users?.first.avatar;
   }
 }
