@@ -41,7 +41,7 @@ mixin _SplashModel on State<_SplashBody>, DialogUtil {
         filters: {UserCacheColumns.id.value: AppUtil.currentUserId},
       );
       final userAvatar = await cubit.getAvatar(params);
-
+      'user avatar: $userAvatar'.log;
       pushNewView(UserGeneralInfoView(avatar: userAvatar ?? ''));
     } else if (result?.page == Pages.heightPage) {
       pushNewView(HeightView(isFemale: false)); //TODO: change this to dynamic

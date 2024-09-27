@@ -18,10 +18,11 @@ mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil {
     if (result.isNotNull && result!) {
       await _updatePage();
       if (mounted) {
-        await context.router.push(
+        await context.router.pushAndPopUntil(
           UserGeneralInfoView(
             avatar: avatarList[index],
           ),
+          predicate: (route) => false,
         );
       }
     } else {
