@@ -10,7 +10,7 @@ class SplashCubit extends Cubit<SplashState> {
     return appModel.execute();
   }
 
-  Future<String?> userValues(ParamsEntity params) async {
+  Future<User?> userValues(ParamsEntity params) async {
     return appModel.executeWithParams(params);
   }
 }

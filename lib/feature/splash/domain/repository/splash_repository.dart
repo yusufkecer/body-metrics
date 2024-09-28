@@ -1,4 +1,9 @@
-part of '../../presentation/splash.dart';
+import 'package:bodymetrics/core/index.dart';
+import 'package:bodymetrics/data/index.dart';
+import 'package:bodymetrics/domain/index.dart';
+import 'package:bodymetrics/injection/locator.dart';
+import 'package:flutter/material.dart';
+import 'package:injectable/injectable.dart';
 
 @immutable
 @injectable

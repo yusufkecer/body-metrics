@@ -89,7 +89,32 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json> {
   }
 
   @override
-  Future<int> update(Database? db, Map<String, dynamic> value) {
-    throw UnimplementedError();
+  Future<int> update(Database? db, Json value) async {
+    if (value.isEmpty || db == null) {
+      'Value is empty'.e;
+      return 0;
+    }
+
+    final filteredValue = value.entries.where((entry) => entry.value != null).toList();
+
+    if (filteredValue.isEmpty) {
+      'No values to update'.e;
+      return 0;
+    }
+
+    final columns = filteredValue.map((e) => '${e.key} = ?').join(', ');
+
+    final values = filteredValue.map((e) => e.value).toList();
+
+    final result = await db.rawUpdate(
+      'UPDATE $table SET $columns',
+      values,
+    );
+
+    'value updated $result'.log;
+
+    await closeDb();
+
+    return result;
   }
 }
