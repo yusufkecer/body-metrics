@@ -46,7 +46,8 @@
         "cancel": "Cancel",
         "ok": "OK",
         "close": "Close",
-        "yes": "Yes"
+        "yes": "Yes",
+        "page_not_saved": "Page not saved. Please complete your registration."
     },
     "onboard": {
         "welcome": "Welcome!",

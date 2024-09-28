@@ -40,10 +40,15 @@ mixin _SplashModel on State<_SplashBody>, DialogUtil {
         columns: [UserCacheColumns.avatar.value],
         filters: {UserCacheColumns.id.value: AppUtil.currentUserId},
       );
-      final userAvatar = await cubit.getAvatar(params);
+      final userAvatar = await cubit.userValues(params);
       'user avatar: $userAvatar'.log;
       pushNewView(UserGeneralInfoView(avatar: userAvatar ?? ''));
     } else if (result?.page == Pages.heightPage) {
+      final params = ParamsEntity(
+        columns: [UserCacheColumns.avatar.value],
+        filters: {UserCacheColumns.id.value: AppUtil.currentUserId},
+      );
+      final userGender = await cubit.userValues(params);
       pushNewView(HeightView(isFemale: false)); //TODO: change this to dynamic
     } else if (result?.page == Pages.weightPage) {
       pushNewView(const WeightView());

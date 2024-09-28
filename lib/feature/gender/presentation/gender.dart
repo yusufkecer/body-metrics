@@ -38,7 +38,7 @@ final class _GenderView extends StatefulWidget {
   State<_GenderView> createState() => __GenderViewState();
 }
 
-class __GenderViewState extends State<_GenderView> with _GenderModel {
+class __GenderViewState extends State<_GenderView> with SavePageMixin, _GenderModel {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
@@ -79,11 +79,7 @@ class __GenderViewState extends State<_GenderView> with _GenderModel {
     return isSelected()
         ? ColorfulTextButton(
             text: LocaleKeys.cont.tr(),
-            onTap: () => context.router.push(
-              HeightView(
-                isFemale: _isFemale!,
-              ),
-            ),
+            onTap: _pushToHeight,
           )
         : const SizedBox.shrink();
   }

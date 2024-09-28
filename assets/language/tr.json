@@ -45,7 +45,8 @@
         "cancel": "İptal",
         "ok": "Tamam",
         "close": "Close",
-        "yes": "Evet"
+        "yes": "Evet",
+        "page_not_saved": "Sayfa kaydedilmedi. Kaydınızı lütfen tamamlayın."
     },
     "onboard": {
         "welcome": "Hoş Geldiniz!",

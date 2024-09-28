@@ -43,6 +43,7 @@ abstract class  LocaleKeys {
   static const dialog_ok = 'dialog.ok';
   static const dialog_close = 'dialog.close';
   static const dialog_yes = 'dialog.yes';
+  static const dialog_page_not_saved = 'dialog.page_not_saved';
   static const dialog = 'dialog';
   static const onboard_welcome = 'onboard.welcome';
   static const onboard_onboarding_1_title = 'onboard.onboarding_1_title';
