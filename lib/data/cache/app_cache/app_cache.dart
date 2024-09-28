@@ -90,7 +90,7 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, Json> {
 
     final columns = filteredValue.map((e) => '${e.key} = ?').join(', ');
 
-    "columns: $columns".log;
+    'columns: $columns'.log;
 
     final values = filteredValue.map((e) => e.value).toList();
 

@@ -1,7 +1,6 @@
 part of 'gender.dart';
 
-// ignore: library_private_types_in_public_api
-mixin _GenderModel on State<_GenderView> {
+mixin _GenderModel on State<_GenderView>, SavePageMixin {
   bool? _isMale;
   bool? _isFemale;
   void onChange({bool? value, bool isMale = false, bool isFemale = false}) {
@@ -22,6 +21,15 @@ mixin _GenderModel on State<_GenderView> {
     } else {
       context.read<GenderCubit>().changeGender(const SelectGender());
     }
+  }
+
+  void _pushToHeight() {
+    setPage(Pages.heightPage);
+    context.router.push(
+      HeightView(
+        isFemale: _isFemale!,
+      ),
+    );
   }
 
   bool isSelected() => _isMale.isNotNull || _isFemale.isNotNull;

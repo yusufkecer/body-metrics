@@ -1,6 +1,6 @@
 part of 'avatar_picker.dart';
 
-mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil {
+mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil, SavePageMixin {
   final List<String> avatarList = AssetValue.values.profileImageList;
 
   void _onTapSkip() {
@@ -16,7 +16,7 @@ mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil {
     final result = await avatarUseCase.executeWithParams(user);
 
     if (result.isNotNull && result!) {
-      await _updatePage();
+      await setPage(Pages.userGeneralInfo);
       if (mounted) {
         await context.router.pushAndPopUntil(
           UserGeneralInfoView(
@@ -38,12 +38,5 @@ mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil {
     }
 
     await context.router.push(const GenderView());
-  }
-
-  Future<void> _updatePage() async {
-    final pageCase = Locator.sl<PageUseCase>();
-    const appModel = AppModel(page: Pages.userGeneralInfo);
-    final result = await pageCase.executeWithParams(appModel);
-    print("result: $result");
   }
 }

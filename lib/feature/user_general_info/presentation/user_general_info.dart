@@ -50,7 +50,7 @@ class _UserInfoFormBody extends StatefulWidget {
   State<_UserInfoFormBody> createState() => _UserInfoFormBodyState();
 }
 
-class _UserInfoFormBodyState extends State<_UserInfoFormBody> with DialogUtil, UserGeneralInfoModel {
+class _UserInfoFormBodyState extends State<_UserInfoFormBody> with DialogUtil, SavePageMixin, UserGeneralInfoModel {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
