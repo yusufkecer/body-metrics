@@ -21,6 +21,10 @@ import 'package:bodymetrics/feature/avatar_picker/domain/repository/save_avatar_
     as _i388;
 import 'package:bodymetrics/feature/avatar_picker/domain/use_case/save_avatar_use_case.dart'
     as _i406;
+import 'package:bodymetrics/feature/gender/domain/repository/save_gender_repository.dart'
+    as _i218;
+import 'package:bodymetrics/feature/gender/domain/use_case/save_gender_use_case.dart'
+    as _i708;
 import 'package:bodymetrics/feature/gender/presentation/cubit/change_gender_cubit/change_gender.dart'
     as _i778;
 import 'package:bodymetrics/feature/height/presentation/height_picker.dart'
@@ -58,6 +62,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i46.ImpCache>(() => _i46.ImpCache());
     gh.factory<_i352.PageRepository>(() => _i352.PageRepository());
     gh.factory<_i660.PageUseCase>(() => _i660.PageUseCase());
+    gh.factory<_i218.SaveGenderRepository>(() => _i218.SaveGenderRepository());
+    gh.factory<_i708.SaveGenderUseCase>(() => _i708.SaveGenderUseCase());
     gh.factory<_i778.GenderCubit>(() => _i778.GenderCubit());
     gh.factory<_i617.HeightSelectorCubit>(() => _i617.HeightSelectorCubit());
     gh.factory<_i566.OnboardCubit>(() => _i566.OnboardCubit());
