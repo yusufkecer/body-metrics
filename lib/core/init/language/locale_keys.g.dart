@@ -70,6 +70,10 @@ abstract class  LocaleKeys {
   static const home_weight_change = 'home.weight_change';
   static const home_report = 'home.report';
   static const home_chart = 'home.chart';
+  static const home_menu_change_profile = 'home.menu.change_profile';
+  static const home_menu_add_profile = 'home.menu.add_profile';
+  static const home_menu_calculate_bmi = 'home.menu.calculate_bmi';
+  static const home_menu = 'home.menu';
   static const home = 'home';
   static const chart_month_jan = 'chart.month.jan';
   static const chart_month_feb = 'chart.month.feb';

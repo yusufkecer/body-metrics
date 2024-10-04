@@ -74,7 +74,12 @@
         "date": "Tarih",
         "weight_change": "Değişim",
         "report": "Rapor",
-        "chart": "Grafik"
+        "chart": "Grafik",
+        "menu": {
+            "change_profile": "Profil Değiştir",
+            "add_profile": "Profil Ekle",
+            "calculate_bmi": "VTİ Hesapla"
+        }
     },
     "chart": {
         "month": {

@@ -75,7 +75,12 @@
         "date": "Date",
         "weight_change": "Change",
         "report": "Report",
-        "chart": "Chart"
+        "chart": "Chart",
+        "menu": {
+            "change_profile": "Change Profile",
+            "add_profile": "Add Profile",
+            "calculate_bmi": "Calculate BMI"
+        }
     },
     "chart": {
         "month": {
