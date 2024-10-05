@@ -3,9 +3,12 @@ import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/core/widgets/buttons/chip_button.dart';
 import 'package:bodymetrics/core/widgets/rich_text_widgets/custom_rich_text.dart';
 import 'package:bodymetrics/core/widgets/space_column.dart';
+import 'package:bodymetrics/feature/home/presentation/cubit/user_cubit.dart';
+import 'package:bodymetrics/injection/locator.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
 part 'home_model.dart';
@@ -29,36 +32,46 @@ final class Home extends StatefulWidget {
 class _HomeState extends State<Home> with _TitleMixin, TickerProviderStateMixin, _HomeModel {
   @override
   Widget build(BuildContext context) {
-    return CustomDrawer(
-      zoomDrawerController: _zoomDrawerController,
-      borderRadius: 25,
-      menuBackgroundColor: ProductColor().seedColor,
-      menuScreen: _MenuView(_userName, _userAvatar),
-      mainScreen: GradientScaffold(
-        appBar: CustomAppBar(
-          leading: IconButton(
-            onPressed: () {
-              _zoomDrawerController.toggle!();
-            },
-            icon: const Icon(Icons.menu),
-          ),
-          title: LocaleKeys.home_hello.tr(args: ['John Doe']),
-        ),
-        body: _HomeBody(
-          period: _period,
-          yearlyPeriod: _yearlyPeriod,
-          monthlyPeriod: _monthlyPeriod,
-          weeklyPeriod: _weeklyPeriod,
-          dataListOnPressed: _dataListOnPressed,
-          chartOnPressed: _chartOnPressed,
-          spots: _spots,
-          leftTitles: _leftTitles,
-          bottomTitle: _bottomTitle,
-          expandedCard: _expandedCard,
-          animatedListController: _animatedListController,
-          animatedChartController: _animatedChartController,
-          userMetrics: _userMetrics,
-        ),
+    return BlocProvider(
+      create: (context) => Locator.sl<UserCubit>(),
+      child: Builder(
+        builder: (context) {
+          final userState = context.read<UserCubit>().state;
+          return userState.isLoading
+              ? const LoadingLottie()
+              : CustomDrawer(
+                  zoomDrawerController: _zoomDrawerController,
+                  borderRadius: 25,
+                  menuBackgroundColor: ProductColor().seedColor,
+                  menuScreen: _MenuView(_userName, _userAvatar),
+                  mainScreen: GradientScaffold(
+                    appBar: CustomAppBar(
+                      leading: IconButton(
+                        onPressed: () {
+                          _zoomDrawerController.toggle!();
+                        },
+                        icon: const Icon(Icons.menu),
+                      ),
+                      title: LocaleKeys.home_hello.tr(args: [_userName]),
+                    ),
+                    body: _HomeBody(
+                      period: _period,
+                      yearlyPeriod: _yearlyPeriod,
+                      monthlyPeriod: _monthlyPeriod,
+                      weeklyPeriod: _weeklyPeriod,
+                      dataListOnPressed: _dataListOnPressed,
+                      chartOnPressed: _chartOnPressed,
+                      spots: _spots,
+                      leftTitles: _leftTitles,
+                      bottomTitle: _bottomTitle,
+                      expandedCard: _expandedCard,
+                      animatedListController: _animatedListController,
+                      animatedChartController: _animatedChartController,
+                      userMetrics: _userMetrics,
+                    ),
+                  ),
+                );
+        },
       ),
     );
   }

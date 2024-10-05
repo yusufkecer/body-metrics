@@ -1,4 +1,4 @@
-import 'package:bodymetrics/core/util/constants/asset_path/asset_path.dart';
+import 'package:bodymetrics/core/index.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 
@@ -8,9 +8,11 @@ final class LoadingLottie extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Center(
-      child: Lottie.asset(
-        AssetValue.loading.value.lottie,
+    return GradientScaffold(
+      body: Center(
+        child: Lottie.asset(
+          AssetValue.loading.value.lottie,
+        ),
       ),
     );
   }
