@@ -3,6 +3,7 @@ import 'dart:async';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/data/cache/bmi_cache/bmi_cache_columns.dart';
 import 'package:bodymetrics/data/index.dart';
+import 'package:bodymetrics/domain/index.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
@@ -47,13 +48,12 @@ final class UserMetricsCache extends ImpCache implements CacheMethods<UserMetric
   }
 
   @override
-  Future<UserMetrics?> select(Database? db, Json value, [List<String>? columns]) {
+  Future<UserMetrics?> select(Database? db, Json value, {List<String>? columns, List<JoinEntity>? joins}) {
     throw UnimplementedError();
   }
 
   @override
-  Future<UserMetrics?> selectAll(Database? db, [List<String>? columns]) {
-    // TODO: implement selectAll
+  Future<UserMetrics?> selectAll(Database? db, {List<String>? columns, List<JoinEntity>? joins}) {
     throw UnimplementedError();
   }
 }

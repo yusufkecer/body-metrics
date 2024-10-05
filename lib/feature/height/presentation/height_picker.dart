@@ -17,11 +17,11 @@ part 'widgets/ruler.dart';
 @immutable
 final class Height extends StatelessWidget with SavePageMixin {
   const Height({
-    required this.isFemale,
+    required this.gender,
     super.key,
   });
 
-  final bool isFemale;
+  final GenderValue gender;
 
   @override
   Widget build(BuildContext context) {
@@ -39,7 +39,7 @@ final class Height extends StatelessWidget with SavePageMixin {
           ),
         ),
         body: _HeightBody(
-          isFemale: isFemale,
+          isFemale: gender.isFemale(),
         ),
       ),
     );

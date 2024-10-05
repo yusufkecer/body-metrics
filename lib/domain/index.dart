@@ -1,3 +1,4 @@
+export 'package:bodymetrics/domain/entities/join_entity.dart';
 export 'package:bodymetrics/domain/entities/params_entity.dart';
 export 'package:bodymetrics/domain/entities/user_entity.dart';
 export 'package:bodymetrics/domain/repository/page_repository.dart';

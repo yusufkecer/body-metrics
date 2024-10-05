@@ -4,7 +4,7 @@ import 'dart:convert';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/data/cache/app_cache/app_cache.dart';
 import 'package:bodymetrics/data/cache/bmi_cache/bmi_cache_columns.dart';
-import 'package:bodymetrics/data/cache/user_cache/user_cache_tables.dart';
+import 'package:bodymetrics/data/cache/user_cache/user_cache_columns.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 

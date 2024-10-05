@@ -1,11 +1,22 @@
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/core/widgets/dialogs/lottie_confirm_dialog.dart';
-import 'package:bodymetrics/core/widgets/dialogs/lottie_dialog.dart';
+
 import 'package:bodymetrics/injection/locator.dart';
 
 import 'package:flutter/material.dart';
 
 mixin DialogUtil {
+  void loadingDialog() {
+    showDialog<void>(
+      context: Locator.sl<AppRouter>().navigatorKey.currentContext!,
+      barrierDismissible: false,
+      builder: (BuildContext context) {
+        return LoadingDialog(
+          assetValue: AssetValue.loading.value.lottie,
+        );
+      },
+    );
+  }
+
   void showLottieError(String message) {
     showDialog<void>(
       context: Locator.sl<AppRouter>().navigatorKey.currentContext!,

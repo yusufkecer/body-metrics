@@ -16,8 +16,6 @@ part 'widgets/data_list.dart';
 part 'widgets/menu_view.dart';
 part 'widgets/period_select.dart';
 part 'enum/expanded.dart';
-part '../domain/repository/user_repository.dart';
-part '../domain/use_case/user_use_case.dart';
 
 @immutable
 @RoutePage(name: 'HomeView')
@@ -35,7 +33,7 @@ class _HomeState extends State<Home> with _TitleMixin, TickerProviderStateMixin,
       zoomDrawerController: _zoomDrawerController,
       borderRadius: 25,
       menuBackgroundColor: ProductColor().seedColor,
-      menuScreen: const _MenuView(),
+      menuScreen: _MenuView(_userName, _userAvatar),
       mainScreen: GradientScaffold(
         appBar: CustomAppBar(
           leading: IconButton(

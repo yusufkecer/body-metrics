@@ -1,7 +1,11 @@
 part of '../home.dart';
 
-class _MenuView extends StatelessWidget {
-  const _MenuView();
+@immutable
+final class _MenuView extends StatelessWidget {
+  const _MenuView(this.name, this.image);
+
+  final String name;
+  final String image;
 
   @override
   Widget build(BuildContext context) {
@@ -16,23 +20,39 @@ class _MenuView extends StatelessWidget {
                 child: Column(
                   children: [
                     CircleAvatar(
-                      backgroundImage: AssetImage(AssetValue.profile1.value.profile),
+                      backgroundImage: AssetImage(image),
                       radius: 50,
                     ),
                     VerticalSpace.s(),
                     Text(
-                      'John Doe',
+                      name,
                       style: context.textTheme.titleMedium,
                     ),
                     VerticalSpace.s(),
                   ],
                 ),
               ),
-              VerticalSpace.s(),
-              TextIconButton(
-                title: LocaleKeys.home_home.tr(),
-                icon: Icons.home,
-                onPressed: () {},
+              Column(
+                children: [
+                  VerticalSpace.s(),
+                  CustomListTile(
+                    ProductIcon.user.icon,
+                    LocaleKeys.home_menu_change_profile.tr(),
+                    () {},
+                  ),
+                  VerticalSpace.s(),
+                  CustomListTile(
+                    ProductIcon.plus.icon,
+                    LocaleKeys.home_menu_add_profile.tr(),
+                    () {},
+                  ),
+                  VerticalSpace.s(),
+                  CustomListTile(
+                    ProductIcon.weight.icon,
+                    LocaleKeys.home_menu_calculate_bmi.tr(),
+                    () {},
+                  ),
+                ],
               ),
             ],
           ),

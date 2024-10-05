@@ -23,6 +23,7 @@ enum AssetValue {
   femaleBody('female_body'),
   robotError('robot_error'),
   generalError('general_error'),
+  loading('loading'),
   confirm('confirm'),
   profile1('pr1.png'),
   profile2('pr2.png'),

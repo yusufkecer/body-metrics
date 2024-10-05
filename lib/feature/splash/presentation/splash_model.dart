@@ -29,32 +29,7 @@ mixin _SplashModel on State<_SplashBody>, DialogUtil {
     AppUtil.currentUserId = result?.activeUser;
     AppUtil.lastPage = result?.page;
 
-    if (result.isNull) {
-      pushNewView(const OnboardView());
-    } else if (result?.page == Pages.genderPage) {
-      pushNewView(const GenderView());
-    } else if (result?.page == Pages.avatarPage) {
-      pushNewView(AvatarPickerView());
-    } else if (result?.page == Pages.userGeneralInfo) {
-      final params = ParamsEntity(
-        columns: [UserCacheColumns.avatar.value],
-        filters: {UserCacheColumns.id.value: AppUtil.currentUserId},
-      );
-      final userAvatar = await cubit.userValues(params);
-      'user avatar: $userAvatar'.log;
-      pushNewView(UserGeneralInfoView(avatar: userAvatar ?? ''));
-    } else if (result?.page == Pages.heightPage) {
-      final params = ParamsEntity(
-        columns: [UserCacheColumns.avatar.value],
-        filters: {UserCacheColumns.id.value: AppUtil.currentUserId},
-      );
-      final userGender = await cubit.userValues(params);
-      pushNewView(HeightView(isFemale: false)); //TODO: change this to dynamic
-    } else if (result?.page == Pages.weightPage) {
-      pushNewView(const WeightView());
-    } else {
-      pushNewView(const HomeView());
-    }
+    await _checkPage(result);
 
     FlutterNativeSplash.remove();
   }
@@ -78,5 +53,39 @@ mixin _SplashModel on State<_SplashBody>, DialogUtil {
       arguments,
       predicate: (route) => false,
     );
+  }
+
+  Future<void> _checkPage(AppModel? result) async {
+    final cubit = context.read<SplashCubit>();
+    if (result.isNull) {
+      pushNewView(const OnboardView());
+    } else if (result?.page == Pages.genderPage) {
+      pushNewView(const GenderView());
+    } else if (result?.page == Pages.avatarPage) {
+      pushNewView(AvatarPickerView());
+    } else if (result?.page == Pages.userGeneralInfo) {
+      final params = ParamsEntity(
+        columns: [UserCacheColumns.avatar.value],
+        filters: {UserCacheColumns.id.value: AppUtil.currentUserId},
+      );
+
+      final user = await cubit.userValues(params);
+      if (user.isNullOrEmpty) return;
+
+      pushNewView(UserGeneralInfoView(avatar: user!.avatar!));
+    } else if (result?.page == Pages.heightPage) {
+      final params = ParamsEntity(
+        columns: [UserCacheColumns.gender.value],
+        filters: {UserCacheColumns.id.value: AppUtil.currentUserId},
+      );
+
+      final user = await cubit.userValues(params);
+      if (user.isNullOrEmpty) return;
+      pushNewView(HeightView(gender: user!.gender!));
+    } else if (result?.page == Pages.weightPage) {
+      pushNewView(const WeightView());
+    } else {
+      pushNewView(const HomeView());
+    }
   }
 }

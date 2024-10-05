@@ -1,7 +1,8 @@
 import 'dart:async';
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/data/cache/user_cache/user_cache_tables.dart';
+import 'package:bodymetrics/data/cache/user_cache/user_cache_columns.dart';
 import 'package:bodymetrics/data/index.dart';
+import 'package:bodymetrics/domain/index.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
@@ -53,7 +54,28 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json> {
   }
 
   @override
-  Future<Users?> select(Database? db, Json user, [List<String>? columns]) async {
+  Future<Users?> select(Database? db, Json user, {List<String>? columns, List<JoinEntity>? joins}) async {
+    if (db.isNullOrEmpty) {
+      'Database is null'.w;
+      return null;
+    }
+    final result = await db!.query(
+      '$table WHERE id = ?',
+      whereArgs: [user['id']],
+    );
+
+    if (result.isNotEmpty) {
+      final users = Users(users: result.map(User.fromJson).toList());
+      'User selected $users'.log;
+      return users;
+    } else {
+      'User not selected'.w;
+      return null;
+    }
+  }
+
+  @override
+  Future<Users?> selectAll(Database? db, {List<String>? columns, List<JoinEntity>? joins}) async {
     if (db.isNullOrEmpty) {
       'Database is null'.w;
       return null;
@@ -71,25 +93,32 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json> {
   }
 
   @override
-  Future<Users?> selectAll(Database? db, [List<String>? columns]) async {
-    if (db.isNullOrEmpty) {
-      'Database is null'.w;
-      return null;
+  Future<int> update(Database? db, Json value) async {
+    if (value.isEmpty || db == null) {
+      'Value is empty'.e;
+      return 0;
     }
-    final result = await db!.query(table);
 
-    if (result.isNotEmpty) {
-      final users = Users(users: result.map(User.fromJson).toList());
-      'User selected $users'.log;
-      return users;
-    } else {
-      'User not selected'.w;
-      return null;
+    final filteredValue = value.entries.where((entry) => entry.value != null).toList();
+
+    if (filteredValue.isEmpty) {
+      'No values to update'.e;
+      return 0;
     }
-  }
 
-  @override
-  Future<int> update(Database? db, Map<String, dynamic> value) {
-    throw UnimplementedError();
+    final columns = filteredValue.map((e) => '${e.key} = ?').join(', ');
+
+    final values = filteredValue.map((e) => e.value).toList();
+
+    final result = await db.rawUpdate(
+      'UPDATE $table SET $columns',
+      values,
+    );
+
+    'value updated $result'.log;
+
+    await closeDb();
+
+    return result;
   }
 }

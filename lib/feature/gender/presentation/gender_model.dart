@@ -3,6 +3,7 @@ part of 'gender.dart';
 mixin _GenderModel on State<_GenderView>, SavePageMixin {
   bool? _isMale;
   bool? _isFemale;
+  GenderValue? selectedGender;
   void onChange({bool? value, bool isMale = false, bool isFemale = false}) {
     if (value == null) return;
 
@@ -15,21 +16,32 @@ mixin _GenderModel on State<_GenderView>, SavePageMixin {
     }
 
     if (_isMale ?? false) {
+      selectedGender = GenderValue.male;
       context.read<GenderCubit>().changeGender(const SelectGender(genderValue: GenderValue.male));
     } else if (_isFemale ?? false) {
+      selectedGender = GenderValue.male;
       context.read<GenderCubit>().changeGender(const SelectGender(genderValue: GenderValue.female));
     } else {
       context.read<GenderCubit>().changeGender(const SelectGender());
     }
   }
 
-  void _pushToHeight() {
-    setPage(Pages.heightPage);
-    context.router.push(
+  Future<void> _pushToHeight() async {
+    await _saveGender();
+    await setPage(Pages.heightPage);
+
+    if (!mounted) return;
+
+    await context.router.push(
       HeightView(
-        isFemale: _isFemale!,
+        gender: selectedGender!,
       ),
     );
+  }
+
+  Future<bool> _saveGender() async {
+    final model = context.read<GenderCubit>();
+    return await model.saveGender() ?? false;
   }
 
   bool isSelected() => _isMale.isNotNull || _isFemale.isNotNull;

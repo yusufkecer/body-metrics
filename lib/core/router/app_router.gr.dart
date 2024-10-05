@@ -79,13 +79,13 @@ class GenderView extends PageRouteInfo<void> {
 /// [Height]
 class HeightView extends PageRouteInfo<HeightViewArgs> {
   HeightView({
-    required bool isFemale,
+    required GenderValue gender,
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
           HeightView.name,
           args: HeightViewArgs(
-            isFemale: isFemale,
+            gender: gender,
             key: key,
           ),
           initialChildren: children,
@@ -98,7 +98,7 @@ class HeightView extends PageRouteInfo<HeightViewArgs> {
     builder: (data) {
       final args = data.argsAs<HeightViewArgs>();
       return Height(
-        isFemale: args.isFemale,
+        gender: args.gender,
         key: args.key,
       );
     },
@@ -107,17 +107,17 @@ class HeightView extends PageRouteInfo<HeightViewArgs> {
 
 class HeightViewArgs {
   const HeightViewArgs({
-    required this.isFemale,
+    required this.gender,
     this.key,
   });
 
-  final bool isFemale;
+  final GenderValue gender;
 
   final Key? key;
 
   @override
   String toString() {
-    return 'HeightViewArgs{isFemale: $isFemale, key: $key}';
+    return 'HeightViewArgs{gender: $gender, key: $key}';
   }
 }
 
