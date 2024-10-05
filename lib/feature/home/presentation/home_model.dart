@@ -10,6 +10,9 @@ mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
   late AnimationController _animatedListController;
   late AnimationController _animatedChartController;
 
+  late final String _userName;
+  late final String _userAvatar;
+
   @override
   void initState() {
     _bottomTitle = _bottomTitlesWeek;

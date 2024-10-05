@@ -1,4 +1,4 @@
-export 'package:bodymetrics/core/util/constants/asset_path.dart';
+export 'package:bodymetrics/core/util/constants/asset_path/asset_path.dart';
 export 'package:bodymetrics/core/util/constants/custom_size.dart';
 export 'package:bodymetrics/core/util/constants/pages.dart';
 export 'package:bodymetrics/core/util/constants/product_color.dart';

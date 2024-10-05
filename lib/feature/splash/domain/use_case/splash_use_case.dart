@@ -1,5 +1,5 @@
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/data/cache/user_cache/user_cache_tables.dart';
+import 'package:bodymetrics/data/cache/user_cache/user_cache_columns.dart';
 
 import 'package:bodymetrics/domain/index.dart';
 import 'package:bodymetrics/feature/splash/domain/index.dart';

@@ -29,6 +29,10 @@ import 'package:bodymetrics/feature/gender/presentation/cubit/change_gender_cubi
     as _i778;
 import 'package:bodymetrics/feature/height/presentation/height_picker.dart'
     as _i617;
+import 'package:bodymetrics/feature/home/domain/use_case/user_use_case.dart'
+    as _i815;
+import 'package:bodymetrics/feature/home/presentation/cubit/user_cubit.dart'
+    as _i1014;
 import 'package:bodymetrics/feature/onboard/presentation/onboard.dart' as _i566;
 import 'package:bodymetrics/feature/splash/domain/repository/splash_repository.dart'
     as _i601;
@@ -62,10 +66,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i46.ImpCache>(() => _i46.ImpCache());
     gh.factory<_i352.PageRepository>(() => _i352.PageRepository());
     gh.factory<_i660.PageUseCase>(() => _i660.PageUseCase());
+    gh.factory<_i388.SaveAvatarRepository>(() => _i388.SaveAvatarRepository());
+    gh.factory<_i406.SaveAvatarUseCase>(() => _i406.SaveAvatarUseCase());
     gh.factory<_i218.SaveGenderRepository>(() => _i218.SaveGenderRepository());
     gh.factory<_i708.SaveGenderUseCase>(() => _i708.SaveGenderUseCase());
     gh.factory<_i778.GenderCubit>(() => _i778.GenderCubit());
     gh.factory<_i617.HeightSelectorCubit>(() => _i617.HeightSelectorCubit());
+    gh.factory<_i815.UserUseCase>(() => _i815.UserUseCase());
+    gh.factory<_i1014.UserCubit>(() => _i1014.UserCubit());
     gh.factory<_i566.OnboardCubit>(() => _i566.OnboardCubit());
     gh.factory<_i566.OnboardRepository>(() => _i566.OnboardRepository());
     gh.factory<_i566.OnboardUseCase>(() => _i566.OnboardUseCase());
@@ -73,8 +81,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i165.SplashUseCase>(() => _i165.SplashUseCase());
     gh.factory<_i71.SplashCubit>(() => _i71.SplashCubit());
     gh.factory<_i1018.UserInfoFormCubit>(() => _i1018.UserInfoFormCubit());
-    gh.factory<_i388.SaveAvatarRepository>(() => _i388.SaveAvatarRepository());
-    gh.factory<_i406.SaveAvatarUseCase>(() => _i406.SaveAvatarUseCase());
     gh.factory<_i1073.CreateProfileRepository>(
         () => _i1073.CreateProfileRepository());
     gh.lazySingleton<_i1072.AppRouter>(() => _i1072.AppRouter());

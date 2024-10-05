@@ -27,6 +27,6 @@ final class SplashRepository implements BaseUseCase<AppModel, Users, ParamsEntit
     final filters = params.filters ?? {};
     final db = await _userCache.initializeDatabase();
 
-    return _userCache.select(db, filters, columns);
+    return _userCache.select(db, filters, columns: columns);
   }
 }

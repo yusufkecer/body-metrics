@@ -2,6 +2,7 @@ import 'dart:async';
 
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/data/index.dart';
+import 'package:bodymetrics/domain/index.dart';
 import 'package:bodymetrics/feature/index.dart';
 
 import 'package:injectable/injectable.dart';
@@ -57,20 +58,28 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, Json> {
   }
 
   @override
-  Future<JsonList> select(Database? db, Json value, [List<String>? columns]) {
+  Future<JsonList> select(Database? db, Json value, {List<String>? columns, List<JoinEntity>? joins}) {
     throw UnimplementedError();
   }
 
   @override
-  Future<JsonList> selectAll(Database? db, [List<String>? columns]) async {
+  Future<JsonList> selectAll(Database? db, {List<String>? columns, List<JoinEntity>? joins}) async {
     if (db.isNullOrEmpty) {
       'Database is empty'.e;
       return [];
     }
 
+    final join = StringBuffer();
+
+    if (joins != null) {
+      for (final item in joins) {
+        join.write('INNER JOIN ${item.table} ON ${item.joinKey} = ${item.currentKey}');
+      }
+    }
+
     columns ??= _columns;
 
-    final value = await db!.query(table, columns: columns);
+    final value = await db!.rawQuery("SELECT ${columns.join(', ')} FROM $table $join");
     return value;
   }
 

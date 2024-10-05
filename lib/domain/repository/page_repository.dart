@@ -18,7 +18,7 @@ final class PageRepository implements BaseUseCase<String, int, AppModel> {
     final db = await _appCache.initializeDatabase();
     final result = await _appCache.selectAll(
       db,
-      [_column],
+      columns: [_column],
     );
     if (result.isNullOrEmpty) {
       return null;

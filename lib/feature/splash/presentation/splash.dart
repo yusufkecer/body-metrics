@@ -1,6 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/data/cache/user_cache/user_cache_tables.dart';
+import 'package:bodymetrics/data/cache/user_cache/user_cache_columns.dart';
 import 'package:bodymetrics/data/index.dart';
 import 'package:bodymetrics/domain/entities/params_entity.dart';
 import 'package:bodymetrics/feature/splash/domain/index.dart';
