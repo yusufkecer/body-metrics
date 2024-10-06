@@ -15,7 +15,7 @@ part 'extension/value_extension.dart';
 
 @RoutePage(name: 'WeightView')
 @immutable
-final class WeightPicker extends StatelessWidget with SavePageMixin {
+final class WeightPicker extends StatelessWidget with SaveAppMixin {
   const WeightPicker({super.key});
 
   @override

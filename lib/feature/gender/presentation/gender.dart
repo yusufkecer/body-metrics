@@ -38,7 +38,7 @@ final class _GenderView extends StatefulWidget {
   State<_GenderView> createState() => __GenderViewState();
 }
 
-class __GenderViewState extends State<_GenderView> with SavePageMixin, _GenderModel {
+class __GenderViewState extends State<_GenderView> with SaveAppMixin, _GenderModel {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(

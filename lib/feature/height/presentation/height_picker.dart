@@ -15,7 +15,7 @@ part 'widgets/ruler.dart';
 
 @RoutePage(name: 'HeightView')
 @immutable
-final class Height extends StatelessWidget with SavePageMixin {
+final class Height extends StatelessWidget with SaveAppMixin {
   const Height({
     required this.gender,
     super.key,
@@ -33,7 +33,7 @@ final class Height extends StatelessWidget with SavePageMixin {
           action: ColorfulTextButton(
             text: LocaleKeys.cont.tr(),
             onTap: () {
-              setPage(Pages.weightPage);
+              saveApp(Pages.weightPage);
               context.pushRoute(const WeightView());
             },
           ),

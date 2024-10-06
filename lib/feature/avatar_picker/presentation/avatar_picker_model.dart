@@ -1,6 +1,6 @@
 part of 'avatar_picker.dart';
 
-mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil, SavePageMixin {
+mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil, SaveAppMixin {
   final List<String> avatarList = AssetValue.values.profileImageList;
 
   void _onTapSkip() {
@@ -23,7 +23,6 @@ mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil, SavePageMixin {
     final result = await setNewUserId(insertId);
 
     if (result.isNotNull) {
-      await setPage(Pages.userGeneralInfo);
       if (mounted) {
         await context.router.pushAndPopUntil(
           UserGeneralInfoView(
