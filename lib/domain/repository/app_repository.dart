@@ -6,14 +6,14 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class PageRepository implements BaseUseCase<String, int, AppModel> {
+final class AppRepository implements BaseUseCase<String, int, AppModel> {
   final String _column = AppCacheColumns.page.value;
 
   final AppCache _appCache = Locator.sl<AppCache>();
 
   @override
 
-  ///Get the current page from the cache
+  ///get [AppCache]
   Future<String?> execute() async {
     final db = await _appCache.initializeDatabase();
     final result = await _appCache.selectAll(
@@ -31,7 +31,7 @@ final class PageRepository implements BaseUseCase<String, int, AppModel> {
 
   @override
 
-  ///Set the current page to the cache
+  ///set [AppCache]
   Future<int?> executeWithParams(AppModel params) async {
     final db = await _appCache.initializeDatabase();
     return _appCache.update(

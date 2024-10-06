@@ -2,6 +2,7 @@ part of 'home.dart';
 
 mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
   _HomePeriod _period = _HomePeriod.weekly;
+
   final ZoomDrawerController _zoomDrawerController = ZoomDrawerController();
   List<Map<int, String>> _bottomTitle = [];
 

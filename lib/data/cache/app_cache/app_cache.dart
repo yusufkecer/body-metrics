@@ -11,7 +11,7 @@ import 'package:sqflite/sqflite.dart';
 part 'app_cache_columns.dart';
 
 @injectable
-final class AppCache extends ImpCache implements CacheMethods<JsonList, Json> {
+final class AppCache extends ImpCache implements CacheMethods<JsonList, Json, Json> {
   AppCache() : super();
 
   @override
@@ -80,6 +80,9 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, Json> {
     columns ??= _columns;
 
     final value = await db!.rawQuery("SELECT ${columns.join(', ')} FROM $table $join");
+
+    await closeDb();
+
     return value;
   }
 

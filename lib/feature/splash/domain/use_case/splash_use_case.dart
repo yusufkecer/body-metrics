@@ -27,9 +27,7 @@ final class SplashUseCase implements BaseUseCase<AppModel, User, ParamsEntity> {
 
     final column = params.columns;
 
-    if (column.isNullOrEmpty) {
-      return null;
-    }
+    if (column.isNullOrEmpty) return null;
 
     if (column!.contains(UserCacheColumns.avatar.value)) {
       return User(avatar: value.users?.first.avatar);

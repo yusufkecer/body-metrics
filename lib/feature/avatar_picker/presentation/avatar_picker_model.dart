@@ -13,9 +13,16 @@ mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil, SavePageMixin {
     );
 
     final avatarUseCase = Locator.sl<SaveAvatarUseCase>();
-    final result = await avatarUseCase.executeWithParams(user);
+    final insertId = await avatarUseCase.executeWithParams(user);
 
-    if (result.isNotNull && result!) {
+    if (insertId == null) {
+      showLottieError(LocaleKeys.register_avatar_select_failed.tr());
+      return;
+    }
+
+    final result = await setNewUserId(insertId);
+
+    if (result.isNotNull) {
       await setPage(Pages.userGeneralInfo);
       if (mounted) {
         await context.router.pushAndPopUntil(
@@ -26,17 +33,21 @@ mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil, SavePageMixin {
         );
       }
     } else {
-      await _continueNotRegistered();
+      showLottieError(LocaleKeys.register_avatar_select_failed.tr());
     }
   }
 
-  Future<void> _continueNotRegistered() async {
-    final result = await confirmDialog(LocaleKeys.register_avatar_select_failed.tr());
+  Future<bool?> setNewUserId(int userId) async {
+    AppUtil.currentUserId = userId;
 
-    if ((result.isNullOrEmpty || !result!) && !mounted) {
-      return;
-    }
+    final locator = Locator.sl<AppUseCase>();
 
-    await context.router.push(const GenderView());
+    final model = AppModel(
+      activeUser: userId,
+      page: Pages.userGeneralInfo,
+    );
+
+    final result = await locator.executeWithParams(model);
+    return result;
   }
 }

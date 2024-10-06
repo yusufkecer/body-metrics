@@ -7,12 +7,12 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class PageUseCase implements BaseUseCase<Pages, bool, AppModel> {
-  final PageRepository repository = Locator.sl<PageRepository>();
+final class AppUseCase implements BaseUseCase<Pages, bool, AppModel> {
+  final AppRepository repository = Locator.sl<AppRepository>();
 
   @override
 
-  ///Get the current page to the [AppCache]
+  ///Get [AppCache]
   Future<Pages> execute() async {
     final result = await repository.execute();
     if (result.isNullOrEmpty) {
@@ -23,7 +23,7 @@ final class PageUseCase implements BaseUseCase<Pages, bool, AppModel> {
 
   @override
 
-  ///Set the current page to the [AppCache]
+  ///update [AppCache]
   Future<bool?> executeWithParams(AppModel params) async {
     final result = await repository.executeWithParams(params);
     return result?.convertBoolResult;

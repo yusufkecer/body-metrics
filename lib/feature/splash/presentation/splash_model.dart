@@ -22,9 +22,6 @@ mixin _SplashModel on State<_SplashBody>, DialogUtil {
     if (!mounted) return;
     final cubit = context.read<SplashCubit>();
     final result = await cubit.init();
-    await impCache.closeDb();
-
-    'result: $result'.log;
 
     AppUtil.currentUserId = result?.activeUser;
     AppUtil.lastPage = result?.page;
