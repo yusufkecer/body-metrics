@@ -22,6 +22,7 @@ mixin _SplashModel on State<_SplashBody>, DialogUtil {
     if (!mounted) return;
     final cubit = context.read<SplashCubit>();
     final result = await cubit.init();
+    'page result ${result?.page}'.log;
 
     AppUtil.currentUserId = result?.activeUser;
     AppUtil.lastPage = result?.page;

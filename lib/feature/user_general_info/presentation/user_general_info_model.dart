@@ -1,6 +1,6 @@
 part of 'user_general_info.dart';
 
-mixin UserGeneralInfoModel on State<_UserInfoFormBody>, DialogUtil, SavePageMixin {
+mixin UserGeneralInfoModel on State<_UserInfoFormBody>, DialogUtil, SaveAppMixin {
   final TextEditingController _fullNameController = TextEditingController();
   final DateController _birthOfDateController = DateController();
 
@@ -36,7 +36,7 @@ mixin UserGeneralInfoModel on State<_UserInfoFormBody>, DialogUtil, SavePageMixi
       name: _fullNameController.text,
       birthOfDate: birthDay,
     );
-    final pageResult = await setPage(Pages.genderPage);
+    final pageResult = await saveApp(Pages.genderPage);
     if (pageResult != true) {
       showLottieError(LocaleKeys.dialog_page_not_saved.tr());
     }

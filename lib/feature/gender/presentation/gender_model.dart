@@ -1,6 +1,6 @@
 part of 'gender.dart';
 
-mixin _GenderModel on State<_GenderView>, SavePageMixin {
+mixin _GenderModel on State<_GenderView>, SaveAppMixin {
   bool? _isMale;
   bool? _isFemale;
   GenderValue? selectedGender;
@@ -28,7 +28,7 @@ mixin _GenderModel on State<_GenderView>, SavePageMixin {
 
   Future<void> _pushToHeight() async {
     await _saveGender();
-    await setPage(Pages.heightPage);
+    await saveApp(Pages.heightPage);
 
     if (!mounted) return;
 
