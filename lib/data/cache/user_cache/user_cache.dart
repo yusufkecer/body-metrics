@@ -8,7 +8,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 
 @injectable
-final class UserCache extends ImpCache implements CacheMethods<Users, Json> {
+final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json> {
   UserCache();
 
   @override

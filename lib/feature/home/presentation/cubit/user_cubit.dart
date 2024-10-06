@@ -1,7 +1,7 @@
 import 'package:bloc/bloc.dart';
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/data/cache/bmi_cache/bmi_cache_columns.dart';
-import 'package:bodymetrics/data/cache/user_cache/user_cache_tables.dart';
+import 'package:bodymetrics/data/cache/bmi_cache/user_metrics_columns.dart';
+import 'package:bodymetrics/data/cache/user_cache/user_cache_columns.dart';
 import 'package:bodymetrics/data/index.dart';
 import 'package:bodymetrics/domain/index.dart';
 import 'package:bodymetrics/feature/home/domain/use_case/user_use_case.dart';
@@ -13,7 +13,7 @@ part 'user_state.dart';
 
 @injectable
 class UserCubit extends Cubit<UserState> {
-  UserCubit() : super(UserInitial());
+  UserCubit() : super(const UserInitial());
 
   Future<void> getUser() async {
     final useCase = Locator.sl<UserUseCase>();
@@ -22,8 +22,8 @@ class UserCubit extends Cubit<UserState> {
 
     final join = JoinEntity(
       currentKey: UserCacheColumns.id.value,
-      joinKey: BmiCacheColumns.id.value,
-      table: BmiCacheColumns.table.value,
+      joinKey: UserMetricsColumns.id.value,
+      table: UserMetricsColumns.table.value,
       type: JoinType.inner.type,
     );
 

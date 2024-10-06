@@ -160,53 +160,6 @@ class OnboardView extends PageRouteInfo<void> {
 }
 
 /// generated route for
-/// [ResultList]
-class ResultListView extends PageRouteInfo<ResultListViewArgs> {
-  ResultListView({
-    Key? key,
-    UserMetrics? userMetrics,
-    List<PageRouteInfo>? children,
-  }) : super(
-          ResultListView.name,
-          args: ResultListViewArgs(
-            key: key,
-            userMetrics: userMetrics,
-          ),
-          initialChildren: children,
-        );
-
-  static const String name = 'ResultListView';
-
-  static PageInfo page = PageInfo(
-    name,
-    builder: (data) {
-      final args = data.argsAs<ResultListViewArgs>(
-          orElse: () => const ResultListViewArgs());
-      return ResultList(
-        key: args.key,
-        userMetrics: args.userMetrics,
-      );
-    },
-  );
-}
-
-class ResultListViewArgs {
-  const ResultListViewArgs({
-    this.key,
-    this.userMetrics,
-  });
-
-  final Key? key;
-
-  final UserMetrics? userMetrics;
-
-  @override
-  String toString() {
-    return 'ResultListViewArgs{key: $key, userMetrics: $userMetrics}';
-  }
-}
-
-/// generated route for
 /// [Splash]
 class SplashView extends PageRouteInfo<void> {
   const SplashView({List<PageRouteInfo>? children})
