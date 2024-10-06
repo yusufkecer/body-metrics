@@ -17,6 +17,7 @@ mixin _WeightPickerModel on State<_WeightPickerBody>, DialogUtil {
   @override
   void initState() {
     super.initState();
+
     _weightTextController.text = '$_selectedWeight';
     _weightController = PageController(
       initialPage: _selectedWeight - _minWeight.toInt(),
@@ -28,6 +29,8 @@ mixin _WeightPickerModel on State<_WeightPickerBody>, DialogUtil {
 
     _weightController.addListener(_onChangeWeight);
     _decimalWeightController.addListener(_onChangeDecimalWeight);
+
+    WidgetsBinding.instance.addPostFrameCallback((_) => _initUser());
   }
 
   @override
@@ -42,6 +45,10 @@ mixin _WeightPickerModel on State<_WeightPickerBody>, DialogUtil {
 
     _weightTextController.dispose();
     super.dispose();
+  }
+
+  Future<void> _initUser() async {
+    await context.read<WeightPickerCubit>().getUser();
   }
 
   void _onChangeWeight() {

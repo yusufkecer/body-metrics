@@ -7,7 +7,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-class SaveAvatarUseCase implements BaseUseCase<bool, bool, UserFilters> {
+class SaveAvatarUseCase implements BaseUseCase<bool, int, UserFilters> {
   final useCase = Locator.sl<SaveAvatarRepository>();
   @override
   Future<bool?> execute() {
@@ -15,8 +15,8 @@ class SaveAvatarUseCase implements BaseUseCase<bool, bool, UserFilters> {
   }
 
   @override
-  Future<bool?> executeWithParams(UserFilters params) async {
+  Future<int?> executeWithParams(UserFilters params) async {
     final result = await useCase.executeWithParams(params);
-    return result?.convertBoolResult;
+    return result;
   }
 }

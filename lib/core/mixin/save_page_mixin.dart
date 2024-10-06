@@ -4,7 +4,7 @@ import 'package:bodymetrics/injection/locator.dart';
 
 mixin SavePageMixin {
   Future<bool?> setPage(Pages page) async {
-    final pageUseCase = Locator.sl<PageUseCase>();
+    final pageUseCase = Locator.sl<AppUseCase>();
     final appModel = AppModel(page: page);
     final result = await pageUseCase.executeWithParams(appModel);
 

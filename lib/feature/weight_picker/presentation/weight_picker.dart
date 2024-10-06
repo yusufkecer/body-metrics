@@ -1,8 +1,11 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
+import 'package:bodymetrics/feature/weight_picker/presentation/cubit/weight_picker_cubit.dart';
+import 'package:bodymetrics/injection/locator.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'weight_picker_model.dart';
 part 'widgets/weight_picker.dart';
@@ -17,17 +20,20 @@ final class WeightPicker extends StatelessWidget with SavePageMixin {
 
   @override
   Widget build(BuildContext context) {
-    return GradientScaffold(
-      appBar: CustomAppBar(
-        title: LocaleKeys.weight_select_weight.tr(),
-        action: ColorfulTextButton(
-          text: LocaleKeys.cont.tr(),
-          onTap: () {
-            context.pushRoute(const HomeView());
-          },
+    return BlocProvider(
+      create: (_) => Locator.sl<WeightPickerCubit>(),
+      child: GradientScaffold(
+        appBar: CustomAppBar(
+          title: LocaleKeys.weight_select_weight.tr(),
+          action: ColorfulTextButton(
+            text: LocaleKeys.cont.tr(),
+            onTap: () {
+              context.pushRoute(const HomeView());
+            },
+          ),
         ),
+        body: const _WeightPickerBody(),
       ),
-      body: const _WeightPickerBody(),
     );
   }
 }

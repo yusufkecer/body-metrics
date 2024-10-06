@@ -64,8 +64,6 @@ final class UserMetricsCache extends ImpCache implements CacheMethods<UserMetric
       [...columnArgs, ...whereArgs],
     );
 
-    print('value updated $result');
-
     await closeDb();
 
     return result;

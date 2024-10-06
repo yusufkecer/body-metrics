@@ -38,7 +38,9 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json
       return 0;
     }
     final result = await db.insert(table, value);
+
     await closeDb();
+
     if (result > 0) {
       'User inserted'.log;
       return 1;
@@ -64,6 +66,10 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json
       whereArgs: [user['id']],
     );
 
+    "user result $result".log;
+
+    await closeDb();
+
     if (result.isNotEmpty) {
       final users = Users(users: result.map(User.fromJson).toList());
       'User selected $users'.log;
@@ -81,6 +87,8 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json
       return null;
     }
     final result = await db!.query(table);
+
+    await closeDb();
 
     if (result.isNotEmpty) {
       final users = Users(users: result.map(User.fromJson).toList());

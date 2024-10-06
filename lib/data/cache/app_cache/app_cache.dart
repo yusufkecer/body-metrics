@@ -80,6 +80,9 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, Json, Js
     columns ??= _columns;
 
     final value = await db!.rawQuery("SELECT ${columns.join(', ')} FROM $table $join");
+
+    await closeDb();
+
     return value;
   }
 
