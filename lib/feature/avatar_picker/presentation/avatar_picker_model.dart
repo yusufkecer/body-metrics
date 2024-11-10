@@ -2,6 +2,28 @@ part of 'avatar_picker.dart';
 
 mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil, SaveAppMixin {
   final List<String> avatarList = AssetValue.values.profileImageList;
+  late final List<User>? userList;
+
+  @override
+  void initState() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
+      if (widget.isChangeProfile) _getAllUsers();
+    });
+
+    super.initState();
+  }
+
+  Future<void> _getAllUsers() async {
+    final locator = Locator.sl<UserUseCase>();
+
+    final users = await locator.executeWithParams(const ParamsEntity());
+
+    if (users.isNotNull) {
+      setState(() {
+        userList = users?.users ?? [];
+      });
+    }
+  }
 
   void _onTapSkip() {
     context.pushRoute(const GenderView());
@@ -20,7 +42,12 @@ mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil, SaveAppMixin {
       return;
     }
 
-    final result = await setNewUserId(insertId);
+    final appModel = AppModel(
+      activeUser: insertId,
+      page: Pages.userGeneralInfo,
+    );
+
+    final result = await _setValues(appModel);
 
     if (result.isNotNull) {
       if (mounted) {
@@ -36,17 +63,42 @@ mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil, SaveAppMixin {
     }
   }
 
-  Future<bool?> setNewUserId(int userId) async {
+  Future<bool?> _changeProfile(int userId) async {
     AppUtil.currentUserId = userId;
 
-    final locator = Locator.sl<AppUseCase>();
-
-    final model = AppModel(
+    final appModel = AppModel(
       activeUser: userId,
-      page: Pages.userGeneralInfo,
     );
 
+    final result = await _setValues(appModel);
+
+    if (!result.isNotNull || !mounted) {
+      showLottieError(LocaleKeys.register_avatar_select_failed.tr());
+      return false;
+    }
+
+    await context.router.pushAndPopUntil(
+      const HomeView(),
+      predicate: (route) => false,
+    );
+
+    return _setValues(appModel);
+  }
+
+  Future<bool?> _setValues(AppModel model) async {
+    final locator = Locator.sl<AppUseCase>();
+
     final result = await locator.executeWithParams(model);
+
     return result;
+  }
+
+  void _tappedAvatar(int index) {
+    if (widget.isChangeProfile) {
+      _changeProfile(index);
+      return;
+    }
+
+    _addNewProfile(index);
   }
 }

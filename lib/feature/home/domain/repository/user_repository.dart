@@ -6,10 +6,16 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class UserRepository implements BaseUseCase<int, Users, Json> {
+final class UserRepository implements BaseUseCase<Users, Users, Json> {
   @override
-  Future<int?>? execute() {
-    throw UnimplementedError();
+  Future<Users?> execute() async {
+    final cache = Locator.sl<UserCache>();
+
+    final db = await cache.initializeDatabase();
+
+    final result = await cache.selectAll(db);
+
+    return result;
   }
 
   @override
