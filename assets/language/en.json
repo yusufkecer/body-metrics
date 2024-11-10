@@ -106,5 +106,16 @@
             "sat": "Sat",
             "sun": "Sun"
         }
+    },
+    "change_profile": {
+        "change_profile": "Change Profile",
+        "select_profile": "Select Profile",
+        "delete_profile": "Delete Profile",
+        "delete_profile_confirm": "Are you sure you want to delete your profile?",
+        "delete": "Delete",
+        "profile_deleted": "Profile successfully deleted.",
+        "profile_not_deleted": "Profile could not be deleted. Please try again.",
+        "profile_changed": "Profile successfully changed.",
+        "profile_not_changed": "Profile could not be changed. Please try again."
     }
 }

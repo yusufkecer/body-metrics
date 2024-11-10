@@ -105,5 +105,16 @@
             "sat": "Cmt",
             "sun": "Paz"
         }
+    },
+    "change_profile": {
+        "change_profile": "Profil Değiştir",
+        "select_profile": "Profil Seçin",
+        "delete_profile": "Profil Sil",
+        "delete_profile_confirm": "Profilinizi silmek istediğinizden emin misiniz?",
+        "delete": "Sil",
+        "profile_deleted": "Profil başarıyla silindi.",
+        "profile_not_deleted": "Profil silinemedi. Lütfen tekrar deneyin.",
+        "profile_changed": "Profil başarıyla değiştirildi.",
+        "profile_not_changed": "Profil değiştirilemedi. Lütfen tekrar deneyin."
     }
 }
