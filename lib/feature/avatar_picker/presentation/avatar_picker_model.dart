@@ -16,13 +16,15 @@ mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil, SaveAppMixin {
   Future<void> _getAllUsers() async {
     final locator = Locator.sl<UserUseCase>();
 
-    final users = await locator.executeWithParams(const ParamsEntity());
+    final users = await locator.execute();
 
     if (users.isNotNull) {
-      setState(() {
-        userList = users?.users ?? [];
-      });
+      showLottieError(LocaleKeys.register_avatar_select_failed.tr());
     }
+
+    setState(() {
+      userList = users!.users ?? [];
+    });
   }
 
   void _onTapSkip() {
@@ -73,7 +75,7 @@ mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil, SaveAppMixin {
     final result = await _setValues(appModel);
 
     if (!result.isNotNull || !mounted) {
-      showLottieError(LocaleKeys.register_avatar_select_failed.tr());
+      showLottieError(LocaleKeys.change_profile_profile_not_changed.tr());
       return false;
     }
 

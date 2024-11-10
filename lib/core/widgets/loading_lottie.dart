@@ -11,6 +11,7 @@ final class LoadingLottie extends StatelessWidget {
     return GradientScaffold(
       body: Center(
         child: Lottie.asset(
+          width: 300,
           AssetValue.loading.value.lottie,
         ),
       ),

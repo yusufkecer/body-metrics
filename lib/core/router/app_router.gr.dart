@@ -15,12 +15,14 @@ class AvatarPickerView extends PageRouteInfo<AvatarPickerViewArgs> {
   AvatarPickerView({
     Key? key,
     bool canSkip = true,
+    bool isChangeProfile = false,
     List<PageRouteInfo>? children,
   }) : super(
           AvatarPickerView.name,
           args: AvatarPickerViewArgs(
             key: key,
             canSkip: canSkip,
+            isChangeProfile: isChangeProfile,
           ),
           initialChildren: children,
         );
@@ -35,6 +37,7 @@ class AvatarPickerView extends PageRouteInfo<AvatarPickerViewArgs> {
       return AvatarPicker(
         key: args.key,
         canSkip: args.canSkip,
+        isChangeProfile: args.isChangeProfile,
       );
     },
   );
@@ -44,15 +47,18 @@ class AvatarPickerViewArgs {
   const AvatarPickerViewArgs({
     this.key,
     this.canSkip = true,
+    this.isChangeProfile = false,
   });
 
   final Key? key;
 
   final bool canSkip;
 
+  final bool isChangeProfile;
+
   @override
   String toString() {
-    return 'AvatarPickerViewArgs{key: $key, canSkip: $canSkip}';
+    return 'AvatarPickerViewArgs{key: $key, canSkip: $canSkip, isChangeProfile: $isChangeProfile}';
   }
 }
 

@@ -21,8 +21,9 @@ final class AppModel extends Equatable implements BaseModel<AppModel> {
   final String? theme;
   final String? language;
   final Pages? page;
+  @JsonKey(name: 'is_complete_onboard')
   final bool? isCompleteOnboard;
-  @TextEditingValue(text: 'active_user')
+  @JsonKey(name: 'active_user')
   final int? activeUser;
 
   @override

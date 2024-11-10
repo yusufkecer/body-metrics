@@ -97,5 +97,15 @@ abstract class  LocaleKeys {
   static const chart_week_sun = 'chart.week.sun';
   static const chart_week = 'chart.week';
   static const chart = 'chart';
+  static const change_profile_change_profile = 'change_profile.change_profile';
+  static const change_profile_select_profile = 'change_profile.select_profile';
+  static const change_profile_delete_profile = 'change_profile.delete_profile';
+  static const change_profile_delete_profile_confirm = 'change_profile.delete_profile_confirm';
+  static const change_profile_delete = 'change_profile.delete';
+  static const change_profile_profile_deleted = 'change_profile.profile_deleted';
+  static const change_profile_profile_not_deleted = 'change_profile.profile_not_deleted';
+  static const change_profile_profile_changed = 'change_profile.profile_changed';
+  static const change_profile_profile_not_changed = 'change_profile.profile_not_changed';
+  static const change_profile = 'change_profile';
 
 }
