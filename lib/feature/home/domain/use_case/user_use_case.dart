@@ -7,10 +7,14 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class UserUseCase implements BaseUseCase<User, User, ParamsEntity> {
+final class UserUseCase implements BaseUseCase<Users, User, ParamsEntity> {
   @override
-  Future<User?> execute() {
-    throw UnimplementedError();
+  Future<Users?> execute() async {
+    final userRepository = Locator.sl<UserRepository>();
+
+    final user = await userRepository.execute();
+
+    return user;
   }
 
   @override

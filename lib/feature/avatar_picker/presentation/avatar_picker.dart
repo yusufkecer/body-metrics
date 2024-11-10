@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/domain/index.dart';
 import 'package:bodymetrics/feature/avatar_picker/domain/use_case/save_avatar_use_case.dart';
+import 'package:bodymetrics/feature/home/domain/use_case/user_use_case.dart';
 import 'package:bodymetrics/injection/locator.dart';
 import 'package:easy_localization/easy_localization.dart';
 
@@ -17,9 +18,11 @@ final class AvatarPicker extends StatefulWidget {
   const AvatarPicker({
     super.key,
     this.canSkip = true,
+    this.isChangeProfile = false,
   });
 
   final bool canSkip;
+  final bool isChangeProfile;
 
   @override
   State<AvatarPicker> createState() => _AvatarPickerState();
@@ -55,7 +58,7 @@ class _AvatarPickerState extends State<AvatarPicker> with DialogUtil, SaveAppMix
         return Padding(
           padding: ProductPadding.ten(),
           child: InkWell(
-            onTap: () => _addNewProfile(index),
+            onTap: () => _tappedAvatar(index),
             child: CircleAvatar(
               child: Image.asset(
                 avatarList[index],
