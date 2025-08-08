@@ -66,8 +66,6 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json
       whereArgs: [user['id']],
     );
 
-    "user result $result".log;
-
     await closeDb();
 
     if (result.isNotEmpty) {

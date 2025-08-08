@@ -3,18 +3,18 @@ import 'package:flutter/material.dart';
 @immutable
 final class ProductColor {
   final Color _seedColor = Colors.deepPurple;
-  final Color _seedFourTenths = Colors.deepPurple.withOpacity(0.4);
+  final Color _seedFourTenths = Colors.deepPurple.withAlpha(102);
 
   final Color _pink = Colors.pink;
   final Color _blue = Colors.blue;
 
   final Color _bg1 = const Color(0xFF6A1B9A);
   final Color _bg2 = const Color(0xFF9747FF);
-  final Color _drawerBg = Colors.deepPurple.withOpacity(0.5);
-  final Color _drawerBg2 = Colors.deepPurple.withOpacity(0.2);
+  final Color _drawerBg = Colors.deepPurple.withAlpha(128);
+  final Color _drawerBg2 = Colors.deepPurple.withAlpha(51);
 
   final Color _white = Colors.white;
-  final Color _whiteEightTenths = Colors.white.withOpacity(0.8);
+  final Color _whiteEightTenths = Colors.white.withAlpha(204);
 
   final Color _transparent = Colors.transparent;
 
