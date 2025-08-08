@@ -1,3 +1,4 @@
+// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -70,8 +71,11 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     gh.factory<_i458.AppCache>(() => _i458.AppCache());
+    gh.factory<_i1049.UserMetricsCache>(() => _i1049.UserMetricsCache());
     gh.factory<_i981.UserCache>(() => _i981.UserCache());
     gh.factory<_i46.ImpCache>(() => _i46.ImpCache());
+    gh.factory<_i82.AppRepository>(() => _i82.AppRepository());
+    gh.factory<_i8.AppUseCase>(() => _i8.AppUseCase());
     gh.factory<_i388.SaveAvatarRepository>(() => _i388.SaveAvatarRepository());
     gh.factory<_i406.SaveAvatarUseCase>(() => _i406.SaveAvatarUseCase());
     gh.factory<_i218.SaveGenderRepository>(() => _i218.SaveGenderRepository());
@@ -90,12 +94,9 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1018.UserInfoFormCubit>(() => _i1018.UserInfoFormCubit());
     gh.factory<_i1073.CreateProfileRepository>(
         () => _i1073.CreateProfileRepository());
-    gh.factory<_i978.WeightPickerCubit>(() => _i978.WeightPickerCubit());
     gh.factory<_i406.SaveWeightRepository>(() => _i406.SaveWeightRepository());
     gh.factory<_i986.SaveWeightUseCase>(() => _i986.SaveWeightUseCase());
-    gh.factory<_i1049.UserMetricsCache>(() => _i1049.UserMetricsCache());
-    gh.factory<_i82.AppRepository>(() => _i82.AppRepository());
-    gh.factory<_i8.AppUseCase>(() => _i8.AppUseCase());
+    gh.factory<_i978.WeightPickerCubit>(() => _i978.WeightPickerCubit());
     gh.lazySingleton<_i1072.AppRouter>(() => _i1072.AppRouter());
     gh.lazySingleton<_i906.CustomTheme>(() => _i906.CustomTheme());
     gh.lazySingleton<_i782.AppLocalization>(() => _i782.AppLocalization(

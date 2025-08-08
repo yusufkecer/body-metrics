@@ -44,19 +44,19 @@ final class _WeightPickerWidget extends StatelessWidget {
         '$weight',
         style: context.textTheme.headlineMedium?.copyWith(
           fontWeight: isActive ? FontWeight.normal : null,
-          color: ProductColor().white.withOpacity(opacity),
+          color: ProductColor().white.withAlpha(opacity),
           fontSize: fontSize,
         ),
       ),
     );
   }
 
-  double _calculateOpacity(int weight) {
+  int _calculateOpacity(int weight) {
     final difference = (weight - selectedWeight).abs();
-    if (difference == 0) return 1;
-    if (difference == 1) return 0.8;
-    if (difference == 2) return 0.5;
-    return 0.3;
+    if (difference == 0) return 255;
+    if (difference == 1) return 204;
+    if (difference == 2) return 127;
+    return 76;
   }
 
   double _calculateFontSize(int weight) {

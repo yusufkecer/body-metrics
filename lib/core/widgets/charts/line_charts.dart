@@ -56,7 +56,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
     }
 
     return SideTitleWidget(
-      axisSide: meta.axisSide,
+      meta: meta,
       child: text ?? const SizedBox.shrink(),
     );
   }
@@ -77,7 +77,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
     }
 
     return SideTitleWidget(
-      axisSide: meta.axisSide,
+      meta: meta,
       child: text ?? const SizedBox.shrink(),
     );
   }

@@ -19,7 +19,6 @@ class CustomTheme implements BaseTheme {
       brightness: Brightness.dark,
       scaffoldBackgroundColor: ProductColor().transparent,
       checkboxTheme: _checkboxTheme,
-      dialogBackgroundColor: ProductColor().seedColor,
       datePickerTheme: _datePickerTheme,
       textSelectionTheme: _textSelectionTheme,
       colorScheme: ColorScheme.dark(
@@ -43,7 +42,7 @@ class CustomTheme implements BaseTheme {
     selectionHandleColor: ProductColor().seedColor,
   );
 
-  final CardTheme _cardTheme = const CardTheme(
+  final CardThemeData _cardTheme = const CardThemeData(
     elevation: ThemeConstants.elevation,
     shape: RoundedRectangleBorder(
       borderRadius: ProductRadius.fifteen(),
@@ -55,8 +54,9 @@ class CustomTheme implements BaseTheme {
       borderRadius: ProductRadius.fifteen(),
     ),
   );
-  final DialogTheme _dialogTheme = DialogTheme(
+  final DialogThemeData _dialogTheme = DialogThemeData(
     barrierColor: ProductColor().seedFourTenths,
+    backgroundColor: ProductColor().seedColor,
     elevation: 2,
     shadowColor: ProductColor().white,
     shape: const RoundedRectangleBorder(
@@ -133,7 +133,7 @@ class CustomTheme implements BaseTheme {
   AppBarTheme get appBarTheme => _appBarTheme;
 
   @override
-  CardTheme get cardTheme => _cardTheme;
+  CardThemeData get cardTheme => _cardTheme;
 
   @override
   CheckboxThemeData get checkboxTheme => _checkboxTheme;
@@ -145,7 +145,7 @@ class CustomTheme implements BaseTheme {
   DatePickerThemeData get datePickerTheme => _datePickerTheme;
 
   @override
-  DialogTheme get dialogTheme => _dialogTheme;
+  DialogThemeData get dialogTheme => _dialogTheme;
 
   @override
   ExpansionTileThemeData get expansionTileThemeData => _expansionTileThemeData;

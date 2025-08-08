@@ -18,14 +18,11 @@ class WeightPickerCubit extends Cubit<WeightPickerState> {
   Future<void> getUser() async {
     final userCase = Locator.sl<UserUseCase>();
     final userId = AppUtil.currentUserId;
-    "userId $userId".log;
     final filters = UserFilters(id: userId);
 
     final paramsEntity = ParamsEntity(filters: filters.toJson());
 
     final user = await userCase.executeWithParams(paramsEntity);
-
-    "user $user".log;
 
     emit(WeightPickerInitial(user: user, isLoading: false));
   }
@@ -50,9 +47,12 @@ class WeightPickerCubit extends Cubit<WeightPickerState> {
 
     var bmi = 0.0;
 
-    await compute((message) {
-      bmi = _calculateBmiValue(weight, height!);
-    }, 'Calculating BMI');
+    await compute(
+      (message) {
+        bmi = _calculateBmiValue(weight, height!);
+      },
+      'Calculating BMI',
+    );
 
     emit(WeightPickerInitial(user: user, bmi: bmi));
   }

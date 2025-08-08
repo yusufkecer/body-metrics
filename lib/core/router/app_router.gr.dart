@@ -1,3 +1,4 @@
+// dart format width=80
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
 // **************************************************************************
@@ -33,7 +34,8 @@ class AvatarPickerView extends PageRouteInfo<AvatarPickerViewArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<AvatarPickerViewArgs>(
-          orElse: () => const AvatarPickerViewArgs());
+        orElse: () => const AvatarPickerViewArgs(),
+      );
       return AvatarPicker(
         key: args.key,
         canSkip: args.canSkip,
@@ -60,16 +62,26 @@ class AvatarPickerViewArgs {
   String toString() {
     return 'AvatarPickerViewArgs{key: $key, canSkip: $canSkip, isChangeProfile: $isChangeProfile}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! AvatarPickerViewArgs) return false;
+    return key == other.key &&
+        canSkip == other.canSkip &&
+        isChangeProfile == other.isChangeProfile;
+  }
+
+  @override
+  int get hashCode =>
+      key.hashCode ^ canSkip.hashCode ^ isChangeProfile.hashCode;
 }
 
 /// generated route for
 /// [Gender]
 class GenderView extends PageRouteInfo<void> {
   const GenderView({List<PageRouteInfo>? children})
-      : super(
-          GenderView.name,
-          initialChildren: children,
-        );
+      : super(GenderView.name, initialChildren: children);
 
   static const String name = 'GenderView';
 
@@ -90,10 +102,7 @@ class HeightView extends PageRouteInfo<HeightViewArgs> {
     List<PageRouteInfo>? children,
   }) : super(
           HeightView.name,
-          args: HeightViewArgs(
-            gender: gender,
-            key: key,
-          ),
+          args: HeightViewArgs(gender: gender, key: key),
           initialChildren: children,
         );
 
@@ -103,19 +112,13 @@ class HeightView extends PageRouteInfo<HeightViewArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<HeightViewArgs>();
-      return Height(
-        gender: args.gender,
-        key: args.key,
-      );
+      return Height(gender: args.gender, key: args.key);
     },
   );
 }
 
 class HeightViewArgs {
-  const HeightViewArgs({
-    required this.gender,
-    this.key,
-  });
+  const HeightViewArgs({required this.gender, this.key});
 
   final GenderValue gender;
 
@@ -125,16 +128,23 @@ class HeightViewArgs {
   String toString() {
     return 'HeightViewArgs{gender: $gender, key: $key}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! HeightViewArgs) return false;
+    return gender == other.gender && key == other.key;
+  }
+
+  @override
+  int get hashCode => gender.hashCode ^ key.hashCode;
 }
 
 /// generated route for
 /// [Home]
 class HomeView extends PageRouteInfo<void> {
   const HomeView({List<PageRouteInfo>? children})
-      : super(
-          HomeView.name,
-          initialChildren: children,
-        );
+      : super(HomeView.name, initialChildren: children);
 
   static const String name = 'HomeView';
 
@@ -150,10 +160,7 @@ class HomeView extends PageRouteInfo<void> {
 /// [Onboard]
 class OnboardView extends PageRouteInfo<void> {
   const OnboardView({List<PageRouteInfo>? children})
-      : super(
-          OnboardView.name,
-          initialChildren: children,
-        );
+      : super(OnboardView.name, initialChildren: children);
 
   static const String name = 'OnboardView';
 
@@ -169,10 +176,7 @@ class OnboardView extends PageRouteInfo<void> {
 /// [Splash]
 class SplashView extends PageRouteInfo<void> {
   const SplashView({List<PageRouteInfo>? children})
-      : super(
-          SplashView.name,
-          initialChildren: children,
-        );
+      : super(SplashView.name, initialChildren: children);
 
   static const String name = 'SplashView';
 
@@ -193,10 +197,7 @@ class UserGeneralInfoView extends PageRouteInfo<UserGeneralInfoViewArgs> {
     List<PageRouteInfo>? children,
   }) : super(
           UserGeneralInfoView.name,
-          args: UserGeneralInfoViewArgs(
-            avatar: avatar,
-            key: key,
-          ),
+          args: UserGeneralInfoViewArgs(avatar: avatar, key: key),
           initialChildren: children,
         );
 
@@ -206,19 +207,13 @@ class UserGeneralInfoView extends PageRouteInfo<UserGeneralInfoViewArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<UserGeneralInfoViewArgs>();
-      return UserGeneralInfo(
-        avatar: args.avatar,
-        key: args.key,
-      );
+      return UserGeneralInfo(avatar: args.avatar, key: args.key);
     },
   );
 }
 
 class UserGeneralInfoViewArgs {
-  const UserGeneralInfoViewArgs({
-    required this.avatar,
-    this.key,
-  });
+  const UserGeneralInfoViewArgs({required this.avatar, this.key});
 
   final String avatar;
 
@@ -228,16 +223,23 @@ class UserGeneralInfoViewArgs {
   String toString() {
     return 'UserGeneralInfoViewArgs{avatar: $avatar, key: $key}';
   }
+
+  @override
+  bool operator ==(Object other) {
+    if (identical(this, other)) return true;
+    if (other is! UserGeneralInfoViewArgs) return false;
+    return avatar == other.avatar && key == other.key;
+  }
+
+  @override
+  int get hashCode => avatar.hashCode ^ key.hashCode;
 }
 
 /// generated route for
 /// [WeightPicker]
 class WeightView extends PageRouteInfo<void> {
   const WeightView({List<PageRouteInfo>? children})
-      : super(
-          WeightView.name,
-          initialChildren: children,
-        );
+      : super(WeightView.name, initialChildren: children);
 
   static const String name = 'WeightView';
 
