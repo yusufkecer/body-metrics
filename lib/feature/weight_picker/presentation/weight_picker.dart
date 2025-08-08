@@ -81,7 +81,7 @@ class __WeightPickerBodyState extends State<_WeightPickerBody> with DialogUtil, 
                       ),
                       _WeightPickerWidget(
                         weightPickerController: _decimalWeightController,
-                        minVal: 0,
+                        minVal: _minVal,
                         selectedWeight: _selectedDecimalWeight,
                         maxVal: _decimalMaxWeight,
                         isDisabled: _isFocused,

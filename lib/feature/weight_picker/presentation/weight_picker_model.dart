@@ -5,6 +5,7 @@ mixin _WeightPickerModel on State<_WeightPickerBody>, DialogUtil {
   late final PageController _decimalWeightController;
   final TextEditingController _weightTextController = TextEditingController();
   bool _isFocused = false;
+  final _minVal = 0.0;
 
   int _selectedWeight = 70;
   int _selectedDecimalWeight = 0;
