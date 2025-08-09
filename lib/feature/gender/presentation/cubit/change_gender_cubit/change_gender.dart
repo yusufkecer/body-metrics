@@ -1,6 +1,5 @@
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/feature/gender/domain/use_case/save_gender_use_case.dart';
-import 'package:bodymetrics/injection/locator.dart';
 import 'package:equatable/equatable.dart';
 
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -10,22 +9,21 @@ part 'change_gender_state.dart';
 
 @injectable
 class GenderCubit extends Cubit<GenderState> {
-  GenderCubit() : super(const GenderState());
+  GenderCubit(this.saveGenderUseCase) : super(const GenderState());
+  final SaveGenderUseCase saveGenderUseCase;
 
   void changeGender(SelectGender newGender) {
     emit(SelectGender(genderValue: newGender.genderValue));
   }
 
   bool? setGender() {
-    if (state.genderValue.isNotNull) {
-      return true;
-    }
-    return false;
+    return state.genderValue.isNotNull;
   }
 
   Future<bool?> saveGender() async {
-    final model = Locator.sl<SaveGenderUseCase>();
-    final result = await model.executeWithParams(state.genderValue!);
+    '${state.genderValue}'.log;
+    logError('GenderCubit');
+    final result = await saveGenderUseCase.executeWithParams(state.genderValue!);
     return result;
   }
 }

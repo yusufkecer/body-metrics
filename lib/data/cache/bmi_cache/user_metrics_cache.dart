@@ -45,7 +45,7 @@ final class UserMetricsCache extends ImpCache implements CacheMethods<UserMetric
   @override
   Future<int> update(Database? db, UserMetricEntity value) async {
     if (value.isNullOrEmpty || db.isNullOrEmpty) {
-      'Value is empty'.e;
+      'Value is empty'.e();
       return 0;
     }
 

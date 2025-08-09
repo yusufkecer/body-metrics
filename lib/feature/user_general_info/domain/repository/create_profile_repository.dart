@@ -21,7 +21,6 @@ final class CreateProfileRepository implements BaseUseCase<bool, int, User> {
   Future<int> executeWithParams(User user) async {
     final db = await _userCache.initializeDatabase();
     final userMap = user.toJson();
-    'User Data: $userMap'.log;
     final result = _userCache.insert(db, userMap);
 
     return result;

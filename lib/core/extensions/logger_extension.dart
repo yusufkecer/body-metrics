@@ -9,7 +9,7 @@ extension LoggerExtension on dynamic {
     Logger().e(this, error: error);
   }
 
-  dynamic get log => Logger().i(this);
-  dynamic get w => Logger().w(this);
-  dynamic get e => Logger().e(this);
+  void log() => Logger().i(this);
+  void w() => Logger().w(this);
+  void e() => Logger().e(this);
 }

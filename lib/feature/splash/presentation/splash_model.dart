@@ -22,7 +22,7 @@ mixin _SplashModel on State<_SplashBody>, DialogUtil {
     if (!mounted) return;
     final cubit = context.read<SplashCubit>();
     final result = await cubit.init();
-    'page result ${result?.page}'.log;
+    'page result ${result?.page}'.log();
 
     AppUtil.currentUserId = result?.activeUser;
     AppUtil.lastPage = result?.page;
@@ -39,7 +39,7 @@ mixin _SplashModel on State<_SplashBody>, DialogUtil {
       throw ArgumentError.notNull('db is null');
     }
 
-    'initializing tables'.log;
+    'initializing tables'.log();
 
     await Locator.sl<AppCache>().initializeTable(impCache.db!, impCache.version);
     await Locator.sl<UserMetricsCache>().initializeTable(impCache.db!, impCache.version);

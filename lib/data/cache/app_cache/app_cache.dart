@@ -44,13 +44,13 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, Json, Js
   @override
   Future<int> insert(Database? db, Json value) async {
     if (value.isNullOrEmpty || db.isNullOrEmpty) {
-      'Value is empty'.e;
+      'Value is empty'.e();
       return 0;
     }
 
     final result = await db!.insert(table, value);
 
-    'value inserted'.log;
+    'value inserted'.log();
 
     await closeDb();
 
@@ -65,7 +65,7 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, Json, Js
   @override
   Future<JsonList> selectAll(Database? db, {List<String>? columns, List<JoinEntity>? joins}) async {
     if (db.isNullOrEmpty) {
-      'Database is empty'.e;
+      'Database is empty'.e();
       return [];
     }
 
@@ -89,20 +89,20 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, Json, Js
   @override
   Future<int> update(Database? db, Json value) async {
     if (value.isEmpty || db == null) {
-      'Value is empty'.e;
+      'Value is empty'.e();
       return 0;
     }
 
     final filteredValue = value.entries.where((entry) => entry.value != null).toList();
 
     if (filteredValue.isEmpty) {
-      'No values to update'.e;
+      'No values to update'.e();
       return 0;
     }
 
     final columns = filteredValue.map((e) => '${e.key} = ?').join(', ');
 
-    'columns: $columns'.log;
+    'columns: $columns'.log();
 
     final values = filteredValue.map((e) => e.value).toList();
 
@@ -110,8 +110,6 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, Json, Js
       'UPDATE $table SET $columns',
       values,
     );
-
-    'value updated $result'.log;
 
     await closeDb();
 
