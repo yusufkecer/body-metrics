@@ -10,8 +10,6 @@ import 'package:sqflite/sqflite.dart';
 
 @lazySingleton
 class ImpCache implements BaseDatabase {
-  ImpCache();
-
   Database? _db;
   Database? get db => _db;
 
@@ -22,10 +20,10 @@ class ImpCache implements BaseDatabase {
   ];
 
   @override
-  String? path = 'bodymetrics.db';
+  String? path = AppUtil.databasePath;
 
   @override
-  int get version => 1;
+  int get version => AppUtil.databaseVersion;
 
   @override
   Future<Database?> initializeDatabase({Future<void> Function()? initTable}) async {

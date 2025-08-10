@@ -2,15 +2,15 @@ part of '../splash.dart';
 
 @injectable
 class SplashCubit extends Cubit<SplashState> {
-  SplashCubit() : super(const SplashInitial());
+  SplashCubit(this._useCase) : super(const SplashInitial());
 
-  final appModel = Locator.sl<SplashUseCase>();
+  final SplashUseCase _useCase;
 
   Future<AppModel?> init() async {
-    return appModel.execute();
+    return _useCase.execute();
   }
 
   Future<User?> userValues(ParamsEntity params) async {
-    return appModel.executeWithParams(params);
+    return _useCase.executeWithParams(params);
   }
 }

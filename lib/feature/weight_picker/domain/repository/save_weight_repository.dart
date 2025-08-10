@@ -1,13 +1,14 @@
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/data/index.dart';
 import 'package:bodymetrics/domain/entities/user_metric_entity.dart';
-import 'package:bodymetrics/injection/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
 final class SaveWeightRepository implements BaseUseCase<int, int, UserMetricEntity> {
+  const SaveWeightRepository(this._userMetricsCache);
+  final UserMetricsCache _userMetricsCache;
   @override
   Future<int?>? execute() {
     throw UnimplementedError();
@@ -15,11 +16,9 @@ final class SaveWeightRepository implements BaseUseCase<int, int, UserMetricEnti
 
   @override
   Future<int?> executeWithParams(UserMetricEntity params) async {
-    final cache = Locator.sl<UserMetricsCache>();
+    final db = await _userMetricsCache.initializeDatabase();
 
-    final db = await cache.initializeDatabase();
-
-    final result = await cache.update(db, params);
+    final result = await _userMetricsCache.update(db, params);
 
     return result;
   }

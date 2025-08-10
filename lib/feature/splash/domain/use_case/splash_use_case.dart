@@ -3,14 +3,14 @@ import 'package:bodymetrics/data/cache/user_cache/user_cache_columns.dart';
 
 import 'package:bodymetrics/domain/index.dart';
 import 'package:bodymetrics/feature/splash/domain/index.dart';
-import 'package:bodymetrics/injection/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 @immutable
 @injectable
 final class SplashUseCase implements BaseUseCase<AppModel, User, ParamsEntity> {
-  final SplashRepository _splashRepository = Locator.sl<SplashRepository>();
+  const SplashUseCase(this._splashRepository);
+  final SplashRepository _splashRepository;
 
   @override
   Future<AppModel?> execute() {

@@ -9,8 +9,8 @@ part 'change_gender_state.dart';
 
 @injectable
 class GenderCubit extends Cubit<GenderState> {
-  GenderCubit(this.saveGenderUseCase) : super(const GenderState());
-  final SaveGenderUseCase saveGenderUseCase;
+  GenderCubit(this._saveGenderUseCase) : super(const GenderState());
+  final SaveGenderUseCase _saveGenderUseCase;
 
   void changeGender(SelectGender newGender) {
     emit(SelectGender(genderValue: newGender.genderValue));
@@ -23,7 +23,7 @@ class GenderCubit extends Cubit<GenderState> {
   Future<bool?> saveGender() async {
     '${state.genderValue}'.log();
 
-    final result = await saveGenderUseCase.executeWithParams(state.genderValue!);
+    final result = await _saveGenderUseCase.executeWithParams(state.genderValue!);
     return result;
   }
 }

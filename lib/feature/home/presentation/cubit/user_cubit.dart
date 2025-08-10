@@ -5,7 +5,6 @@ import 'package:bodymetrics/data/cache/user_cache/user_cache_columns.dart';
 import 'package:bodymetrics/data/index.dart';
 import 'package:bodymetrics/domain/index.dart';
 import 'package:bodymetrics/feature/home/domain/use_case/user_use_case.dart';
-import 'package:bodymetrics/injection/locator.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
@@ -13,10 +12,10 @@ part 'user_state.dart';
 
 @injectable
 class UserCubit extends Cubit<UserState> {
-  UserCubit() : super(const UserInitial());
+  UserCubit(this._userUseCase) : super(const UserInitial());
+  final UserUseCase _userUseCase;
 
   Future<void> getUser() async {
-    final useCase = Locator.sl<UserUseCase>();
     final userId = AppUtil.currentUserId;
     final filters = UserFilters(id: userId);
 
@@ -27,7 +26,7 @@ class UserCubit extends Cubit<UserState> {
       type: JoinType.inner.type,
     );
 
-    final user = await useCase.executeWithParams(
+    final user = await _userUseCase.executeWithParams(
       ParamsEntity(
         filters: filters.toJson(),
         joins: [join],

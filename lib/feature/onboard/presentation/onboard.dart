@@ -1,21 +1,16 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/core/theme/custom_theme.dart';
-import 'package:bodymetrics/data/cache/app_cache/app_cache.dart';
+import 'package:bodymetrics/feature/index.dart';
 import 'package:bodymetrics/injection/locator.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:injectable/injectable.dart';
-import 'package:introduction_screen/introduction_screen.dart';
 
-part 'cubit/onboard_cubit.dart';
 part 'cubit/onboard_state.dart';
 part 'onboard_model.dart';
 part 'widgets/page_view.dart';
-part '../domain/repository/onboard_repository.dart';
-part '../domain/use_case/onboard_use_case.dart';
 
 @immutable
 @RoutePage(name: 'OnboardView')

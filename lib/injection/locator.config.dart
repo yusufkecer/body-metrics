@@ -70,10 +70,6 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
-    gh.factory<_i458.AppCache>(() => _i458.AppCache());
-    gh.factory<_i1049.UserMetricsCache>(() => _i1049.UserMetricsCache());
-    gh.factory<_i981.UserCache>(() => _i981.UserCache());
-    gh.factory<_i46.ImpCache>(() => _i46.ImpCache());
     gh.factory<_i82.AppRepository>(() => _i82.AppRepository());
     gh.factory<_i8.AppUseCase>(() => _i8.AppUseCase());
     gh.factory<_i388.SaveAvatarRepository>(() => _i388.SaveAvatarRepository());
@@ -95,13 +91,18 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i1073.CreateProfileRepository());
     gh.factory<_i406.SaveWeightRepository>(() => _i406.SaveWeightRepository());
     gh.factory<_i986.SaveWeightUseCase>(() => _i986.SaveWeightUseCase());
-    gh.factory<_i978.WeightPickerCubit>(() => _i978.WeightPickerCubit());
     gh.lazySingleton<_i1072.AppRouter>(() => _i1072.AppRouter());
     gh.lazySingleton<_i906.CustomTheme>(() => _i906.CustomTheme());
-    gh.lazySingleton<_i782.AppLocalization>(() => _i782.AppLocalization(
-          child: gh<_i409.Widget>(),
-          key: gh<_i409.Key>(),
+    gh.lazySingleton<_i458.AppCache>(() => _i458.AppCache());
+    gh.lazySingleton<_i1049.UserMetricsCache>(() => _i1049.UserMetricsCache());
+    gh.lazySingleton<_i981.UserCache>(() => _i981.UserCache());
+    gh.lazySingleton<_i46.ImpCache>(() => _i46.ImpCache());
+    gh.factory<_i978.WeightPickerCubit>(() => _i978.WeightPickerCubit(
+          gh<_i815.UserUseCase>(),
+          gh<_i986.SaveWeightUseCase>(),
         ));
+    gh.lazySingleton<_i782.AppLocalization>(
+        () => _i782.AppLocalization(child: gh<_i409.Widget>()));
     gh.factory<_i470.CreateProfileUseCase>(
         () => _i470.CreateProfileUseCase(gh<_i1073.CreateProfileRepository>()));
     gh.factory<_i778.GenderCubit>(
