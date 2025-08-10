@@ -8,7 +8,7 @@ import 'package:bodymetrics/domain/index.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
-@injectable
+@lazySingleton
 final class UserMetricsCache extends ImpCache implements CacheMethods<UserMetrics, Json, UserMetricEntity> {
   UserMetricsCache();
 

@@ -23,7 +23,7 @@ final class AppUseCase implements BaseUseCase<Pages, bool, AppModel> {
 
   @override
 
-  ///update [AppCache]
+  ///set [AppCache]
   Future<bool?> executeWithParams(AppModel params) async {
     final result = await repository.executeWithParams(params);
     return result?.convertBoolResult;

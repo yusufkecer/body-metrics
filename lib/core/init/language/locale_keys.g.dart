@@ -109,5 +109,9 @@ abstract class  LocaleKeys {
   static const change_profile_profile_changed = 'change_profile.profile_changed';
   static const change_profile_profile_not_changed = 'change_profile.profile_not_changed';
   static const change_profile = 'change_profile';
+  static const exception_generic_error = 'exception.generic_error';
+  static const exception_gender_not_found = 'exception.gender_not_found';
+  static const exception_context_not_found = 'exception.context_not_found';
+  static const exception = 'exception';
 
 }

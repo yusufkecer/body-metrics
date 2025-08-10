@@ -117,5 +117,10 @@
         "profile_not_deleted": "Profile could not be deleted. Please try again.",
         "profile_changed": "Profile successfully changed.",
         "profile_not_changed": "Profile could not be changed. Please try again."
+    },
+    "exception": {
+        "generic_error": "An unexpected error occurred. Please try again later.",
+        "gender_not_found": "Gender not found. Please select a valid gender.",
+        "context_not_found": "Context not found. Please ensure the application is properly initialized."
     }
 }

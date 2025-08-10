@@ -13,6 +13,8 @@ mixin _SplashModel on State<_SplashBody>, DialogUtil {
     final impCache = Locator.sl<ImpCache>();
 
     await impCache.initializeDatabase();
+    // impCache.deleteDb();
+    // return;
 
     final isExist = await impCache.isExist();
     if (!isExist) {
