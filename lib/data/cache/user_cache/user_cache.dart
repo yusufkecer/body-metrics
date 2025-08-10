@@ -7,7 +7,7 @@ import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 
-@injectable
+@lazySingleton
 final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json> {
   UserCache();
 

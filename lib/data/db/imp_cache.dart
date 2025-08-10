@@ -8,7 +8,7 @@ import 'package:bodymetrics/data/cache/user_cache/user_cache_columns.dart';
 import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
-@injectable
+@lazySingleton
 class ImpCache implements BaseDatabase {
   ImpCache();
 

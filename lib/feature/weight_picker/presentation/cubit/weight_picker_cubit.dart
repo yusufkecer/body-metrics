@@ -3,7 +3,6 @@ import 'package:bodymetrics/domain/entities/user_metric_entity.dart';
 import 'package:bodymetrics/domain/index.dart';
 import 'package:bodymetrics/feature/home/domain/use_case/user_use_case.dart';
 import 'package:bodymetrics/feature/weight_picker/domain/use_case/save_weight_use_case.dart';
-import 'package:bodymetrics/injection/locator.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -13,28 +12,24 @@ part 'weight_picker_state.dart';
 
 @injectable
 class WeightPickerCubit extends Cubit<WeightPickerState> {
-  WeightPickerCubit() : super(const WeightPickerInitial());
+  WeightPickerCubit(this._userUseCase, this._saveWeightUseCase) : super(const WeightPickerInitial());
+  final UserUseCase _userUseCase;
+  final SaveWeightUseCase _saveWeightUseCase;
 
   Future<void> getUser() async {
-    final userCase = Locator.sl<UserUseCase>();
     final userId = AppUtil.currentUserId;
     final filters = UserFilters(id: userId);
 
     final paramsEntity = ParamsEntity(filters: filters.toJson());
 
-    final user = await userCase.executeWithParams(paramsEntity);
+    final user = await _userUseCase.executeWithParams(paramsEntity);
 
     emit(WeightPickerInitial(user: user, isLoading: false));
   }
 
   Future<void> calculateBmi(double weight) async {
     if (state.user.isNullOrEmpty) {
-      await compute(
-        (message) {
-          getUser();
-        },
-        'Fetching  user date',
-      );
+      await getUser();
     }
 
     if (state.user.isNullOrEmpty) return;
@@ -45,19 +40,14 @@ class WeightPickerCubit extends Cubit<WeightPickerState> {
 
     if (weight.isNullOrEmpty || height.isNullOrEmpty) return;
 
-    var bmi = 0.0;
-
-    await compute(
-      (message) {
-        bmi = _calculateBmiValue(weight, height!);
-      },
-      'Calculating BMI',
-    );
+    final bmi = await compute(_calculateBmiValue, {'weight': weight, 'height': height});
 
     emit(WeightPickerInitial(user: user, bmi: bmi));
   }
 
-  double _calculateBmiValue(double weight, double height) {
+  double _calculateBmiValue(Map<String, double?> data) {
+    final weight = data['weight']!;
+    final height = data['height']!;
     final bmi = weight / (height * height);
 
     return bmi;
@@ -78,9 +68,7 @@ class WeightPickerCubit extends Cubit<WeightPickerState> {
 
     final userMetricEntity = UserMetricEntity(data: metricsEntity);
 
-    final userMetric = Locator.sl<SaveWeightUseCase>();
-
-    final result = await userMetric.executeWithParams(userMetricEntity);
+    final result = await _saveWeightUseCase.executeWithParams(userMetricEntity);
 
     return result;
   }

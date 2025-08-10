@@ -21,8 +21,8 @@ class GenderCubit extends Cubit<GenderState> {
   }
 
   Future<bool?> saveGender() async {
-    '${state.genderValue}'.log;
-    logError('GenderCubit');
+    '${state.genderValue}'.log();
+
     final result = await saveGenderUseCase.executeWithParams(state.genderValue!);
     return result;
   }

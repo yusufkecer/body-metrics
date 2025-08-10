@@ -116,5 +116,10 @@
         "profile_not_deleted": "Profil silinemedi. Lütfen tekrar deneyin.",
         "profile_changed": "Profil başarıyla değiştirildi.",
         "profile_not_changed": "Profil değiştirilemedi. Lütfen tekrar deneyin."
+    },
+    "exception": {
+        "generic_error": "Beklenmedik bir hata oluştu. Lütfen daha sonra tekrar deneyin.",
+        "gender_not_found": "Cinsiyet bulunamadı. Lütfen geçerli bir cinsiyet seçin.",
+        "context_not_found": "Context bulunamadı. Lütfen uygulamanın düzgün bir şekilde başlatıldığından emin olun."
     }
 }
