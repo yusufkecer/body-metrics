@@ -54,9 +54,10 @@ mixin DialogUtil {
   }
 
   BuildContext get context {
-    if (Locator.sl<AppRouter>().navigatorKey.currentContext == null) {
+    final context = Locator.sl<AppRouter>().navigatorKey.currentContext;
+    if (context == null) {
       throw Exception(LocaleKeys.exception_context_not_found.tr());
     }
-    return Locator.sl<AppRouter>().navigatorKey.currentContext!;
+    return context;
   }
 }

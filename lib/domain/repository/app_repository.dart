@@ -1,19 +1,18 @@
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/data/index.dart';
-import 'package:bodymetrics/injection/locator.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
 final class AppRepository implements BaseUseCase<String, int, AppModel> {
+  AppRepository(this._appCache);
   final String _column = AppCacheColumns.page.value;
 
-  final AppCache _appCache = Locator.sl<AppCache>();
-
-  @override
+  final AppCache _appCache;
 
   ///get [AppCache]
+  @override
   Future<String?> execute() async {
     final db = await _appCache.initializeDatabase();
     final result = await _appCache.selectAll(
@@ -24,14 +23,13 @@ final class AppRepository implements BaseUseCase<String, int, AppModel> {
       return null;
     }
 
-    final data = result.first['page'] as String;
+    final data = result.first['page'] as String; //TODO: change to AppModel and change to return AppModel
 
     return data;
   }
 
-  @override
-
   ///set [AppCache]
+  @override
   Future<int?> executeWithParams(AppModel params) async {
     final db = await _appCache.initializeDatabase();
     return _appCache.update(
