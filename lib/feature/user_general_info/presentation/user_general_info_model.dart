@@ -19,10 +19,8 @@ mixin UserGeneralInfoModel on State<_UserInfoFormBody>, DialogUtil, SaveAppMixin
     }
     final result = await createProfile();
     if ((result.isNotNull && result!) && mounted) {
-      'Success: $result'.log;
       await context.pushRoute(const GenderView());
     } else {
-      'Error: $result'.e;
       showLottieError(
         LocaleKeys.dialog_general_error.tr(),
       );

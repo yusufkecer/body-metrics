@@ -25,7 +25,7 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json
         )
       ''');
 
-    'init database'.log;
+    'init database'.log();
   }
 
   @override
@@ -34,7 +34,7 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json
   @override
   Future<int> insert(Database? db, Json value) async {
     if (db == null) {
-      'Database is null'.w;
+      'Database is null'.w();
       return 0;
     }
     final result = await db.insert(table, value);
@@ -42,10 +42,10 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json
     await closeDb();
 
     if (result > 0) {
-      'User inserted'.log;
+      'User inserted'.log();
       return 1;
     } else {
-      'User not inserted'.w;
+      'User not inserted'.w();
       return 0;
     }
   }
@@ -58,7 +58,7 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json
   @override
   Future<Users?> select(Database? db, Json user, {List<String>? columns, List<JoinEntity>? joins}) async {
     if (db.isNullOrEmpty) {
-      'Database is null'.w;
+      'Database is null'.w();
       return null;
     }
     final result = await db!.query(
@@ -70,10 +70,10 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json
 
     if (result.isNotEmpty) {
       final users = Users(users: result.map(User.fromJson).toList());
-      'User selected $users'.log;
+      'User selected $users'.log();
       return users;
     } else {
-      'User not selected'.w;
+      'User not selected'.w();
       return null;
     }
   }
@@ -81,7 +81,7 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json
   @override
   Future<Users?> selectAll(Database? db, {List<String>? columns, List<JoinEntity>? joins}) async {
     if (db.isNullOrEmpty) {
-      'Database is null'.w;
+      'Database is null'.w();
       return null;
     }
     final result = await db!.query(table);
@@ -90,10 +90,10 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json
 
     if (result.isNotEmpty) {
       final users = Users(users: result.map(User.fromJson).toList());
-      'User selected $users'.log;
+      'User selected $users'.log();
       return users;
     } else {
-      'User not selected'.w;
+      'User not selected'.w();
       return null;
     }
   }
@@ -101,14 +101,14 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json
   @override
   Future<int> update(Database? db, Json value) async {
     if (value.isEmpty || db == null) {
-      'Value is empty'.e;
+      'Value is empty'.e();
       return 0;
     }
 
     final filteredValue = value.entries.where((entry) => entry.value != null).toList();
 
     if (filteredValue.isEmpty) {
-      'No values to update'.e;
+      'No values to update'.e();
       return 0;
     }
 
@@ -120,8 +120,6 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json
       'UPDATE $table SET $columns',
       values,
     );
-
-    'value updated $result'.log;
 
     await closeDb();
 

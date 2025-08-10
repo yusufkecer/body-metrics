@@ -80,7 +80,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i406.SaveAvatarUseCase>(() => _i406.SaveAvatarUseCase());
     gh.factory<_i218.SaveGenderRepository>(() => _i218.SaveGenderRepository());
     gh.factory<_i708.SaveGenderUseCase>(() => _i708.SaveGenderUseCase());
-    gh.factory<_i778.GenderCubit>(() => _i778.GenderCubit());
     gh.factory<_i617.HeightSelectorCubit>(() => _i617.HeightSelectorCubit());
     gh.factory<_i414.UserRepository>(() => _i414.UserRepository());
     gh.factory<_i815.UserUseCase>(() => _i815.UserUseCase());
@@ -105,6 +104,8 @@ extension GetItInjectableX on _i174.GetIt {
         ));
     gh.factory<_i470.CreateProfileUseCase>(
         () => _i470.CreateProfileUseCase(gh<_i1073.CreateProfileRepository>()));
+    gh.factory<_i778.GenderCubit>(
+        () => _i778.GenderCubit(gh<_i708.SaveGenderUseCase>()));
     return this;
   }
 }

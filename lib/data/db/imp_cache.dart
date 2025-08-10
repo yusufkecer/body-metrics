@@ -35,7 +35,7 @@ class ImpCache implements BaseDatabase {
       '$path/${this.path}',
       version: version,
     );
-    'opened'.log;
+    'opened'.log();
     return _db;
   }
 
@@ -44,7 +44,7 @@ class ImpCache implements BaseDatabase {
     if (_db.isNotNull) {
       await _db?.close();
       _db = null;
-      'database closed'.log;
+      'database closed'.log();
     }
   }
 
@@ -52,14 +52,14 @@ class ImpCache implements BaseDatabase {
   Future<void> deleteDb() async {
     final path = await getDatabasesPath();
     await deleteDatabase('$path/${this.path}');
-    'database deleted'.log;
+    'database deleted'.log();
   }
 
   @override
   Future<void> deleteTable(String table) async {
     if (_db.isNotNull) {
       await _db?.execute('DROP TABLE IF EXISTS $table');
-      'table deleted'.log;
+      'table deleted'.log();
     }
   }
 
@@ -74,7 +74,7 @@ class ImpCache implements BaseDatabase {
       whereArgs: ['table', ...tables],
     );
 
-    'columns ${jsonEncode(rowList)}'.log;
+    'columns ${jsonEncode(rowList)}'.log();
     return rowList.isNotEmpty;
   }
 }

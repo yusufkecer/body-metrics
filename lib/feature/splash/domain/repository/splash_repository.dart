@@ -14,7 +14,6 @@ final class SplashRepository implements BaseUseCase<AppModel, Users, ParamsEntit
   Future<AppModel?> execute() async {
     final db = await _appCache.initializeDatabase();
     final values = await _appCache.selectAll(db);
-    'values: $values'.log;
     if (values.isEmpty) {
       return null;
     }
