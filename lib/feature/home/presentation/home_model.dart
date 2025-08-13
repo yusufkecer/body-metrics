@@ -44,9 +44,15 @@ mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
         _realUserMetrics = state.userMetrics;
         _updateChartData();
         setState(() {});
+      } else if (state is UserMetricsEmpty) {
+        'No user metrics found, using default chart data'.log();
+        // Keep using fallback data
+      } else if (state is UserMetricsError) {
+        'Error loading user metrics: ${state.message}'.e();
+        // Keep using fallback data
       }
     } catch (e) {
-      'Error loading user metrics: $e'.e();
+      'Exception loading user metrics: $e'.e();
       // Keep using fallback data if there's an error
     }
   }
@@ -57,6 +63,11 @@ mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
     }
   }
 
+  /// Public method to refresh user metrics data
+  Future<void> refreshUserMetrics() async {
+    await _loadUserMetrics();
+  }
+
   List<FlSpot> _convertUserMetricsToFlSpots(UserMetrics userMetrics) {
     final metrics = userMetrics.userMetrics ?? [];
     if (metrics.isEmpty) return _getDefaultSpots();
@@ -64,12 +75,29 @@ mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
     final spots = <FlSpot>[];
     for (int i = 0; i < metrics.length; i++) {
       final metric = metrics[i];
-      if (metric.bmi != null) {
-        spots.add(FlSpot(i.toDouble() * 2, metric.bmi!));
+      // Prefer BMI values for the chart as requested in the task
+      if (metric.bmi != null && metric.bmi! > 0) {
+        // Convert BMI to weight-like values for chart compatibility
+        // BMI 15-40 mapped to chart range 60-135
+        final scaledValue = metric.bmi! * 3 + 15; 
+        spots.add(FlSpot(i.toDouble() * 2, scaledValue.clamp(60, 135)));
+      } else if (metric.weight != null && metric.weight! > 0) {
+        // Fallback to weight if BMI is not available
+        spots.add(FlSpot(i.toDouble() * 2, metric.weight!.clamp(50, 150)));
       }
     }
 
-    return spots.isNotEmpty ? spots : _getDefaultSpots();
+    // Ensure we have at least some data points for the chart
+    if (spots.isEmpty) {
+      return _getDefaultSpots();
+    }
+
+    // If we have only one point, add a duplicate to make the chart work
+    if (spots.length == 1) {
+      spots.add(FlSpot(2, spots.first.y));
+    }
+
+    return spots;
   }
 
   List<FlSpot> _getDefaultSpots() {
