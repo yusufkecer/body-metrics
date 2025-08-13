@@ -40,17 +40,25 @@ class WeightPickerCubit extends Cubit<WeightPickerState> {
 
     if (weight.isNullOrEmpty || height.isNullOrEmpty) return;
 
-    final bmi = await compute(_calculateBmiValue, {'weight': weight, 'height': height});
+    final bmi = await BmiCalculator.calculateBmi(weight, height!);
 
     emit(WeightPickerInitial(user: user, bmi: bmi));
   }
 
-  double _calculateBmiValue(Map<String, double?> data) {
-    final weight = data['weight']!;
-    final height = data['height']!;
-    final bmi = weight / (height * height);
+  /// Calculate BMI with category classification for future use
+  Future<BmiResult?> calculateBmiWithCategory(double weight) async {
+    if (state.user.isNullOrEmpty) {
+      await getUser();
+    }
 
-    return bmi;
+    if (state.user.isNullOrEmpty) return null;
+
+    final user = state.user;
+    final height = user?.height;
+
+    if (weight.isNullOrEmpty || height.isNullOrEmpty) return null;
+
+    return await BmiCalculator.calculateBmiWithCategory(weight, height!);
   }
 
   Future<bool> saveBodyMetrics(double weight, double bmi) async {
