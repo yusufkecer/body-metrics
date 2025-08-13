@@ -36,6 +36,8 @@ mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
 
   Future<void> _loadUserMetrics() async {
     try {
+      // Note: UserMetricsCubit needs to be registered in DI system
+      // Run: flutter packages pub run build_runner build
       final userMetricsCubit = Locator.sl<UserMetricsCubit>();
       await userMetricsCubit.getUserMetrics();
       
@@ -52,7 +54,7 @@ mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
         // Keep using fallback data
       }
     } catch (e) {
-      'Exception loading user metrics: $e'.e();
+      'Exception loading user metrics (might need DI registration): $e'.e();
       // Keep using fallback data if there's an error
     }
   }
