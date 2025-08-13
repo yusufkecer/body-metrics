@@ -4,6 +4,7 @@ import 'package:bodymetrics/core/widgets/buttons/chip_button.dart';
 import 'package:bodymetrics/core/widgets/rich_text_widgets/custom_rich_text.dart';
 import 'package:bodymetrics/core/widgets/space_column.dart';
 import 'package:bodymetrics/feature/home/presentation/cubit/user_cubit.dart';
+import 'package:bodymetrics/feature/home/presentation/cubit/user_metrics_cubit.dart';
 import 'package:bodymetrics/injection/locator.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -67,7 +68,7 @@ class _HomeState extends State<Home> with _TitleMixin, TickerProviderStateMixin,
                       expandedCard: _expandedCard,
                       animatedListController: _animatedListController,
                       animatedChartController: _animatedChartController,
-                      userMetrics: _userMetrics,
+                      userMetrics: userMetrics,
                     ),
                   ),
                 );

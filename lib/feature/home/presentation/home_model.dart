@@ -13,6 +13,8 @@ mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
 
   late final String _userName;
   late final String _userAvatar;
+  
+  UserMetrics? _realUserMetrics;
 
   @override
   void initState() {
@@ -28,7 +30,58 @@ mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
     );
     _animatedChartController.forward();
     _animatedListController.forward();
+    _loadUserMetrics();
     super.initState();
+  }
+
+  Future<void> _loadUserMetrics() async {
+    try {
+      final userMetricsCubit = Locator.sl<UserMetricsCubit>();
+      await userMetricsCubit.getUserMetrics();
+      
+      final state = userMetricsCubit.state;
+      if (state is UserMetricsLoaded) {
+        _realUserMetrics = state.userMetrics;
+        _updateChartData();
+        setState(() {});
+      }
+    } catch (e) {
+      'Error loading user metrics: $e'.e();
+      // Keep using fallback data if there's an error
+    }
+  }
+
+  void _updateChartData() {
+    if (_realUserMetrics?.userMetrics?.isNotEmpty == true) {
+      _spots = _convertUserMetricsToFlSpots(_realUserMetrics!);
+    }
+  }
+
+  List<FlSpot> _convertUserMetricsToFlSpots(UserMetrics userMetrics) {
+    final metrics = userMetrics.userMetrics ?? [];
+    if (metrics.isEmpty) return _getDefaultSpots();
+
+    final spots = <FlSpot>[];
+    for (int i = 0; i < metrics.length; i++) {
+      final metric = metrics[i];
+      if (metric.bmi != null) {
+        spots.add(FlSpot(i.toDouble() * 2, metric.bmi!));
+      }
+    }
+
+    return spots.isNotEmpty ? spots : _getDefaultSpots();
+  }
+
+  List<FlSpot> _getDefaultSpots() {
+    return const [
+      FlSpot(0, 120),
+      FlSpot(2, 108),
+      FlSpot(4, 89),
+      FlSpot(6, 97),
+      FlSpot(8, 78),
+      FlSpot(10, 70),
+      FlSpot(12, 120),
+    ];
   }
 
   @override
@@ -42,34 +95,52 @@ mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
   void _yearlyPeriod({required bool value}) {
     _period = _HomePeriod.yearly;
     _bottomTitle = _bottomTitlesYear;
+    _updateChartDataForPeriod();
     setState(() {});
   }
 
   void _monthlyPeriod({required bool value}) {
     _period = _HomePeriod.monthly;
     _bottomTitle = _bottomTitlesMonth;
-    _spots = const [
-      FlSpot(0, 120),
-      FlSpot(2, 108),
-      FlSpot(4, 89),
-      FlSpot(6, 97),
-      FlSpot(8, 78),
-      FlSpot(10, 70),
-      FlSpot(12, 120),
-      FlSpot(14, 120),
-      FlSpot(16, 108),
-      FlSpot(18, 89),
-      FlSpot(20, 97),
-      FlSpot(22, 78),
-    ];
-
+    _updateChartDataForPeriod();
     setState(() {});
   }
 
   void _weeklyPeriod({required bool value}) {
     _period = _HomePeriod.weekly;
     _bottomTitle = _bottomTitlesWeek;
+    _updateChartDataForPeriod();
     setState(() {});
+  }
+
+  void _updateChartDataForPeriod() {
+    if (_realUserMetrics?.userMetrics?.isNotEmpty == true) {
+      _spots = _convertUserMetricsToFlSpots(_realUserMetrics!);
+    } else {
+      // Use default data based on period
+      switch (_period) {
+        case _HomePeriod.monthly:
+          _spots = const [
+            FlSpot(0, 120),
+            FlSpot(2, 108),
+            FlSpot(4, 89),
+            FlSpot(6, 97),
+            FlSpot(8, 78),
+            FlSpot(10, 70),
+            FlSpot(12, 120),
+            FlSpot(14, 120),
+            FlSpot(16, 108),
+            FlSpot(18, 89),
+            FlSpot(20, 97),
+            FlSpot(22, 78),
+          ];
+          break;
+        case _HomePeriod.weekly:
+        case _HomePeriod.yearly:
+          _spots = _getDefaultSpots();
+          break;
+      }
+    }
   }
 
   List<FlSpot> _spots = const [
@@ -81,6 +152,10 @@ mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
     FlSpot(10, 70),
     FlSpot(12, 120),
   ];
+
+  UserMetrics get userMetrics {
+    return _realUserMetrics ?? _userMetrics;
+  }
 
   final UserMetrics _userMetrics = UserMetrics(
     userMetrics: [
