@@ -17,29 +17,29 @@ class CustomTheme implements BaseTheme {
       filledButtonTheme: _filledButtonTheme,
       inputDecorationTheme: _inputDecorationTheme,
       brightness: Brightness.dark,
-      scaffoldBackgroundColor: ProductColor().transparent,
+      scaffoldBackgroundColor: ProductColor.instance.transparent,
       checkboxTheme: _checkboxTheme,
       datePickerTheme: _datePickerTheme,
       textSelectionTheme: _textSelectionTheme,
       colorScheme: ColorScheme.dark(
-        primary: ProductColor().seedColor,
-        surface: ProductColor().seedColor,
-        surfaceBright: ProductColor().white,
+        primary: ProductColor.instance.seedColor,
+        surface: ProductColor.instance.seedColor,
+        surfaceBright: ProductColor.instance.white,
       ),
     );
   }
 
   final AppBarTheme _appBarTheme = AppBarTheme(
-    backgroundColor: ProductColor().deepPurple,
+    backgroundColor: ProductColor.instance.deepPurple,
     centerTitle: true,
     elevation: ThemeConstants.elevationZero,
-    surfaceTintColor: ProductColor().transparent,
+    surfaceTintColor: ProductColor.instance.transparent,
   );
 
   final TextSelectionThemeData _textSelectionTheme = TextSelectionThemeData(
-    cursorColor: ProductColor().white,
-    selectionColor: ProductColor().seedColor,
-    selectionHandleColor: ProductColor().seedColor,
+    cursorColor: ProductColor.instance.white,
+    selectionColor: ProductColor.instance.seedColor,
+    selectionHandleColor: ProductColor.instance.seedColor,
   );
 
   final CardThemeData _cardTheme = const CardThemeData(
@@ -55,16 +55,17 @@ class CustomTheme implements BaseTheme {
     ),
   );
   final DialogThemeData _dialogTheme = DialogThemeData(
-    barrierColor: ProductColor().seedFourTenths,
-    backgroundColor: ProductColor().seedColor,
+    barrierColor: ProductColor.instance.seedFourTenths,
+    backgroundColor: ProductColor.instance.seedColor,
     elevation: 2,
-    shadowColor: ProductColor().white,
+    shadowColor: ProductColor.instance.white,
     shape: const RoundedRectangleBorder(
       borderRadius: ProductRadius.fifteen(),
     ),
   );
 
-  final ExpansionTileThemeData _expansionTileThemeData = const ExpansionTileThemeData(
+  final ExpansionTileThemeData _expansionTileThemeData =
+      const ExpansionTileThemeData(
     tilePadding: EdgeInsets.zero,
     shape: Border(),
   );
@@ -87,45 +88,47 @@ class CustomTheme implements BaseTheme {
   );
 
   final CheckboxThemeData _checkboxTheme = CheckboxThemeData(
-    side: BorderSide(color: ProductColor().white),
+    side: BorderSide(color: ProductColor.instance.white),
     fillColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return ProductColor().white;
+        return ProductColor.instance.white;
       }
-      return ProductColor().transparent;
+      return ProductColor.instance.transparent;
     }),
-    checkColor: WidgetStateProperty.all(ProductColor().seedColor),
+    checkColor: WidgetStateProperty.all(ProductColor.instance.seedColor),
   );
 
   final DatePickerThemeData _datePickerTheme = DatePickerThemeData(
-    backgroundColor: ProductColor().seedColor,
-    dividerColor: ProductColor().white,
-    dayForegroundColor: WidgetStateProperty.all(ProductColor().white),
-    yearForegroundColor: WidgetStateProperty.all(ProductColor().white),
+    backgroundColor: ProductColor.instance.seedColor,
+    dividerColor: ProductColor.instance.white,
+    dayForegroundColor: WidgetStateProperty.all(ProductColor.instance.white),
+    yearForegroundColor: WidgetStateProperty.all(ProductColor.instance.white),
     dayBackgroundColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return ProductColor().seedColor;
+        return ProductColor.instance.seedColor;
       }
-      return ProductColor().transparent;
+      return ProductColor.instance.transparent;
     }),
     yearBackgroundColor: WidgetStateProperty.resolveWith((states) {
       if (states.contains(WidgetState.selected)) {
-        return ProductColor().seedColor;
+        return ProductColor.instance.seedColor;
       }
-      return ProductColor().transparent;
+      return ProductColor.instance.transparent;
     }),
-    yearOverlayColor: WidgetStateProperty.all(ProductColor().white),
-    headerForegroundColor: ProductColor().white,
+    yearOverlayColor: WidgetStateProperty.all(ProductColor.instance.white),
+    headerForegroundColor: ProductColor.instance.white,
     cancelButtonStyle: ThemeConstants.datePickerButton,
-    shadowColor: ProductColor().white,
+    shadowColor: ProductColor.instance.white,
     elevation: ThemeConstants.elevation,
-    surfaceTintColor: ProductColor().white,
+    surfaceTintColor: ProductColor.instance.white,
     confirmButtonStyle: ThemeConstants.datePickerButton,
   );
 
   final ButtonStyle _onboardButton = ButtonStyle(
     foregroundColor: WidgetStateProperty.resolveWith(
-      (states) => states.contains(WidgetState.pressed) ? ProductColor().seedColor : ProductColor().white,
+      (states) => states.contains(WidgetState.pressed)
+          ? ProductColor.instance.seedColor
+          : ProductColor.instance.white,
     ),
   );
 

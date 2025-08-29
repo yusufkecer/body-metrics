@@ -90,13 +90,13 @@ class _LineChartWidgetState extends State<LineChartWidget> {
         horizontalInterval: 1,
         getDrawingVerticalLine: (value) {
           return FlLine(
-            color: ProductColor().white,
+            color: ProductColor.instance.white,
             strokeWidth: 1,
           );
         },
         getDrawingHorizontalLine: (value) {
           return FlLine(
-            color: ProductColor().white,
+            color: ProductColor.instance.white,
             strokeWidth: 1,
           );
         },
@@ -141,7 +141,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
             FlSpot(12, 120.calculateEquation),
           ],
           isCurved: true,
-          color: ProductColor().white,
+          color: ProductColor.instance.white,
           barWidth: 5,
           isStrokeCapRound: true,
           dotData: const FlDotData(
@@ -150,7 +150,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
           belowBarData: BarAreaData(
             show: true,
             gradient: LinearGradient(
-              colors: ProductColor().backgroundColorList,
+              colors: ProductColor.instance.backgroundColorList,
             ),
           ),
         ),

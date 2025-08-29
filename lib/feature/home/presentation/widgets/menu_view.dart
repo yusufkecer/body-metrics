@@ -34,6 +34,11 @@ final class _MenuView extends StatelessWidget {
               ),
               Column(
                 children: [
+                  CustomListTile(
+                    ProductIcon.weight.icon,
+                    LocaleKeys.home_menu_calculate_bmi,
+                    () {},
+                  ),
                   VerticalSpace.s(),
                   CustomListTile(
                     ProductIcon.user.icon,
@@ -47,11 +52,6 @@ final class _MenuView extends StatelessWidget {
                     () {},
                   ),
                   VerticalSpace.s(),
-                  CustomListTile(
-                    ProductIcon.weight.icon,
-                    LocaleKeys.home_menu_calculate_bmi,
-                    () {},
-                  ),
                 ],
               ),
             ],

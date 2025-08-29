@@ -7,7 +7,7 @@ final class GridDelegate extends SliverGridDelegateWithFixedCrossAxisCount {
           crossAxisCount: 1,
           crossAxisSpacing: 12,
           mainAxisSpacing: 12,
-          childAspectRatio: 2.5,
+          childAspectRatio: 3,
         );
 
   const GridDelegate.profileImageGrid()

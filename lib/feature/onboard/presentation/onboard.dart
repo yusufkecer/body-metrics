@@ -62,7 +62,7 @@ class __OnboardBodyState extends State<_OnboardBody>
             size: const CustomSize.activeDot(),
             activeSize: const CustomSize.dots(),
             activeColor: context.colorScheme.surfaceBright,
-            color: ProductColor().seedColor,
+            color: ProductColor.instance.seedColor,
             activeShape: const RoundedRectangleBorder(
               borderRadius: ProductRadius.twentyFive(),
             ),

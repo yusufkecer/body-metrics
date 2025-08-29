@@ -1,10 +1,7 @@
 part of 'home.dart';
 
 mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
-  // _HomePeriod _period = _HomePeriod.weekly;
-
   final ZoomDrawerController _zoomDrawerController = ZoomDrawerController();
-  List<Map<int, String>> _bottomTitle = [];
 
   _ExpandedCard _expandedCard = _ExpandedCard.none;
 
@@ -13,7 +10,6 @@ mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
 
   @override
   void initState() {
-    _bottomTitle = _bottomTitlesWeek;
     _animatedListController = AnimationController(
       vsync: this,
       duration: const Duration(milliseconds: 500),
@@ -36,47 +32,18 @@ mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
     super.dispose();
   }
 
-  // void _period({required bool value}) {
-  //   _period = _HomePeriod.yearly;
-  //   _bottomTitle = _bottomTitlesYear;
-  //   setState(() {});
-  // }
-
-  // void _monthlyPeriod({required bool value}) {
-  //   _period = _HomePeriod.monthly;
-  //   _bottomTitle = _bottomTitlesMonth;
-  //   _spots = const [
-  //     FlSpot(0, 120),
-  //     FlSpot(2, 108),
-  //     FlSpot(4, 89),
-  //     FlSpot(6, 97),
-  //     FlSpot(8, 78),
-  //     FlSpot(10, 70),
-  //     FlSpot(12, 120),
-  //     FlSpot(14, 120),
-  //     FlSpot(16, 108),
-  //     FlSpot(18, 89),
-  //     FlSpot(20, 97),
-  //     FlSpot(22, 78),
-  //   ];
-
-  //   setState(() {});
-  // }
-
-  // void _weeklyPeriod({required bool value}) {
-  //   _period = _HomePeriod.weekly;
-  //   _bottomTitle = _bottomTitlesWeek;
-  //   setState(() {});
-  // }
-
   final List<FlSpot> _spots = const [
-    FlSpot(0, 120),
     FlSpot(2, 108),
     FlSpot(4, 89),
     FlSpot(6, 97),
     FlSpot(8, 78),
     FlSpot(10, 70),
     FlSpot(12, 120),
+    FlSpot(14, 120),
+    FlSpot(16, 108),
+    FlSpot(18, 89),
+    FlSpot(20, 97),
+    FlSpot(22, 78),
   ];
 
   final UserMetrics _userMetrics = UserMetrics(

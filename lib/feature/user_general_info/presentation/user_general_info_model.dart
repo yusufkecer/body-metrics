@@ -1,6 +1,7 @@
 part of 'user_general_info.dart';
 
-mixin UserGeneralInfoModel on State<_UserInfoFormBody>, DialogUtil, SaveAppMixin {
+mixin UserGeneralInfoModel
+    on State<_UserInfoFormBody>, DialogUtil, SaveAppMixin {
   final TextEditingController _fullNameController = TextEditingController();
   final DateController _birthOfDateController = DateController();
 
@@ -13,7 +14,9 @@ mixin UserGeneralInfoModel on State<_UserInfoFormBody>, DialogUtil, SaveAppMixin
   }
 
   Future<void> _onPressed() async {
-    if ((_fullNameController.text.isEmpty || _birthOfDateController.text.isEmpty) && mounted) {
+    if ((_fullNameController.text.isEmpty ||
+            _birthOfDateController.text.isEmpty) &&
+        mounted) {
       showLottieError(LocaleKeys.register_information_is_empty);
       return;
     }
@@ -44,7 +47,7 @@ mixin UserGeneralInfoModel on State<_UserInfoFormBody>, DialogUtil, SaveAppMixin
 
   void _openDatePicker() {
     showDatePicker(
-      barrierColor: ProductColor().seedFourTenths,
+      barrierColor: ProductColor.instance.seedFourTenths,
       context: context,
       initialDate: ProductDateTime.birthInitialDate(),
       firstDate: ProductDateTime.birthLastDate(),
@@ -61,7 +64,8 @@ mixin UserGeneralInfoModel on State<_UserInfoFormBody>, DialogUtil, SaveAppMixin
   }
 
   bool _checkFields() {
-    return _fullNameController.text.isEmpty && _birthOfDateController.text.isEmpty;
+    return _fullNameController.text.isEmpty &&
+        _birthOfDateController.text.isEmpty;
   }
 
   Future<void> _didPop({required bool isFormEmpty}) async {

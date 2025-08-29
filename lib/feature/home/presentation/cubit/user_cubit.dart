@@ -12,7 +12,9 @@ part 'user_state.dart';
 
 @injectable
 class UserCubit extends Cubit<UserState> {
-  UserCubit(this._userUseCase) : super(const UserInitial());
+  UserCubit(this._userUseCase) : super(const UserInitial()) {
+    getUser();
+  }
   final UserUseCase _userUseCase;
 
   Future<void> getUser() async {
@@ -32,6 +34,8 @@ class UserCubit extends Cubit<UserState> {
         joins: [join],
       ),
     );
+
+    'user: ${user?.toJson()}'.log();
 
     emit(UserInitial(user: user));
   }

@@ -60,7 +60,7 @@ class __GenderViewState extends State<_GenderView>
                     onChange(value: value, isFemale: true),
                 asset: AssetValue.female.value.lottie,
                 gender: LocaleKeys.gender_fm,
-                color: ProductColor().pink,
+                color: ProductColor.instance.pink,
                 icon: ProductIcon.venus.icon,
               ),
               _GenderAsset(
@@ -70,7 +70,7 @@ class __GenderViewState extends State<_GenderView>
                     onChange(value: value, isMale: true),
                 asset: AssetValue.male.value.lottie,
                 gender: LocaleKeys.gender_ml,
-                color: ProductColor().blue,
+                color: ProductColor.instance.blue,
                 icon: ProductIcon.mars.icon,
               ),
             ],
