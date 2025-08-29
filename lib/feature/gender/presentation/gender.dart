@@ -38,12 +38,13 @@ final class _GenderView extends StatefulWidget {
   State<_GenderView> createState() => __GenderViewState();
 }
 
-class __GenderViewState extends State<_GenderView> with SaveAppMixin, _GenderModel {
+class __GenderViewState extends State<_GenderView>
+    with SaveAppMixin, _GenderModel {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
       appBar: CustomAppBar(
-        title: LocaleKeys.gender_gender_name.tr(),
+        title: LocaleKeys.gender_gender_name,
         action: buildAction(),
       ),
       body: Center(
@@ -53,18 +54,22 @@ class __GenderViewState extends State<_GenderView> with SaveAppMixin, _GenderMod
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _GenderAsset(
-                value: context.watch<GenderCubit>().state.genderValue == GenderValue.female,
-                onChanged: ({bool? value}) => onChange(value: value, isFemale: true),
+                value: context.watch<GenderCubit>().state.genderValue ==
+                    GenderValue.female,
+                onChanged: ({bool? value}) =>
+                    onChange(value: value, isFemale: true),
                 asset: AssetValue.female.value.lottie,
-                gender: LocaleKeys.gender_fm.tr(),
+                gender: LocaleKeys.gender_fm,
                 color: ProductColor().pink,
                 icon: ProductIcon.venus.icon,
               ),
               _GenderAsset(
-                value: context.watch<GenderCubit>().state.genderValue == GenderValue.male,
-                onChanged: ({bool? value}) => onChange(value: value, isMale: true),
+                value: context.watch<GenderCubit>().state.genderValue ==
+                    GenderValue.male,
+                onChanged: ({bool? value}) =>
+                    onChange(value: value, isMale: true),
                 asset: AssetValue.male.value.lottie,
-                gender: LocaleKeys.gender_ml.tr(),
+                gender: LocaleKeys.gender_ml,
                 color: ProductColor().blue,
                 icon: ProductIcon.mars.icon,
               ),
@@ -78,7 +83,7 @@ class __GenderViewState extends State<_GenderView> with SaveAppMixin, _GenderMod
   Widget buildAction() {
     return isSelected()
         ? ColorfulTextButton(
-            text: LocaleKeys.cont.tr(),
+            text: LocaleKeys.cont,
             onTap: _pushToHeight,
           )
         : const SizedBox.shrink();

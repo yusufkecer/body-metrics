@@ -11,7 +11,6 @@ class SaveGenderUseCase implements BaseUseCase<bool, bool, GenderValue> {
 
   @override
   Future<bool?> execute() {
-    // TODO: implement execute
     throw UnimplementedError();
   }
 

@@ -18,7 +18,8 @@ final class AppUseCase implements BaseUseCase<Pages, bool, AppModel> {
     if (result.isNullOrEmpty) {
       return Pages.avatarPage;
     }
-    return result!.toPages();
+    if (result == null) return Pages.onboardPage;
+    return result;
   }
 
   @override

@@ -51,7 +51,6 @@ import 'package:bodymetrics/feature/splash/domain/repository/splash_repository.d
     as _i601;
 import 'package:bodymetrics/feature/splash/domain/use_case/splash_use_case.dart'
     as _i165;
-import 'package:bodymetrics/feature/splash/presentation/splash.dart' as _i71;
 import 'package:bodymetrics/feature/user_general_info/cubit/user_general_info_state.dart'
     as _i1018;
 import 'package:bodymetrics/feature/user_general_info/domain/repository/create_profile_repository.dart'
@@ -98,7 +97,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i414.UserRepository>(
         () => _i414.UserRepository(gh<_i981.UserCache>()));
     gh.factory<_i85.OnboardRepository>(
-        () => _i85.OnboardRepository(gh<_i101.UserCache>()));
+        () => _i85.OnboardRepository(gh<_i101.AppCache>()));
     gh.factory<_i1073.CreateProfileRepository>(
         () => _i1073.CreateProfileRepository(gh<_i981.UserCache>()));
     gh.factory<_i601.SplashRepository>(() => _i601.SplashRepository(
@@ -134,8 +133,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i578.OnboardCubit(gh<_i501.OnboardUseCase>()));
     gh.factory<_i778.GenderCubit>(
         () => _i778.GenderCubit(gh<_i708.SaveGenderUseCase>()));
-    gh.factory<_i71.SplashCubit>(
-        () => _i71.SplashCubit(gh<_i29.SplashUseCase>()));
     return this;
   }
 }

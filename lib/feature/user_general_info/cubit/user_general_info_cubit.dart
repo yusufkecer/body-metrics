@@ -12,3 +12,11 @@ sealed class UserInfoFOrmCubitState extends Equatable {
 class UserInfoFormCubitInitial extends UserInfoFOrmCubitState {
   const UserInfoFormCubitInitial({super.isFormEmpty});
 }
+
+class UserInfoFormCubitLoading extends UserInfoFOrmCubitState {
+  const UserInfoFormCubitLoading({super.isFormEmpty});
+}
+
+class UserInfoFormCubitSuccess extends UserInfoFOrmCubitState {
+  const UserInfoFormCubitSuccess({super.isFormEmpty});
+}

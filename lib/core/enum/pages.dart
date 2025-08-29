@@ -4,6 +4,8 @@ enum Pages {
   genderPage,
   heightPage,
   weightPage,
+  homePage,
+  onboardPage,
 }
 
 extension StringToPages on String {
@@ -19,6 +21,10 @@ extension StringToPages on String {
         return Pages.heightPage;
       case 'weightPage':
         return Pages.weightPage;
+      case 'homePage':
+        return Pages.homePage;
+      case 'onboardPage':
+        return Pages.onboardPage;
       default:
         return Pages.avatarPage;
     }

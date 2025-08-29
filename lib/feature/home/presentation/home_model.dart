@@ -1,7 +1,7 @@
 part of 'home.dart';
 
 mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
-  _HomePeriod _period = _HomePeriod.weekly;
+  // _HomePeriod _period = _HomePeriod.weekly;
 
   final ZoomDrawerController _zoomDrawerController = ZoomDrawerController();
   List<Map<int, String>> _bottomTitle = [];
@@ -10,9 +10,6 @@ mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
 
   late AnimationController _animatedListController;
   late AnimationController _animatedChartController;
-
-  late final String _userName;
-  late final String _userAvatar;
 
   @override
   void initState() {
@@ -39,40 +36,40 @@ mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
     super.dispose();
   }
 
-  void _yearlyPeriod({required bool value}) {
-    _period = _HomePeriod.yearly;
-    _bottomTitle = _bottomTitlesYear;
-    setState(() {});
-  }
+  // void _period({required bool value}) {
+  //   _period = _HomePeriod.yearly;
+  //   _bottomTitle = _bottomTitlesYear;
+  //   setState(() {});
+  // }
 
-  void _monthlyPeriod({required bool value}) {
-    _period = _HomePeriod.monthly;
-    _bottomTitle = _bottomTitlesMonth;
-    _spots = const [
-      FlSpot(0, 120),
-      FlSpot(2, 108),
-      FlSpot(4, 89),
-      FlSpot(6, 97),
-      FlSpot(8, 78),
-      FlSpot(10, 70),
-      FlSpot(12, 120),
-      FlSpot(14, 120),
-      FlSpot(16, 108),
-      FlSpot(18, 89),
-      FlSpot(20, 97),
-      FlSpot(22, 78),
-    ];
+  // void _monthlyPeriod({required bool value}) {
+  //   _period = _HomePeriod.monthly;
+  //   _bottomTitle = _bottomTitlesMonth;
+  //   _spots = const [
+  //     FlSpot(0, 120),
+  //     FlSpot(2, 108),
+  //     FlSpot(4, 89),
+  //     FlSpot(6, 97),
+  //     FlSpot(8, 78),
+  //     FlSpot(10, 70),
+  //     FlSpot(12, 120),
+  //     FlSpot(14, 120),
+  //     FlSpot(16, 108),
+  //     FlSpot(18, 89),
+  //     FlSpot(20, 97),
+  //     FlSpot(22, 78),
+  //   ];
 
-    setState(() {});
-  }
+  //   setState(() {});
+  // }
 
-  void _weeklyPeriod({required bool value}) {
-    _period = _HomePeriod.weekly;
-    _bottomTitle = _bottomTitlesWeek;
-    setState(() {});
-  }
+  // void _weeklyPeriod({required bool value}) {
+  //   _period = _HomePeriod.weekly;
+  //   _bottomTitle = _bottomTitlesWeek;
+  //   setState(() {});
+  // }
 
-  List<FlSpot> _spots = const [
+  final List<FlSpot> _spots = const [
     FlSpot(0, 120),
     FlSpot(2, 108),
     FlSpot(4, 89),
@@ -114,7 +111,9 @@ mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
   );
 
   void _dataListOnPressed() {
-    _expandedCard = _expandedCard == _ExpandedCard.list ? _ExpandedCard.none : _ExpandedCard.list;
+    _expandedCard = _expandedCard == _ExpandedCard.list
+        ? _ExpandedCard.none
+        : _ExpandedCard.list;
 
     if (_expandedCard == _ExpandedCard.list) {
       _animatedListController.forward();
@@ -127,7 +126,9 @@ mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
   }
 
   void _chartOnPressed() {
-    _expandedCard = _expandedCard == _ExpandedCard.chart ? _ExpandedCard.none : _ExpandedCard.chart;
+    _expandedCard = _expandedCard == _ExpandedCard.chart
+        ? _ExpandedCard.none
+        : _ExpandedCard.chart;
     if (_expandedCard == _ExpandedCard.chart) {
       _animatedChartController.forward();
       _animatedListController.reverse();

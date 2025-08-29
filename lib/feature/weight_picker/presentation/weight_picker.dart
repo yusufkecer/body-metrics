@@ -24,10 +24,11 @@ final class WeightPicker extends StatelessWidget with SaveAppMixin {
       create: (_) => Locator.sl<WeightPickerCubit>(),
       child: GradientScaffold(
         appBar: CustomAppBar(
-          title: LocaleKeys.weight_select_weight.tr(),
+          title: LocaleKeys.weight_select_weight,
           action: ColorfulTextButton(
-            text: LocaleKeys.cont.tr(),
+            text: LocaleKeys.cont,
             onTap: () {
+              saveApp(Pages.homePage);
               context.pushRoute(const HomeView());
             },
           ),

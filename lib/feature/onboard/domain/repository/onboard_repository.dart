@@ -6,8 +6,8 @@ import 'package:injectable/injectable.dart';
 @injectable
 @immutable
 final class OnboardRepository implements BaseUseCase<bool, int, AppModel> {
-  const OnboardRepository(this._userCache);
-  final UserCache _userCache;
+  const OnboardRepository(this._appCache);
+  final AppCache _appCache;
 
   @override
   Future<bool> execute() {
@@ -16,13 +16,13 @@ final class OnboardRepository implements BaseUseCase<bool, int, AppModel> {
 
   @override
   Future<int> executeWithParams(AppModel params) async {
-    final db = await _userCache.initializeDatabase();
+    final db = await _appCache.initializeDatabase();
     final isComplete = (params.isCompleteOnboard ?? false) ? 1 : 0;
 
     final data = {
       AppCacheColumns.isCompletedOnboard.value: isComplete,
     };
 
-    return _userCache.insert(db, data);
+    return _appCache.insert(db, data);
   }
 }

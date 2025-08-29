@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/core/widgets/buttons/chip_button.dart';
 import 'package:bodymetrics/core/widgets/rich_text_widgets/custom_rich_text.dart';
 import 'package:bodymetrics/core/widgets/space_column.dart';
 import 'package:bodymetrics/feature/home/presentation/cubit/user_cubit.dart';
@@ -13,11 +12,9 @@ import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
 part 'home_model.dart';
 part 'mixin/title_mixin.dart';
-part 'enum/period_enum.dart';
 part 'widgets/chart.dart';
 part 'widgets/data_list.dart';
 part 'widgets/menu_view.dart';
-part 'widgets/period_select.dart';
 part 'enum/expanded.dart';
 
 @immutable
@@ -29,7 +26,8 @@ final class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> with _TitleMixin, TickerProviderStateMixin, _HomeModel {
+class _HomeState extends State<Home>
+    with _TitleMixin, TickerProviderStateMixin, _HomeModel {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -37,39 +35,43 @@ class _HomeState extends State<Home> with _TitleMixin, TickerProviderStateMixin,
       child: Builder(
         builder: (context) {
           final userState = context.read<UserCubit>().state;
-          return userState.isLoading
+          return userState is UserLoading
               ? const LoadingLottie()
-              : CustomDrawer(
-                  zoomDrawerController: _zoomDrawerController,
-                  borderRadius: 25,
-                  menuBackgroundColor: ProductColor().seedColor,
-                  menuScreen: _MenuView(_userName, _userAvatar),
-                  mainScreen: GradientScaffold(
-                    appBar: CustomAppBar(
-                      leading: IconButton(
-                        onPressed: () {
-                          _zoomDrawerController.toggle!();
-                        },
-                        icon: const Icon(Icons.menu),
+              : BlocBuilder<UserCubit, UserState>(
+                  builder: (context, state) {
+                    return CustomDrawer(
+                      zoomDrawerController: _zoomDrawerController,
+                      borderRadius: 25,
+                      menuBackgroundColor: ProductColor().seedColor,
+                      menuScreen: _MenuView(
+                        userState.user?.name ?? '',
+                        userState.user?.avatar ?? '',
                       ),
-                      title: LocaleKeys.home_hello.tr(args: [_userName]),
-                    ),
-                    body: _HomeBody(
-                      period: _period,
-                      yearlyPeriod: _yearlyPeriod,
-                      monthlyPeriod: _monthlyPeriod,
-                      weeklyPeriod: _weeklyPeriod,
-                      dataListOnPressed: _dataListOnPressed,
-                      chartOnPressed: _chartOnPressed,
-                      spots: _spots,
-                      leftTitles: _leftTitles,
-                      bottomTitle: _bottomTitle,
-                      expandedCard: _expandedCard,
-                      animatedListController: _animatedListController,
-                      animatedChartController: _animatedChartController,
-                      userMetrics: _userMetrics,
-                    ),
-                  ),
+                      mainScreen: GradientScaffold(
+                        appBar: CustomAppBar(
+                          leading: IconButton(
+                            onPressed: () {
+                              _zoomDrawerController.toggle!();
+                            },
+                            icon: const Icon(Icons.menu),
+                          ),
+                          title: LocaleKeys.home_hello
+                              .tr(args: [userState.user?.name ?? '']),
+                        ),
+                        body: _HomeBody(
+                          dataListOnPressed: _dataListOnPressed,
+                          chartOnPressed: _chartOnPressed,
+                          spots: _spots,
+                          leftTitles: _leftTitles,
+                          bottomTitle: _bottomTitle,
+                          expandedCard: _expandedCard,
+                          animatedListController: _animatedListController,
+                          animatedChartController: _animatedChartController,
+                          userMetrics: _userMetrics,
+                        ),
+                      ),
+                    );
+                  },
                 );
         },
       ),
@@ -80,10 +82,6 @@ class _HomeState extends State<Home> with _TitleMixin, TickerProviderStateMixin,
 @immutable
 final class _HomeBody extends StatelessWidget {
   const _HomeBody({
-    required this.period,
-    required this.yearlyPeriod,
-    required this.monthlyPeriod,
-    required this.weeklyPeriod,
     required this.dataListOnPressed,
     required this.chartOnPressed,
     required this.spots,
@@ -95,10 +93,6 @@ final class _HomeBody extends StatelessWidget {
     required this.userMetrics,
   });
 
-  final _HomePeriod period;
-  final void Function({required bool value}) yearlyPeriod;
-  final void Function({required bool value}) monthlyPeriod;
-  final void Function({required bool value}) weeklyPeriod;
   final void Function() dataListOnPressed;
   final void Function() chartOnPressed;
   final List<FlSpot> spots;
@@ -116,12 +110,12 @@ final class _HomeBody extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            _PeriodSelect(
-              homePeriod: period,
-              onYearlySelected: yearlyPeriod,
-              onMonthlySelected: monthlyPeriod,
-              onWeeklySelected: weeklyPeriod,
-            ),
+            // _PeriodSelect(
+            //   homePeriod: period,
+            //   onYearlySelected: yearlyPeriod,
+            //   onMonthlySelected: monthlyPeriod,
+            //   onWeeklySelected: weeklyPeriod,
+            // ),
             _DataList(
               animatedController: animatedListController,
               userMetrics: userMetrics,

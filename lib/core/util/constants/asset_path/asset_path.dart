@@ -22,6 +22,7 @@ enum AssetValue {
   maleBody('male_body'),
   femaleBody('female_body'),
   robotError('robot_error'),
+  success('success'),
   generalError('general_error'),
   loading('loading'),
   confirm('confirm'),

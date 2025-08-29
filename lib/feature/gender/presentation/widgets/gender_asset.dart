@@ -31,7 +31,7 @@ final class _GenderAsset extends StatelessWidget {
             Wrap(
               children: [
                 Text(
-                  gender,
+                  gender.tr(),
                   textAlign: TextAlign.center,
                   style: context.textTheme.titleLarge?.copyWith(color: color),
                 ),

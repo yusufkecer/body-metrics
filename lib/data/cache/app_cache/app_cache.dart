@@ -11,7 +11,8 @@ import 'package:sqflite/sqflite.dart';
 part 'app_cache_columns.dart';
 
 @lazySingleton
-final class AppCache extends ImpCache implements CacheMethods<JsonList, Json, Json> {
+final class AppCache extends ImpCache
+    implements CacheMethods<JsonList, Json, Json, Json> {
   AppCache() : super();
 
   @override
@@ -58,12 +59,24 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, Json, Js
   }
 
   @override
-  Future<JsonList> select(Database? db, Json value, {List<String>? columns, List<JoinEntity>? joins}) {
-    throw UnimplementedError();
+  Future<Json> select(
+    Database? db,
+    Json value, {
+    List<String>? columns,
+    List<JoinEntity>? joins,
+  }) {
+    //get first row
+    return selectAll(db, columns: columns, joins: joins).then((value) {
+      return value.first;
+    });
   }
 
   @override
-  Future<JsonList> selectAll(Database? db, {List<String>? columns, List<JoinEntity>? joins}) async {
+  Future<JsonList> selectAll(
+    Database? db, {
+    List<String>? columns,
+    List<JoinEntity>? joins,
+  }) async {
     if (db.isNullOrEmpty) {
       'Database is empty'.e();
       return [];
@@ -73,13 +86,16 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, Json, Js
 
     if (joins != null) {
       for (final item in joins) {
-        join.write('INNER JOIN ${item.table} ON ${item.joinKey} = ${item.currentKey}');
+        join.write(
+          'INNER JOIN ${item.table} ON ${item.joinKey} = ${item.currentKey}',
+        );
       }
     }
 
     columns ??= _columns;
 
-    final value = await db!.rawQuery("SELECT ${columns.join(', ')} FROM $table $join");
+    final value =
+        await db!.rawQuery("SELECT ${columns.join(', ')} FROM $table $join");
 
     await closeDb();
 
@@ -92,8 +108,9 @@ final class AppCache extends ImpCache implements CacheMethods<JsonList, Json, Js
       'Value is empty'.e();
       return 0;
     }
-
-    final filteredValue = value.entries.where((entry) => entry.value != null).toList();
+    'value: $value'.log();
+    final filteredValue =
+        value.entries.where((entry) => entry.value != null).toList();
 
     if (filteredValue.isEmpty) {
       'No values to update'.e();

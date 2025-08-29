@@ -1,6 +1,3 @@
-import 'package:bodymetrics/core/index.dart';
-import 'package:easy_localization/easy_localization.dart';
-
 enum GenderValue {
   male,
   female;
@@ -18,7 +15,7 @@ extension GenderValueExtension on String {
       case 'male':
         return GenderValue.male;
       default:
-        throw Exception(LocaleKeys.exception_gender_not_found.tr());
+        throw Exception('Gender not found');
     }
   }
 }

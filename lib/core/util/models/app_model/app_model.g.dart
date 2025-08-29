@@ -28,4 +28,5 @@ const _$PagesEnumMap = {
   Pages.genderPage: 'genderPage',
   Pages.heightPage: 'heightPage',
   Pages.weightPage: 'weightPage',
+  Pages.homePage: 'homePage',
 };

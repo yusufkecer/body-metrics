@@ -9,7 +9,7 @@ import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
 @lazySingleton
-class ImpCache implements BaseDatabase {
+base class ImpCache implements BaseDatabase {
   Database? _db;
   Database? get db => _db;
 
