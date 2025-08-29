@@ -1,5 +1,6 @@
 import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:bodymetrics/core/index.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -25,7 +26,7 @@ final class ColorfulTextButton extends StatelessWidget {
         repeatForever: true,
         animatedTexts: [
           ColorizeAnimatedText(
-            text,
+            text.tr(),
             speed: speed,
             colors: colors ?? ProductColor().colorfulList,
             textStyle: context.textTheme.titleMedium!,

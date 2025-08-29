@@ -13,7 +13,8 @@ final class _PageView extends PageViewModel {
     BuildContext? context,
   }) {
     decoration = decoration.copyWith(
-      titleTextStyle: context?.textTheme.titleMedium ?? decoration.titleTextStyle,
+      titleTextStyle:
+          context?.textTheme.titleMedium ?? decoration.titleTextStyle,
       bodyTextStyle: context?.textTheme.bodyMedium ?? decoration.bodyTextStyle,
     );
   }

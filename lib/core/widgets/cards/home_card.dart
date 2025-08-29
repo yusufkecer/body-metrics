@@ -1,4 +1,5 @@
 import 'package:bodymetrics/core/index.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 class HomeCard extends StatelessWidget {
@@ -47,7 +48,7 @@ class HomeCard extends StatelessWidget {
                       ),
                       Center(
                         child: Text(
-                          title,
+                          title.tr(),
                           style: context.textTheme.titleMedium?.copyWith(
                             fontWeight: FontWeight.bold,
                           ),
@@ -63,7 +64,7 @@ class HomeCard extends StatelessWidget {
                               padding: EdgeInsets.zero,
                             ),
                             child: Text(
-                              buttonTitle,
+                              buttonTitle.tr(),
                               style: context.textTheme.titleMedium?.copyWith(
                                 color: ProductColor().white,
                               ),

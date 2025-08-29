@@ -12,7 +12,10 @@ part 'weight_picker_state.dart';
 
 @injectable
 class WeightPickerCubit extends Cubit<WeightPickerState> {
-  WeightPickerCubit(this._userUseCase, this._saveWeightUseCase) : super(const WeightPickerInitial());
+  WeightPickerCubit(this._userUseCase, this._saveWeightUseCase)
+      : super(const WeightPickerInitial()) {
+    getUser();
+  }
   final UserUseCase _userUseCase;
   final SaveWeightUseCase _saveWeightUseCase;
 
@@ -40,7 +43,8 @@ class WeightPickerCubit extends Cubit<WeightPickerState> {
 
     if (weight.isNullOrEmpty || height.isNullOrEmpty) return;
 
-    final bmi = await compute(_calculateBmiValue, {'weight': weight, 'height': height});
+    final bmi =
+        await compute(_calculateBmiValue, {'weight': weight, 'height': height});
 
     emit(WeightPickerInitial(user: user, bmi: bmi));
   }

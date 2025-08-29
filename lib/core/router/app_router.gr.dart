@@ -38,7 +38,6 @@ class AvatarPickerView extends PageRouteInfo<AvatarPickerViewArgs> {
       );
       return AvatarPicker(
         key: args.key,
-        canSkip: args.canSkip,
         isChangeProfile: args.isChangeProfile,
       );
     },

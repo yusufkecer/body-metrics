@@ -30,8 +30,6 @@ mixin _WeightPickerModel on State<_WeightPickerBody>, DialogUtil {
 
     _weightController.addListener(_onChangeWeight);
     _decimalWeightController.addListener(_onChangeDecimalWeight);
-
-    WidgetsBinding.instance.addPostFrameCallback((_) => _initUser());
   }
 
   @override
@@ -46,10 +44,6 @@ mixin _WeightPickerModel on State<_WeightPickerBody>, DialogUtil {
 
     _weightTextController.dispose();
     super.dispose();
-  }
-
-  Future<void> _initUser() async {
-    await context.read<WeightPickerCubit>().getUser();
   }
 
   void _onChangeWeight() {
@@ -104,7 +98,7 @@ mixin _WeightPickerModel on State<_WeightPickerBody>, DialogUtil {
 
   void _handleEmptyWeight() {
     _setWeightText(_selectedWeight.toDouble());
-    showLottieError(LocaleKeys.weight_weight_empty.tr());
+    showLottieError(LocaleKeys.weight_weight_empty);
   }
 
   void _handleTextEditing(String text) {
@@ -128,12 +122,12 @@ mixin _WeightPickerModel on State<_WeightPickerBody>, DialogUtil {
 
   void _handleWeightOutOfRange() {
     _setWeightText(_selectedWeight.toDouble());
-    showLottieError(LocaleKeys.weight_enter_range.tr());
+    showLottieError(LocaleKeys.weight_enter_range);
   }
 
   void _handleInvalidWeight() {
     _setWeightText(_selectedWeight.toDouble());
-    showLottieError(LocaleKeys.weight_weight_invalid.tr());
+    showLottieError(LocaleKeys.weight_weight_invalid);
   }
 
   void _updateWeightAndDecimalController(double parsedWeight, String text) {

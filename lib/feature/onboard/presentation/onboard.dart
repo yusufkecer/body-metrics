@@ -38,12 +38,13 @@ class _OnboardBody extends StatefulWidget {
   State<_OnboardBody> createState() => __OnboardBodyState();
 }
 
-class __OnboardBodyState extends State<_OnboardBody> with _PageViewMixin, SaveAppMixin, _OnboardModel {
+class __OnboardBodyState extends State<_OnboardBody>
+    with _PageViewMixin, SaveAppMixin, _OnboardModel {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
       appBar: CustomAppBar(
-        title: LocaleKeys.onboard_welcome.tr(),
+        title: LocaleKeys.onboard_welcome,
         action: buildColorfulButton(),
       ),
       body: Center(
@@ -74,7 +75,7 @@ class __OnboardBodyState extends State<_OnboardBody> with _PageViewMixin, SaveAp
   Widget buildColorfulButton() {
     return _isEnd
         ? ColorfulTextButton(
-            text: LocaleKeys.onboard_skip.tr(),
+            text: LocaleKeys.onboard_skip,
             onTap: _skip,
           )
         : const SizedBox.shrink();

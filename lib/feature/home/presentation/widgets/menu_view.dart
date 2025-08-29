@@ -37,19 +37,19 @@ final class _MenuView extends StatelessWidget {
                   VerticalSpace.s(),
                   CustomListTile(
                     ProductIcon.user.icon,
-                    LocaleKeys.home_menu_change_profile.tr(),
+                    LocaleKeys.home_menu_change_profile,
                     () {},
                   ),
                   VerticalSpace.s(),
                   CustomListTile(
                     ProductIcon.plus.icon,
-                    LocaleKeys.home_menu_add_profile.tr(),
+                    LocaleKeys.home_menu_add_profile,
                     () {},
                   ),
                   VerticalSpace.s(),
                   CustomListTile(
                     ProductIcon.weight.icon,
-                    LocaleKeys.home_menu_calculate_bmi.tr(),
+                    LocaleKeys.home_menu_calculate_bmi,
                     () {},
                   ),
                 ],

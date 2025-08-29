@@ -20,12 +20,16 @@ final class _Chart extends StatelessWidget {
   Widget build(BuildContext context) {
     return HomeCard(
       animationController: animatedController,
-      buttonTitle: LocaleKeys.home_see_more.tr(),
+      buttonTitle: LocaleKeys.home_see_more,
       onPressed: onPressed,
-      title: LocaleKeys.home_chart.tr(),
+      title: LocaleKeys.home_chart,
       icon: ProductIcon.chart.icon,
       children: [
-        LineChartWidget(spots: spot, leftTitles: leftTitles, bottomTitles: bottomTitles),
+        LineChartWidget(
+          spots: spot,
+          leftTitles: leftTitles,
+          bottomTitles: bottomTitles,
+        ),
       ],
     );
   }

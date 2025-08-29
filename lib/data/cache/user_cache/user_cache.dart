@@ -8,7 +8,8 @@ import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 
 @lazySingleton
-final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json> {
+final class UserCache extends ImpCache
+    implements CacheMethods<Users, Json, Json, Users> {
   UserCache();
 
   @override
@@ -56,7 +57,12 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json
   }
 
   @override
-  Future<Users?> select(Database? db, Json user, {List<String>? columns, List<JoinEntity>? joins}) async {
+  Future<Users?> select(
+    Database? db,
+    Json user, {
+    List<String>? columns,
+    List<JoinEntity>? joins,
+  }) async {
     if (db.isNullOrEmpty) {
       'Database is null'.w();
       return null;
@@ -79,7 +85,11 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json
   }
 
   @override
-  Future<Users?> selectAll(Database? db, {List<String>? columns, List<JoinEntity>? joins}) async {
+  Future<Users?> selectAll(
+    Database? db, {
+    List<String>? columns,
+    List<JoinEntity>? joins,
+  }) async {
     if (db.isNullOrEmpty) {
       'Database is null'.w();
       return null;
@@ -105,7 +115,8 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json
       return 0;
     }
 
-    final filteredValue = value.entries.where((entry) => entry.value != null).toList();
+    final filteredValue =
+        value.entries.where((entry) => entry.value != null).toList();
 
     if (filteredValue.isEmpty) {
       'No values to update'.e();

@@ -9,7 +9,7 @@ import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
 @lazySingleton
-final class UserMetricsCache extends ImpCache implements CacheMethods<UserMetrics, Json, UserMetricEntity> {
+final class UserMetricsCache extends ImpCache implements CacheMethods<UserMetrics, Json, UserMetricEntity, UserMetricEntity> {
   UserMetricsCache();
 
   @override
@@ -29,13 +29,11 @@ final class UserMetricsCache extends ImpCache implements CacheMethods<UserMetric
 
   @override
   Future<int> delete(Database? db, int id) {
-    // TODO: implement delete
     throw UnimplementedError();
   }
 
   @override
   Future<int> insert(Database? db, UserMetricEntity value) {
-    // TODO: implement insert
     throw UnimplementedError();
   }
 
@@ -70,7 +68,7 @@ final class UserMetricsCache extends ImpCache implements CacheMethods<UserMetric
   }
 
   @override
-  Future<UserMetrics?> select(Database? db, Json value, {List<String>? columns, List<JoinEntity>? joins}) {
+  Future<UserMetricEntity?> select(Database? db, Json value, {List<String>? columns, List<JoinEntity>? joins}) {
     throw UnimplementedError();
   }
 

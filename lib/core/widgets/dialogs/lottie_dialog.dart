@@ -8,20 +8,23 @@ final class LottieDialog extends StatelessWidget {
   const LottieDialog({
     required this.assetValue,
     required this.title,
+    this.repeat = false,
     super.key,
   });
 
   final String assetValue;
   final String title;
+  final bool repeat;
 
   @override
   Widget build(BuildContext context) {
     return AlertDialog(
       title: Lottie.asset(
         assetValue,
+        repeat: repeat,
       ),
       content: Text(
-        title,
+        title.tr(),
         style: context.textTheme.titleMedium,
         textAlign: TextAlign.center,
       ),

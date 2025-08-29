@@ -4,43 +4,38 @@ import 'package:bodymetrics/domain/index.dart';
 import 'package:bodymetrics/feature/avatar_picker/domain/use_case/save_avatar_use_case.dart';
 import 'package:bodymetrics/feature/home/domain/use_case/user_use_case.dart';
 import 'package:bodymetrics/injection/locator.dart';
-import 'package:easy_localization/easy_localization.dart';
 
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 
 part 'avatar_picker_model.dart';
-part 'widgets/util_button.dart';
 
 @RoutePage(name: 'AvatarPickerView')
 @immutable
 final class AvatarPicker extends StatefulWidget {
   const AvatarPicker({
     super.key,
-    this.canSkip = true,
     this.isChangeProfile = false,
   });
 
-  final bool canSkip;
   final bool isChangeProfile;
 
   @override
   State<AvatarPicker> createState() => _AvatarPickerState();
 }
 
-class _AvatarPickerState extends State<AvatarPicker> with DialogUtil, SaveAppMixin, _AvatarPickerModel {
+class _AvatarPickerState extends State<AvatarPicker>
+    with DialogUtil, SaveAppMixin, _AvatarPickerModel {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
-      appBar: CustomAppBar(
-        title: LocaleKeys.register_select_profile_picture.tr(),
+      appBar: const CustomAppBar(
+        title: LocaleKeys.register_select_profile_picture,
       ),
       body: SingleChildScrollView(
         physics: const BouncingScrollPhysics(),
         child: Column(
           children: [
             grid(),
-            utilButtons(),
             VerticalSpace.m(),
           ],
         ),
@@ -69,19 +64,5 @@ class _AvatarPickerState extends State<AvatarPicker> with DialogUtil, SaveAppMix
         );
       },
     );
-  }
-
-  Widget utilButtons() {
-    return widget.canSkip
-        ? Column(
-            children: [
-              VerticalSpace.xs(),
-              UtilButton(
-                icon: FontAwesomeIcons.arrowRight,
-                onPressed: _onTapSkip,
-              ),
-            ],
-          )
-        : const SizedBox.shrink();
   }
 }

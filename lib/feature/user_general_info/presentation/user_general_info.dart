@@ -30,8 +30,8 @@ class _UserGeneralInfoState extends State<UserGeneralInfo> {
     return BlocProvider(
       create: (_) => Locator.sl<UserInfoFormCubit>(),
       child: GradientScaffold(
-        appBar: CustomAppBar(
-          title: LocaleKeys.register_complete.tr(),
+        appBar: const CustomAppBar(
+          title: LocaleKeys.register_complete,
         ),
         body: _UserInfoFormBody(avatar: widget.avatar),
       ),
@@ -50,7 +50,8 @@ class _UserInfoFormBody extends StatefulWidget {
   State<_UserInfoFormBody> createState() => _UserInfoFormBodyState();
 }
 
-class _UserInfoFormBodyState extends State<_UserInfoFormBody> with DialogUtil, SaveAppMixin, UserGeneralInfoModel {
+class _UserInfoFormBodyState extends State<_UserInfoFormBody>
+    with DialogUtil, SaveAppMixin, UserGeneralInfoModel {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -71,12 +72,12 @@ class _UserInfoFormBodyState extends State<_UserInfoFormBody> with DialogUtil, S
             child: Column(
               children: [
                 CustomTextField(
-                  label: LocaleKeys.register_full_name.tr(),
+                  label: LocaleKeys.register_full_name,
                   prefixIcon: ProductIcon.user.icon,
                   controller: _fullNameController,
                 ),
                 CustomTextField(
-                  label: LocaleKeys.register_birth_of_date.tr(),
+                  label: LocaleKeys.register_birth_of_date,
                   readOnly: true,
                   onTap: _openDatePicker,
                   prefixIcon: ProductIcon.birthDay.icon,
@@ -86,7 +87,7 @@ class _UserInfoFormBodyState extends State<_UserInfoFormBody> with DialogUtil, S
             ),
           ),
           CustomFilled(
-            text: LocaleKeys.save.tr(),
+            text: LocaleKeys.save,
             onPressed: _onPressed,
           ),
         ],

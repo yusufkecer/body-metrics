@@ -27,7 +27,7 @@ mixin _TitleMixin {
     {12: LocaleKeys.chart_week_sun.tr()},
   ];
 
-  final List<Map<int, String>> _bottomTitlesYear = []..years;
+  // final List<Map<int, String>> _bottomTitlesYear = []..years;
 
   final List<Map<int, String>> _leftTitles = const [
     {1: '60'},

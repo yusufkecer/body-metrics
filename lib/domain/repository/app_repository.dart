@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class AppRepository implements BaseUseCase<String, int, AppModel> {
+final class AppRepository implements BaseUseCase<Pages, int, AppModel> {
   AppRepository(this._appCache);
   final String _column = AppCacheColumns.page.value;
 
@@ -13,7 +13,7 @@ final class AppRepository implements BaseUseCase<String, int, AppModel> {
 
   ///get [AppCache]
   @override
-  Future<String?> execute() async {
+  Future<Pages?> execute() async {
     final db = await _appCache.initializeDatabase();
     final result = await _appCache.selectAll(
       db,
@@ -23,9 +23,8 @@ final class AppRepository implements BaseUseCase<String, int, AppModel> {
       return null;
     }
 
-    final data = result.first['page'] as String; //TODO: change to AppModel and change to return AppModel
-
-    return data;
+    final data = result.first['page'] as String;
+    return data.toPages();
   }
 
   ///set [AppCache]

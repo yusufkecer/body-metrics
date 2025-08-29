@@ -1,91 +1,128 @@
 part of 'splash.dart';
 
-mixin _SplashModel on State<_SplashBody>, DialogUtil {
+mixin _SplashModel on State<Splash>, DialogUtil {
+  late final SplashUseCase _splashUseCase = Locator.sl<SplashUseCase>();
+  late final ImpCache _impCache = Locator.sl<ImpCache>();
+
   @override
   void initState() {
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _asyncInitState();
-    });
     super.initState();
+    WidgetsBinding.instance.addPostFrameCallback((_) => _asyncInitState());
   }
 
   Future<void> _asyncInitState() async {
-    final impCache = Locator.sl<ImpCache>();
-
-    await impCache.initializeDatabase();
-    // impCache.deleteDb();
-    // return;
-
-    final isExist = await impCache.isExist();
-    if (!isExist) {
-      await initializeTables(impCache);
-    }
+    await _initializeDatabase();
+    await _handleAppInitialization();
 
     if (!mounted) return;
-    final cubit = context.read<SplashCubit>();
-    final result = await cubit.init();
+
+    final result = await _splashUseCase.execute();
     'page result ${result?.page}'.log();
 
-    AppUtil.currentUserId = result?.activeUser;
-    AppUtil.lastPage = result?.page;
-
-    await _checkPage(result);
+    _setAppState(result);
+    await _navigateToAppropriatePage(result);
 
     FlutterNativeSplash.remove();
   }
 
-  Future<void> initializeTables(ImpCache impCache) async {
-    if (impCache.db == null) {
-      showLottieError(LocaleKeys.dialog_general_error.tr());
+  Future<void> _initializeDatabase() async {
+    await _impCache.initializeDatabase();
+  }
 
+  Future<void> _handleAppInitialization() async {
+    final isExist = await _impCache.isExist();
+    if (!isExist) {
+      await _initializeTables();
+    }
+  }
+
+  Future<void> _initializeTables() async {
+    if (_impCache.db == null) {
+      showLottieError(LocaleKeys.dialog_general_error);
       throw ArgumentError.notNull('db is null');
     }
 
     'initializing tables'.log();
 
-    await Locator.sl<AppCache>().initializeTable(impCache.db!, impCache.version);
-    await Locator.sl<UserMetricsCache>().initializeTable(impCache.db!, impCache.version);
-    await Locator.sl<UserCache>().initializeTable(impCache.db!, impCache.version);
+    final db = _impCache.db!;
+    final version = _impCache.version;
+
+    await Future.wait([
+      Locator.sl<AppCache>().initializeTable(db, version),
+      Locator.sl<UserMetricsCache>().initializeTable(db, version),
+      Locator.sl<UserCache>().initializeTable(db, version),
+    ]);
   }
 
-  void pushNewView(PageRouteInfo arguments) {
+  void _setAppState(AppModel? result) {
+    AppUtil.currentUserId = result?.activeUser;
+    AppUtil.lastPage = result?.page;
+  }
+
+  Future<void> _navigateToAppropriatePage(AppModel? result) async {
+    if (result == null) {
+      _pushNewView(const OnboardView());
+      return;
+    }
+
+    final page = result.page;
+    if (page == null) {
+      _pushNewView(const OnboardView());
+      return;
+    }
+
+    switch (page) {
+      case Pages.genderPage:
+        _pushNewView(const GenderView());
+      case Pages.avatarPage:
+        _pushNewView(AvatarPickerView());
+      case Pages.userGeneralInfo:
+        await _navigateToUserGeneralInfo();
+      case Pages.heightPage:
+        await _navigateToHeightPage();
+      case Pages.weightPage:
+        _pushNewView(const WeightView());
+      case Pages.homePage:
+        _pushNewView(const HomeView());
+      case Pages.onboardPage:
+        _pushNewView(const OnboardView());
+    }
+  }
+
+  Future<void> _navigateToUserGeneralInfo() async {
+    final user = await _getUserWithAvatar();
+    if (user != null && user.avatar != null) {
+      _pushNewView(UserGeneralInfoView(avatar: user.avatar!));
+    }
+  }
+
+  Future<void> _navigateToHeightPage() async {
+    final user = await _getUserWithGender();
+    if (user != null && user.gender != null) {
+      _pushNewView(HeightView(gender: user.gender!));
+    }
+  }
+
+  Future<User?> _getUserWithAvatar() async {
+    final params = ParamsEntity(
+      columns: [UserCacheColumns.avatar.value],
+      filters: {UserCacheColumns.id.value: AppUtil.currentUserId},
+    );
+    return _splashUseCase.executeWithParams(params);
+  }
+
+  Future<User?> _getUserWithGender() async {
+    final params = ParamsEntity(
+      columns: [UserCacheColumns.gender.value],
+      filters: {UserCacheColumns.id.value: AppUtil.currentUserId},
+    );
+    return _splashUseCase.executeWithParams(params);
+  }
+
+  void _pushNewView(PageRouteInfo arguments) {
     context.router.pushAndPopUntil(
       arguments,
       predicate: (route) => false,
     );
-  }
-
-  Future<void> _checkPage(AppModel? result) async {
-    final cubit = context.read<SplashCubit>();
-    if (result.isNull) {
-      pushNewView(const OnboardView());
-    } else if (result?.page == Pages.genderPage) {
-      pushNewView(const GenderView());
-    } else if (result?.page == Pages.avatarPage) {
-      pushNewView(AvatarPickerView());
-    } else if (result?.page == Pages.userGeneralInfo) {
-      final params = ParamsEntity(
-        columns: [UserCacheColumns.avatar.value],
-        filters: {UserCacheColumns.id.value: AppUtil.currentUserId},
-      );
-
-      final user = await cubit.userValues(params);
-      if (user.isNullOrEmpty) return;
-
-      pushNewView(UserGeneralInfoView(avatar: user!.avatar!));
-    } else if (result?.page == Pages.heightPage) {
-      final params = ParamsEntity(
-        columns: [UserCacheColumns.gender.value],
-        filters: {UserCacheColumns.id.value: AppUtil.currentUserId},
-      );
-
-      final user = await cubit.userValues(params);
-      if (user.isNullOrEmpty) return;
-      pushNewView(HeightView(gender: user!.gender!));
-    } else if (result?.page == Pages.weightPage) {
-      pushNewView(const WeightView());
-    } else {
-      pushNewView(const HomeView());
-    }
   }
 }

@@ -1,7 +1,6 @@
 import 'package:bodymetrics/core/index.dart';
 
 import 'package:bodymetrics/injection/locator.dart';
-import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 mixin DialogUtil {
@@ -34,7 +33,7 @@ mixin DialogUtil {
       context: context,
       builder: (BuildContext context) {
         return LottieDialog(
-          assetValue: AssetValue.robotError.value.lottie, //TODO: change to success
+          assetValue: AssetValue.success.value.lottie,
           title: message,
         );
       },
@@ -56,7 +55,7 @@ mixin DialogUtil {
   BuildContext get context {
     final context = Locator.sl<AppRouter>().navigatorKey.currentContext;
     if (context == null) {
-      throw Exception(LocaleKeys.exception_context_not_found.tr());
+      throw Exception('Context not found');
     }
     return context;
   }

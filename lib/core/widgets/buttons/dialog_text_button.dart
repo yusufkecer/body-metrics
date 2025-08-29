@@ -1,4 +1,5 @@
 import 'package:bodymetrics/core/extensions/context_extension.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -13,7 +14,7 @@ final class DialogTextButton extends StatelessWidget {
     return TextButton(
       onPressed: onPressed,
       child: Text(
-        title,
+        title.tr(),
         style: context.textTheme.titleMedium,
       ),
     );

@@ -21,9 +21,9 @@ final class _DataList extends StatelessWidget {
 
     return HomeCard(
       animationController: animatedController,
-      buttonTitle: LocaleKeys.home_see_more.tr(),
+      buttonTitle: LocaleKeys.home_see_more,
       onPressed: onPressed,
-      title: LocaleKeys.home_report.tr(),
+      title: LocaleKeys.home_report,
       icon: ProductIcon.weight.icon,
       children: [
         GridView.builder(
@@ -37,7 +37,7 @@ final class _DataList extends StatelessWidget {
                 border: Border.all(
                   color: ProductColor().white,
                 ),
-                borderRadius: BorderRadius.circular(10),
+                borderRadius: const ProductRadius.ten(),
               ),
               child: Padding(
                 padding: ProductPadding.ten(),
@@ -49,12 +49,12 @@ final class _DataList extends StatelessWidget {
                       children: [
                         CustomRichText(
                           icon: ProductIcon.weight.icon,
-                          title: '${LocaleKeys.home_weight.tr()}:',
+                          title: '${LocaleKeys.home_weight}:',
                           subTitle: metrics![index].weight.toString(),
                         ),
                         CustomRichText(
                           icon: ProductIcon.userCheck.icon,
-                          title: '${LocaleKeys.home_situation.tr()}:',
+                          title: '${LocaleKeys.home_situation}:',
                           subTitle: metrics[index].userMetric?.result ?? '',
                         ),
                       ],
@@ -64,12 +64,12 @@ final class _DataList extends StatelessWidget {
                       children: [
                         CustomRichText(
                           icon: ProductIcon.chart.icon,
-                          title: '${LocaleKeys.home_bmi.tr()}:',
+                          title: '${LocaleKeys.home_bmi}:',
                           subTitle: metrics[index].bmi.toString(),
                         ),
                         CustomRichText(
                           icon: ProductIcon.calendar.icon,
-                          title: '${LocaleKeys.home_date.tr()}:',
+                          title: '${LocaleKeys.home_date}:',
                           subTitle: metrics[index].date ?? '',
                         ),
                       ],
@@ -79,7 +79,7 @@ final class _DataList extends StatelessWidget {
                         statusIcon!.codePoint,
                         fontFamily: statusIcon.fontFamily,
                       ),
-                      title: LocaleKeys.home_weight_change.tr(),
+                      title: LocaleKeys.home_weight_change,
                       subTitle: metrics[index].weightDiff.toString(),
                     ),
                   ],

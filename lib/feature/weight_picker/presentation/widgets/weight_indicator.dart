@@ -9,7 +9,6 @@ final class _WeightIndicator extends StatelessWidget {
   });
 
   final TextEditingController weightTextController;
-
   final void Function({bool value}) fieldFocus;
   final void Function(String) textFieldChange;
 

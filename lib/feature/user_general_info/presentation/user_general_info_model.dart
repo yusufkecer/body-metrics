@@ -14,7 +14,7 @@ mixin UserGeneralInfoModel on State<_UserInfoFormBody>, DialogUtil, SaveAppMixin
 
   Future<void> _onPressed() async {
     if ((_fullNameController.text.isEmpty || _birthOfDateController.text.isEmpty) && mounted) {
-      showLottieError(LocaleKeys.register_information_is_empty.tr());
+      showLottieError(LocaleKeys.register_information_is_empty);
       return;
     }
     final result = await createProfile();
@@ -22,7 +22,7 @@ mixin UserGeneralInfoModel on State<_UserInfoFormBody>, DialogUtil, SaveAppMixin
       await context.pushRoute(const GenderView());
     } else {
       showLottieError(
-        LocaleKeys.dialog_general_error.tr(),
+        LocaleKeys.dialog_general_error,
       );
     }
   }
@@ -36,7 +36,7 @@ mixin UserGeneralInfoModel on State<_UserInfoFormBody>, DialogUtil, SaveAppMixin
     );
     final pageResult = await saveApp(Pages.genderPage);
     if (pageResult != true) {
-      showLottieError(LocaleKeys.dialog_page_not_saved.tr());
+      showLottieError(LocaleKeys.dialog_page_not_saved);
     }
     final result = await saveUseCase.executeWithParams(user);
     return result;

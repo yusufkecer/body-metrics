@@ -25,18 +25,18 @@ final class LottieConfirmDialog extends StatelessWidget {
         width: context.width,
       ),
       content: Text(
-        title,
+        title.tr(),
         style: context.textTheme.titleMedium,
         textAlign: TextAlign.center,
       ),
       actions: [
         DialogTextButton(
-          title: LocaleKeys.dialog_cancel.tr(),
+          title: LocaleKeys.dialog_cancel,
           onPressed: () => context.router.maybePop(false),
         ),
         DialogTextButton(
           onPressed: () => context.router.maybePop(true),
-          title: LocaleKeys.dialog_yes.tr(),
+          title: LocaleKeys.dialog_yes,
         ),
       ],
     );

@@ -19,16 +19,12 @@ mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil, SaveAppMixin {
     final users = await locator.execute();
 
     if (users.isNotNull) {
-      showLottieError(LocaleKeys.register_avatar_select_failed.tr());
+      showLottieError(LocaleKeys.register_avatar_select_failed);
     }
 
     setState(() {
       userList = users!.users ?? [];
     });
-  }
-
-  void _onTapSkip() {
-    context.pushRoute(const GenderView());
   }
 
   Future<void> _addNewProfile(int index) async {
@@ -40,7 +36,7 @@ mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil, SaveAppMixin {
     final insertId = await avatarUseCase.executeWithParams(user);
 
     if (insertId == null) {
-      showLottieError(LocaleKeys.register_avatar_select_failed.tr());
+      showLottieError(LocaleKeys.register_avatar_select_failed);
       return;
     }
 
@@ -61,7 +57,7 @@ mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil, SaveAppMixin {
         );
       }
     } else {
-      showLottieError(LocaleKeys.register_avatar_select_failed.tr());
+      showLottieError(LocaleKeys.register_avatar_select_failed);
     }
   }
 
@@ -75,7 +71,7 @@ mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil, SaveAppMixin {
     final result = await _setValues(appModel);
 
     if (!result.isNotNull || !mounted) {
-      showLottieError(LocaleKeys.change_profile_profile_not_changed.tr());
+      showLottieError(LocaleKeys.change_profile_profile_not_changed);
       return false;
     }
 

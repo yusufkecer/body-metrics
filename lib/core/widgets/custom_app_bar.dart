@@ -1,7 +1,9 @@
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 @immutable
-final class CustomAppBar extends StatelessWidget implements PreferredSizeWidget {
+final class CustomAppBar extends StatelessWidget
+    implements PreferredSizeWidget {
   const CustomAppBar({
     super.key,
     this.leading,
@@ -17,7 +19,7 @@ final class CustomAppBar extends StatelessWidget implements PreferredSizeWidget 
   Widget build(BuildContext context) {
     return AppBar(
       leading: leading,
-      title: Text(title ?? ''),
+      title: Text(title?.tr() ?? ''),
       actions: [action ?? const SizedBox.shrink()],
     );
   }

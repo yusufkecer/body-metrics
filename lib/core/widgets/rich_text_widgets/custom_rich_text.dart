@@ -1,4 +1,5 @@
 import 'package:bodymetrics/core/index.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 @immutable
@@ -27,7 +28,7 @@ final class CustomRichText extends StatelessWidget {
             ),
           ],
           TextSpan(
-            text: title,
+            text: title.tr(),
             style: const TextStyle(
               fontWeight: FontWeight.bold,
             ),
@@ -36,7 +37,7 @@ final class CustomRichText extends StatelessWidget {
             child: HorizontalSpace.xxs(),
           ),
           TextSpan(
-            text: subTitle,
+            text: subTitle.tr(),
           ),
         ],
       ),

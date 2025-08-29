@@ -11,7 +11,6 @@ class SaveGenderRepository implements BaseUseCase<bool, int, Json> {
 
   @override
   Future<bool?> execute() {
-    // TODO: implement execute
     throw UnimplementedError();
   }
 
