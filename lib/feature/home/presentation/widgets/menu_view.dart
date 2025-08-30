@@ -20,7 +20,8 @@ final class _MenuView extends StatelessWidget {
                 child: Column(
                   children: [
                     CircleAvatar(
-                      backgroundImage: AssetImage(image),
+                      backgroundImage:
+                          image.isNotEmpty ? AssetImage(image) : null,
                       radius: 50,
                     ),
                     VerticalSpace.s(),

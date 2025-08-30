@@ -1,7 +1,7 @@
 part of 'user_general_info.dart';
 
-mixin UserGeneralInfoModel
-    on State<_UserInfoFormBody>, DialogUtil, SaveAppMixin {
+mixin _UserGeneralInfoModel
+    on State<_UserInfoFormBody>, DialogUtil<_UserInfoFormBody>, SaveAppMixin {
   final TextEditingController _fullNameController = TextEditingController();
   final DateController _birthOfDateController = DateController();
 
@@ -17,12 +17,12 @@ mixin UserGeneralInfoModel
     if ((_fullNameController.text.isEmpty ||
             _birthOfDateController.text.isEmpty) &&
         mounted) {
-      showLottieError(LocaleKeys.register_information_is_empty);
+       showLottieError(LocaleKeys.register_information_is_empty);
       return;
     }
     final result = await createProfile();
-    if ((result.isNotNull && result!) && mounted) {
-      await context.pushRoute(const GenderView());
+    if (result.isNotNull && result!) {
+      context.pushRoute(const GenderView());
     } else {
       showLottieError(
         LocaleKeys.dialog_general_error,
@@ -31,7 +31,7 @@ mixin UserGeneralInfoModel
   }
 
   Future<bool?> createProfile() async {
-    final saveUseCase = Locator.sl<CreateProfileUseCase>();
+    final cubit = context.read<UserInfoFormCubit>();
     final birthDay = _birthOfDateController.text.toYMD;
     final user = User(
       name: _fullNameController.text,
@@ -39,9 +39,10 @@ mixin UserGeneralInfoModel
     );
     final pageResult = await saveApp(Pages.genderPage);
     if (pageResult != true) {
-      showLottieError(LocaleKeys.dialog_page_not_saved);
+       showLottieError(LocaleKeys.dialog_page_not_saved);
+      return null;
     }
-    final result = await saveUseCase.executeWithParams(user);
+    final result = await cubit.createProfile(user);
     return result;
   }
 
@@ -76,9 +77,7 @@ mixin UserGeneralInfoModel
 
     final result = await confirmDialog(LocaleKeys.dialog_progress_lost.tr());
 
-    if (!mounted || (result.isNotNull && !result!)) {
-      return;
-    }
+    if (!mounted || (result.isNotNull && !result!)) return;
 
     context.read<UserInfoFormCubit>().setFormEmpty(param: true);
 

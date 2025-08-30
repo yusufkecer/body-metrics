@@ -1,6 +1,7 @@
 part of 'avatar_picker.dart';
 
-mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil, SaveAppMixin {
+mixin _AvatarPickerModel
+    on State<AvatarPicker>, DialogUtil<AvatarPicker>, SaveAppMixin {
   final List<String> avatarList = AssetValue.values.profileImageList;
   late final List<User>? userList;
 

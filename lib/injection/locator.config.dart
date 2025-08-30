@@ -51,8 +51,10 @@ import 'package:bodymetrics/feature/splash/domain/repository/splash_repository.d
     as _i601;
 import 'package:bodymetrics/feature/splash/domain/use_case/splash_use_case.dart'
     as _i165;
-import 'package:bodymetrics/feature/user_general_info/cubit/user_general_info_state.dart'
-    as _i1018;
+import 'package:bodymetrics/feature/user_general_info/cubit/user_general_info_cubit.dart'
+    as _i722;
+import 'package:bodymetrics/feature/user_general_info/domain/index.dart'
+    as _i171;
 import 'package:bodymetrics/feature/user_general_info/domain/repository/create_profile_repository.dart'
     as _i1073;
 import 'package:bodymetrics/feature/user_general_info/domain/use_case/create_profile_use_case.dart'
@@ -79,7 +81,6 @@ extension GetItInjectableX on _i174.GetIt {
       environmentFilter,
     );
     gh.factory<_i617.HeightSelectorCubit>(() => _i617.HeightSelectorCubit());
-    gh.factory<_i1018.UserInfoFormCubit>(() => _i1018.UserInfoFormCubit());
     gh.lazySingleton<_i1072.AppRouter>(() => _i1072.AppRouter());
     gh.lazySingleton<_i906.CustomTheme>(() => _i906.CustomTheme());
     gh.lazySingleton<_i458.AppCache>(() => _i458.AppCache());
@@ -96,8 +97,6 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i218.SaveGenderRepository(gh<_i101.UserCache>()));
     gh.factory<_i414.UserRepository>(
         () => _i414.UserRepository(gh<_i981.UserCache>()));
-    gh.factory<_i85.OnboardRepository>(
-        () => _i85.OnboardRepository(gh<_i101.AppCache>()));
     gh.factory<_i1073.CreateProfileRepository>(
         () => _i1073.CreateProfileRepository(gh<_i981.UserCache>()));
     gh.factory<_i601.SplashRepository>(() => _i601.SplashRepository(
@@ -114,7 +113,11 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i815.UserUseCase(gh<_i414.UserRepository>()));
     gh.factory<_i82.AppRepository>(
         () => _i82.AppRepository(gh<_i101.AppCache>()));
+    gh.factory<_i85.OnboardRepository>(
+        () => _i85.OnboardRepository(gh<_i101.AppCache>()));
     gh.factory<_i8.AppUseCase>(() => _i8.AppUseCase(gh<_i34.AppRepository>()));
+    gh.factory<_i722.UserInfoFormCubit>(
+        () => _i722.UserInfoFormCubit(gh<_i171.CreateProfileUseCase>()));
     gh.factory<_i978.WeightPickerCubit>(() => _i978.WeightPickerCubit(
           gh<_i815.UserUseCase>(),
           gh<_i986.SaveWeightUseCase>(),

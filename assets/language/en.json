@@ -15,6 +15,7 @@
         "cm": "Cm"
     },
     "register": {
+        
         "full_name": "Full Name",
         "birth_of_date": "Birth of Date",
         "complete": "Complete Registration",

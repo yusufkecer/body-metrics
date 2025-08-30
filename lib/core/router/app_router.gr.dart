@@ -15,16 +15,12 @@ part of 'app_router.dart';
 class AvatarPickerView extends PageRouteInfo<AvatarPickerViewArgs> {
   AvatarPickerView({
     Key? key,
-    bool canSkip = true,
     bool isChangeProfile = false,
     List<PageRouteInfo>? children,
   }) : super(
           AvatarPickerView.name,
-          args: AvatarPickerViewArgs(
-            key: key,
-            canSkip: canSkip,
-            isChangeProfile: isChangeProfile,
-          ),
+          args:
+              AvatarPickerViewArgs(key: key, isChangeProfile: isChangeProfile),
           initialChildren: children,
         );
 
@@ -36,44 +32,32 @@ class AvatarPickerView extends PageRouteInfo<AvatarPickerViewArgs> {
       final args = data.argsAs<AvatarPickerViewArgs>(
         orElse: () => const AvatarPickerViewArgs(),
       );
-      return AvatarPicker(
-        key: args.key,
-        isChangeProfile: args.isChangeProfile,
-      );
+      return AvatarPicker(key: args.key, isChangeProfile: args.isChangeProfile);
     },
   );
 }
 
 class AvatarPickerViewArgs {
-  const AvatarPickerViewArgs({
-    this.key,
-    this.canSkip = true,
-    this.isChangeProfile = false,
-  });
+  const AvatarPickerViewArgs({this.key, this.isChangeProfile = false});
 
   final Key? key;
-
-  final bool canSkip;
 
   final bool isChangeProfile;
 
   @override
   String toString() {
-    return 'AvatarPickerViewArgs{key: $key, canSkip: $canSkip, isChangeProfile: $isChangeProfile}';
+    return 'AvatarPickerViewArgs{key: $key, isChangeProfile: $isChangeProfile}';
   }
 
   @override
   bool operator ==(Object other) {
     if (identical(this, other)) return true;
     if (other is! AvatarPickerViewArgs) return false;
-    return key == other.key &&
-        canSkip == other.canSkip &&
-        isChangeProfile == other.isChangeProfile;
+    return key == other.key && isChangeProfile == other.isChangeProfile;
   }
 
   @override
-  int get hashCode =>
-      key.hashCode ^ canSkip.hashCode ^ isChangeProfile.hashCode;
+  int get hashCode => key.hashCode ^ isChangeProfile.hashCode;
 }
 
 /// generated route for
