@@ -16,7 +16,7 @@ final class PickedWidget extends StatelessWidget {
       height: 50,
       width: 50,
       decoration: BoxDecoration(
-        color: ProductColor().white,
+        color: ProductColor.instance.white,
         borderRadius: const ProductRadius.ten(),
       ),
       child: Column(
@@ -27,7 +27,7 @@ final class PickedWidget extends StatelessWidget {
             width: SpaceValues.s.value,
             child: DecoratedBox(
               decoration: BoxDecoration(
-                color: ProductColor().deepPurple,
+                color: ProductColor.instance.deepPurple,
                 borderRadius: const ProductRadius.ten(),
               ),
             ),
@@ -35,7 +35,7 @@ final class PickedWidget extends StatelessWidget {
           Text(
             '$selectedValue',
             style: context.textTheme.titleMedium?.copyWith(
-              color: ProductColor().deepPurple,
+              color: ProductColor.instance.deepPurple,
             ),
           ),
         ],

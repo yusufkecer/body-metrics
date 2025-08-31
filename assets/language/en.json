@@ -15,6 +15,7 @@
         "cm": "Cm"
     },
     "register": {
+        
         "full_name": "Full Name",
         "birth_of_date": "Birth of Date",
         "complete": "Complete Registration",
@@ -67,7 +68,7 @@
         "yearly": "Yearly",
         "monthly": "Monthly",
         "weekly": "Weekly",
-        "hello": "Hello {}",
+        "hello": "Hello",
         "see_more": "See More",
         "bmi": "BMI",
         "weight": "Weight",
@@ -80,31 +81,6 @@
             "change_profile": "Change Profile",
             "add_profile": "Add Profile",
             "calculate_bmi": "Calculate BMI"
-        }
-    },
-    "chart": {
-        "month": {
-            "jan": "Jan",
-            "feb": "Feb",
-            "mar": "Mar",
-            "apr": "Apr",
-            "may": "May",
-            "jun": "Jun",
-            "jul": "Jul",
-            "aug": "Aug",
-            "sep": "Sep",
-            "oct": "Oct",
-            "nov": "Nov",
-            "dec": "Dec"
-        },
-        "week": {
-            "mon": "Mon",
-            "tue": "Tue",
-            "wed": "Wed",
-            "thu": "Thu",
-            "fri": "Fri",
-            "sat": "Sat",
-            "sun": "Sun"
         }
     },
     "change_profile": {

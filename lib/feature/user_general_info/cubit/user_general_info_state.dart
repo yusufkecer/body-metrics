@@ -1,14 +1,26 @@
-import 'package:equatable/equatable.dart';
-import 'package:flutter_bloc/flutter_bloc.dart';
-import 'package:injectable/injectable.dart';
+part of 'user_general_info_cubit.dart';
 
-part 'user_general_info_cubit.dart';
+sealed class UserInfoFormCubitState extends Equatable {
+  const UserInfoFormCubitState({this.isFormEmpty});
 
-@injectable
-class UserInfoFormCubit extends Cubit<UserInfoFOrmCubitState> {
-  UserInfoFormCubit() : super(const UserInfoFormCubitInitial(isFormEmpty: true));
+  final bool? isFormEmpty;
 
-  void setFormEmpty({required bool param}) {
-    emit(UserInfoFormCubitInitial(isFormEmpty: param));
-  }
+  @override
+  List<Object> get props => [isFormEmpty ?? false];
+}
+
+class UserInfoFormCubitInitial extends UserInfoFormCubitState {
+  const UserInfoFormCubitInitial();
+}
+
+class UserInfoFormCubitFormEmpty extends UserInfoFormCubitState {
+  const UserInfoFormCubitFormEmpty({super.isFormEmpty});
+}
+
+class UserInfoFormCubitLoading extends UserInfoFormCubitState {
+  const UserInfoFormCubitLoading();
+}
+
+class UserInfoFormCubitSuccess extends UserInfoFormCubitState {
+  const UserInfoFormCubitSuccess();
 }

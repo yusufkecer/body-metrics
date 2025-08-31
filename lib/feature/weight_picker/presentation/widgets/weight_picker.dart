@@ -22,7 +22,9 @@ final class _WeightPickerWidget extends StatelessWidget {
       child: SizedBox(
         height: context.height * .08,
         child: PageView.builder(
-          physics: isDisabled ? const NeverScrollableScrollPhysics() : const PageScrollPhysics(),
+          physics: isDisabled
+              ? const NeverScrollableScrollPhysics()
+              : const PageScrollPhysics(),
           controller: weightPickerController,
           itemCount: (maxVal - minVal).toInt(),
           pageSnapping: false,
@@ -44,7 +46,7 @@ final class _WeightPickerWidget extends StatelessWidget {
         '$weight',
         style: context.textTheme.headlineMedium?.copyWith(
           fontWeight: isActive ? FontWeight.normal : null,
-          color: ProductColor().white.withAlpha(opacity),
+          color: ProductColor.instance.white.withAlpha(opacity),
           fontSize: fontSize,
         ),
       ),

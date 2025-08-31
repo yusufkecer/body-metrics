@@ -26,8 +26,10 @@ final class _Ruler extends StatelessWidget with HeightCalculate {
           reverse: true,
           pageSnapping: false,
           itemBuilder: (context, index) {
-            final adjustedIndex = calculateIndex(selectedHeight - 1, index, minValue);
-            final selectedCentimeter = isSelectedCentimeter(selectedHeight - 1, adjustedIndex);
+            final adjustedIndex =
+                calculateIndex(selectedHeight - 1, index, minValue);
+            final selectedCentimeter =
+                isSelectedCentimeter(selectedHeight - 1, adjustedIndex);
 
             return Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -38,12 +40,18 @@ final class _Ruler extends StatelessWidget with HeightCalculate {
                   Text(
                     '$adjustedIndex',
                     style: TextStyle(
-                      color: isMultipleOfFive(adjustedIndex) ? ProductColor().white : ProductColor().whiteEightTenths,
-                      fontWeight: isMultipleOfFive(adjustedIndex) ? FontWeight.bold : null,
+                      color: isMultipleOfFive(adjustedIndex)
+                          ? ProductColor.instance.white
+                          : ProductColor.instance.whiteEightTenths,
+                      fontWeight: isMultipleOfFive(adjustedIndex)
+                          ? FontWeight.bold
+                          : null,
                     ),
                   ),
                 Container(
-                  color: isMultipleOfFive(adjustedIndex) ? ProductColor().white : ProductColor().whiteEightTenths,
+                  color: isMultipleOfFive(adjustedIndex)
+                      ? ProductColor.instance.white
+                      : ProductColor.instance.whiteEightTenths,
                   height: 2,
                   width: isMultipleOfFive(adjustedIndex) ? 15 : 10,
                 ),

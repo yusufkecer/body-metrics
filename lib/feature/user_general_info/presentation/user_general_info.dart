@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/feature/user_general_info/cubit/user_general_info_state.dart';
-import 'package:bodymetrics/feature/user_general_info/domain/index.dart';
+import 'package:bodymetrics/feature/user_general_info/cubit/user_general_info_cubit.dart';
 
 import 'package:bodymetrics/injection/locator.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -12,7 +11,7 @@ part 'user_general_info_model.dart';
 
 @RoutePage(name: 'UserGeneralInfoView')
 @immutable
-final class UserGeneralInfo extends StatefulWidget {
+final class UserGeneralInfo extends StatelessWidget {
   const UserGeneralInfo({
     required this.avatar,
     super.key,
@@ -21,25 +20,21 @@ final class UserGeneralInfo extends StatefulWidget {
   final String avatar;
 
   @override
-  State<UserGeneralInfo> createState() => _UserGeneralInfoState();
-}
-
-class _UserGeneralInfoState extends State<UserGeneralInfo> {
-  @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (_) => Locator.sl<UserInfoFormCubit>(),
-      child: GradientScaffold(
-        appBar: const CustomAppBar(
-          title: LocaleKeys.register_complete,
-        ),
-        body: _UserInfoFormBody(avatar: widget.avatar),
+    return GradientScaffold(
+      appBar: const CustomAppBar(
+        title: LocaleKeys.register_complete,
+      ),
+      body: BlocProvider(
+        create: (_) => Locator.sl<UserInfoFormCubit>(),
+        child: _UserInfoFormBody(avatar: avatar),
       ),
     );
   }
 }
 
-class _UserInfoFormBody extends StatefulWidget {
+@immutable
+final class _UserInfoFormBody extends StatefulWidget {
   const _UserInfoFormBody({
     required this.avatar,
   });
@@ -51,7 +46,7 @@ class _UserInfoFormBody extends StatefulWidget {
 }
 
 class _UserInfoFormBodyState extends State<_UserInfoFormBody>
-    with DialogUtil, SaveAppMixin, UserGeneralInfoModel {
+    with DialogUtil, SaveAppMixin, _UserGeneralInfoModel {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(

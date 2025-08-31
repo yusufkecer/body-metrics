@@ -1,6 +1,6 @@
 part of 'splash.dart';
 
-mixin _SplashModel on State<Splash>, DialogUtil {
+mixin _SplashModel on State<Splash>, DialogUtil<Splash> {
   late final SplashUseCase _splashUseCase = Locator.sl<SplashUseCase>();
   late final ImpCache _impCache = Locator.sl<ImpCache>();
 

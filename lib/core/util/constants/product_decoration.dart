@@ -6,17 +6,17 @@ final class ProductDecoration extends BoxDecoration {
   ProductDecoration.inputDecoration()
       : super(
           gradient: LinearGradient(
-            colors: ProductColor().backgroundColorList.reversed.toList(),
+            colors: ProductColor.instance.backgroundColorList.reversed.toList(),
           ),
           boxShadow: [
             BoxShadow(
-              color: ProductColor().white,
+              color: ProductColor.instance.white,
               blurRadius: 4,
               spreadRadius: 1,
             ),
           ],
           border: Border.all(
-            color: ProductColor().white,
+            color: ProductColor.instance.white,
           ),
           borderRadius: const ProductRadius.ten(),
         );
@@ -25,7 +25,7 @@ final class ProductDecoration extends BoxDecoration {
       : super(
           border: Border.all(
             width: 2,
-            color: ProductColor().white,
+            color: ProductColor.instance.white,
           ),
           borderRadius: BorderRadius.circular(10),
         );

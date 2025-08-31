@@ -17,6 +17,7 @@ final class _DataList extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final metrics = userMetrics!.userMetrics;
+    // ignore: unused_local_variable FIXME:
     final statusIcon = metrics?.first.statusIcon;
 
     return HomeCard(
@@ -35,7 +36,7 @@ final class _DataList extends StatelessWidget {
             return DecoratedBox(
               decoration: BoxDecoration(
                 border: Border.all(
-                  color: ProductColor().white,
+                  color: ProductColor.instance.white,
                 ),
                 borderRadius: const ProductRadius.ten(),
               ),
@@ -49,13 +50,14 @@ final class _DataList extends StatelessWidget {
                       children: [
                         CustomRichText(
                           icon: ProductIcon.weight.icon,
-                          title: '${LocaleKeys.home_weight}:',
+                          title: LocaleKeys.home_weight,
                           subTitle: metrics![index].weight.toString(),
                         ),
                         CustomRichText(
                           icon: ProductIcon.userCheck.icon,
-                          title: '${LocaleKeys.home_situation}:',
-                          subTitle: metrics[index].userMetric?.result ?? '',
+                          title: LocaleKeys.home_situation,
+                          subTitle:
+                              metrics[index].userMetric?.result.tr() ?? '',
                         ),
                       ],
                     ),
@@ -64,21 +66,18 @@ final class _DataList extends StatelessWidget {
                       children: [
                         CustomRichText(
                           icon: ProductIcon.chart.icon,
-                          title: '${LocaleKeys.home_bmi}:',
+                          title: LocaleKeys.home_bmi,
                           subTitle: metrics[index].bmi.toString(),
                         ),
                         CustomRichText(
                           icon: ProductIcon.calendar.icon,
-                          title: '${LocaleKeys.home_date}:',
+                          title: LocaleKeys.home_date,
                           subTitle: metrics[index].date ?? '',
                         ),
                       ],
                     ),
                     CustomRichText(
-                      icon: IconData(
-                        statusIcon!.codePoint,
-                        fontFamily: statusIcon.fontFamily,
-                      ),
+                      icon: ProductIcon.calendar.icon,
                       title: LocaleKeys.home_weight_change,
                       subTitle: metrics[index].weightDiff.toString(),
                     ),

@@ -16,7 +16,7 @@ final class _WeightIndicator extends StatelessWidget {
   Widget build(BuildContext context) {
     return CircleAvatar(
       radius: 60,
-      backgroundColor: ProductColor().white,
+      backgroundColor: ProductColor.instance.white,
       child: Column(
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
@@ -36,7 +36,7 @@ final class _WeightIndicator extends StatelessWidget {
               ),
               textAlign: TextAlign.center,
               style: context.textTheme.displaySmall!.copyWith(
-                color: ProductColor().seedColor,
+                color: ProductColor.instance.seedColor,
                 fontWeight: FontWeight.bold,
               ),
             ),
@@ -45,7 +45,7 @@ final class _WeightIndicator extends StatelessWidget {
             LocaleKeys.weight_kg.tr(),
             textAlign: TextAlign.center,
             style: context.textTheme.titleLarge!.copyWith(
-              color: ProductColor().seedColor,
+              color: ProductColor.instance.seedColor,
               fontWeight: FontWeight.bold,
             ),
           ),

@@ -1,9 +1,8 @@
 import 'package:bodymetrics/core/index.dart';
 
-import 'package:bodymetrics/injection/locator.dart';
 import 'package:flutter/material.dart';
 
-mixin DialogUtil {
+mixin DialogUtil<T extends StatefulWidget> on State<T> {
   void loadingDialog() {
     showDialog<void>(
       context: context,
@@ -50,13 +49,5 @@ mixin DialogUtil {
         );
       },
     );
-  }
-
-  BuildContext get context {
-    final context = Locator.sl<AppRouter>().navigatorKey.currentContext;
-    if (context == null) {
-      throw Exception('Context not found');
-    }
-    return context;
   }
 }

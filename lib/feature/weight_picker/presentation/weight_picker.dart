@@ -47,7 +47,8 @@ final class _WeightPickerBody extends StatefulWidget {
   State<_WeightPickerBody> createState() => __WeightPickerBodyState();
 }
 
-class __WeightPickerBodyState extends State<_WeightPickerBody> with DialogUtil, _WeightPickerModel {
+class __WeightPickerBodyState extends State<_WeightPickerBody>
+    with DialogUtil, _WeightPickerModel {
   @override
   Widget build(BuildContext context) {
     return Center(
@@ -62,7 +63,7 @@ class __WeightPickerBodyState extends State<_WeightPickerBody> with DialogUtil, 
                   width: context.weightIndicatorWidth,
                   padding: ProductPadding.ten(),
                   decoration: BoxDecoration(
-                    color: ProductColor().seedColor,
+                    color: ProductColor.instance.seedColor,
                     borderRadius: const ProductRadius.ten(),
                   ),
                   child: Column(
@@ -70,7 +71,8 @@ class __WeightPickerBodyState extends State<_WeightPickerBody> with DialogUtil, 
                     children: [
                       _WeightIndicator(
                         weightTextController: _weightTextController,
-                        fieldFocus: ({bool? value}) => _fieldFocus(value ?? false),
+                        fieldFocus: ({bool? value}) =>
+                            _fieldFocus(value ?? false),
                         textFieldChange: _textFieldChange,
                       ),
                       _WeightPickerWidget(

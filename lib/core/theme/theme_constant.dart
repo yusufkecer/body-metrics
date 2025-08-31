@@ -9,6 +9,6 @@ final class ThemeConstants {
   static const homeCardSize = 0.38;
 
   static final ButtonStyle datePickerButton = TextButton.styleFrom(
-    foregroundColor: ProductColor().white,
+    foregroundColor: ProductColor.instance.white,
   );
 }

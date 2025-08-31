@@ -1,22 +1,26 @@
-part of 'user_general_info_state.dart';
+import 'package:bodymetrics/core/index.dart';
+import 'package:bodymetrics/feature/user_general_info/domain/index.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
 
-sealed class UserInfoFOrmCubitState extends Equatable {
-  const UserInfoFOrmCubitState({this.isFormEmpty});
+part 'user_general_info_state.dart';
 
-  final bool? isFormEmpty;
+@injectable
+class UserInfoFormCubit extends Cubit<UserInfoFormCubitState> {
+  UserInfoFormCubit(this._createProfileUseCase)
+      : super(const UserInfoFormCubitFormEmpty(isFormEmpty: true));
 
-  @override
-  List<Object> get props => [isFormEmpty ?? false];
-}
+  final CreateProfileUseCase _createProfileUseCase;
 
-class UserInfoFormCubitInitial extends UserInfoFOrmCubitState {
-  const UserInfoFormCubitInitial({super.isFormEmpty});
-}
+  void setFormEmpty({required bool param}) {
+    emit(UserInfoFormCubitFormEmpty(isFormEmpty: param));
+  }
 
-class UserInfoFormCubitLoading extends UserInfoFOrmCubitState {
-  const UserInfoFormCubitLoading({super.isFormEmpty});
-}
-
-class UserInfoFormCubitSuccess extends UserInfoFOrmCubitState {
-  const UserInfoFormCubitSuccess({super.isFormEmpty});
+  Future<bool?> createProfile(User user) async {
+    emit(const UserInfoFormCubitLoading());
+    final result = await _createProfileUseCase.executeWithParams(user);
+    emit(const UserInfoFormCubitSuccess());
+    return result;
+  }
 }

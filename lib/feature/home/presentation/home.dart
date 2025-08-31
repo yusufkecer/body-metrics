@@ -34,45 +34,48 @@ class _HomeState extends State<Home>
       create: (context) => Locator.sl<UserCubit>(),
       child: Builder(
         builder: (context) {
-          final userState = context.read<UserCubit>().state;
-          return userState is UserLoading
-              ? const LoadingLottie()
-              : BlocBuilder<UserCubit, UserState>(
-                  builder: (context, state) {
-                    return CustomDrawer(
-                      zoomDrawerController: _zoomDrawerController,
-                      borderRadius: 25,
-                      menuBackgroundColor: ProductColor().seedColor,
-                      menuScreen: _MenuView(
-                        userState.user?.name ?? '',
-                        userState.user?.avatar ?? '',
-                      ),
-                      mainScreen: GradientScaffold(
-                        appBar: CustomAppBar(
-                          leading: IconButton(
-                            onPressed: () {
-                              _zoomDrawerController.toggle!();
-                            },
-                            icon: const Icon(Icons.menu),
+          return BlocBuilder<UserCubit, UserState>(
+            builder: (context, state) {
+              return state is UserLoading
+                  ? const LoadingLottie()
+                  : BlocBuilder<UserCubit, UserState>(
+                      builder: (context, state) {
+                        return CustomDrawer(
+                          zoomDrawerController: _zoomDrawerController,
+                          borderRadius: 25,
+                          menuBackgroundColor: ProductColor.instance.seedColor,
+                          menuScreen: _MenuView(
+                            state.user?.name ?? '',
+                            state.user?.avatar ?? '',
                           ),
-                          title: LocaleKeys.home_hello
-                              .tr(args: [userState.user?.name ?? '']),
-                        ),
-                        body: _HomeBody(
-                          dataListOnPressed: _dataListOnPressed,
-                          chartOnPressed: _chartOnPressed,
-                          spots: _spots,
-                          leftTitles: _leftTitles,
-                          bottomTitle: _bottomTitle,
-                          expandedCard: _expandedCard,
-                          animatedListController: _animatedListController,
-                          animatedChartController: _animatedChartController,
-                          userMetrics: _userMetrics,
-                        ),
-                      ),
+                          mainScreen: GradientScaffold(
+                            appBar: CustomAppBar(
+                              leading: IconButton(
+                                onPressed: () {
+                                  _zoomDrawerController.toggle!();
+                                },
+                                icon: const Icon(Icons.menu),
+                              ),
+                              title: LocaleKeys.home_hello
+                                  .tr(args: [state.user?.name ?? '']),
+                            ),
+                            body: _HomeBody(
+                              dataListOnPressed: _dataListOnPressed,
+                              chartOnPressed: _chartOnPressed,
+                              spots: _spots,
+                              leftTitles: _leftTitles,
+                              bottomTitle: const [],
+                              expandedCard: _expandedCard,
+                              animatedListController: _animatedListController,
+                              animatedChartController: _animatedChartController,
+                              userMetrics: _userMetrics,
+                            ),
+                          ),
+                        );
+                      },
                     );
-                  },
-                );
+            },
+          );
         },
       ),
     );

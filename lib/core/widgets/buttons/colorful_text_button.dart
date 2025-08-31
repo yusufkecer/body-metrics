@@ -28,7 +28,7 @@ final class ColorfulTextButton extends StatelessWidget {
           ColorizeAnimatedText(
             text.tr(),
             speed: speed,
-            colors: colors ?? ProductColor().colorfulList,
+            colors: colors ?? ProductColor.instance.colorfulList,
             textStyle: context.textTheme.titleMedium!,
           ),
         ],

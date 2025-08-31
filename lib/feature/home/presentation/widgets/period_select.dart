@@ -54,8 +54,8 @@
 
 //   @override
 //   Widget build(BuildContext context) {
-//     final white = ProductColor().white;
-//     final deepPurple = ProductColor().deepPurple;
+//     final white = ProductColor.instance.white;
+//     final deepPurple = ProductColor.instance.deepPurple;
 
 //     return ChipButton(
 //       isSelected: isSelected,

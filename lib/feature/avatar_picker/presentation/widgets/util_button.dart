@@ -14,7 +14,7 @@
 //       height: context.width * .35,
 //       child: ClipOval(
 //         child: Material(
-//           color: ProductColor().seedColor,
+//           color: ProductColor.instance.seedColor,
 //           child: InkWell(
 //             onTap: onPressed,
 //             child: SizedBox(
@@ -23,7 +23,7 @@
 //               child: Icon(
 //                 icon,
 //                 size: 30,
-//                 color: ProductColor().white,
+//                 color: ProductColor.instance.white,
 //               ),
 //             ),
 //           ),

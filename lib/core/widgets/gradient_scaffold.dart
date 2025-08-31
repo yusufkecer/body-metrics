@@ -12,7 +12,7 @@ final class GradientScaffold extends Scaffold {
               gradient: LinearGradient(
                 begin: Alignment.topCenter,
                 end: Alignment.bottomCenter,
-                colors: ProductColor().backgroundColorList,
+                colors: ProductColor.instance.backgroundColorList,
               ),
             ),
             child: body,

@@ -24,14 +24,15 @@ final class CustomDrawer extends StatelessWidget {
     return ZoomDrawer(
       controller: zoomDrawerController,
       borderRadius: borderRadius ?? 25,
-      menuBackgroundColor: menuBackgroundColor ?? ProductColor().seedColor,
+      menuBackgroundColor:
+          menuBackgroundColor ?? ProductColor.instance.seedColor,
       openCurve: Curves.fastOutSlowIn,
       slideWidth: MediaQuery.of(context).size.width * 0.6,
       duration: Durations.short4,
       menuScreenTapClose: true,
       mainScreenTapClose: true,
-      shadowLayer2Color: ProductColor().blue,
-      shadowLayer1Color: ProductColor().drawerBg2,
+      shadowLayer2Color: ProductColor.instance.blue,
+      shadowLayer1Color: ProductColor.instance.drawerBg2,
       menuScreen: menuScreen,
       mainScreen: mainScreen,
     );

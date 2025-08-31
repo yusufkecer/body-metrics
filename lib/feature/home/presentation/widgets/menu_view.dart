@@ -20,7 +20,8 @@ final class _MenuView extends StatelessWidget {
                 child: Column(
                   children: [
                     CircleAvatar(
-                      backgroundImage: AssetImage(image),
+                      backgroundImage:
+                          image.isNotEmpty ? AssetImage(image) : null,
                       radius: 50,
                     ),
                     VerticalSpace.s(),
@@ -34,6 +35,11 @@ final class _MenuView extends StatelessWidget {
               ),
               Column(
                 children: [
+                  CustomListTile(
+                    ProductIcon.weight.icon,
+                    LocaleKeys.home_menu_calculate_bmi,
+                    () {},
+                  ),
                   VerticalSpace.s(),
                   CustomListTile(
                     ProductIcon.user.icon,
@@ -47,11 +53,6 @@ final class _MenuView extends StatelessWidget {
                     () {},
                   ),
                   VerticalSpace.s(),
-                  CustomListTile(
-                    ProductIcon.weight.icon,
-                    LocaleKeys.home_menu_calculate_bmi,
-                    () {},
-                  ),
                 ],
               ),
             ],

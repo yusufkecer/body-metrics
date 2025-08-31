@@ -2,6 +2,12 @@ import 'package:flutter/material.dart';
 
 @immutable
 final class ProductColor {
+  ProductColor._init();
+
+  static final ProductColor _instance = ProductColor._init();
+
+  static ProductColor get instance => _instance;
+
   final Color _seedColor = Colors.deepPurple;
   final Color _seedFourTenths = Colors.deepPurple.withAlpha(102);
 

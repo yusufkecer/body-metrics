@@ -26,58 +26,54 @@ class HomeCard extends StatelessWidget {
     return SizeTransition(
       sizeFactor: animationController,
       child: AnimatedSize(
-        duration: const Duration(milliseconds: 500),
+        duration: Durations.medium1,
         child: Card(
           child: Padding(
-            padding: ProductPadding.ten(),
-            child: Padding(
-              padding: ProductPadding.four().copyWith(top: 0, bottom: 0),
-              child: Column(
-                children: [
-                  Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      SizedBox(
-                        width: const CustomSize.dashboardTitle().width,
-                        child: Align(
-                          alignment: Alignment.topLeft,
-                          child: Icon(
-                            icon,
-                          ),
+            padding: const ProductPadding.fifTeen().copyWith(top: 0, bottom: 0),
+            child: Column(
+              children: [
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    SizedBox(
+                      width: const CustomSize.dashboardTitle().width,
+                      child: Align(
+                        alignment: Alignment.topLeft,
+                        child: Icon(
+                          icon,
                         ),
                       ),
-                      Center(
-                        child: Text(
-                          title.tr(),
-                          style: context.textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.bold,
-                          ),
+                    ),
+                    Center(
+                      child: Text(
+                        title.tr(),
+                        style: context.textTheme.titleMedium?.copyWith(
+                          fontWeight: FontWeight.bold,
                         ),
                       ),
-                      SizedBox(
-                        width: const CustomSize.dashboardTitle().width,
-                        child: Align(
-                          alignment: Alignment.topRight,
-                          child: TextButton(
-                            onPressed: onPressed,
-                            style: TextButton.styleFrom(
-                              padding: EdgeInsets.zero,
-                            ),
-                            child: Text(
-                              buttonTitle.tr(),
-                              style: context.textTheme.titleMedium?.copyWith(
-                                color: ProductColor().white,
-                              ),
+                    ),
+                    SizedBox(
+                      width: const CustomSize.dashboardTitle().width,
+                      child: Align(
+                        alignment: Alignment.topRight,
+                        child: TextButton(
+                          onPressed: onPressed,
+                          style: TextButton.styleFrom(
+                            padding: EdgeInsets.zero,
+                          ),
+                          child: Text(
+                            buttonTitle.tr(),
+                            style: context.textTheme.titleMedium?.copyWith(
+                              color: ProductColor.instance.white,
                             ),
                           ),
                         ),
                       ),
-                    ],
-                  ),
-                  ...children,
-                  VerticalSpace.s(),
-                ],
-              ),
+                    ),
+                  ],
+                ),
+                ...children,
+              ],
             ),
           ),
         ),

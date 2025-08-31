@@ -18,6 +18,7 @@ enum ProductIcon {
   chart(FontAwesomeIcons.chartLine),
   userCheck(FontAwesomeIcons.userCheck),
   diff(FontAwesomeIcons.codeCompare),
+  arrowUp(FontAwesomeIcons.arrowUp),
   ;
 
   final IconData icon;

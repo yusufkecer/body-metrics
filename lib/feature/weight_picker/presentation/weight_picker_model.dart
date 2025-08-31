@@ -1,6 +1,6 @@
 part of 'weight_picker.dart';
 
-mixin _WeightPickerModel on State<_WeightPickerBody>, DialogUtil {
+mixin _WeightPickerModel on State<_WeightPickerBody>, DialogUtil<_WeightPickerBody> {
   late final PageController _weightController;
   late final PageController _decimalWeightController;
   final TextEditingController _weightTextController = TextEditingController();
