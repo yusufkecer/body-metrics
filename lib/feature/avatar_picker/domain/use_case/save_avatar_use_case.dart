@@ -6,17 +6,18 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-class SaveAvatarUseCase implements BaseUseCase<bool, int, UserFilters> {
+class SaveAvatarUseCase implements BaseUseCase<int, UserFilters> {
   const SaveAvatarUseCase(this._useCase);
   final SaveAvatarRepository _useCase;
-  @override
-  Future<bool?> execute() {
-    throw UnimplementedError();
-  }
 
   @override
-  Future<int?> executeWithParams(UserFilters params) async {
-    final result = await _useCase.executeWithParams(params);
+  Future<int?> executeWithParams({UserFilters? params}) async {
+    if (params == null) throw ArgumentError.notNull();
+
+    final result = await _useCase.executeWithParams(params: params);
+
+    if (result == 0) return null;
+
     return result;
   }
 }

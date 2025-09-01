@@ -1,7 +1,9 @@
 part of 'splash.dart';
 
 mixin _SplashModel on State<Splash>, DialogUtil<Splash> {
-  late final SplashUseCase _splashUseCase = Locator.sl<SplashUseCase>();
+  late final SplashAppUseCase _splashAppUseCase = Locator.sl<SplashAppUseCase>();
+  late final SplashUserUseCase _splashUserUseCase = Locator.sl<SplashUserUseCase>();
+
   late final ImpCache _impCache = Locator.sl<ImpCache>();
 
   @override
@@ -16,7 +18,7 @@ mixin _SplashModel on State<Splash>, DialogUtil<Splash> {
 
     if (!mounted) return;
 
-    final result = await _splashUseCase.execute();
+    final result = await _splashAppUseCase.executeWithParams();
     'page result ${result?.page}'.log();
 
     _setAppState(result);
@@ -56,6 +58,7 @@ mixin _SplashModel on State<Splash>, DialogUtil<Splash> {
   }
 
   void _setAppState(AppModel? result) {
+    'currentUserId ${jsonEncode(result)}'.log();
     AppUtil.currentUserId = result?.activeUser;
     AppUtil.lastPage = result?.page;
   }
@@ -109,7 +112,7 @@ mixin _SplashModel on State<Splash>, DialogUtil<Splash> {
       columns: [UserCacheColumns.avatar.value],
       filters: {UserCacheColumns.id.value: AppUtil.currentUserId},
     );
-    return _splashUseCase.executeWithParams(params);
+    return _splashUserUseCase.executeWithParams(params: params);
   }
 
   Future<User?> _getUserWithGender() async {
@@ -117,7 +120,7 @@ mixin _SplashModel on State<Splash>, DialogUtil<Splash> {
       columns: [UserCacheColumns.gender.value],
       filters: {UserCacheColumns.id.value: AppUtil.currentUserId},
     );
-    return _splashUseCase.executeWithParams(params);
+    return _splashUserUseCase.executeWithParams(params: params);
   }
 
   void _pushNewView(PageRouteInfo arguments) {

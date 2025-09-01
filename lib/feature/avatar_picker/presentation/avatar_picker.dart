@@ -1,8 +1,9 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/domain/index.dart';
+import 'package:bodymetrics/domain/use_case/save_app_use_case.dart';
 import 'package:bodymetrics/feature/avatar_picker/domain/use_case/save_avatar_use_case.dart';
-import 'package:bodymetrics/feature/home/domain/use_case/user_use_case.dart';
+import 'package:bodymetrics/feature/home/domain/use_case/users_use_case.dart';
 import 'package:bodymetrics/injection/locator.dart';
 
 import 'package:flutter/material.dart';

@@ -1,7 +1,6 @@
 part of 'avatar_picker.dart';
 
-mixin _AvatarPickerModel
-    on State<AvatarPicker>, DialogUtil<AvatarPicker>, SaveAppMixin {
+mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil<AvatarPicker>, SaveAppMixin {
   final List<String> avatarList = AssetValue.values.profileImageList;
   late final List<User>? userList;
 
@@ -15,17 +14,15 @@ mixin _AvatarPickerModel
   }
 
   Future<void> _getAllUsers() async {
-    final locator = Locator.sl<UserUseCase>();
+    final usersUseCase = Locator.sl<UsersUseCase>();
 
-    final users = await locator.execute();
+    final users = await usersUseCase.executeWithParams();
 
-    if (users.isNotNull) {
+    if (users == null) {
       showLottieError(LocaleKeys.register_avatar_select_failed);
     }
 
-    setState(() {
-      userList = users!.users ?? [];
-    });
+    userList = users!.users ?? [];
   }
 
   Future<void> _addNewProfile(int index) async {
@@ -34,13 +31,19 @@ mixin _AvatarPickerModel
     );
 
     final avatarUseCase = Locator.sl<SaveAvatarUseCase>();
-    final insertId = await avatarUseCase.executeWithParams(user);
+    final insertId = await avatarUseCase.executeWithParams(params: user);
 
     if (insertId == null) {
       showLottieError(LocaleKeys.register_avatar_select_failed);
-      return;
+      if (!mounted) return;
+
+      await context.router.pushAndPopUntil(
+        const HomeView(),
+        predicate: (route) => false,
+      );
     }
-    AppUtil.currentUserId = insertId;
+
+    await Locator.sl<SetIdUseCase>().executeWithParams(params: insertId);
 
     final appModel = AppModel(
       activeUser: insertId,
@@ -62,7 +65,7 @@ mixin _AvatarPickerModel
   }
 
   Future<bool?> _changeProfile(int userId) async {
-    AppUtil.currentUserId = userId;
+    await Locator.sl<SetIdUseCase>().executeWithParams(params: userId);
 
     final appModel = AppModel(
       activeUser: userId,
@@ -84,9 +87,9 @@ mixin _AvatarPickerModel
   }
 
   Future<bool?> _setValues(AppModel model) async {
-    final locator = Locator.sl<AppUseCase>();
+    final saveAppUseCase = Locator.sl<SaveAppUseCase>();
 
-    final result = await locator.executeWithParams(model);
+    final result = await saveAppUseCase.executeWithParams(params: model);
 
     return result;
   }

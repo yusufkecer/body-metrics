@@ -22,16 +22,27 @@ class User extends Equatable implements BaseModel<User> {
   @override
   factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
 
-  const User.copyWith({
-    this.height,
-    this.id,
-    this.surname,
-    this.avatar,
-    this.name,
-    this.gender,
-    this.userMetrics,
-    this.birthOfDate,
-  });
+  User copyWith({
+    String? name,
+    String? surname,
+    String? avatar,
+    int? id,
+    GenderValue? gender,
+    double? height,
+    UserMetric? userMetrics,
+    String? birthOfDate,
+  }) {
+    return User(
+      id: id ?? this.id,
+      name: name ?? this.name ?? '',
+      surname: surname ?? this.surname ?? '',
+      avatar: avatar ?? this.avatar ?? '',
+      gender: gender ?? this.gender,
+      height: height ?? this.height,
+      userMetrics: userMetrics ?? this.userMetrics,
+      birthOfDate: birthOfDate ?? this.birthOfDate,
+    );
+  }
 
   @override
   List<Object?> get props => [name, gender, userMetrics, id, birthOfDate, surname];

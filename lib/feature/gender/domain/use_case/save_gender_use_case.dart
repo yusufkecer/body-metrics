@@ -5,19 +5,16 @@ import 'package:injectable/injectable.dart';
 
 @immutable
 @injectable
-class SaveGenderUseCase implements BaseUseCase<bool, bool, GenderValue> {
+class SaveGenderUseCase implements BaseUseCase<bool, GenderValue> {
   const SaveGenderUseCase(this._repository);
   final SaveGenderRepository _repository;
 
   @override
-  Future<bool?> execute() {
-    throw UnimplementedError();
-  }
+  Future<bool?> executeWithParams({GenderValue? params}) async {
+    if (params == null) throw ArgumentError.notNull();
 
-  @override
-  Future<bool?> executeWithParams(GenderValue gender) async {
-    final user = User(gender: gender).toJson();
-    final result = await _repository.executeWithParams(user);
+    final user = User(gender: params).toJson();
+    final result = await _repository.executeWithParams(params: user);
     return result?.convertBoolResult;
   }
 }

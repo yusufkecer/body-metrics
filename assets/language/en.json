@@ -7,7 +7,8 @@
         "gender_name": "Gender",
         "select_gender": "Select Your Gender",
         "fm": "Female",
-        "ml": "Male"
+        "ml": "Male",
+        "gender_is_null": "Gender is not selected. Please select a gender."
     },
     "height": {
         "height_name": "Height",

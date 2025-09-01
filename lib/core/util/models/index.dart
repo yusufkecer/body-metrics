@@ -1,3 +1,4 @@
+export 'package:bodymetrics/core/util/empty_model.dart';
 export 'package:bodymetrics/core/util/models/app_model/app_model.dart';
 export 'package:bodymetrics/core/util/models/icon_data/icon_data.dart';
 export 'package:bodymetrics/core/util/models/user/user.dart';

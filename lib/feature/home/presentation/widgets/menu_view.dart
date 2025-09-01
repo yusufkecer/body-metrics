@@ -2,9 +2,10 @@ part of '../home.dart';
 
 @immutable
 final class _MenuView extends StatelessWidget {
-  const _MenuView(this.name, this.image);
+  const _MenuView(this.name, this.surname, this.image);
 
   final String name;
+  final String surname;
   final String image;
 
   @override

@@ -17,7 +17,7 @@ final class OnboardCubit extends Cubit<OnboardState> {
   }
 
   Future<bool> done(AppModel entity) async {
-    final result = await _useCase.executeWithParams(entity);
+    final result = await _useCase.executeWithParams(params: entity);
     return result ?? false;
   }
 }

@@ -6,17 +6,13 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class SaveWeightUseCase implements BaseUseCase<int, bool, UserMetricEntity> {
+final class SaveWeightUseCase implements BaseUseCase<bool, UserMetricEntity> {
   const SaveWeightUseCase(this._repository);
   final SaveWeightRepository _repository;
-  @override
-  Future<int?>? execute() {
-    throw UnimplementedError();
-  }
 
   @override
-  Future<bool> executeWithParams(UserMetricEntity params) async {
-    final result = await _repository.executeWithParams(params);
+  Future<bool> executeWithParams({UserMetricEntity? params}) async {
+    final result = await _repository.executeWithParams(params: params);
 
     return result?.convertBoolResult ?? false;
   }

@@ -7,7 +7,8 @@
         "gender_name": "Cinsiyet",
         "select_gender": "Cinsiyetinizi Seçin",
         "fm": "Kadın",
-        "ml": "Erkek"
+        "ml": "Erkek",
+        "gender_is_null": "Cinsiyet seçilmedi. Lütfen cinsiyet seçin."
     },
     "height": {
         "height_name": "Boy",

@@ -6,22 +6,26 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class UserUseCase implements BaseUseCase<Users, User, ParamsEntity> {
+final class UserUseCase implements BaseUseCase<User, ParamsEntity> {
   const UserUseCase(this._userRepository);
   final UserRepository _userRepository;
 
-  @override
-  Future<Users?> execute() async {
-    final user = await _userRepository.execute();
+  // @override
+  // Future<Users?> execute() async {
+  //   final user = await _userRepository.execute();
 
-    return user;
-  }
+  //   return user;
+  // }
 
   @override
-  Future<User?> executeWithParams(ParamsEntity params) async {
+  Future<User?> executeWithParams({ParamsEntity? params}) async {
+    if (params == null) throw ArgumentError.notNull();
+
     final filters = params.filters;
 
-    final user = await _userRepository.executeWithParams(filters!);
+    if (filters == null) throw ArgumentError.notNull();
+
+    final user = await _userRepository.executeWithParams(params: filters);
     'user $user'.log();
 
     if (user.isNullOrEmpty || user!.users!.isEmpty) return null;

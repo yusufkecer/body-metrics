@@ -5,9 +5,10 @@ import 'package:lottie/lottie.dart';
 
 @immutable
 final class CustomError extends StatelessWidget {
-  const CustomError({this.text, super.key});
+  const CustomError({this.text, this.message, super.key});
 
   final String? text;
+  final String? message;
 
   @override
   Widget build(BuildContext context) {
@@ -19,7 +20,7 @@ final class CustomError extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                text ?? '404',
+                text ?? message ?? '',
                 style: context.textTheme.displayLarge?.copyWith(
                   fontWeight: FontWeight.w500,
                 ),
