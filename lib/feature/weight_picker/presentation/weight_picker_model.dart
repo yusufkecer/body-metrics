@@ -1,6 +1,7 @@
 part of 'weight_picker.dart';
 
-mixin _WeightPickerModel on State<_WeightPickerBody>, DialogUtil<_WeightPickerBody> {
+mixin _WeightPickerModel
+    on State<_WeightPickerBody>, DialogUtil<_WeightPickerBody> {
   late final PageController _weightController;
   late final PageController _decimalWeightController;
   final TextEditingController _weightTextController = TextEditingController();
@@ -19,7 +20,7 @@ mixin _WeightPickerModel on State<_WeightPickerBody>, DialogUtil<_WeightPickerBo
   void initState() {
     super.initState();
 
-    _weightTextController.text = '$_selectedWeight';
+    _weightTextController.text = _selectedWeight.toString();
     _weightController = PageController(
       initialPage: _selectedWeight - _minWeight.toInt(),
       viewportFraction: 0.20,
@@ -51,7 +52,7 @@ mixin _WeightPickerModel on State<_WeightPickerBody>, DialogUtil<_WeightPickerBo
     if (position != _selectedWeight) {
       setState(() {
         _selectedWeight = position + _minWeight.toInt();
-        trackAndSetWeight();
+        _trackAndSetWeight();
       });
     }
   }
@@ -61,12 +62,12 @@ mixin _WeightPickerModel on State<_WeightPickerBody>, DialogUtil<_WeightPickerBo
     if (position != _selectedDecimalWeight) {
       setState(() {
         _selectedDecimalWeight = position.round();
-        trackAndSetWeight();
+        _trackAndSetWeight();
       });
     }
   }
 
-  void trackAndSetWeight() {
+  void _trackAndSetWeight() {
     if (_selectedDecimalWeight > 0) {
       _weightTextController.text = '$_selectedWeight.$_selectedDecimalWeight';
       return;

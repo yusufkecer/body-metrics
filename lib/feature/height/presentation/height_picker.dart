@@ -7,8 +7,8 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 import 'package:lottie/lottie.dart';
 
-part 'cubit/height_picker_cubit.dart';
-part 'cubit/height_picker_state.dart';
+part 'cubit/height_selector_cubit/height_picker_cubit.dart';
+part 'cubit/height_selector_cubit/height_picker_state.dart';
 part 'height_picker_model.dart';
 part 'widgets/ruler.dart';
 

@@ -15,7 +15,8 @@
         "cm": "Cm"
     },
     "register": {
-        "full_name": "İsim Soyisim",
+        "name": "İsim",
+        "surname": "Soyisim",
         "birth_of_date": "Doğum Tarihi",
         "complete": "Kaydını Tamamla",
         "skip": "Atla",

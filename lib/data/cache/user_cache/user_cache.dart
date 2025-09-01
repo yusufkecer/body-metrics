@@ -38,17 +38,21 @@ final class UserCache extends ImpCache
       'Database is null'.w();
       return 0;
     }
-    final result = await db.insert(table, value);
 
-    await closeDb();
+    final result1 = await db.query(table);
+    'result $result1'.log();
+    // final result = await db.insert(table, value);
+    // 'result $result'.log();
+    // await closeDb();
 
-    if (result > 0) {
-      'User inserted'.log();
-      return 1;
-    } else {
-      'User not inserted'.w();
-      return 0;
-    }
+    // if (result > 0) {
+    //   'User inserted'.log();
+    //   return 1;
+    // } else {
+    //   'User not inserted'.w();
+    //   return 0;
+    // }
+    return 0;
   }
 
   @override

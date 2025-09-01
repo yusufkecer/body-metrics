@@ -40,6 +40,7 @@ mixin _AvatarPickerModel
       showLottieError(LocaleKeys.register_avatar_select_failed);
       return;
     }
+    AppUtil.currentUserId = insertId;
 
     final appModel = AppModel(
       activeUser: insertId,
@@ -48,15 +49,13 @@ mixin _AvatarPickerModel
 
     final result = await _setValues(appModel);
 
-    if (result.isNotNull) {
-      if (mounted) {
-        await context.router.pushAndPopUntil(
-          UserGeneralInfoView(
-            avatar: avatarList[index],
-          ),
-          predicate: (route) => false,
-        );
-      }
+    if (result.isNotNull && mounted) {
+      await context.router.pushAndPopUntil(
+        UserGeneralInfoView(
+          avatar: avatarList[index],
+        ),
+        predicate: (route) => false,
+      );
     } else {
       showLottieError(LocaleKeys.register_avatar_select_failed);
     }

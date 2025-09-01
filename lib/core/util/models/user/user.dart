@@ -13,6 +13,7 @@ class User extends Equatable implements BaseModel<User> {
     this.id,
     this.avatar,
     this.name,
+    this.surname,
     this.gender,
     this.userMetrics,
     this.birthOfDate,
@@ -24,6 +25,7 @@ class User extends Equatable implements BaseModel<User> {
   const User.copyWith({
     this.height,
     this.id,
+    this.surname,
     this.avatar,
     this.name,
     this.gender,
@@ -32,7 +34,7 @@ class User extends Equatable implements BaseModel<User> {
   });
 
   @override
-  List<Object?> get props => [name, gender, userMetrics, id, birthOfDate];
+  List<Object?> get props => [name, gender, userMetrics, id, birthOfDate, surname];
 
   @override
   Map<String, dynamic> toJson() => _$UserToJson(this);
@@ -40,6 +42,7 @@ class User extends Equatable implements BaseModel<User> {
   @override
   final int? id;
   final String? name;
+  final String? surname;
   final String? avatar;
   final GenderValue? gender;
   final double? height;

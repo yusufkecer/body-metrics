@@ -12,7 +12,7 @@ final class CreateProfileUseCase implements BaseUseCase<bool, bool, User> {
 
   @override
   Future<bool?> execute() async {
-    return null;
+    throw UnimplementedError();
   }
 
   @override

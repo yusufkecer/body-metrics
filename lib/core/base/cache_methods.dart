@@ -7,8 +7,13 @@ abstract interface class CacheMethods<T, U, V, W> {
   Future<int> insert(Database? db, V value);
   Future<int> update(Database? db, V value);
 
-  Future<W?> select(Database? db, U value, {List<String>? columns, List<JoinEntity>? joins});
-  Future<T?> selectAll(Database? db, {List<String>? columns, List<JoinEntity>? joins});
+  ///[select] is filter add database query
+  Future<W?> select(Database? db, U value,
+      {List<String>? columns, List<JoinEntity>? joins});
+
+  ///[selectAll] is select all database query
+  Future<T?> selectAll(Database? db,
+      {List<String>? columns, List<JoinEntity>? joins});
 
   Future<int> delete(Database? db, int id);
 

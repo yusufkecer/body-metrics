@@ -17,10 +17,15 @@ class UserInfoFormCubit extends Cubit<UserInfoFormCubitState> {
     emit(UserInfoFormCubitFormEmpty(isFormEmpty: param));
   }
 
-  Future<bool?> createProfile(User user) async {
+  Future<void> createProfile(User user) async {
     emit(const UserInfoFormCubitLoading());
+    'createProfile user $user'.log();
     final result = await _createProfileUseCase.executeWithParams(user);
+    'createProfile result $result'.log();
+    if (result == null || result == false) {
+      emit(const UserInfoFormCubitError());
+      return;
+    }
     emit(const UserInfoFormCubitSuccess());
-    return result;
   }
 }

@@ -12,7 +12,7 @@ part 'app_cache_columns.dart';
 
 @lazySingleton
 final class AppCache extends ImpCache
-    implements CacheMethods<JsonList, Json, Json, Json> {
+    implements CacheMethods<Json, Json, Json, Json> {
   AppCache() : super();
 
   @override
@@ -65,21 +65,18 @@ final class AppCache extends ImpCache
     List<String>? columns,
     List<JoinEntity>? joins,
   }) {
-    //get first row
-    return selectAll(db, columns: columns, joins: joins).then((value) {
-      return value.first;
-    });
+    throw UnimplementedError();
   }
 
   @override
-  Future<JsonList> selectAll(
+  Future<Json> selectAll(
     Database? db, {
     List<String>? columns,
     List<JoinEntity>? joins,
   }) async {
     if (db.isNullOrEmpty) {
       'Database is empty'.e();
-      return [];
+      return {};
     }
 
     final join = StringBuffer();
@@ -98,8 +95,10 @@ final class AppCache extends ImpCache
         await db!.rawQuery("SELECT ${columns.join(', ')} FROM $table $join");
 
     await closeDb();
+    'value: $value'.log();
+    if (value.isNullOrEmpty) return {};
 
-    return value;
+    return value.first;
   }
 
   @override
