@@ -27,12 +27,14 @@ class UserCubit extends Cubit<UserState> {
       table: UserMetricsColumns.table.value,
       type: JoinType.inner.type,
     );
-
+    'join: $join'.log();
+    final params = ParamsEntity(
+      filters: filters.toJson(),
+      joins: [join],
+    );
+    'params: $params'.log();
     final user = await _userUseCase.executeWithParams(
-      ParamsEntity(
-        filters: filters.toJson(),
-        joins: [join],
-      ),
+      params,
     );
 
     'user: ${user?.toJson()}'.log();

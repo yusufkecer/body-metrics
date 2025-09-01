@@ -1,4 +1,4 @@
-part of '../height_picker.dart';
+part of '../../height_picker.dart';
 
 sealed class HeightSelectorState extends Equatable {
   const HeightSelectorState({this.page, this.height});

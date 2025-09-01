@@ -12,12 +12,12 @@ mixin _HomeModel on TickerProviderStateMixin<Home>, _TitleMixin {
   void initState() {
     _animatedListController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: Durations.long2,
     );
 
     _animatedChartController = AnimationController(
       vsync: this,
-      duration: const Duration(milliseconds: 500),
+      duration: Durations.long2,
     );
     _animatedChartController.forward();
     _animatedListController.forward();

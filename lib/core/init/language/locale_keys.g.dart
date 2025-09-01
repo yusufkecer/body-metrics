@@ -16,7 +16,8 @@ abstract class  LocaleKeys {
   static const height_select_height = 'height.select_height';
   static const height_cm = 'height.cm';
   static const height = 'height';
-  static const register_full_name = 'register.full_name';
+  static const register_name = 'register.name';
+  static const register_surname = 'register.surname';
   static const register_birth_of_date = 'register.birth_of_date';
   static const register_complete = 'register.complete';
   static const register_skip = 'register.skip';

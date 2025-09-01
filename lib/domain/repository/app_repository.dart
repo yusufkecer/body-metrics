@@ -23,8 +23,9 @@ final class AppRepository implements BaseUseCase<Pages, int, AppModel> {
       return null;
     }
 
-    final data = result.first['page'] as String;
-    return data.toPages();
+    final data = AppModel.fromJson(result);
+
+    return data.page;
   }
 
   ///set [AppCache]

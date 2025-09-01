@@ -2,6 +2,7 @@ import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/domain/entities/user_metric_entity.dart';
 import 'package:bodymetrics/domain/index.dart';
 import 'package:bodymetrics/feature/home/domain/use_case/user_use_case.dart';
+import 'package:bodymetrics/feature/weight_picker/domain/entity/bmi_value.dart';
 import 'package:bodymetrics/feature/weight_picker/domain/use_case/save_weight_use_case.dart';
 import 'package:equatable/equatable.dart';
 import 'package:flutter/foundation.dart';
@@ -16,6 +17,7 @@ class WeightPickerCubit extends Cubit<WeightPickerState> {
       : super(const WeightPickerInitial()) {
     getUser();
   }
+
   final UserUseCase _userUseCase;
   final SaveWeightUseCase _saveWeightUseCase;
 
@@ -42,16 +44,17 @@ class WeightPickerCubit extends Cubit<WeightPickerState> {
     final height = user?.height;
 
     if (weight.isNullOrEmpty || height.isNullOrEmpty) return;
+    final bmiValue = BmiValue(weight: weight, height: height!);
 
     final bmi =
-        await compute(_calculateBmiValue, {'weight': weight, 'height': height});
+        await compute(_calculateBmiValue, bmiValue);
 
     emit(WeightPickerInitial(user: user, bmi: bmi));
   }
 
-  double _calculateBmiValue(Map<String, double?> data) {
-    final weight = data['weight']!;
-    final height = data['height']!;
+  double _calculateBmiValue(BmiValue data) {
+    final weight = data.weight;
+    final height = data.height;
     final bmi = weight / (height * height);
 
     return bmi;

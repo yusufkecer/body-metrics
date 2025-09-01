@@ -2,27 +2,35 @@ part of 'user_general_info.dart';
 
 mixin _UserGeneralInfoModel
     on State<_UserInfoFormBody>, DialogUtil<_UserInfoFormBody>, SaveAppMixin {
-  final TextEditingController _fullNameController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _surnameController = TextEditingController();
   final DateController _birthOfDateController = DateController();
-
+  late final UserInfoFormCubit _cubit = context.read<UserInfoFormCubit>();
   @override
   void dispose() {
-    _fullNameController.dispose();
+    _nameController.dispose();
+    _surnameController.dispose();
     _birthOfDateController.dispose();
 
     super.dispose();
   }
 
   Future<void> _onPressed() async {
-    if ((_fullNameController.text.isEmpty ||
-            _birthOfDateController.text.isEmpty) &&
+    if ((_nameController.text.isEmpty ||
+            _birthOfDateController.text.isEmpty ||
+            _surnameController.text.isEmpty) &&
         mounted) {
-       showLottieError(LocaleKeys.register_information_is_empty);
+      showLottieError(LocaleKeys.register_information_is_empty);
       return;
     }
-    final result = await createProfile();
-    if (result.isNotNull && result!) {
-      context.pushRoute(const GenderView());
+    await createProfile();
+    if (_cubit.state is UserInfoFormCubitSuccess) {
+      final pageResult = await saveApp(Pages.genderPage);
+      if (pageResult != true) {
+        showLottieError(LocaleKeys.dialog_page_not_saved);
+        return;
+      }
+      await pushToGender();
     } else {
       showLottieError(
         LocaleKeys.dialog_general_error,
@@ -30,20 +38,19 @@ mixin _UserGeneralInfoModel
     }
   }
 
-  Future<bool?> createProfile() async {
-    final cubit = context.read<UserInfoFormCubit>();
+  Future<void> pushToGender() async {
+    await context.pushRoute(const GenderView());
+  }
+
+  Future<void> createProfile() async {
     final birthDay = _birthOfDateController.text.toYMD;
     final user = User(
-      name: _fullNameController.text,
+      name: _nameController.text,
+      surname: _surnameController.text,
       birthOfDate: birthDay,
     );
-    final pageResult = await saveApp(Pages.genderPage);
-    if (pageResult != true) {
-       showLottieError(LocaleKeys.dialog_page_not_saved);
-      return null;
-    }
-    final result = await cubit.createProfile(user);
-    return result;
+
+    await _cubit.createProfile(user);
   }
 
   void _openDatePicker() {
@@ -65,8 +72,9 @@ mixin _UserGeneralInfoModel
   }
 
   bool _checkFields() {
-    return _fullNameController.text.isEmpty &&
-        _birthOfDateController.text.isEmpty;
+    return _nameController.text.isEmpty &&
+        _birthOfDateController.text.isEmpty &&
+        _surnameController.text.isEmpty;
   }
 
   Future<void> _didPop({required bool isFormEmpty}) async {

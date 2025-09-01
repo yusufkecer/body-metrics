@@ -67,9 +67,14 @@ class _UserInfoFormBodyState extends State<_UserInfoFormBody>
             child: Column(
               children: [
                 CustomTextField(
-                  label: LocaleKeys.register_full_name,
+                  label: LocaleKeys.register_name,
                   prefixIcon: ProductIcon.user.icon,
-                  controller: _fullNameController,
+                  controller: _nameController,
+                ),
+                CustomTextField(
+                  label: LocaleKeys.register_surname,
+                  prefixIcon: ProductIcon.user.icon,
+                  controller: _surnameController,
                 ),
                 CustomTextField(
                   label: LocaleKeys.register_birth_of_date,

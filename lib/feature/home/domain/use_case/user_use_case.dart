@@ -22,6 +22,7 @@ final class UserUseCase implements BaseUseCase<Users, User, ParamsEntity> {
     final filters = params.filters;
 
     final user = await _userRepository.executeWithParams(filters!);
+    'user $user'.log();
 
     if (user.isNullOrEmpty || user!.users!.isEmpty) return null;
 

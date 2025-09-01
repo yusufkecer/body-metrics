@@ -27,6 +27,7 @@ mixin _SplashModel on State<Splash>, DialogUtil<Splash> {
 
   Future<void> _initializeDatabase() async {
     await _impCache.initializeDatabase();
+    //await _impCache.deleteDb();
   }
 
   Future<void> _handleAppInitialization() async {
