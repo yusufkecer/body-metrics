@@ -5,17 +5,15 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class OnboardUseCase implements BaseUseCase<bool, bool, AppModel> {
+final class OnboardUseCase implements BaseUseCase<bool, AppModel> {
   const OnboardUseCase(this._onboardRepository);
   final OnboardRepository _onboardRepository;
-  @override
-  Future<bool>? execute() {
-    return null;
-  }
 
   @override
-  Future<bool?> executeWithParams(AppModel params) async {
-    final result = await _onboardRepository.executeWithParams(params);
+  Future<bool?> executeWithParams({AppModel? params}) async {
+    if (params == null) throw ArgumentError.notNull();
+
+    final result = await _onboardRepository.executeWithParams(params: params);
     return result.convertBoolResult;
   }
 }

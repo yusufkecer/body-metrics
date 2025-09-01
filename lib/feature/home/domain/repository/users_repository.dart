@@ -5,16 +5,16 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-class SaveGenderRepository implements BaseRepository<int, Json> {
-  const SaveGenderRepository(this._userCache);
+final class UsersRepository implements BaseRepository<Users, EmptyModel> {
+  const UsersRepository(this._userCache);
   final UserCache _userCache;
 
   @override
-  Future<int?> executeWithParams({Json? params}) async {
-    if (params == null) throw ArgumentError.notNull();
-
+  Future<Users?> executeWithParams({EmptyModel? params}) async {
     final db = await _userCache.initializeDatabase();
-    final result = await _userCache.update(db, params);
+
+    final result = await _userCache.selectAll(db);
+
     return result;
   }
 }

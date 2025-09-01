@@ -5,19 +5,16 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class CreateProfileUseCase implements BaseUseCase<bool, bool, User> {
+final class CreateProfileUseCase implements BaseUseCase<bool, User> {
   const CreateProfileUseCase(this._repository);
 
   final CreateProfileRepository _repository;
 
   @override
-  Future<bool?> execute() async {
-    throw UnimplementedError();
-  }
+  Future<bool?> executeWithParams({User? params}) async {
+    if (params == null) throw ArgumentError.notNull();
 
-  @override
-  Future<bool?> executeWithParams(User params) async {
-    final result = await _repository.executeWithParams(params);
+    final result = await _repository.executeWithParams(params: params);
     return result.convertBoolResult;
   }
 }

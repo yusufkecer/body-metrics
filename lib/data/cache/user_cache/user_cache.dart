@@ -8,8 +8,7 @@ import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 
 @lazySingleton
-final class UserCache extends ImpCache
-    implements CacheMethods<Users, Json, Json, Users> {
+final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json, Users> {
   UserCache();
 
   @override
@@ -41,18 +40,17 @@ final class UserCache extends ImpCache
 
     final result1 = await db.query(table);
     'result $result1'.log();
-    // final result = await db.insert(table, value);
-    // 'result $result'.log();
-    // await closeDb();
+    final result = await db.insert(table, value);
+    'result $result'.log();
+    await closeDb();
 
-    // if (result > 0) {
-    //   'User inserted'.log();
-    //   return 1;
-    // } else {
-    //   'User not inserted'.w();
-    //   return 0;
-    // }
-    return 0;
+    if (result > 0) {
+      'User inserted'.log();
+      return result;
+    } else {
+      'User not inserted'.w();
+      return 0;
+    }
   }
 
   @override
@@ -99,7 +97,7 @@ final class UserCache extends ImpCache
       return null;
     }
     final result = await db!.query(table);
-
+    'user result $result'.log();
     await closeDb();
 
     if (result.isNotEmpty) {
@@ -119,8 +117,7 @@ final class UserCache extends ImpCache
       return 0;
     }
 
-    final filteredValue =
-        value.entries.where((entry) => entry.value != null).toList();
+    final filteredValue = value.entries.where((entry) => entry.value != null).toList();
 
     if (filteredValue.isEmpty) {
       'No values to update'.e();

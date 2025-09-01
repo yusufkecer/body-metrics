@@ -13,8 +13,7 @@ part 'weight_picker_state.dart';
 
 @injectable
 class WeightPickerCubit extends Cubit<WeightPickerState> {
-  WeightPickerCubit(this._userUseCase, this._saveWeightUseCase)
-      : super(const WeightPickerInitial()) {
+  WeightPickerCubit(this._userUseCase, this._saveWeightUseCase) : super(const WeightPickerInitial()) {
     getUser();
   }
 
@@ -27,7 +26,7 @@ class WeightPickerCubit extends Cubit<WeightPickerState> {
 
     final paramsEntity = ParamsEntity(filters: filters.toJson());
 
-    final user = await _userUseCase.executeWithParams(paramsEntity);
+    final user = await _userUseCase.executeWithParams(params: paramsEntity);
 
     emit(WeightPickerInitial(user: user, isLoading: false));
   }
@@ -46,8 +45,7 @@ class WeightPickerCubit extends Cubit<WeightPickerState> {
     if (weight.isNullOrEmpty || height.isNullOrEmpty) return;
     final bmiValue = BmiValue(weight: weight, height: height!);
 
-    final bmi =
-        await compute(_calculateBmiValue, bmiValue);
+    final bmi = await compute(_calculateBmiValue, bmiValue);
 
     emit(WeightPickerInitial(user: user, bmi: bmi));
   }
@@ -75,7 +73,7 @@ class WeightPickerCubit extends Cubit<WeightPickerState> {
 
     final userMetricEntity = UserMetricEntity(data: metricsEntity);
 
-    final result = await _saveWeightUseCase.executeWithParams(userMetricEntity);
+    final result = await _saveWeightUseCase.executeWithParams(params: userMetricEntity);
 
     return result;
   }

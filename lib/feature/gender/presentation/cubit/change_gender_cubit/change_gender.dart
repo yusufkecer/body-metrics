@@ -22,8 +22,12 @@ class GenderCubit extends Cubit<GenderState> {
 
   Future<bool?> saveGender() async {
     '${state.genderValue}'.log();
+    if (state.genderValue == null) {
+      emit(const SelectGenderError(error: LocaleKeys.gender_gender_is_null));
+      return null;
+    }
 
-    final result = await _saveGenderUseCase.executeWithParams(state.genderValue!);
+    final result = await _saveGenderUseCase.executeWithParams(params: state.genderValue);
     return result;
   }
 }

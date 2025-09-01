@@ -5,19 +5,21 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class AppRepository implements BaseUseCase<Pages, int, AppModel> {
-  AppRepository(this._appCache);
-  final String _column = AppCacheColumns.page.value;
+final class AppInfoRepository implements BaseRepository<Pages, AppModel> {
+  const AppInfoRepository(this._appCache);
 
   final AppCache _appCache;
 
-  ///get [AppCache]
   @override
-  Future<Pages?> execute() async {
+  Future<Pages?> executeWithParams({AppModel? params}) async {
+    if (params == null) throw ArgumentError.notNull();
+
+    final column = AppCacheColumns.page.value;
+
     final db = await _appCache.initializeDatabase();
     final result = await _appCache.selectAll(
       db,
-      columns: [_column],
+      columns: [column],
     );
     if (result.isNullOrEmpty) {
       return null;
@@ -26,15 +28,5 @@ final class AppRepository implements BaseUseCase<Pages, int, AppModel> {
     final data = AppModel.fromJson(result);
 
     return data.page;
-  }
-
-  ///set [AppCache]
-  @override
-  Future<int?> executeWithParams(AppModel params) async {
-    final db = await _appCache.initializeDatabase();
-    return _appCache.update(
-      db,
-      params.toJson(),
-    );
   }
 }

@@ -5,17 +5,15 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-class SaveHeightUseCase implements BaseUseCase<bool, bool, User> {
+class SaveHeightUseCase implements BaseUseCase<bool, User> {
   const SaveHeightUseCase(this._useCase);
   final SaveHeightRepository _useCase;
-  @override
-  Future<bool?> execute() {
-    throw UnimplementedError();
-  }
 
   @override
-  Future<bool?> executeWithParams(User params) async {
-    final result = await _useCase.executeWithParams(params);
+  Future<bool?> executeWithParams({User? params}) async {
+    if (params == null) throw ArgumentError.notNull();
+
+    final result = await _useCase.executeWithParams(params: params);
     return result;
   }
 }

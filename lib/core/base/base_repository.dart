@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
 @immutable
-
-abstract interface class BaseUseCase<OUT, IN> {
+abstract interface class BaseRepository<OUT, IN> {
   Future<OUT?> executeWithParams({IN params});
 }

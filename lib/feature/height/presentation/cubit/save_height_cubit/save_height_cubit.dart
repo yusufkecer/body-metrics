@@ -11,8 +11,7 @@ class SaveHeightCubit extends Cubit<SaveHeightState> {
 
   Future<void> saveHeight(double height) async {
     emit(SaveHeightLoading());
-    final result =
-        await _saveHeightUseCase.executeWithParams(User(height: height));
+    final result = await _saveHeightUseCase.executeWithParams(params: User(height: height));
     if (result == null) {
       emit(SaveHeightError());
     } else {

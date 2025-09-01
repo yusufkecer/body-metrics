@@ -11,8 +11,7 @@ import 'package:sqflite/sqflite.dart';
 part 'app_cache_columns.dart';
 
 @lazySingleton
-final class AppCache extends ImpCache
-    implements CacheMethods<Json, Json, Json, Json> {
+final class AppCache extends ImpCache implements CacheMethods<Json, Json, Json, Json> {
   AppCache() : super();
 
   @override
@@ -91,8 +90,7 @@ final class AppCache extends ImpCache
 
     columns ??= _columns;
 
-    final value =
-        await db!.rawQuery("SELECT ${columns.join(', ')} FROM $table $join");
+    final value = await db!.rawQuery("SELECT ${columns.join(', ')} FROM $table $join");
 
     await closeDb();
     'value: $value'.log();
@@ -108,8 +106,7 @@ final class AppCache extends ImpCache
       return 0;
     }
     'value: $value'.log();
-    final filteredValue =
-        value.entries.where((entry) => entry.value != null).toList();
+    final filteredValue = value.entries.where((entry) => entry.value != null).toList();
 
     if (filteredValue.isEmpty) {
       'No values to update'.e();

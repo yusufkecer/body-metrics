@@ -11,6 +11,7 @@ abstract class  LocaleKeys {
   static const gender_select_gender = 'gender.select_gender';
   static const gender_fm = 'gender.fm';
   static const gender_ml = 'gender.ml';
+  static const gender_gender_is_null = 'gender.gender_is_null';
   static const gender = 'gender';
   static const height_height_name = 'height.height_name';
   static const height_select_height = 'height.select_height';
