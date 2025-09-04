@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-class SaveHeightRepository implements BaseRepository<bool, User> {
+class SaveHeightRepository implements Repository<bool, User> {
   const SaveHeightRepository(this.userCache);
   final UserCache userCache;
 

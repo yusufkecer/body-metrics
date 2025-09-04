@@ -5,8 +5,8 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class UsersRepository implements BaseRepository<Users, EmptyModel> {
-  const UsersRepository(this._userCache);
+final class HomeUsersRepository implements Repository<Users, EmptyModel> {
+  const HomeUsersRepository(this._userCache);
   final UserCache _userCache;
 
   @override

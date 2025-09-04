@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class SaveAppRepository implements BaseRepository<int, AppModel> {
+final class SaveAppRepository implements Repository<int, AppModel> {
   const SaveAppRepository(this._appCache);
 
   final AppCache _appCache;

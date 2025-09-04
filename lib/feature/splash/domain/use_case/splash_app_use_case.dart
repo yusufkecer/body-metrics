@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 
 @immutable
 @injectable
-final class SplashAppUseCase implements BaseUseCase<AppModel, EmptyModel> {
+final class SplashAppUseCase implements UseCase<AppModel, EmptyModel> {
   const SplashAppUseCase(this._splashRepository);
   final SplashAppRepository _splashRepository;
 

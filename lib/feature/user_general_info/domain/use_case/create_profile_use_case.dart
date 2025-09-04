@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class CreateProfileUseCase implements BaseUseCase<bool, User> {
+final class CreateProfileUseCase implements UseCase<bool, User> {
   const CreateProfileUseCase(this._repository);
 
   final CreateProfileRepository _repository;

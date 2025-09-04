@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class SaveWeightRepository implements BaseRepository<int, UserMetricEntity> {
+final class SaveWeightRepository implements Repository<int, UserMetricEntity> {
   const SaveWeightRepository(this._userMetricsCache);
   final UserMetricsCache _userMetricsCache;
 

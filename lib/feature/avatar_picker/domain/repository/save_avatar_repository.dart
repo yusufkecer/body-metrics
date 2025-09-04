@@ -7,7 +7,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-class SaveAvatarRepository implements BaseRepository<int, UserFilters> {
+class SaveAvatarRepository implements Repository<int, UserFilters> {
   const SaveAvatarRepository(this.userCache);
   final UserCache userCache;
 

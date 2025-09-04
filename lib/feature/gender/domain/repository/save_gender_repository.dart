@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-class SaveGenderRepository implements BaseRepository<int, Json> {
+class SaveGenderRepository implements Repository<int, Json> {
   const SaveGenderRepository(this._userCache);
   final UserCache _userCache;
 

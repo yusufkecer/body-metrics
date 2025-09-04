@@ -1,13 +1,13 @@
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/feature/home/domain/repository/users_repository.dart';
+import 'package:bodymetrics/feature/home/domain/repository/home_users_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class UsersUseCase implements BaseUseCase<Users, EmptyModel> {
-  const UsersUseCase(this._usersRepository);
-  final UsersRepository _usersRepository;
+final class HomeUsersUseCase implements UseCase<Users, EmptyModel> {
+  const HomeUsersUseCase(this._usersRepository);
+  final HomeUsersRepository _usersRepository;
 
   @override
   Future<Users?> executeWithParams({EmptyModel? params}) async {

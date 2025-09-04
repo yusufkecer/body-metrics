@@ -4,7 +4,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-class SetIdUseCase implements BaseUseCase<bool, int> {
+class SetIdUseCase implements UseCase<bool, int> {
   const SetIdUseCase();
 
   @override

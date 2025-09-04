@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class CreateProfileRepository implements BaseRepository<int, User> {
+final class CreateProfileRepository implements Repository<int, User> {
   const CreateProfileRepository(this._userCache);
 
   final UserCache _userCache;

@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class AppInfoUseCase implements BaseUseCase<Pages, EmptyModel> {
+final class AppInfoUseCase implements UseCase<Pages, EmptyModel> {
   const AppInfoUseCase(this._repository);
   final AppInfoRepository _repository;
 

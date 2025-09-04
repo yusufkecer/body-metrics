@@ -1,21 +1,14 @@
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/domain/index.dart';
-import 'package:bodymetrics/feature/home/domain/repository/user_repository.dart';
+import 'package:bodymetrics/feature/home/domain/repository/home_user_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class UserUseCase implements BaseUseCase<User, ParamsEntity> {
-  const UserUseCase(this._userRepository);
-  final UserRepository _userRepository;
-
-  // @override
-  // Future<Users?> execute() async {
-  //   final user = await _userRepository.execute();
-
-  //   return user;
-  // }
+final class HomeUserUseCase implements UseCase<User, ParamsEntity> {
+  const HomeUserUseCase(this._userRepository);
+  final HomeUserRepository _userRepository;
 
   @override
   Future<User?> executeWithParams({ParamsEntity? params}) async {

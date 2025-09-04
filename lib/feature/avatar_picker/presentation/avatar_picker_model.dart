@@ -14,7 +14,7 @@ mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil<AvatarPicker>, SaveA
   }
 
   Future<void> _getAllUsers() async {
-    final usersUseCase = Locator.sl<UsersUseCase>();
+    final usersUseCase = Locator.sl<HomeUsersUseCase>();
 
     final users = await usersUseCase.executeWithParams();
 

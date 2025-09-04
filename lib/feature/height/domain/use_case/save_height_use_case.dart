@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-class SaveHeightUseCase implements BaseUseCase<bool, User> {
+class SaveHeightUseCase implements UseCase<bool, User> {
   const SaveHeightUseCase(this._useCase);
   final SaveHeightRepository _useCase;
 
