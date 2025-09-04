@@ -14,9 +14,9 @@ mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil<AvatarPicker>, SaveA
   }
 
   Future<void> _getAllUsers() async {
-    final usersUseCase = Locator.sl<HomeUsersUseCase>();
+    final usersUseCase = Locator.sl<UserUseCaseImpl>();
 
-    final users = await usersUseCase.executeWithParams();
+    final users = await usersUseCase.getAllUsers();
 
     if (users == null) {
       showLottieError(LocaleKeys.register_avatar_select_failed);

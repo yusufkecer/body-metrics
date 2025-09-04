@@ -8,7 +8,7 @@ import 'package:injectable/injectable.dart';
 @immutable
 final class UserUseCaseImpl implements UserUseCase {
   const UserUseCaseImpl(this._userRepository);
-  final UserRepository _userRepository;
+  final UserRepositoryImpl _userRepository;
 
   @override
   Future<User?> executeWithParams({ParamsEntity? params}) async {
