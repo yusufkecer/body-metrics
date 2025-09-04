@@ -9,25 +9,31 @@ part 'change_gender_state.dart';
 
 @injectable
 class GenderCubit extends Cubit<GenderState> {
-  GenderCubit(this._saveGenderUseCase) : super(const GenderState());
+  GenderCubit(this._saveGenderUseCase) : super(const GenderInitial());
+
   final SaveGenderUseCase _saveGenderUseCase;
 
-  void changeGender(SelectGender newGender) {
-    emit(SelectGender(genderValue: newGender.genderValue));
+  void selectGender(GenderValue gender) {
+    if (state is GenderSelected && (state as GenderSelected).genderValue == gender) {
+      emit(const GenderInitial());
+    } else {
+      emit(GenderSelected(gender));
+    }
   }
 
-  bool? setGender() {
-    return state.genderValue.isNotNull;
-  }
-
-  Future<bool?> saveGender() async {
-    '${state.genderValue}'.log();
-    if (state.genderValue == null) {
-      emit(const SelectGenderError(error: LocaleKeys.gender_gender_is_null));
-      return null;
+  Future<bool> saveGender() async {
+    if (state is! GenderSelected) {
+      emit(const GenderError(LocaleKeys.gender_gender_is_null));
+      return false;
     }
 
-    final result = await _saveGenderUseCase.executeWithParams(params: state.genderValue);
-    return result;
+    final gender = (state as GenderSelected).genderValue;
+    final result = await _saveGenderUseCase.executeWithParams(params: gender);
+
+    if (result == false) {
+      emit(GenderError(LocaleKeys.dialog_general_error, genderValue: gender));
+    }
+
+    return result ?? false;
   }
 }

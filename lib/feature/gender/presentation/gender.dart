@@ -38,8 +38,7 @@ final class _GenderView extends StatefulWidget {
   State<_GenderView> createState() => __GenderViewState();
 }
 
-class __GenderViewState extends State<_GenderView>
-    with SaveAppMixin, _GenderModel {
+class __GenderViewState extends State<_GenderView> with DialogUtil<_GenderView>, SaveAppMixin, _GenderModel {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
@@ -54,20 +53,18 @@ class __GenderViewState extends State<_GenderView>
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: [
               _GenderAsset(
-                value: context.watch<GenderCubit>().state.genderValue ==
-                    GenderValue.female,
-                onChanged: ({bool? value}) =>
-                    onChange(value: value, isFemale: true),
+                value: context.watch<GenderCubit>().state is GenderSelected &&
+                    (context.watch<GenderCubit>().state as GenderSelected).genderValue == GenderValue.female,
+                onChanged: (value) => onChange(GenderValue.female),
                 asset: AssetValue.female.value.lottie,
                 gender: LocaleKeys.gender_fm,
                 color: ProductColor.instance.pink,
                 icon: ProductIcon.venus.icon,
               ),
               _GenderAsset(
-                value: context.watch<GenderCubit>().state.genderValue ==
-                    GenderValue.male,
-                onChanged: ({bool? value}) =>
-                    onChange(value: value, isMale: true),
+                value: context.watch<GenderCubit>().state is GenderSelected &&
+                    (context.watch<GenderCubit>().state as GenderSelected).genderValue == GenderValue.male,
+                onChanged: (value) => onChange(GenderValue.male),
                 asset: AssetValue.male.value.lottie,
                 gender: LocaleKeys.gender_ml,
                 color: ProductColor.instance.blue,
@@ -81,7 +78,7 @@ class __GenderViewState extends State<_GenderView>
   }
 
   Widget buildAction() {
-    return isSelected()
+    return selectedGender.isNotNull
         ? ColorfulTextButton(
             text: LocaleKeys.cont,
             onTap: _pushToHeight,

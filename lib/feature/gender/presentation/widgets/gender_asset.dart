@@ -5,13 +5,12 @@ final class _GenderAsset extends StatelessWidget {
   const _GenderAsset({
     required this.asset,
     required this.gender,
-    this.value,
+    required this.onChanged, this.value,
     this.color,
     this.icon,
-    this.onChanged,
   });
 
-  final void Function({bool? value})? onChanged;
+  final ValueChanged<bool?> onChanged;
   final String asset;
   final String gender;
   final Color? color;
@@ -23,7 +22,7 @@ final class _GenderAsset extends StatelessWidget {
     var size = 200.0;
     size = (value ?? false) ? 300.0 : 250.0;
     return GestureDetector(
-      onTap: () => onChanged!(value: !(value ?? false)),
+      onTap: () => onChanged(!(value ?? false)),
       child: AnimatedImage(
         size: size,
         child: Column(
@@ -51,7 +50,7 @@ final class _GenderAsset extends StatelessWidget {
                   right: 10,
                   child: Checkbox(
                     value: value ?? false,
-                    onChanged: (value) => onChanged!(value: value),
+                    onChanged: onChanged,
                   ),
                 ),
               ],

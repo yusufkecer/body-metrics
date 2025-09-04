@@ -1,48 +1,50 @@
 part of 'gender.dart';
 
-mixin _GenderModel on State<_GenderView>, SaveAppMixin {
-  bool? _isMale;
-  bool? _isFemale;
+mixin _GenderModel on State<_GenderView>, SaveAppMixin, DialogUtil<_GenderView> {
   GenderValue? selectedGender;
-  void onChange({bool? value, bool isMale = false, bool isFemale = false}) {
-    if (value == null) return;
 
-    if (isMale) {
-      _isMale = (_isMale ?? false) ? null : value;
-      _isFemale = (_isMale == null) ? null : !value;
-    } else if (isFemale) {
-      _isFemale = (_isFemale ?? false) ? null : value;
-      _isMale = (_isFemale == null) ? null : !value;
-    }
-
-    if (_isMale ?? false) {
-      selectedGender = GenderValue.male;
-      context.read<GenderCubit>().changeGender(const SelectGender(genderValue: GenderValue.male));
-    } else if (_isFemale ?? false) {
-      selectedGender = GenderValue.male;
-      context.read<GenderCubit>().changeGender(const SelectGender(genderValue: GenderValue.female));
+  void onChange(GenderValue gender) {
+    if (selectedGender == gender) {
+      selectedGender = null;
+      context.read<GenderCubit>().selectGender(gender);
     } else {
-      context.read<GenderCubit>().changeGender(const SelectGender());
+      selectedGender = gender;
+      context.read<GenderCubit>().selectGender(gender);
     }
   }
 
   Future<void> _pushToHeight() async {
-    await _saveGender();
+    if (selectedGender.isNull) return;
+    final genderCubit = context.read<GenderCubit>();
+
+    final result = await _saveGender(genderCubit);
+
+    if (genderCubit.state is GenderError) {
+      showLottieError((genderCubit.state as GenderError).error);
+      return;
+    }
+
+    if (result == false) {
+      showLottieError(LocaleKeys.dialog_general_error);
+      return;
+    }
+
     await saveApp(Pages.heightPage);
 
     if (!mounted) return;
 
-    await context.router.push(
+    goToHeight();
+  }
+
+  void goToHeight() {
+    context.router.push(
       HeightView(
         gender: selectedGender!,
       ),
     );
   }
 
-  Future<bool> _saveGender() async {
-    final model = context.read<GenderCubit>();
-    return await model.saveGender() ?? false;
+  Future<bool> _saveGender(GenderCubit cubit) async {
+    return cubit.saveGender();
   }
-
-  bool isSelected() => _isMale.isNotNull || _isFemale.isNotNull;
 }
