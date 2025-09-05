@@ -4,7 +4,8 @@ import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 enum ProductIcon {
   venus(FontAwesomeIcons.venus),
   mars(FontAwesomeIcons.mars),
-  user(FontAwesomeIcons.userAstronaut),
+  user(FontAwesomeIcons.userLarge),
+  users(FontAwesomeIcons.users),
   share(FontAwesomeIcons.arrowUpRightFromSquare),
   plus(FontAwesomeIcons.plus),
   minus(FontAwesomeIcons.minus),

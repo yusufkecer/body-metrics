@@ -125,6 +125,7 @@
         "user_metrics_not_found": "Kullanıcı ölçümleri bulunamadı.",
         "context_not_found": "Context bulunamadı. Lütfen uygulamanın düzgün bir şekilde başlatıldığından emin olun.",
         "weight_and_height_must_be_positive_values": "Kilo ve boy pozitif değerler olmalıdır.",
-        "user_not_created": "Kullanıcı oluşturulamadı. Lütfen tekrar deneyin."
+        "user_not_created": "Kullanıcı oluşturulamadı. Lütfen tekrar deneyin.",
+        "height_not_saved": "Boy kaydedilmedi. Lütfen tekrar deneyin."
     }
 }

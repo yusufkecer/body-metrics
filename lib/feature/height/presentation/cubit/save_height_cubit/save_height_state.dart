@@ -13,4 +13,10 @@ final class SaveHeightLoading extends SaveHeightState {}
 
 final class SaveHeightSuccess extends SaveHeightState {}
 
-final class SaveHeightError extends SaveHeightState {}
+final class SaveHeightError extends SaveHeightState {
+  const SaveHeightError({required this.error});
+  final String error;
+
+  @override
+  List<Object> get props => [error];
+}

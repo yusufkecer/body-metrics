@@ -21,8 +21,6 @@ final class AppCache extends ImpCache implements CacheMethods<Json, Json, Json, 
   Future<void> initializeTable(Database db, int version) async {
     await db.execute('''
     CREATE TABLE $table (
-      ${AppCacheColumns.theme.value} TEXT NULL,
-      ${AppCacheColumns.language.value} TEXT NULL,
       ${AppCacheColumns.isCompletedOnboard.value} INTEGER NULL,
       ${AppCacheColumns.activeUser.value} INTEGER NULL,
       ${AppCacheColumns.page.value} TEXT NULL
@@ -31,8 +29,6 @@ final class AppCache extends ImpCache implements CacheMethods<Json, Json, Json, 
   }
 
   final List<String> _columns = [
-    AppCacheColumns.theme.value,
-    AppCacheColumns.language.value,
     AppCacheColumns.isCompletedOnboard.value,
     AppCacheColumns.activeUser.value,
     AppCacheColumns.page.value,

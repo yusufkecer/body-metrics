@@ -1,10 +1,8 @@
 import 'package:bodymetrics/core/index.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
-import 'package:injectable/injectable.dart';
 
 @immutable
-@lazySingleton
 final class AppLocalization extends EasyLocalization {
   AppLocalization({
     required super.child,

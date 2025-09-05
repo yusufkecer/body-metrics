@@ -1,7 +1,7 @@
 part of '../../height_picker.dart';
 
 @injectable
-class HeightSelectorCubit extends Cubit<HeightSelectorState> {
+final class HeightSelectorCubit extends Cubit<HeightSelectorState> {
   HeightSelectorCubit() : super(const HeightSelectorInitial());
 
   void updateHeight(double page, int minValue, int maxValue) {

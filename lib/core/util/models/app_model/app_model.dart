@@ -8,8 +8,6 @@ part 'app_model.g.dart';
 @JsonSerializable()
 final class AppModel extends Equatable implements BaseModel<AppModel> {
   const AppModel({
-    this.theme,
-    this.language,
     this.isCompleteOnboard,
     this.page,
     this.activeUser,
@@ -25,14 +23,10 @@ final class AppModel extends Equatable implements BaseModel<AppModel> {
     int? activeUser,
   }) =>
       AppModel(
-        theme: theme ?? this.theme,
-        language: language ?? this.language,
         isCompleteOnboard: isCompleteOnboard ?? this.isCompleteOnboard,
         page: page ?? this.page,
         activeUser: activeUser ?? this.activeUser,
       );
-  final String? theme;
-  final String? language;
   final Pages? page;
   @JsonKey(name: 'is_complete_onboard')
   final bool? isCompleteOnboard;
@@ -40,7 +34,7 @@ final class AppModel extends Equatable implements BaseModel<AppModel> {
   final int? activeUser;
 
   @override
-  List<Object?> get props => [theme, language, isCompleteOnboard, page, activeUser];
+  List<Object?> get props => [isCompleteOnboard, page, activeUser];
   @override
   Map<String, dynamic> toJson() => _$AppModelToJson(this);
 
