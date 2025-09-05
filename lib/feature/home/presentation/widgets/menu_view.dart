@@ -21,13 +21,12 @@ final class _MenuView extends StatelessWidget {
                 child: Column(
                   children: [
                     CircleAvatar(
-                      backgroundImage:
-                          image.isNotEmpty ? AssetImage(image) : null,
+                      backgroundImage: image.isNotEmpty ? AssetImage(image) : null,
                       radius: 50,
                     ),
                     VerticalSpace.s(),
                     Text(
-                      name,
+                      '$name $surname',
                       style: context.textTheme.titleMedium,
                     ),
                     VerticalSpace.s(),

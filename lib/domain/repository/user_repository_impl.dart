@@ -42,7 +42,7 @@ final class UserRepositoryImpl implements UserRepository {
 
     final result = await _userCache.select(db, params.filters!);
 
-    if (result.isNullOrEmpty || result!.users!.isEmpty) return null;
+    if (result.isNullOrEmpty || result!.users!.isNullOrEmpty) return null;
     return result.users!.first;
   }
 

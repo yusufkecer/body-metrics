@@ -8,8 +8,7 @@ part 'user_general_info_state.dart';
 
 @injectable
 class UserInfoFormCubit extends Cubit<UserInfoFormCubitState> {
-  UserInfoFormCubit(this._createProfileUseCase)
-      : super(const UserInfoFormCubitFormEmpty(isFormEmpty: true));
+  UserInfoFormCubit(this._createProfileUseCase) : super(const UserInfoFormCubitFormEmpty(isFormEmpty: true));
 
   final CreateProfileUseCase _createProfileUseCase;
 
@@ -21,9 +20,9 @@ class UserInfoFormCubit extends Cubit<UserInfoFormCubitState> {
     emit(const UserInfoFormCubitLoading());
     'createProfile user $user'.log();
     final result = await _createProfileUseCase.executeWithParams(params: user);
-    'createProfile result $result'.log();
+
     if (result == null || result == false) {
-      emit(const UserInfoFormCubitError());
+      emit(const UserInfoFormCubitError(error: LocaleKeys.exception_user_not_created));
       return;
     }
     emit(const UserInfoFormCubitSuccess());

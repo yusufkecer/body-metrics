@@ -35,48 +35,49 @@ class _HomeState extends State<Home> with _TitleMixin, TickerProviderStateMixin,
         builder: (context) {
           return BlocBuilder<UserCubit, UserState>(
             builder: (context, state) {
-              return state is UserLoading
-                  ? const LoadingLottie()
-                  : state is UserError
-                      ? CustomError(message: state.message)
-                      : state is UserLoaded
-                          ? CustomDrawer(
-                              zoomDrawerController: _zoomDrawerController,
-                              borderRadius: 25,
-                              menuBackgroundColor: ProductColor.instance.seedColor,
-                              menuScreen: _MenuView(
-                                state.user.name!,
-                                state.user.surname!,
-                                state.user.avatar!,
-                              ),
-                              mainScreen: GradientScaffold(
-                                appBar: CustomAppBar(
-                                  leading: IconButton(
-                                    onPressed: () {
-                                      _zoomDrawerController.toggle!();
-                                    },
-                                    icon: const Icon(Icons.menu),
-                                  ),
-                                  fullName: '${state.user.name} ${state.user.surname}',
-                                  title: LocaleKeys.home_hello,
-                                ),
-                                body: _HomeBody(
-                                  dataListOnPressed: _dataListOnPressed,
-                                  chartOnPressed: _chartOnPressed,
-                                  spots: _spots,
-                                  leftTitles: _leftTitles,
-                                  bottomTitle: const [],
-                                  expandedCard: _expandedCard,
-                                  animatedListController: _animatedListController,
-                                  animatedChartController: _animatedChartController,
-                                  userMetrics: _userMetrics,
-                                ),
-                              ),
-                            )
-                          : const CustomError();
+              return switch (state) {
+                UserLoading() => const LoadingLottie(),
+                UserError() => CustomError(message: state.message),
+                UserLoaded() => customDrawer(state),
+                _ => const CustomError(),
+              };
             },
           );
         },
+      ),
+    );
+  }
+
+  CustomDrawer customDrawer(UserLoaded state) {
+    return CustomDrawer(
+      zoomDrawerController: _zoomDrawerController,
+      borderRadius: 25,
+      menuBackgroundColor: ProductColor.instance.seedColor,
+      menuScreen: _MenuView(
+        state.user.name!,
+        state.user.surname!,
+        state.user.avatar!,
+      ),
+      mainScreen: GradientScaffold(
+        appBar: CustomAppBar(
+          leading: IconButton(
+            onPressed: () {
+              _zoomDrawerController.toggle!();
+            },
+            icon: const Icon(Icons.menu),
+          ),
+        ),
+        body: _HomeBody(
+          dataListOnPressed: _dataListOnPressed,
+          chartOnPressed: _chartOnPressed,
+          spots: _spots,
+          leftTitles: _leftTitles,
+          bottomTitle: const [],
+          expandedCard: _expandedCard,
+          animatedListController: _animatedListController,
+          animatedChartController: _animatedChartController,
+          userMetrics: _userMetrics,
+        ),
       ),
     );
   }

@@ -24,6 +24,8 @@ class UserInfoFormCubitLoading extends UserInfoFormCubitState {
 class UserInfoFormCubitSuccess extends UserInfoFormCubitState {
   const UserInfoFormCubitSuccess();
 }
+
 class UserInfoFormCubitError extends UserInfoFormCubitState {
-  const UserInfoFormCubitError();
+  const UserInfoFormCubitError({this.error});
+  final String? error;
 }

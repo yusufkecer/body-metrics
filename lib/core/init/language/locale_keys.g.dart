@@ -94,6 +94,8 @@ abstract class  LocaleKeys {
   static const exception_user_not_found = 'exception.user_not_found';
   static const exception_user_metrics_not_found = 'exception.user_metrics_not_found';
   static const exception_context_not_found = 'exception.context_not_found';
+  static const exception_weight_and_height_must_be_positive_values = 'exception.weight_and_height_must_be_positive_values';
+  static const exception_user_not_created = 'exception.user_not_created';
   static const exception = 'exception';
 
 }

@@ -68,7 +68,6 @@
         "yearly": "Yıllık",
         "monthly": "Aylık",
         "weekly": "Haftalık",
-        "hello": "Merhaba",
         "see_more": "Tümünü Gör",
         "bmi": "VTİ",
         "weight": "Kilo",
@@ -125,6 +124,7 @@
         "user_not_found": "Kullanıcı bulunamadı.",
         "user_metrics_not_found": "Kullanıcı ölçümleri bulunamadı.",
         "context_not_found": "Context bulunamadı. Lütfen uygulamanın düzgün bir şekilde başlatıldığından emin olun.",
-        "weight_and_height_must_be_positive_values": "Kilo ve boy pozitif değerler olmalıdır."
+        "weight_and_height_must_be_positive_values": "Kilo ve boy pozitif değerler olmalıdır.",
+        "user_not_created": "Kullanıcı oluşturulamadı. Lütfen tekrar deneyin."
     }
 }
