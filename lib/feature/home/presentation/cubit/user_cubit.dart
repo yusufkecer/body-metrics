@@ -3,7 +3,6 @@ import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/data/cache/index.dart';
 import 'package:bodymetrics/data/index.dart';
 import 'package:bodymetrics/domain/index.dart';
-import 'package:bodymetrics/feature/home/domain/use_case/user_use_case.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
@@ -15,13 +14,13 @@ class UserCubit extends Cubit<UserState> {
     getUser();
   }
 
-  final UserUseCase _userUseCase;
+  final UserUseCaseImpl _userUseCase;
 
   Future<void> getUser() async {
     try {
       final userId = AppUtil.currentUserId;
       if (userId == null) {
-        emit(const UserError(message: 'Current user ID not set'));
+        emit(const UserError(message: LocaleKeys.exception_user_not_found));
         return;
       }
 
@@ -42,7 +41,7 @@ class UserCubit extends Cubit<UserState> {
       final user = await _userUseCase.executeWithParams(params: params);
 
       if (user == null) {
-        emit(const UserError(message: 'User not found'));
+        emit(const UserError(message: LocaleKeys.exception_user_metrics_not_found));
         return;
       }
 
@@ -60,7 +59,7 @@ class UserCubit extends Cubit<UserState> {
       emit(UserLoaded(user: safeUser));
     } catch (e, st) {
       'UserCubit error: $e\n$st'.log();
-      emit(const UserError(message: 'An unexpected error occurred'));
+      emit(const UserError(message: LocaleKeys.exception_generic_error));
     }
   }
 }

@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class AppInfoRepository implements BaseRepository<Pages, AppModel> {
+final class AppInfoRepository implements Repository<Pages, AppModel> {
   const AppInfoRepository(this._appCache);
 
   final AppCache _appCache;
@@ -21,6 +21,7 @@ final class AppInfoRepository implements BaseRepository<Pages, AppModel> {
       db,
       columns: [column],
     );
+    
     if (result.isNullOrEmpty) {
       return null;
     }

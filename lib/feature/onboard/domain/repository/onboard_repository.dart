@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class OnboardRepository implements BaseRepository<int, AppModel> {
+final class OnboardRepository implements Repository<int, AppModel> {
   const OnboardRepository(this._appCache);
   final AppCache _appCache;
 

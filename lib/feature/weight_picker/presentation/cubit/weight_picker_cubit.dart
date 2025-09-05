@@ -1,11 +1,9 @@
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/domain/entities/user_metric_entity.dart';
-import 'package:bodymetrics/domain/index.dart';
-import 'package:bodymetrics/feature/home/domain/use_case/user_use_case.dart';
 import 'package:bodymetrics/feature/weight_picker/domain/entity/bmi_value.dart';
+import 'package:bodymetrics/feature/weight_picker/domain/use_case/calculate_bmi_use_case.dart';
 import 'package:bodymetrics/feature/weight_picker/domain/use_case/save_weight_use_case.dart';
 import 'package:equatable/equatable.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
@@ -13,22 +11,26 @@ part 'weight_picker_state.dart';
 
 @injectable
 class WeightPickerCubit extends Cubit<WeightPickerState> {
-  WeightPickerCubit(this._userUseCase, this._saveWeightUseCase) : super(const WeightPickerInitial()) {
+  WeightPickerCubit(
+    this._userUseCase,
+    this._saveWeightUseCase,
+    this._calculateBmiUseCase,
+  ) : super(const WeightPickerInitial()) {
     getUser();
   }
 
   final UserUseCase _userUseCase;
   final SaveWeightUseCase _saveWeightUseCase;
+  final CalculateBmiUseCase _calculateBmiUseCase;
 
   Future<void> getUser() async {
-    final userId = AppUtil.currentUserId;
-    final filters = UserFilters(id: userId);
-
-    final paramsEntity = ParamsEntity(filters: filters.toJson());
-
-    final user = await _userUseCase.executeWithParams(params: paramsEntity);
-
-    emit(WeightPickerInitial(user: user, isLoading: false));
+    try {
+      final user = await _userUseCase.getCurrentUser();
+      emit(WeightPickerInitial(user: user));
+    } catch (e) {
+      'WeightPickerCubit getUser error: $e'.log();
+      emit(const WeightPickerInitial());
+    }
   }
 
   Future<void> calculateBmi(double weight) async {
@@ -39,31 +41,19 @@ class WeightPickerCubit extends Cubit<WeightPickerState> {
     if (state.user.isNullOrEmpty) return;
 
     final user = state.user;
-
     final height = user?.height;
 
     if (weight.isNullOrEmpty || height.isNullOrEmpty) return;
-    final bmiValue = BmiValue(weight: weight, height: height!);
 
-    final bmi = await compute(_calculateBmiValue, bmiValue);
+    final bmiValue = BmiValue(weight: weight, height: height!);
+    final bmi = await _calculateBmiUseCase.executeWithParams(params: bmiValue);
 
     emit(WeightPickerInitial(user: user, bmi: bmi));
   }
 
-  double _calculateBmiValue(BmiValue data) {
-    final weight = data.weight;
-    final height = data.height;
-    final bmi = weight / (height * height);
-
-    return bmi;
-  }
-
   Future<bool> saveBodyMetrics(double weight, double bmi) async {
-    if (state.user.isNullOrEmpty) {
-      await getUser();
-    }
-
     final id = AppUtil.currentUserId;
+    if (id == null) return false;
 
     final metricsEntity = UserMetric(
       id: id,
@@ -72,7 +62,6 @@ class WeightPickerCubit extends Cubit<WeightPickerState> {
     ).toJson();
 
     final userMetricEntity = UserMetricEntity(data: metricsEntity);
-
     final result = await _saveWeightUseCase.executeWithParams(params: userMetricEntity);
 
     return result;

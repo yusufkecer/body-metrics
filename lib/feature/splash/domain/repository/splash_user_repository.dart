@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 
 @immutable
 @injectable
-final class SplashUserRepository implements BaseRepository<Users, ParamsEntity> {
+final class SplashUserRepository implements Repository<Users, ParamsEntity> {
   const SplashUserRepository(this._userCache);
   final UserCache _userCache;
 

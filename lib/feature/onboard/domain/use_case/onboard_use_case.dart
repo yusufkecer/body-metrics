@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class OnboardUseCase implements BaseUseCase<bool, AppModel> {
+final class OnboardUseCase implements UseCase<bool, AppModel> {
   const OnboardUseCase(this._onboardRepository);
   final OnboardRepository _onboardRepository;
 

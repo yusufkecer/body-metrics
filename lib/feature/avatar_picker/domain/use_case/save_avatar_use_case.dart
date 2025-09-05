@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-class SaveAvatarUseCase implements BaseUseCase<int, UserFilters> {
+class SaveAvatarUseCase implements UseCase<int, UserFilters> {
   const SaveAvatarUseCase(this._useCase);
   final SaveAvatarRepository _useCase;
 

@@ -69,6 +69,7 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json
       'Database is null'.w();
       return null;
     }
+
     final result = await db!.query(
       '$table WHERE id = ?',
       whereArgs: [user['id']],
@@ -78,7 +79,7 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json
 
     if (result.isNotEmpty) {
       final users = Users(users: result.map(User.fromJson).toList());
-      'User selected $users'.log();
+
       return users;
     } else {
       'User not selected'.w();

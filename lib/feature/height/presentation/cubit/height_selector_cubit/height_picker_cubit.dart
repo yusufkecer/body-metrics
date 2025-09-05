@@ -17,9 +17,11 @@ class HeightSelectorCubit extends Cubit<HeightSelectorState> {
     }
   }
 
-  double _calculateHeight(int position,
-      {int minValue = 65, int maxValue = 252}) {
+  double _calculateHeight(
+    int position, {
+    int minValue = 65,
+    int maxValue = 252,
+  }) {
     return ((position * 2) * (maxValue - minValue)) / 233;
   }
-
 }

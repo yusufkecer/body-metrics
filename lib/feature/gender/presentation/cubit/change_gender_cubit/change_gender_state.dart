@@ -1,22 +1,31 @@
 part of 'change_gender.dart';
 
-class GenderState extends Equatable {
-  const GenderState({this.genderValue});
+sealed class GenderState extends Equatable {
+  const GenderState();
 
+  @override
+  List<Object?> get props => [];
+}
+
+class GenderInitial extends GenderState {
+  const GenderInitial();
+}
+
+class GenderSelected extends GenderState {
+  const GenderSelected(this.genderValue);
+
+  final GenderValue genderValue;
+
+  @override
+  List<Object?> get props => [genderValue];
+}
+
+class GenderError extends GenderState {
+  const GenderError(this.error, {this.genderValue});
+
+  final String error;
   final GenderValue? genderValue;
 
   @override
-  List<Object> get props => [genderValue ?? ''];
-}
-
-final class SelectGender extends GenderState {
-  const SelectGender({super.genderValue});
-}
-
-final class SelectGenderError extends GenderState {
-  const SelectGenderError({required this.error, super.genderValue});
-  final String error;
-
-  @override
-  List<Object> get props => [genderValue ?? '', error];
+  List<Object?> get props => [error, genderValue];
 }

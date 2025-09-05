@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 @immutable
 @injectable
-class SaveGenderUseCase implements BaseUseCase<bool, GenderValue> {
+class SaveGenderUseCase implements UseCase<bool, GenderValue> {
   const SaveGenderUseCase(this._repository);
   final SaveGenderRepository _repository;
 

@@ -4,8 +4,12 @@ import 'package:flutter/material.dart';
 
 @immutable
 final class CustomRichText extends StatelessWidget {
-  const CustomRichText(
-      {required this.title, required this.subTitle, this.icon, super.key});
+  const CustomRichText({
+    required this.title,
+    required this.subTitle,
+    this.icon,
+    super.key,
+  });
 
   final IconData? icon;
   final String title;

@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class SaveAppUseCase implements BaseUseCase<bool, AppModel> {
+final class SaveAppUseCase implements UseCase<bool, AppModel> {
   const SaveAppUseCase(this._repository);
   final SaveAppRepository _repository;
 

@@ -64,8 +64,7 @@ class CustomTheme implements BaseTheme {
     ),
   );
 
-  final ExpansionTileThemeData _expansionTileThemeData =
-      const ExpansionTileThemeData(
+  final ExpansionTileThemeData _expansionTileThemeData = const ExpansionTileThemeData(
     tilePadding: EdgeInsets.zero,
     shape: Border(),
   );
@@ -126,9 +125,7 @@ class CustomTheme implements BaseTheme {
 
   final ButtonStyle _onboardButton = ButtonStyle(
     foregroundColor: WidgetStateProperty.resolveWith(
-      (states) => states.contains(WidgetState.pressed)
-          ? ProductColor.instance.seedColor
-          : ProductColor.instance.white,
+      (states) => states.contains(WidgetState.pressed) ? ProductColor.instance.seedColor : ProductColor.instance.white,
     ),
   );
 

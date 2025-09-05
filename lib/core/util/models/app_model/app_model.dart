@@ -14,6 +14,8 @@ final class AppModel extends Equatable implements BaseModel<AppModel> {
     this.page,
     this.activeUser,
   });
+  @override
+  factory AppModel.fromJson(Map<String, dynamic> json) => _$AppModelFromJson(json);
 
   AppModel copyWith({
     String? theme,
@@ -29,10 +31,6 @@ final class AppModel extends Equatable implements BaseModel<AppModel> {
         page: page ?? this.page,
         activeUser: activeUser ?? this.activeUser,
       );
-
-  @override
-  factory AppModel.fromJson(Map<String, dynamic> json) =>
-      _$AppModelFromJson(json);
   final String? theme;
   final String? language;
   final Pages? page;
@@ -42,8 +40,7 @@ final class AppModel extends Equatable implements BaseModel<AppModel> {
   final int? activeUser;
 
   @override
-  List<Object?> get props =>
-      [theme, language, isCompleteOnboard, page, activeUser];
+  List<Object?> get props => [theme, language, isCompleteOnboard, page, activeUser];
   @override
   Map<String, dynamic> toJson() => _$AppModelToJson(this);
 

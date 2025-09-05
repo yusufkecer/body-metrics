@@ -1,7 +1,6 @@
 part of 'user_general_info.dart';
 
-mixin _UserGeneralInfoModel
-    on State<_UserInfoFormBody>, DialogUtil<_UserInfoFormBody>, SaveAppMixin {
+mixin _UserGeneralInfoModel on State<_UserInfoFormBody>, DialogUtil<_UserInfoFormBody>, SaveAppMixin {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _surnameController = TextEditingController();
   final DateController _birthOfDateController = DateController();
@@ -16,25 +15,25 @@ mixin _UserGeneralInfoModel
   }
 
   Future<void> _onPressed() async {
-    if ((_nameController.text.isEmpty ||
-            _birthOfDateController.text.isEmpty ||
-            _surnameController.text.isEmpty) &&
+    final state = _cubit.state;
+    if ((_nameController.text.isEmpty || _birthOfDateController.text.isEmpty || _surnameController.text.isEmpty) &&
         mounted) {
       showLottieError(LocaleKeys.register_information_is_empty);
       return;
     }
     await createProfile();
-    if (_cubit.state is UserInfoFormCubitSuccess) {
+    if (state is UserInfoFormCubitError) {
+      showLottieError(state.error ?? LocaleKeys.dialog_general_error);
+      return;
+    } else if (state is UserInfoFormCubitSuccess) {
       final pageResult = await saveApp(Pages.genderPage);
-      if (pageResult != true) {
+      if (pageResult != true) {   
         showLottieError(LocaleKeys.dialog_page_not_saved);
         return;
       }
       await pushToGender();
     } else {
-      showLottieError(
-        LocaleKeys.dialog_general_error,
-      );
+      showLottieError(LocaleKeys.dialog_general_error);
     }
   }
 
@@ -72,9 +71,7 @@ mixin _UserGeneralInfoModel
   }
 
   bool _checkFields() {
-    return _nameController.text.isEmpty &&
-        _birthOfDateController.text.isEmpty &&
-        _surnameController.text.isEmpty;
+    return _nameController.text.isEmpty && _birthOfDateController.text.isEmpty && _surnameController.text.isEmpty;
   }
 
   Future<void> _didPop({required bool isFormEmpty}) async {
