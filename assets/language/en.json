@@ -3,6 +3,7 @@
     "cont": "Continue",
     "save": "Save",
     "back": "Go Back",
+    "try_again": "Try Again",
     "gender": {
         "gender_name": "Gender",
         "select_gender": "Select Your Gender",
@@ -101,6 +102,7 @@
         "user_metrics_not_found": "User metrics not found.",
         "context_not_found": "Context not found. Please ensure the application is properly initialized.",
         "weight_and_height_must_be_positive_values": "Weight and height must be positive values.",
-        "user_not_created": "User could not be created. Please try again."
+        "user_not_created": "User could not be created. Please try again.",
+        "height_not_saved": "Height could not be saved. Please try again."
     }
 }

@@ -17,15 +17,11 @@ final class CustomError extends StatelessWidget {
       children: [
         Padding(
           padding: const ProductPadding.fifTeen().copyWith(bottom: 10),
-          child: Column(
-            children: [
-              Text(
-                message?.tr() ?? '',
-                style: context.textTheme.displayLarge?.copyWith(
-                  fontWeight: FontWeight.w500,
-                ),
-              ),
-            ],
+          child: Text(
+            message?.tr() ?? '',
+            style: context.textTheme.displayLarge?.copyWith(
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
         Expanded(
@@ -34,7 +30,7 @@ final class CustomError extends StatelessWidget {
           ),
         ),
         CustomFilled(
-          text: LocaleKeys.back,
+          text: LocaleKeys.try_again,
           onPressed: () {
             context.router.maybePop();
           },

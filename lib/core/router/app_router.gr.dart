@@ -19,8 +19,7 @@ class AvatarPickerView extends PageRouteInfo<AvatarPickerViewArgs> {
     List<PageRouteInfo>? children,
   }) : super(
           AvatarPickerView.name,
-          args:
-              AvatarPickerViewArgs(key: key, isChangeProfile: isChangeProfile),
+          args: AvatarPickerViewArgs(key: key, isChangeProfile: isChangeProfile),
           initialChildren: children,
         );
 
@@ -63,8 +62,7 @@ class AvatarPickerViewArgs {
 /// generated route for
 /// [Gender]
 class GenderView extends PageRouteInfo<void> {
-  const GenderView({List<PageRouteInfo>? children})
-      : super(GenderView.name, initialChildren: children);
+  const GenderView({List<PageRouteInfo>? children}) : super(GenderView.name, initialChildren: children);
 
   static const String name = 'GenderView';
 
@@ -95,7 +93,7 @@ class HeightView extends PageRouteInfo<HeightViewArgs> {
     name,
     builder: (data) {
       final args = data.argsAs<HeightViewArgs>();
-      return Height(gender: args.gender, key: args.key);
+      return HeightPicker(gender: args.gender, key: args.key);
     },
   );
 }
@@ -126,8 +124,7 @@ class HeightViewArgs {
 /// generated route for
 /// [Home]
 class HomeView extends PageRouteInfo<void> {
-  const HomeView({List<PageRouteInfo>? children})
-      : super(HomeView.name, initialChildren: children);
+  const HomeView({List<PageRouteInfo>? children}) : super(HomeView.name, initialChildren: children);
 
   static const String name = 'HomeView';
 
@@ -142,8 +139,7 @@ class HomeView extends PageRouteInfo<void> {
 /// generated route for
 /// [Onboard]
 class OnboardView extends PageRouteInfo<void> {
-  const OnboardView({List<PageRouteInfo>? children})
-      : super(OnboardView.name, initialChildren: children);
+  const OnboardView({List<PageRouteInfo>? children}) : super(OnboardView.name, initialChildren: children);
 
   static const String name = 'OnboardView';
 
@@ -158,8 +154,7 @@ class OnboardView extends PageRouteInfo<void> {
 /// generated route for
 /// [Splash]
 class SplashView extends PageRouteInfo<void> {
-  const SplashView({List<PageRouteInfo>? children})
-      : super(SplashView.name, initialChildren: children);
+  const SplashView({List<PageRouteInfo>? children}) : super(SplashView.name, initialChildren: children);
 
   static const String name = 'SplashView';
 
@@ -221,8 +216,7 @@ class UserGeneralInfoViewArgs {
 /// generated route for
 /// [WeightPicker]
 class WeightView extends PageRouteInfo<void> {
-  const WeightView({List<PageRouteInfo>? children})
-      : super(WeightView.name, initialChildren: children);
+  const WeightView({List<PageRouteInfo>? children}) : super(WeightView.name, initialChildren: children);
 
   static const String name = 'WeightView';
 

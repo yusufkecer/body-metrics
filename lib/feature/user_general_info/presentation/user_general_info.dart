@@ -45,8 +45,7 @@ final class _UserInfoFormBody extends StatefulWidget {
   State<_UserInfoFormBody> createState() => _UserInfoFormBodyState();
 }
 
-class _UserInfoFormBodyState extends State<_UserInfoFormBody>
-    with DialogUtil, SaveAppMixin, _UserGeneralInfoModel {
+class _UserInfoFormBodyState extends State<_UserInfoFormBody> with DialogUtil, SaveAppMixin, _UserGeneralInfoModel {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -73,7 +72,7 @@ class _UserInfoFormBodyState extends State<_UserInfoFormBody>
                 ),
                 CustomTextField(
                   label: LocaleKeys.register_surname,
-                  prefixIcon: ProductIcon.user.icon,
+                  prefixIcon: ProductIcon.users.icon,
                   controller: _surnameController,
                 ),
                 CustomTextField(

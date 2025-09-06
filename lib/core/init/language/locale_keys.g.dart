@@ -7,6 +7,7 @@ abstract class  LocaleKeys {
   static const cont = 'cont';
   static const save = 'save';
   static const back = 'back';
+  static const try_again = 'try_again';
   static const gender_gender_name = 'gender.gender_name';
   static const gender_select_gender = 'gender.select_gender';
   static const gender_fm = 'gender.fm';
@@ -65,7 +66,6 @@ abstract class  LocaleKeys {
   static const home_yearly = 'home.yearly';
   static const home_monthly = 'home.monthly';
   static const home_weekly = 'home.weekly';
-  static const home_hello = 'home.hello';
   static const home_see_more = 'home.see_more';
   static const home_bmi = 'home.bmi';
   static const home_weight = 'home.weight';
@@ -96,6 +96,7 @@ abstract class  LocaleKeys {
   static const exception_context_not_found = 'exception.context_not_found';
   static const exception_weight_and_height_must_be_positive_values = 'exception.weight_and_height_must_be_positive_values';
   static const exception_user_not_created = 'exception.user_not_created';
+  static const exception_height_not_saved = 'exception.height_not_saved';
   static const exception = 'exception';
 
 }
