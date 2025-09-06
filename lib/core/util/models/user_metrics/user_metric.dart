@@ -10,9 +10,6 @@ part 'user_metric.g.dart';
 final class UserMetric extends Equatable implements BaseModel<UserMetric> {
   const UserMetric({this.statusIcon, this.weightDiff, this.bmi, this.id, this.date, this.weight, this.userMetric});
 
-  @override
-  factory UserMetric.fromJson(Map<String, dynamic> json) => _$UserMetricFromJson(json);
-
   UserMetric.copyWith(UserMetric userMetric)
       : this(
           weightDiff: userMetric.weightDiff,
@@ -22,6 +19,12 @@ final class UserMetric extends Equatable implements BaseModel<UserMetric> {
           weight: userMetric.weight,
           userMetric: userMetric.userMetric,
         );
+
+  @override
+  factory UserMetric.fromJson(Json json) => _$UserMetricFromJson(json);
+
+  @override
+  Json toJson() => _$UserMetricToJson(this);
 
   UserMetric copyWith({
     int? id,
@@ -40,9 +43,6 @@ final class UserMetric extends Equatable implements BaseModel<UserMetric> {
       userMetric: userMetric ?? this.userMetric,
     );
   }
-
-  @override
-  Map<String, dynamic> toJson() => _$UserMetricToJson(this);
 
   @override
   final int? id;

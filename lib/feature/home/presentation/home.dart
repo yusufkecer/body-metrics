@@ -2,7 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/core/widgets/rich_text_widgets/custom_rich_text.dart';
 import 'package:bodymetrics/core/widgets/space_column.dart';
-import 'package:bodymetrics/feature/home/presentation/cubit/user_cubit.dart';
+import 'package:bodymetrics/feature/home/presentation/cubit/user_cubit/user_cubit.dart';
 import 'package:bodymetrics/injection/locator.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';

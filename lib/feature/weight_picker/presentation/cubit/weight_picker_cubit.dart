@@ -1,5 +1,4 @@
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/domain/entities/user_metric_entity.dart';
 import 'package:bodymetrics/feature/weight_picker/domain/entity/bmi_value.dart';
 import 'package:bodymetrics/feature/weight_picker/domain/use_case/calculate_bmi_use_case.dart';
 import 'package:bodymetrics/feature/weight_picker/domain/use_case/save_weight_use_case.dart';
@@ -61,7 +60,7 @@ class WeightPickerCubit extends Cubit<WeightPickerState> {
       bmi: bmi,
     ).toJson();
 
-    final userMetricEntity = UserMetricEntity(data: metricsEntity);
+    final userMetricEntity = UserMetric.fromJson(metricsEntity);
     final result = await _saveWeightUseCase.executeWithParams(params: userMetricEntity);
 
     return result;
