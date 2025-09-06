@@ -1,4 +1,6 @@
-part of '../../height_picker.dart';
+part of 'height_picker_cubit.dart';
+
+
 
 sealed class HeightSelectorState extends Equatable {
   const HeightSelectorState({this.page, this.height});
@@ -10,8 +12,8 @@ sealed class HeightSelectorState extends Equatable {
   List<Object> get props => [page ?? 0, height ?? 0];
 }
 
-final class HeightSelectorInitial extends HeightSelectorState {
-  const HeightSelectorInitial({
+final class HeightSelectorUpdateHeight extends HeightSelectorState {
+  const HeightSelectorUpdateHeight({
     super.height,
     super.page,
   });

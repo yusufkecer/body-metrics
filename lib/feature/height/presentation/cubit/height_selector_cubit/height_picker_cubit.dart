@@ -1,8 +1,12 @@
-part of '../../height_picker.dart';
+import 'package:equatable/equatable.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:injectable/injectable.dart';
+
+part 'height_picker_state.dart';
 
 @injectable
 final class HeightSelectorCubit extends Cubit<HeightSelectorState> {
-  HeightSelectorCubit() : super(const HeightSelectorInitial());
+  HeightSelectorCubit() : super(const HeightSelectorUpdateHeight());
 
   void updateHeight(double page, int minValue, int maxValue) {
     var currentPosition = 0;
@@ -13,7 +17,7 @@ final class HeightSelectorCubit extends Cubit<HeightSelectorState> {
       currentPosition = position;
       currentHeight = _calculateHeight(position);
 
-      emit(HeightSelectorInitial(page: currentPosition, height: currentHeight));
+      emit(HeightSelectorUpdateHeight(page: currentPosition, height: currentHeight));
     }
   }
 

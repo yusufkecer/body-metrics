@@ -7,6 +7,7 @@ abstract class  LocaleKeys {
   static const cont = 'cont';
   static const save = 'save';
   static const back = 'back';
+  static const try_again = 'try_again';
   static const gender_gender_name = 'gender.gender_name';
   static const gender_select_gender = 'gender.select_gender';
   static const gender_fm = 'gender.fm';

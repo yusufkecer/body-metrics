@@ -1,6 +1,6 @@
 part of 'height_picker.dart';
 
-mixin _HeightModel on State<HeightPicker>, DialogUtil<HeightPicker>, SaveAppMixin {
+mixin _HeightModel on State<_HeightBody>, DialogUtil<_HeightBody>, SaveAppMixin {
   late PageController _pageController;
 
   HeightSelectorCubit? cubit;
@@ -27,10 +27,6 @@ mixin _HeightModel on State<HeightPicker>, DialogUtil<HeightPicker>, SaveAppMixi
     _pageController.addListener(_onPageChanged);
 
     cubit?.updateHeight(_pageController.initialPage.toDouble(), _minValue, _maxValue);
-
-    WidgetsBinding.instance.addPostFrameCallback((_) {
-      _onPageChanged();
-    });
   }
 
   @override
@@ -68,6 +64,6 @@ mixin _HeightModel on State<HeightPicker>, DialogUtil<HeightPicker>, SaveAppMixi
   }
 
   void _initValues() {
-    _lottie = widget.gender.isFemale() == true ? AssetValue.femaleBody.value : AssetValue.maleBody.value;
+    _lottie = widget.isFemale == true ? AssetValue.femaleBody.value : AssetValue.maleBody.value;
   }
 }
