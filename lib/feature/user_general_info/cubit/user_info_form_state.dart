@@ -1,4 +1,4 @@
-part of 'user_general_info_cubit.dart';
+part of 'user_info_form_cubit.dart';
 
 sealed class UserInfoFormCubitState extends Equatable {
   const UserInfoFormCubitState({this.isFormEmpty});

@@ -71,7 +71,7 @@ import 'package:bodymetrics/feature/splash/domain/use_case/splash_app_use_case.d
     as _i31;
 import 'package:bodymetrics/feature/splash/domain/use_case/splash_user_use_case.dart'
     as _i193;
-import 'package:bodymetrics/feature/user_general_info/cubit/user_general_info_cubit.dart'
+import 'package:bodymetrics/feature/user_general_info/cubit/user_info_form_cubit.dart'
     as _i722;
 import 'package:bodymetrics/feature/user_general_info/domain/index.dart'
     as _i171;

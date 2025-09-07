@@ -24,7 +24,10 @@
         "skip": "Atla",
         "select_profile_picture": "Avatarınızı Seçin",
         "information_is_empty": "Kaydı tamamlamak için adınızı ve doğum tarihinizi girmeniz gerekiyor.",
-        "avatar_select_failed": "Avatar seçilirken bir sorun oluştu. Hesaplama adımına geçmek ister misiniz?"
+        "avatar_select_failed": "Avatar seçilirken bir sorun oluştu. Hesaplama adımına geçmek ister misiniz?",
+        "name_required": "İsin boş bırakılamaz ve en az 3 karakter olmalıdır.",
+        "surname_required": "Soyisim boş bırakılamaz ve en az 3 karakter olmalıdır.",
+        "birth_of_date_required": "Doğum tarihi boş bırakılamaz."
     },
     "weight": {
         "weight_name": "Kilo",

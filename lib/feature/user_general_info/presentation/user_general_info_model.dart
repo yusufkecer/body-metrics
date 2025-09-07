@@ -5,6 +5,8 @@ mixin _UserGeneralInfoModel on State<_UserInfoFormBody>, DialogUtil<_UserInfoFor
   final TextEditingController _surnameController = TextEditingController();
   final DateController _birthOfDateController = DateController();
   late final UserInfoFormCubit _cubit = context.read<UserInfoFormCubit>();
+  final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
+
   @override
   void dispose() {
     _nameController.dispose();
@@ -14,34 +16,11 @@ mixin _UserGeneralInfoModel on State<_UserInfoFormBody>, DialogUtil<_UserInfoFor
     super.dispose();
   }
 
-  Future<void> _onPressed() async {
-    final state = _cubit.state;
-    if ((_nameController.text.isEmpty || _birthOfDateController.text.isEmpty || _surnameController.text.isEmpty) &&
-        mounted) {
-      showLottieError(LocaleKeys.register_information_is_empty);
-      return;
-    }
-    await createProfile();
-    if (state is UserInfoFormCubitError) {
-      showLottieError(state.error ?? LocaleKeys.dialog_general_error);
-      return;
-    } else if (state is UserInfoFormCubitSuccess) {
-      final pageResult = await saveApp(Pages.genderPage);
-      if (pageResult != true) {   
-        showLottieError(LocaleKeys.dialog_page_not_saved);
-        return;
-      }
-      await pushToGender();
-    } else {
-      showLottieError(LocaleKeys.dialog_general_error);
-    }
-  }
-
   Future<void> pushToGender() async {
     await context.pushRoute(const GenderView());
   }
 
-  Future<void> createProfile() async {
+  Future<void> _createProfile() async {
     final birthDay = _birthOfDateController.text.toYMD;
     final user = User(
       name: _nameController.text,
@@ -71,7 +50,17 @@ mixin _UserGeneralInfoModel on State<_UserInfoFormBody>, DialogUtil<_UserInfoFor
   }
 
   bool _checkFields() {
-    return _nameController.text.isEmpty && _birthOfDateController.text.isEmpty && _surnameController.text.isEmpty;
+    return _nameController.text.formNotEmpty &&
+        _birthOfDateController.text.formNotEmpty &&
+        _surnameController.text.formNotEmpty;
+  }
+
+  String? _formValidator(String? value, String? errorText) {
+    if (value?.checkForm == false) {
+      return errorText;
+    }
+
+    return null;
   }
 
   Future<void> _didPop({required bool isFormEmpty}) async {
