@@ -90,7 +90,8 @@ class _UserInfoFormBodyState extends State<_UserInfoFormBody> with DialogUtil, S
                   prefixIcon: ProductIcon.birthDay.icon,
                   controller: _birthOfDateController,
                   validator: (value) {
-                    return _formValidator(value, LocaleKeys.register_birth_of_date_required);
+                    // Controller value is set externally, so we need to use _birthOfDateController.text
+                    return _birthDateValidator(_birthOfDateController.text, LocaleKeys.register_birth_of_date_required);
                   },
                 ),
               ],
@@ -106,7 +107,7 @@ class _UserInfoFormBodyState extends State<_UserInfoFormBody> with DialogUtil, S
                   showLottieError(LocaleKeys.dialog_page_not_saved);
                   return;
                 }
-                await pushToGender();
+                await _pushToGender();
               }
             },
             child: CustomFilled(

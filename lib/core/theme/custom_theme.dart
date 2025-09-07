@@ -22,6 +22,7 @@ class CustomTheme implements BaseTheme {
       datePickerTheme: _datePickerTheme,
       textSelectionTheme: _textSelectionTheme,
       colorScheme: ColorScheme.dark(
+        error: ProductColor.instance.white,
         primary: ProductColor.instance.seedColor,
         surface: ProductColor.instance.seedColor,
         surfaceBright: ProductColor.instance.white,
@@ -84,6 +85,7 @@ class CustomTheme implements BaseTheme {
 
   final InputDecorationTheme _inputDecorationTheme = const InputDecorationTheme(
     border: OutlineInputBorder(borderRadius: ProductRadius.ten()),
+    errorStyle: TextStyle(fontSize: 15),
   );
 
   final CheckboxThemeData _checkboxTheme = CheckboxThemeData(
