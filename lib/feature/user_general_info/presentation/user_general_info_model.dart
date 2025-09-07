@@ -15,13 +15,13 @@ mixin _UserGeneralInfoModel on State<_UserInfoFormBody>, DialogUtil<_UserInfoFor
   }
 
   Future<void> _onPressed() async {
-    final state = _cubit.state;
     if ((_nameController.text.isEmpty || _birthOfDateController.text.isEmpty || _surnameController.text.isEmpty) &&
         mounted) {
       showLottieError(LocaleKeys.register_information_is_empty);
       return;
     }
     await createProfile();
+    final state = _cubit.state;
     if (state is UserInfoFormCubitError) {
       showLottieError(state.error ?? LocaleKeys.dialog_general_error);
       return;
