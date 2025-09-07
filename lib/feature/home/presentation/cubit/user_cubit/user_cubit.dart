@@ -11,12 +11,12 @@ part 'user_state.dart';
 @injectable
 class UserCubit extends Cubit<UserState> {
   UserCubit(this._userUseCase) : super(const UserLoading()) {
-    getUser();
+    getUserAndHistory();
   }
 
   final UserUseCaseImpl _userUseCase;
 
-  Future<void> getUser() async {
+  Future<void> getUserAndHistory() async {
     try {
       final userId = AppUtil.currentUserId;
       if (userId == null) {

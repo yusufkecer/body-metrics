@@ -1,3 +1,4 @@
+import 'package:bodymetrics/core/index.dart';
 import 'package:equatable/equatable.dart';
 import 'package:json_annotation/json_annotation.dart';
 part 'icon_data.g.dart';
@@ -11,8 +12,8 @@ class IconDataModel extends Equatable {
     this.matchTextDirection = false,
   });
 
-  factory IconDataModel.fromJson(Map<String, dynamic> json) => _$IconDataModelFromJson(json);
-  Map<String, dynamic> toIcon() => _$IconDataModelToJson(this);
+  factory IconDataModel.fromJson(Json json) => _$IconDataModelFromJson(json);
+  Json toIcon() => _$IconDataModelToJson(this);
 
   final int codePoint;
   final String? fontFamily;

@@ -20,7 +20,7 @@ class User extends Equatable implements BaseModel<User> {
   });
 
   @override
-  factory User.fromJson(Map<String, dynamic> json) => _$UserFromJson(json);
+  factory User.fromJson(Json json) => _$UserFromJson(json);
 
   User copyWith({
     String? name,
@@ -28,7 +28,7 @@ class User extends Equatable implements BaseModel<User> {
     String? avatar,
     int? id,
     GenderValue? gender,
-    double? height,
+    int? height,
     UserMetric? userMetrics,
     String? birthOfDate,
   }) {
@@ -48,7 +48,7 @@ class User extends Equatable implements BaseModel<User> {
   List<Object?> get props => [name, gender, userMetrics, id, birthOfDate, surname];
 
   @override
-  Map<String, dynamic> toJson() => _$UserToJson(this);
+  Json toJson() => _$UserToJson(this);
 
   @override
   final int? id;
@@ -56,7 +56,7 @@ class User extends Equatable implements BaseModel<User> {
   final String? surname;
   final String? avatar;
   final GenderValue? gender;
-  final double? height;
+  final int? height;
   @JsonKey(includeToJson: false)
   final UserMetric? userMetrics;
   final String? birthOfDate;

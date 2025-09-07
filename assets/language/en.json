@@ -24,7 +24,10 @@
         "skip": "Skip",
         "select_profile_picture": "Select Your Avatar",
         "information_is_empty": "To complete the registration, you need to enter your name and date of birth.",
-        "avatar_select_failed": "There was a problem selecting an avatar. Would you like to proceed to the calculation step?"
+        "avatar_select_failed": "There was a problem selecting an avatar. Would you like to proceed to the calculation step?",
+        "name_required": "Name cannot be empty and minimum 3 characters.",
+        "surname_required": "Surname cannot be empty and minimum 3 characters.",
+        "birth_of_date_required": "Birth of date cannot be empty."
     },
     "weight": {
         "weight_name": "Weight",

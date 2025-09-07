@@ -20,7 +20,7 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json
           ${UserCacheColumns.surname.value} TEXT NULL,
           ${UserCacheColumns.gender.value} INTEGER NULL,
           ${UserCacheColumns.avatar.value} TEXT NULL,
-          ${UserCacheColumns.height.value} FLOAT NULL,
+          ${UserCacheColumns.height.value} INTEGER NULL,
           ${UserCacheColumns.birthOfDate.value} TEXT NULL
         )
       ''');
@@ -79,7 +79,7 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json
 
     if (result.isNotEmpty) {
       final users = Users(users: result.map(User.fromJson).toList());
-
+      'User selected $users'.log();
       return users;
     } else {
       'User not selected'.w();

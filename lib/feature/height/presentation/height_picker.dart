@@ -77,7 +77,7 @@ class _HeightBodyState extends State<_HeightBody> with SaveAppMixin, DialogUtil<
             pageController: _pageController,
             maxValue: _maxValue,
             minValue: _minValue,
-            selectedHeight: cubit!.state.page!,
+            selectedHeight: cubit!.state.userHeight!,
           ),
         ],
       ),

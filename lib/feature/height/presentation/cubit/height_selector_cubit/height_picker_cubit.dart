@@ -17,7 +17,7 @@ final class HeightSelectorCubit extends Cubit<HeightSelectorState> {
       currentPosition = position;
       currentHeight = _calculateHeight(position);
 
-      emit(HeightSelectorUpdateHeight(page: currentPosition, height: currentHeight));
+      emit(HeightSelectorUpdateHeight(userHeight: currentPosition, height: currentHeight));
     }
   }
 

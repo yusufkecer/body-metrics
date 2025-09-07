@@ -4,7 +4,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-part 'user_general_info_state.dart';
+part 'user_info_form_state.dart';
 
 @injectable
 class UserInfoFormCubit extends Cubit<UserInfoFormCubitState> {

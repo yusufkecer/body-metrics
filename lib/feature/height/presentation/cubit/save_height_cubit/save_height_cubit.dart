@@ -11,7 +11,7 @@ final class SaveHeightCubit extends Cubit<SaveHeightState> {
   SaveHeightCubit(this._saveHeightUseCase) : super(SaveHeightInitial());
   final SaveHeightUseCase _saveHeightUseCase;
 
-  Future<void> saveHeight(double height) async {
+  Future<void> saveHeight(int height) async {
     emit(SaveHeightLoading());
     final result = await _saveHeightUseCase.executeWithParams(params: User(height: height));
     if (result == null || result == false) {

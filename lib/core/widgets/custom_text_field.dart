@@ -13,6 +13,7 @@ final class CustomTextField extends StatelessWidget {
     this.prefixIcon,
     this.onTap,
     this.readOnly = false,
+    this.validator,
   });
 
   final String? label;
@@ -22,6 +23,7 @@ final class CustomTextField extends StatelessWidget {
   final IconData? prefixIcon;
   final String? hintText;
   final bool readOnly;
+  final FormFieldValidator<String>? validator;
 
   @override
   Widget build(BuildContext context) {
@@ -39,6 +41,7 @@ final class CustomTextField extends StatelessWidget {
             decoration: ProductDecoration.inputDecoration(),
             child: TextFormField(
               readOnly: readOnly,
+              validator: validator,
               onTapOutside: (_) => context.unfocus(),
               onChanged: onChanged,
               controller: controller,
@@ -46,6 +49,7 @@ final class CustomTextField extends StatelessWidget {
               decoration: InputDecoration(
                 contentPadding: const ProductPadding.fifTeen(),
                 border: InputBorder.none,
+                errorStyle: context.textTheme.bodyMedium?.copyWith(color: ProductColor.instance.pink),
                 prefixIcon: Icon(prefixIcon),
               ),
             ),

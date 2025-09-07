@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
+import 'package:bodymetrics/core/extensions/regex_extension.dart';
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/feature/user_general_info/cubit/user_general_info_cubit.dart';
+import 'package:bodymetrics/feature/user_general_info/cubit/user_info_form_cubit.dart';
 
 import 'package:bodymetrics/injection/locator.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -58,6 +59,7 @@ class _UserInfoFormBodyState extends State<_UserInfoFormBody> with DialogUtil, S
             ),
           ),
           Form(
+            key: _formKey,
             onChanged: _formListener,
             canPop: context.watch<UserInfoFormCubit>().state.isFormEmpty,
             onPopInvokedWithResult: (isPop, result) async {
@@ -69,11 +71,17 @@ class _UserInfoFormBodyState extends State<_UserInfoFormBody> with DialogUtil, S
                   label: LocaleKeys.register_name,
                   prefixIcon: ProductIcon.user.icon,
                   controller: _nameController,
+                  validator: (value) {
+                    return _formValidator(value, LocaleKeys.register_name_required);
+                  },
                 ),
                 CustomTextField(
                   label: LocaleKeys.register_surname,
                   prefixIcon: ProductIcon.users.icon,
                   controller: _surnameController,
+                  validator: (value) {
+                    return _formValidator(value, LocaleKeys.register_surname_required);
+                  },
                 ),
                 CustomTextField(
                   label: LocaleKeys.register_birth_of_date,
@@ -81,13 +89,30 @@ class _UserInfoFormBodyState extends State<_UserInfoFormBody> with DialogUtil, S
                   onTap: _openDatePicker,
                   prefixIcon: ProductIcon.birthDay.icon,
                   controller: _birthOfDateController,
+                  validator: (value) {
+                    return _formValidator(value, LocaleKeys.register_birth_of_date_required);
+                  },
                 ),
               ],
             ),
           ),
-          CustomFilled(
-            text: LocaleKeys.save,
-            onPressed: _onPressed,
+          BlocListener<UserInfoFormCubit, UserInfoFormCubitState>(
+            listener: (context, state) async {
+              if (state is UserInfoFormCubitError) {
+                showLottieError(state.error ?? LocaleKeys.dialog_general_error);
+              } else if (state is UserInfoFormCubitSuccess) {
+                final pageResult = await saveApp(Pages.genderPage);
+                if (pageResult != true) {
+                  showLottieError(LocaleKeys.dialog_page_not_saved);
+                  return;
+                }
+                await pushToGender();
+              }
+            },
+            child: CustomFilled(
+              text: LocaleKeys.save,
+              onPressed: _createProfile,
+            ),
           ),
         ],
       ),

@@ -10,7 +10,7 @@ final class Users extends Equatable implements BaseModel<Users> {
   const Users({this.users});
 
   @override
-  factory Users.fromJson(Map<String, dynamic> json) => _$UsersFromJson(json);
+  factory Users.fromJson(Json json) => _$UsersFromJson(json);
 
   final List<User>? users;
 
@@ -18,7 +18,7 @@ final class Users extends Equatable implements BaseModel<Users> {
   List<Object?> get props => [users];
 
   @override
-  Map<String, dynamic> toJson() => _$UsersToJson(this);
+  Json toJson() => _$UsersToJson(this);
 
   @override
   int? get id => throw UnimplementedError();

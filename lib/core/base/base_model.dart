@@ -1,9 +1,10 @@
+import 'package:bodymetrics/core/index.dart';
 import 'package:flutter/foundation.dart';
 
 @immutable
 abstract interface class BaseModel<T> implements _IdModel {
   const BaseModel.fromJson();
-  Map<String, dynamic> toJson();
+  Json toJson();
 }
 
 @immutable

@@ -49,7 +49,7 @@ mixin _HeightModel on State<_HeightBody>, DialogUtil<_HeightBody>, SaveAppMixin 
     final heightState = cubit!.state;
     if (heightState.height.isNullOrEmpty) return;
     final saveHeightCubit = Locator.sl<SaveHeightCubit>();
-    await saveHeightCubit.saveHeight(heightState.height!);
+    await saveHeightCubit.saveHeight(heightState.userHeight!);
     if (saveHeightCubit.state case SaveHeightError(:final error)) {
       showLottieError(error);
       return;
