@@ -37,22 +37,42 @@ final class CustomTextField extends StatelessWidget {
             style: context.textTheme.titleMedium,
           ),
           VerticalSpace.s(),
-          Container(
-            decoration: ProductDecoration.inputDecoration(),
-            child: TextFormField(
-              readOnly: readOnly,
-              validator: validator,
-              onTapOutside: (_) => context.unfocus(),
-              onChanged: onChanged,
-              controller: controller,
-              onTap: onTap,
-              decoration: InputDecoration(
-                contentPadding: const ProductPadding.fifTeen(),
-                border: InputBorder.none,
-                errorStyle: context.textTheme.bodyMedium?.copyWith(color: ProductColor.instance.pink),
-                prefixIcon: Icon(prefixIcon),
-              ),
-            ),
+          FormField<String>(
+            validator: validator,
+            builder: (field) {
+              return Column(
+                spacing: SpaceValues.xxs.value,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Container(
+                    decoration: ProductDecoration.inputDecoration(),
+                    child: TextField(
+                      controller: controller,
+                      readOnly: readOnly,
+                      onTap: () {
+                        onTap?.call();
+                        field.didChange(controller?.text ?? '');
+                      },
+                      onChanged: (value) {
+                        onChanged?.call(value);
+                        field.didChange(value);
+                      },
+                      decoration: InputDecoration(
+                        contentPadding: const ProductPadding.fifTeen(),
+                        border: InputBorder.none,
+                        prefixIcon: Icon(prefixIcon),
+                        hintText: hintText,
+                      ),
+                    ),
+                  ),
+                  if (field.hasError)
+                    Text(
+                      field.errorText ?? '',
+                      style: context.textTheme.bodyLarge,
+                    ),
+                ],
+              );
+            },
           ),
         ],
       ),

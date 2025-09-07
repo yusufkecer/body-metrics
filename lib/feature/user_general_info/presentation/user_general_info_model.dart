@@ -16,18 +16,18 @@ mixin _UserGeneralInfoModel on State<_UserInfoFormBody>, DialogUtil<_UserInfoFor
     super.dispose();
   }
 
-  Future<void> pushToGender() async {
+  Future<void> _pushToGender() async {
     await context.pushRoute(const GenderView());
   }
 
   Future<void> _createProfile() async {
+    _formKey.currentState?.validate();
     final birthDay = _birthOfDateController.text.toYMD;
     final user = User(
       name: _nameController.text,
       surname: _surnameController.text,
       birthOfDate: birthDay,
     );
-
     await _cubit.createProfile(user);
   }
 
@@ -56,11 +56,13 @@ mixin _UserGeneralInfoModel on State<_UserInfoFormBody>, DialogUtil<_UserInfoFor
   }
 
   String? _formValidator(String? value, String? errorText) {
-    if (value?.checkForm == false) {
-      return errorText;
-    }
+    if (value?.checkForm ?? false) return null;
+    return errorText?.tr();
+  }
 
-    return null;
+  String? _birthDateValidator(String? value, String? errorText) {
+    if (value?.checkDateForm ?? false) return null;
+    return errorText?.tr();
   }
 
   Future<void> _didPop({required bool isFormEmpty}) async {
