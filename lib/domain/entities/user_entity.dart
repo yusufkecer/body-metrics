@@ -5,7 +5,6 @@ class UserFilters extends User {
     super.id,
     super.birthOfDate,
     super.name,
-    super.userMetrics,
     super.avatar,
     super.gender,
     super.height,

@@ -1,7 +1,6 @@
 import 'dart:async';
 
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/data/cache/bmi_cache/user_metrics_columns.dart';
 import 'package:bodymetrics/data/index.dart';
 import 'package:bodymetrics/domain/index.dart';
 import 'package:injectable/injectable.dart';

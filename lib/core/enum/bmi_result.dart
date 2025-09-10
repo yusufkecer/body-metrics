@@ -21,21 +21,21 @@ extension ResultExtension on BodyMetricResult {
   }
 }
 
-extension ParseExtension on int {
-  BodyMetricResult get resultParse {
-    switch (this) {
-      case 0:
-        return BodyMetricResult.underweight;
-      case 1:
-        return BodyMetricResult.normal;
-      case 2:
-        return BodyMetricResult.overweight;
-      case 3:
-        return BodyMetricResult.obese;
-      case 4:
-        return BodyMetricResult.morbidlyObese;
-      default:
-        return BodyMetricResult.unknown;
-    }
-  }
-}
+// extension ParseExtension on int {
+//   BodyMetricResult get resultParse {
+//     switch (this) {
+//       case 0:
+//         return BodyMetricResult.underweight;
+//       case 1:
+//         return BodyMetricResult.normal;
+//       case 2:
+//         return BodyMetricResult.overweight;
+//       case 3:
+//         return BodyMetricResult.obese;
+//       case 4:
+//         return BodyMetricResult.morbidlyObese;
+//       default:
+//         return BodyMetricResult.unknown;
+//     }
+//   }
+// }

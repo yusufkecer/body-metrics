@@ -1,7 +1,6 @@
 part of 'weight_picker.dart';
 
-mixin _WeightPickerModel
-    on State<_WeightPickerBody>, DialogUtil<_WeightPickerBody> {
+mixin _WeightPickerModel on State<WeightPicker>, DialogUtil<WeightPicker> {
   late final PageController _weightController;
   late final PageController _decimalWeightController;
   final TextEditingController _weightTextController = TextEditingController();
@@ -165,5 +164,10 @@ mixin _WeightPickerModel
     if (!value.isValidNumber) {
       _weightTextController.text = '$_selectedWeight';
     }
+  }
+
+  Future<void> _goToHomeView() async {
+    await context.router
+        .pushAndPopUntil(const HomeView(), predicate: (route) => false);
   }
 }

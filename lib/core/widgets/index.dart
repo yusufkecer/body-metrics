@@ -1,4 +1,5 @@
 export 'package:bodymetrics/core/widgets/animated_image.dart';
+export 'package:bodymetrics/core/widgets/bloc/bloc_wrapper.dart';
 export 'package:bodymetrics/core/widgets/buttons/colorful_text_button.dart';
 export 'package:bodymetrics/core/widgets/buttons/custom_elevated.dart';
 export 'package:bodymetrics/core/widgets/buttons/text_icon_button.dart';

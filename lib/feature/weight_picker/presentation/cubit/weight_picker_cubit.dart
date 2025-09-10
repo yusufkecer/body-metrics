@@ -1,4 +1,5 @@
 import 'package:bodymetrics/core/index.dart';
+import 'package:bodymetrics/domain/index.dart';
 import 'package:bodymetrics/feature/weight_picker/domain/entity/bmi_value.dart';
 import 'package:bodymetrics/feature/weight_picker/domain/use_case/calculate_bmi_use_case.dart';
 import 'package:bodymetrics/feature/weight_picker/domain/use_case/save_weight_use_case.dart';
@@ -9,7 +10,7 @@ import 'package:injectable/injectable.dart';
 part 'weight_picker_state.dart';
 
 @injectable
-class WeightPickerCubit extends Cubit<WeightPickerState> {
+final class WeightPickerCubit extends Cubit<WeightPickerState> {
   WeightPickerCubit(
     this._userUseCase,
     this._saveWeightUseCase,
@@ -18,7 +19,7 @@ class WeightPickerCubit extends Cubit<WeightPickerState> {
     getUser();
   }
 
-  final UserUseCase _userUseCase;
+  final UserUseCaseImpl _userUseCase;
   final SaveWeightUseCase _saveWeightUseCase;
   final CalculateBmiUseCase _calculateBmiUseCase;
 
@@ -39,29 +40,29 @@ class WeightPickerCubit extends Cubit<WeightPickerState> {
 
     if (state.user.isNullOrEmpty) return;
 
-    final user = state.user;
-    final height = user?.height;
+    final height = state.user?.height;
 
     if (weight.isNullOrEmpty || height.isNullOrEmpty) return;
 
     final bmiValue = BmiValue(weight: weight, height: height!);
     final bmi = await _calculateBmiUseCase.executeWithParams(params: bmiValue);
 
-    emit(WeightPickerInitial(user: user, bmi: bmi));
+    emit(WeightPickerSuccess(user: state.user, bmi: bmi));
   }
 
-  Future<bool> saveBodyMetrics(double weight, double bmi) async {
+  Future<bool> saveBodyMetrics() async {
     final id = AppUtil.currentUserId;
     if (id == null) return false;
 
     final metricsEntity = UserMetric(
-      id: id,
-      weight: weight,
-      bmi: bmi,
+      userId: id,
+      weight: state.weight,
+      bmi: state.bmi,
     ).toJson();
 
     final userMetricEntity = UserMetric.fromJson(metricsEntity);
-    final result = await _saveWeightUseCase.executeWithParams(params: userMetricEntity);
+    final result =
+        await _saveWeightUseCase.executeWithParams(params: userMetricEntity);
 
     return result;
   }

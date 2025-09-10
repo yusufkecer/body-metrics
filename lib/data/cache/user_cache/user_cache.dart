@@ -1,6 +1,5 @@
 import 'dart:async';
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/data/cache/user_cache/user_cache_columns.dart';
 import 'package:bodymetrics/data/index.dart';
 import 'package:bodymetrics/domain/index.dart';
 import 'package:injectable/injectable.dart';
@@ -79,7 +78,7 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json
 
     if (result.isNotEmpty) {
       final users = Users(users: result.map(User.fromJson).toList());
-      'User selected $users'.log();
+      'User selected ${users.users?.first.toString()}'.log();
       return users;
     } else {
       'User not selected'.w();
