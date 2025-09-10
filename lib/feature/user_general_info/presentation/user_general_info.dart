@@ -46,7 +46,8 @@ final class _UserInfoFormBody extends StatefulWidget {
   State<_UserInfoFormBody> createState() => _UserInfoFormBodyState();
 }
 
-class _UserInfoFormBodyState extends State<_UserInfoFormBody> with DialogUtil, SaveAppMixin, _UserGeneralInfoModel {
+class _UserInfoFormBodyState extends State<_UserInfoFormBody>
+    with DialogUtil, SaveAppMixin, _UserGeneralInfoModel {
   @override
   Widget build(BuildContext context) {
     return SingleChildScrollView(
@@ -72,7 +73,8 @@ class _UserInfoFormBodyState extends State<_UserInfoFormBody> with DialogUtil, S
                   prefixIcon: ProductIcon.user.icon,
                   controller: _nameController,
                   validator: (value) {
-                    return _formValidator(value, LocaleKeys.register_name_required);
+                    return _formValidator(
+                        value, LocaleKeys.register_name_required);
                   },
                 ),
                 CustomTextField(
@@ -80,7 +82,8 @@ class _UserInfoFormBodyState extends State<_UserInfoFormBody> with DialogUtil, S
                   prefixIcon: ProductIcon.users.icon,
                   controller: _surnameController,
                   validator: (value) {
-                    return _formValidator(value, LocaleKeys.register_surname_required);
+                    return _formValidator(
+                        value, LocaleKeys.register_surname_required);
                   },
                 ),
                 CustomTextField(
@@ -91,7 +94,8 @@ class _UserInfoFormBodyState extends State<_UserInfoFormBody> with DialogUtil, S
                   controller: _birthOfDateController,
                   validator: (value) {
                     // Controller value is set externally, so we need to use _birthOfDateController.text
-                    return _birthDateValidator(_birthOfDateController.text, LocaleKeys.register_birth_of_date_required);
+                    return _birthDateValidator(_birthOfDateController.text,
+                        LocaleKeys.register_birth_of_date_required);
                   },
                 ),
               ],
@@ -112,7 +116,7 @@ class _UserInfoFormBodyState extends State<_UserInfoFormBody> with DialogUtil, S
             },
             child: CustomFilled(
               text: LocaleKeys.save,
-              onPressed: _createProfile,
+              onPressed: _saveUserInfo,
             ),
           ),
         ],
