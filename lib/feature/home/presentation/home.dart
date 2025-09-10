@@ -26,7 +26,8 @@ final class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home> with _TitleMixin, TickerProviderStateMixin, _HomeModel {
+class _HomeState extends State<Home>
+    with _TitleMixin, TickerProviderStateMixin, _HomeModel {
   @override
   Widget build(BuildContext context) {
     return BlocProvider(
@@ -114,12 +115,6 @@ final class _HomeBody extends StatelessWidget {
       child: SingleChildScrollView(
         child: Column(
           children: [
-            // _PeriodSelect(
-            //   homePeriod: period,
-            //   onYearlySelected: yearlyPeriod,
-            //   onMonthlySelected: monthlyPeriod,
-            //   onWeeklySelected: weeklyPeriod,
-            // ),
             _DataList(
               animatedController: animatedListController,
               userMetrics: userMetrics,

@@ -16,7 +16,8 @@ class UserMetricCubit extends Cubit<UserMetricState> {
     try {
       emit(const UserMetricLoading());
 
-      final params = UserMetric(id: userId);
+      final params = UserMetric(userId: userId);
+      
       final result = await _userMetricUseCase.executeWithParams(params: params);
 
       if (result != null) {
@@ -26,7 +27,7 @@ class UserMetricCubit extends Cubit<UserMetricState> {
       }
     } catch (e) {
       'UserMetricCubit getUserMetric error: $e'.log();
-      emit(UserMetricError(error: e.toString()));
+      emit(const UserMetricError(error: LocaleKeys.exception_generic_error));
     }
   }
 }

@@ -21,7 +21,8 @@ final class WeightPickerLoading extends WeightPickerState {
 }
 
 final class WeightPickerError extends WeightPickerState {
-  const WeightPickerError({super.weight, super.bmi, super.user});
+  const WeightPickerError({required this.error});
+  final String error;
 }
 
 final class WeightPickerSuccess extends WeightPickerState {

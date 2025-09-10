@@ -9,14 +9,12 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:bodymetrics/core/index.dart' as _i243;
 import 'package:bodymetrics/core/router/app_router.dart' as _i1072;
 import 'package:bodymetrics/core/theme/custom_theme.dart' as _i906;
 import 'package:bodymetrics/data/cache/app_cache/app_cache.dart' as _i458;
-import 'package:bodymetrics/data/cache/bmi_cache/user_metrics_cache.dart'
-    as _i1049;
-import 'package:bodymetrics/data/cache/index.dart' as _i389;
 import 'package:bodymetrics/data/cache/user_cache/user_cache.dart' as _i981;
+import 'package:bodymetrics/data/cache/user_metrics_cache/user_metrics_cache.dart'
+    as _i35;
 import 'package:bodymetrics/data/db/imp_cache.dart' as _i46;
 import 'package:bodymetrics/data/index.dart' as _i101;
 import 'package:bodymetrics/domain/index.dart' as _i34;
@@ -72,7 +70,7 @@ import 'package:bodymetrics/feature/splash/domain/use_case/splash_app_use_case.d
 import 'package:bodymetrics/feature/splash/domain/use_case/splash_user_use_case.dart'
     as _i193;
 import 'package:bodymetrics/feature/user_general_info/cubit/user_info_form_cubit.dart'
-    as _i722;
+    as _i226;
 import 'package:bodymetrics/feature/user_general_info/domain/index.dart'
     as _i171;
 import 'package:bodymetrics/feature/user_general_info/domain/repository/create_profile_repository.dart'
@@ -101,20 +99,20 @@ extension GetItInjectableX on _i174.GetIt {
       environment,
       environmentFilter,
     );
-    gh.factory<_i612.HeightSelectorCubit>(() => _i612.HeightSelectorCubit());
     gh.factory<_i830.SetIdUseCase>(() => const _i830.SetIdUseCase());
+    gh.factory<_i612.HeightSelectorCubit>(() => _i612.HeightSelectorCubit());
     gh.factory<_i938.CalculateBmiUseCase>(
         () => const _i938.CalculateBmiUseCase());
     gh.lazySingleton<_i1072.AppRouter>(() => _i1072.AppRouter());
     gh.lazySingleton<_i906.CustomTheme>(() => _i906.CustomTheme());
     gh.lazySingleton<_i458.AppCache>(() => _i458.AppCache());
-    gh.lazySingleton<_i1049.UserMetricsCache>(() => _i1049.UserMetricsCache());
     gh.lazySingleton<_i981.UserCache>(() => _i981.UserCache());
+    gh.lazySingleton<_i35.UserMetricsCache>(() => _i35.UserMetricsCache());
     gh.lazySingleton<_i46.ImpCache>(() => _i46.ImpCache());
-    gh.factory<_i406.SaveWeightRepository>(
-        () => _i406.SaveWeightRepository(gh<_i101.UserMetricsCache>()));
     gh.factory<_i674.UserMetricRepository>(
         () => _i674.UserMetricRepository(gh<_i101.UserMetricsCache>()));
+    gh.factory<_i406.SaveWeightRepository>(
+        () => _i406.SaveWeightRepository(gh<_i101.UserMetricsCache>()));
     gh.factory<_i437.SplashAppRepository>(() => _i437.SplashAppRepository(
           gh<_i101.AppCache>(),
           gh<_i101.UserCache>(),
@@ -123,26 +121,26 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i388.SaveAvatarRepository(gh<_i101.UserCache>()));
     gh.factory<_i896.SaveHeightRepository>(
         () => _i896.SaveHeightRepository(gh<_i101.UserCache>()));
+    gh.factory<_i302.UserRepositoryImpl>(
+        () => _i302.UserRepositoryImpl(gh<_i101.UserCache>()));
     gh.factory<_i218.SaveGenderRepository>(
         () => _i218.SaveGenderRepository(gh<_i101.UserCache>()));
-    gh.factory<_i1073.CreateProfileRepository>(
-        () => _i1073.CreateProfileRepository(gh<_i981.UserCache>()));
     gh.factory<_i288.SplashUserRepository>(
         () => _i288.SplashUserRepository(gh<_i101.UserCache>()));
-    gh.factory<_i302.UserRepositoryImpl>(
-        () => _i302.UserRepositoryImpl(gh<_i389.UserCache>()));
+    gh.factory<_i1073.CreateProfileRepository>(
+        () => _i1073.CreateProfileRepository(gh<_i101.UserCache>()));
     gh.factory<_i470.CreateProfileUseCase>(
         () => _i470.CreateProfileUseCase(gh<_i1073.CreateProfileRepository>()));
     gh.factory<_i986.SaveWeightUseCase>(
         () => _i986.SaveWeightUseCase(gh<_i406.SaveWeightRepository>()));
     gh.factory<_i681.SaveHeightUseCase>(
         () => _i681.SaveHeightUseCase(gh<_i896.SaveHeightRepository>()));
-    gh.factory<_i85.OnboardRepository>(
-        () => _i85.OnboardRepository(gh<_i101.AppCache>()));
     gh.factory<_i728.AppInfoRepository>(
         () => _i728.AppInfoRepository(gh<_i101.AppCache>()));
     gh.factory<_i395.SaveAppRepository>(
         () => _i395.SaveAppRepository(gh<_i101.AppCache>()));
+    gh.factory<_i85.OnboardRepository>(
+        () => _i85.OnboardRepository(gh<_i101.AppCache>()));
     gh.factory<_i78.SaveAppUseCase>(
         () => _i78.SaveAppUseCase(gh<_i395.SaveAppRepository>()));
     gh.factory<_i31.SplashAppUseCase>(
@@ -151,8 +149,8 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i536.SaveHeightCubit(gh<_i681.SaveHeightUseCase>()));
     gh.factory<_i799.UserMetricUseCase>(
         () => _i799.UserMetricUseCase(gh<_i674.UserMetricRepository>()));
-    gh.factory<_i722.UserInfoFormCubit>(
-        () => _i722.UserInfoFormCubit(gh<_i171.CreateProfileUseCase>()));
+    gh.factory<_i226.UserInfoFormCubit>(
+        () => _i226.UserInfoFormCubit(gh<_i171.CreateProfileUseCase>()));
     gh.factory<_i193.SplashUserUseCase>(
         () => _i193.SplashUserUseCase(gh<_i288.SplashUserRepository>()));
     gh.factory<_i293.OnboardUseCase>(
@@ -169,13 +167,13 @@ extension GetItInjectableX on _i174.GetIt {
         () => _i406.SaveAvatarUseCase(gh<_i388.SaveAvatarRepository>()));
     gh.factory<_i578.OnboardCubit>(
         () => _i578.OnboardCubit(gh<_i501.OnboardUseCase>()));
+    gh.factory<_i778.GenderCubit>(
+        () => _i778.GenderCubit(gh<_i708.SaveGenderUseCase>()));
     gh.factory<_i978.WeightPickerCubit>(() => _i978.WeightPickerCubit(
-          gh<_i243.UserUseCase>(),
+          gh<_i34.UserUseCaseImpl>(),
           gh<_i986.SaveWeightUseCase>(),
           gh<_i938.CalculateBmiUseCase>(),
         ));
-    gh.factory<_i778.GenderCubit>(
-        () => _i778.GenderCubit(gh<_i708.SaveGenderUseCase>()));
     gh.factory<_i954.UserCubit>(
         () => _i954.UserCubit(gh<_i34.UserUseCaseImpl>()));
     return this;

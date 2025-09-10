@@ -9,13 +9,13 @@ Future<void> main() async {
   await InitApp.init();
   runApp(
     AppLocalization(
-      child: const Bodymetrics(),
+      child: const BodyMetrics(),
     ),
   );
 }
 
-class Bodymetrics extends StatelessWidget {
-  const Bodymetrics({super.key});
+class BodyMetrics extends StatelessWidget {
+  const BodyMetrics({super.key});
 
   @override
   Widget build(BuildContext context) {

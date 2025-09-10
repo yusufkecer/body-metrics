@@ -1,5 +1,5 @@
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/data/cache/user_cache/user_cache.dart';
+import 'package:bodymetrics/data/index.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 

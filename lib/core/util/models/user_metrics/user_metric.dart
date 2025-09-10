@@ -8,7 +8,16 @@ part 'user_metric.g.dart';
 @JsonSerializable()
 @immutable
 final class UserMetric extends Equatable implements BaseModel<UserMetric> {
-  const UserMetric({this.statusIcon, this.weightDiff, this.bmi, this.id, this.date, this.weight, this.userMetric});
+  const UserMetric({
+    this.statusIcon,
+    this.weightDiff,
+    this.bmi,
+    this.id,
+    this.date,
+    this.weight,
+    this.userMetric,
+    this.userId,
+  });
 
   UserMetric.copyWith(UserMetric userMetric)
       : this(
@@ -28,8 +37,9 @@ final class UserMetric extends Equatable implements BaseModel<UserMetric> {
 
   UserMetric copyWith({
     int? id,
+    int? userId,
     String? date,
-    double? weight,
+    int? weight,
     double? bmi,
     double? weightDiff,
     BodyMetricResult? userMetric,
@@ -40,19 +50,22 @@ final class UserMetric extends Equatable implements BaseModel<UserMetric> {
       id: id ?? this.id,
       date: date ?? this.date,
       weight: weight ?? this.weight,
+      userId: userId ?? this.userId,
       userMetric: userMetric ?? this.userMetric,
     );
   }
 
   @override
   final int? id;
+  final int? userId;
   final String? date;
-  final double? weight;
+  final int? weight;
   final double? bmi;
   final double? weightDiff;
   final BodyMetricResult? userMetric;
   final IconDataModel? statusIcon;
 
   @override
-  List<Object?> get props => [id, date, weight, userMetric, bmi, weightDiff];
+  List<Object?> get props =>
+      [id, date, weight, userMetric, bmi, weightDiff, userId];
 }

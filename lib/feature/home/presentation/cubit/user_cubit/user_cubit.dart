@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/data/cache/index.dart';
 import 'package:bodymetrics/data/index.dart';
 import 'package:bodymetrics/domain/index.dart';
 import 'package:equatable/equatable.dart';
@@ -52,7 +51,6 @@ class UserCubit extends Cubit<UserState> {
         avatar: user.avatar ?? '',
         gender: user.gender,
         height: user.height,
-        userMetrics: user.userMetrics,
         birthOfDate: user.birthOfDate,
       );
 

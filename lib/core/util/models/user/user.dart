@@ -15,7 +15,6 @@ class User extends Equatable implements BaseModel<User> {
     this.name,
     this.surname,
     this.gender,
-    this.userMetrics,
     this.birthOfDate,
   });
 
@@ -29,7 +28,6 @@ class User extends Equatable implements BaseModel<User> {
     int? id,
     GenderValue? gender,
     int? height,
-    UserMetric? userMetrics,
     String? birthOfDate,
   }) {
     return User(
@@ -39,16 +37,20 @@ class User extends Equatable implements BaseModel<User> {
       avatar: avatar ?? this.avatar ?? '',
       gender: gender ?? this.gender,
       height: height ?? this.height,
-      userMetrics: userMetrics ?? this.userMetrics,
       birthOfDate: birthOfDate ?? this.birthOfDate,
     );
   }
 
   @override
-  List<Object?> get props => [name, gender, userMetrics, id, birthOfDate, surname];
+  List<Object?> get props => [name, gender, id, birthOfDate, surname];
 
   @override
   Json toJson() => _$UserToJson(this);
+
+  @override
+  String toString() {
+    return 'User(id: $id, name: $name, surname: $surname, avatar: $avatar, gender: $gender, height: $height, birthOfDate: $birthOfDate)';
+  }
 
   @override
   final int? id;
@@ -57,7 +59,6 @@ class User extends Equatable implements BaseModel<User> {
   final String? avatar;
   final GenderValue? gender;
   final int? height;
-  @JsonKey(includeToJson: false)
-  final UserMetric? userMetrics;
+
   final String? birthOfDate;
 }

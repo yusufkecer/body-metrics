@@ -13,9 +13,6 @@ User _$UserFromJson(Map<String, dynamic> json) => User(
       name: json['name'] as String?,
       surname: json['surname'] as String?,
       gender: $enumDecodeNullable(_$GenderValueEnumMap, json['gender']),
-      userMetrics: json['userMetrics'] == null
-          ? null
-          : UserMetric.fromJson(json['userMetrics'] as Map<String, dynamic>),
       birthOfDate: json['birthOfDate'] as String?,
     );
 
