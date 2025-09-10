@@ -7,9 +7,13 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
 part 'weight_picker_model.dart';
+
 part 'widgets/weight_picker.dart';
+
 part 'widgets/weight_indicator.dart';
+
 part 'widgets/indicator_clipper.dart';
+
 part 'extension/value_extension.dart';
 
 @RoutePage(name: 'WeightView')
@@ -36,7 +40,7 @@ class _WeightPickerState extends State<WeightPicker>
               onTap: () async {
                 await saveApp(Pages.homePage);
                 await weightPickerCubit.saveBodyMetrics();
-                //await _goToHomeView();
+                await _goToHomeView();
               },
             ),
           ),
