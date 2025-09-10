@@ -1,6 +1,7 @@
 part of 'user_general_info.dart';
 
-mixin _UserGeneralInfoModel on State<_UserInfoFormBody>, DialogUtil<_UserInfoFormBody>, SaveAppMixin {
+mixin _UserGeneralInfoModel
+    on State<_UserInfoFormBody>, DialogUtil<_UserInfoFormBody>, SaveAppMixin {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _surnameController = TextEditingController();
   final DateController _birthOfDateController = DateController();
@@ -20,15 +21,17 @@ mixin _UserGeneralInfoModel on State<_UserInfoFormBody>, DialogUtil<_UserInfoFor
     await context.pushRoute(const GenderView());
   }
 
-  Future<void> _createProfile() async {
-    _formKey.currentState?.validate();
+  Future<void> _saveUserInfo() async {
+    final isValid = _formKey.currentState?.validate();
+    if (isValid == false) return;
+
     final birthDay = _birthOfDateController.text.toYMD;
     final user = User(
       name: _nameController.text,
       surname: _surnameController.text,
       birthOfDate: birthDay,
     );
-    await _cubit.createProfile(user);
+    await _cubit.saveUserInfo(user);
   }
 
   void _openDatePicker() {
