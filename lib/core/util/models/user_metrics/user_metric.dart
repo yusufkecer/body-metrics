@@ -39,7 +39,7 @@ final class UserMetric extends Equatable implements BaseModel<UserMetric> {
     int? id,
     int? userId,
     String? date,
-    int? weight,
+    double? weight,
     double? bmi,
     double? weightDiff,
     BodyMetricResult? userMetric,
@@ -59,7 +59,7 @@ final class UserMetric extends Equatable implements BaseModel<UserMetric> {
   final int? id;
   final int? userId;
   final String? date;
-  final int? weight;
+  final double? weight;
   final double? bmi;
   final double? weightDiff;
   final BodyMetricResult? userMetric;
