@@ -174,10 +174,9 @@ mixin _WeightPickerModel
     final userCubit = Locator.sl<UserCubit>();
     await userCubit.getUserAndHistory();
     final user = (userCubit.state as UserLoaded).user;
-    print('User after weight save:');
-    print(user);
-    // await saveApp(Pages.homePage);
-    // await _goToHomeView();
+
+    await saveApp(Pages.homePage);
+    await _goToHomeView();
   }
 
   Future<void> _goToHomeView() async {

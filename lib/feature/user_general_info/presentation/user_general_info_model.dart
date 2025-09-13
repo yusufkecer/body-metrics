@@ -27,8 +27,8 @@ mixin _UserGeneralInfoModel
 
     final birthDay = _birthOfDateController.text.toYMD;
     final user = User(
-      name: _nameController.text,
-      surname: _surnameController.text,
+      name: _nameController.text.trim(),
+      surname: _surnameController.text.trim(),
       birthOfDate: birthDay,
     );
     await _cubit.saveUserInfo(user);

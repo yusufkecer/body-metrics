@@ -98,8 +98,10 @@ class _UserInfoFormBodyState extends State<_UserInfoFormBody>
                   controller: _birthOfDateController,
                   validator: (value) {
                     // Controller value is set externally, so we need to use _birthOfDateController.text
-                    return _birthDateValidator(_birthOfDateController.text,
-                        LocaleKeys.register_birth_of_date_required);
+                    return _birthDateValidator(
+                      _birthOfDateController.text,
+                      LocaleKeys.register_birth_of_date_required,
+                    );
                   },
                 ),
               ],
