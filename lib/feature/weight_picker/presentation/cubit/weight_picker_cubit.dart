@@ -16,6 +16,7 @@ final class WeightPickerCubit extends Cubit<WeightPickerState> {
     this._saveWeightUseCase,
     this._calculateBmiUseCase,
   ) : super(const WeightPickerInitial()) {
+    print("initilazing");
     getUser();
   }
 
@@ -33,34 +34,38 @@ final class WeightPickerCubit extends Cubit<WeightPickerState> {
     }
   }
 
-  Future<void> calculateBmi(double weight) async {
+  Future<double?> calculateBmi(double weight) async {
     if (state.user.isNullOrEmpty) {
       await getUser();
     }
 
-    if (state.user.isNullOrEmpty) return;
+    if (state.user.isNullOrEmpty) return null;
 
     final height = state.user?.height;
 
-    if (weight.isNullOrEmpty || height.isNullOrEmpty) return;
+    if (weight.isNullOrEmpty || height.isNullOrEmpty) return null;
 
     final bmiValue = BmiValue(weight: weight, height: height!);
     final bmi = await _calculateBmiUseCase.executeWithParams(params: bmiValue);
 
-    emit(WeightPickerSuccess(user: state.user, bmi: bmi));
+    emit(WeightPickerSuccess(user: state.user));
+    return bmi;
   }
 
-  Future<bool> saveBodyMetrics() async {
+  Future<bool> saveBodyMetrics(double weight) async {
     final id = AppUtil.currentUserId;
     if (id == null) return false;
 
+    final bmi = await calculateBmi(weight);
+
     final metricsEntity = UserMetric(
       userId: id,
-      weight: state.weight,
-      bmi: state.bmi,
+      weight: weight,
+      bmi: bmi,
     ).toJson();
 
     final userMetricEntity = UserMetric.fromJson(metricsEntity);
+    'Saving weight: $userMetricEntity'.log();
     final result =
         await _saveWeightUseCase.executeWithParams(params: userMetricEntity);
 

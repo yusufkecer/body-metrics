@@ -27,8 +27,8 @@ mixin _UserGeneralInfoModel
 
     final birthDay = _birthOfDateController.text.toYMD;
     final user = User(
-      name: _nameController.text,
-      surname: _surnameController.text,
+      name: _nameController.text.trim(),
+      surname: _surnameController.text.trim(),
       birthOfDate: birthDay,
     );
     await _cubit.saveUserInfo(user);
@@ -59,7 +59,7 @@ mixin _UserGeneralInfoModel
   }
 
   String? _formValidator(String? value, String? errorText) {
-    if (value?.checkForm ?? false) return null;
+    if (value?.trim().checkForm ?? false) return null;
     return errorText?.tr();
   }
 

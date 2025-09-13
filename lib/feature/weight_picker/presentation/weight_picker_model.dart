@@ -1,9 +1,11 @@
 part of 'weight_picker.dart';
 
-mixin _WeightPickerModel on State<WeightPicker>, DialogUtil<WeightPicker> {
+mixin _WeightPickerModel
+    on State<WeightPicker>, DialogUtil<WeightPicker>, SaveAppMixin {
   late final PageController _weightController;
   late final PageController _decimalWeightController;
   final TextEditingController _weightTextController = TextEditingController();
+  WeightPickerCubit? _cubit;
   bool _isFocused = false;
   final _minVal = 0.0;
 
@@ -164,6 +166,17 @@ mixin _WeightPickerModel on State<WeightPicker>, DialogUtil<WeightPicker> {
     if (!value.isValidNumber) {
       _weightTextController.text = '$_selectedWeight';
     }
+  }
+
+  Future<void> _saveAndPush() async {
+    final w = double.tryParse(_weightTextController.text) ?? 0;
+    await _cubit?.saveBodyMetrics(w);
+    final userCubit = Locator.sl<UserCubit>();
+    await userCubit.getUserAndHistory();
+    final user = (userCubit.state as UserLoaded).user;
+
+    await saveApp(Pages.homePage);
+    await _goToHomeView();
   }
 
   Future<void> _goToHomeView() async {

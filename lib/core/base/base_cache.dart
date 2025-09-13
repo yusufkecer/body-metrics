@@ -2,7 +2,7 @@ import 'dart:async';
 import 'package:bodymetrics/domain/index.dart';
 import 'package:sqflite/sqflite.dart';
 
-abstract interface class CacheMethods<T, U, V, W> {
+abstract interface class BaseCache<T, U, V, W> {
   String get table;
   Future<int> insert(Database? db, V value);
   Future<int> update(Database? db, V value);
@@ -16,7 +16,11 @@ abstract interface class CacheMethods<T, U, V, W> {
   });
 
   ///[selectAll] is select all database query
-  Future<T?> selectAll(Database? db, {List<String>? columns, List<JoinEntity>? joins});
+  Future<T?> selectAll(
+    Database? db, {
+    List<String>? columns,
+    List<JoinEntity>? joins,
+  });
 
   Future<int> delete(Database? db, int id);
 

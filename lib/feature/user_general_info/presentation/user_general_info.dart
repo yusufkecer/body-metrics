@@ -74,7 +74,9 @@ class _UserInfoFormBodyState extends State<_UserInfoFormBody>
                   controller: _nameController,
                   validator: (value) {
                     return _formValidator(
-                        value, LocaleKeys.register_name_required);
+                      value,
+                      LocaleKeys.register_name_required,
+                    );
                   },
                 ),
                 CustomTextField(
@@ -83,7 +85,9 @@ class _UserInfoFormBodyState extends State<_UserInfoFormBody>
                   controller: _surnameController,
                   validator: (value) {
                     return _formValidator(
-                        value, LocaleKeys.register_surname_required);
+                      value,
+                      LocaleKeys.register_surname_required,
+                    );
                   },
                 ),
                 CustomTextField(
@@ -94,8 +98,10 @@ class _UserInfoFormBodyState extends State<_UserInfoFormBody>
                   controller: _birthOfDateController,
                   validator: (value) {
                     // Controller value is set externally, so we need to use _birthOfDateController.text
-                    return _birthDateValidator(_birthOfDateController.text,
-                        LocaleKeys.register_birth_of_date_required);
+                    return _birthDateValidator(
+                      _birthOfDateController.text,
+                      LocaleKeys.register_birth_of_date_required,
+                    );
                   },
                 ),
               ],

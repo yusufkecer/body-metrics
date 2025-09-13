@@ -1,19 +1,16 @@
 part of 'weight_picker_cubit.dart';
 
 sealed class WeightPickerState extends Equatable {
-  const WeightPickerState({this.weight, this.bmi, this.user});
-
-  final int? weight;
-  final double? bmi;
+  const WeightPickerState({this.user});
 
   final User? user;
 
   @override
-  List<Object> get props => [weight ?? 0, bmi ?? 0.0, user ?? const User()];
+  List<Object> get props => [user ?? const User()];
 }
 
 final class WeightPickerInitial extends WeightPickerState {
-  const WeightPickerInitial({super.weight, super.bmi, super.user});
+  const WeightPickerInitial({super.user});
 }
 
 final class WeightPickerLoading extends WeightPickerState {
@@ -22,9 +19,10 @@ final class WeightPickerLoading extends WeightPickerState {
 
 final class WeightPickerError extends WeightPickerState {
   const WeightPickerError({required this.error});
+
   final String error;
 }
 
 final class WeightPickerSuccess extends WeightPickerState {
-  const WeightPickerSuccess({super.weight, super.bmi, super.user});
+  const WeightPickerSuccess({super.user});
 }

@@ -11,7 +11,8 @@ import 'package:sqflite/sqflite.dart';
 part 'app_cache_columns.dart';
 
 @lazySingleton
-final class AppCache extends ImpCache implements CacheMethods<Json, Json, Json, Json> {
+final class AppCache extends ImpCache
+    implements BaseCache<Json, Json, Json, Json> {
   AppCache() : super();
 
   @override
@@ -20,7 +21,7 @@ final class AppCache extends ImpCache implements CacheMethods<Json, Json, Json, 
   @override
   Future<void> initializeTable(Database db, int version) async {
     await db.execute('''
-    CREATE TABLE $table (
+    CREATE TABLE IF NOT EXISTS $table (
       ${AppCacheColumns.isCompletedOnboard.value} INTEGER NULL,
       ${AppCacheColumns.activeUser.value} INTEGER NULL,
       ${AppCacheColumns.page.value} TEXT NULL
@@ -86,7 +87,8 @@ final class AppCache extends ImpCache implements CacheMethods<Json, Json, Json, 
 
     columns ??= _columns;
 
-    final value = await db!.rawQuery("SELECT ${columns.join(', ')} FROM $table $join");
+    final value =
+        await db!.rawQuery("SELECT ${columns.join(', ')} FROM $table $join");
 
     await closeDb();
     'value: $value'.log();
@@ -102,7 +104,8 @@ final class AppCache extends ImpCache implements CacheMethods<Json, Json, Json, 
       return 0;
     }
     'value: $value'.log();
-    final filteredValue = value.entries.where((entry) => entry.value != null).toList();
+    final filteredValue =
+        value.entries.where((entry) => entry.value != null).toList();
 
     if (filteredValue.isEmpty) {
       'No values to update'.e();

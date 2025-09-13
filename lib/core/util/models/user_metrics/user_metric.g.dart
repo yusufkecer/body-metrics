@@ -14,16 +14,16 @@ UserMetric _$UserMetricFromJson(Map<String, dynamic> json) => UserMetric(
       bmi: (json['bmi'] as num?)?.toDouble(),
       id: (json['id'] as num?)?.toInt(),
       date: json['date'] as String?,
-      weight: (json['weight'] as num?)?.toInt(),
+      weight: (json['weight'] as num?)?.toDouble(),
       userMetric:
           $enumDecodeNullable(_$BodyMetricResultEnumMap, json['userMetric']),
-      userId: (json['userId'] as num?)?.toInt(),
+      userId: (json['user_id'] as num?)?.toInt(),
     );
 
 Map<String, dynamic> _$UserMetricToJson(UserMetric instance) =>
     <String, dynamic>{
       'id': instance.id,
-      'userId': instance.userId,
+      'user_id': instance.userId,
       'date': instance.date,
       'weight': instance.weight,
       'bmi': instance.bmi,

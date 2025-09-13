@@ -7,13 +7,14 @@ import 'package:sqflite/sqflite.dart';
 import 'package:sqflite/sqlite_api.dart';
 
 @lazySingleton
-final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json, Users> {
+final class UserCache extends ImpCache
+    implements BaseCache<Users, Json, Json, Users> {
   UserCache();
 
   @override
   Future<void> initializeTable(Database db, int version) async {
     await db.execute('''
-        CREATE TABLE user (
+        CREATE TABLE IF NOT EXISTS user (
           ${UserCacheColumns.id.value} INTEGER PRIMARY KEY AUTOINCREMENT,
           ${UserCacheColumns.name.value} TEXT NULL,
           ${UserCacheColumns.surname.value} TEXT NULL,
@@ -78,7 +79,7 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json
 
     if (result.isNotEmpty) {
       final users = Users(users: result.map(User.fromJson).toList());
-      'User selected ${users.users?.first.toString()}'.log();
+      'User selected ${users.users?.first}'.log();
       return users;
     } else {
       'User not selected'.w();
@@ -117,7 +118,8 @@ final class UserCache extends ImpCache implements CacheMethods<Users, Json, Json
       return 0;
     }
 
-    final filteredValue = value.entries.where((entry) => entry.value != null).toList();
+    final filteredValue =
+        value.entries.where((entry) => entry.value != null).toList();
 
     if (filteredValue.isEmpty) {
       'No values to update'.e();
