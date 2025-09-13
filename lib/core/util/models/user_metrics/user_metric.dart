@@ -57,6 +57,7 @@ final class UserMetric extends Equatable implements BaseModel<UserMetric> {
 
   @override
   final int? id;
+  @JsonKey(name: 'user_id')
   final int? userId;
   final String? date;
   final double? weight;

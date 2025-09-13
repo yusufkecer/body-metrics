@@ -59,7 +59,7 @@ mixin _UserGeneralInfoModel
   }
 
   String? _formValidator(String? value, String? errorText) {
-    if (value?.checkForm ?? false) return null;
+    if (value?.trim().checkForm ?? false) return null;
     return errorText?.tr();
   }
 

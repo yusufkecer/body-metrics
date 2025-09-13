@@ -7,19 +7,20 @@ import 'package:injectable/injectable.dart';
 import 'package:sqflite/sqflite.dart';
 
 @lazySingleton
-final class UserMetricsCache extends ImpCache implements CacheMethods<UserMetrics, Json, UserMetric, UserMetrics> {
+final class UserMetricsCache extends ImpCache
+    implements BaseCache<UserMetrics, Json, UserMetric, UserMetrics> {
   UserMetricsCache();
 
   @override
   Future<void> initializeTable(Database db, int version) async {
     await db.execute('''
-        CREATE TABLE $table (
+        CREATE TABLE IF NOT EXISTS $table (
           ${UserMetricsColumns.id.value} INTEGER PRIMARY KEY AUTOINCREMENT,
           ${UserMetricsColumns.date.value} TEXT NOT NULL,
           ${UserMetricsColumns.weight.value} TEXT NULL,
           ${UserMetricsColumns.height.value} int NOT NULL, 
           ${UserMetricsColumns.userId.value} INTEGER NOT NULL,
-          ${UserMetricsColumns.result.value} int NOT NULL,
+          ${UserMetricsColumns.bmi.value} int NOT NULL,
           FOREIGN KEY (${UserMetricsColumns.userId.value}) REFERENCES user(id)
         )
       ''');
@@ -65,7 +66,8 @@ final class UserMetricsCache extends ImpCache implements CacheMethods<UserMetric
     }
 
     final jsonData = value.toJson();
-    final filteredValue = jsonData.entries.where((entry) => entry.value != null).toList();
+    final filteredValue =
+        jsonData.entries.where((entry) => entry.value != null).toList();
 
     if (filteredValue.isEmpty) {
       'No values to update'.e();
@@ -87,7 +89,12 @@ final class UserMetricsCache extends ImpCache implements CacheMethods<UserMetric
   }
 
   @override
-  Future<UserMetrics?> select(Database? db, Json value, {List<String>? columns, List<JoinEntity>? joins}) async {
+  Future<UserMetrics?> select(
+    Database? db,
+    Json value, {
+    List<String>? columns,
+    List<JoinEntity>? joins,
+  }) async {
     if (db.isNullOrEmpty) {
       'Database is null'.w();
       return null;
@@ -101,7 +108,8 @@ final class UserMetricsCache extends ImpCache implements CacheMethods<UserMetric
     await closeDb();
 
     if (result.isNotEmpty) {
-      final userMetrics = UserMetrics(userMetrics: result.map(UserMetric.fromJson).toList());
+      final userMetrics =
+          UserMetrics(userMetrics: result.map(UserMetric.fromJson).toList());
       'UserMetrics selected $userMetrics'.log();
       return userMetrics;
     } else {
@@ -111,7 +119,11 @@ final class UserMetricsCache extends ImpCache implements CacheMethods<UserMetric
   }
 
   @override
-  Future<UserMetrics?> selectAll(Database? db, {List<String>? columns, List<JoinEntity>? joins}) async {
+  Future<UserMetrics?> selectAll(
+    Database? db, {
+    List<String>? columns,
+    List<JoinEntity>? joins,
+  }) async {
     if (db.isNullOrEmpty) {
       'Database is null'.w();
       return null;
@@ -121,7 +133,8 @@ final class UserMetricsCache extends ImpCache implements CacheMethods<UserMetric
     await closeDb();
 
     if (result.isNotEmpty) {
-      final userMetrics = UserMetrics(userMetrics: result.map(UserMetric.fromJson).toList());
+      final userMetrics =
+          UserMetrics(userMetrics: result.map(UserMetric.fromJson).toList());
       'UserMetrics selected $userMetrics'.log();
       return userMetrics;
     } else {

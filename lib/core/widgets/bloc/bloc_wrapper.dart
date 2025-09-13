@@ -4,20 +4,23 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 class BlocWrapper<T extends StateStreamableSource<S>, S>
     extends StatelessWidget {
   const BlocWrapper({
-    required this.bloc,
+    required this.create,
     required this.builder,
     super.key,
   });
 
-  final T bloc;
+  final T Function(BuildContext) create;
   final Widget Function(BuildContext, T) builder;
 
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => bloc,
+    return BlocProvider<T>(
+      create: create,
       child: Builder(
-        builder: (context) => builder(context, bloc),
+        builder: (context) {
+          final bloc = context.read<T>();
+          return builder(context, bloc);
+        },
       ),
     );
   }
