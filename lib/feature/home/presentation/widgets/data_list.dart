@@ -29,7 +29,7 @@ final class _DataList extends StatelessWidget {
         GridView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: expandedCard?.adjustLength(metrics.length),
+          itemCount: context.read<HomeCardCubit>().adjustLength(metrics.length),
           gridDelegate: const GridDelegate.dashBoard(),
           itemBuilder: (context, index) {
             return DecoratedBox(

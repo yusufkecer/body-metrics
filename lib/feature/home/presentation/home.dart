@@ -22,8 +22,6 @@ part 'widgets/data_list.dart';
 
 part 'widgets/menu_view.dart';
 
-part 'enum/expanded.dart';
-
 @immutable
 @RoutePage(name: 'HomeView')
 final class Home extends StatefulWidget {
@@ -84,31 +82,19 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, _HomeModel {
             icon: const Icon(Icons.menu),
           ),
         ),
-        body: BlocListener<HomeCardCubit, HomeCardState>(
-          listener: (context, homeCardState) {
-            _handleAnimationChanges(homeCardState);
+        body: BlocBuilder<UserMetricCubit, UserMetricState>(
+          builder: (context, homeCardState) {
+            return _HomeBody(
+              dataListOnPressed: () => _dataListOnPressed(context),
+              chartOnPressed: () => _chartOnPressed(context),
+              spots: _chartItems._spots,
+              leftTitles: _chartItems._leftTitles,
+              bottomTitle: _chartItems._bottomTitle,
+              animatedListController: _animatedListController,
+              animatedChartController: _animatedChartController,
+              userMetrics: _userMetrics,
+            );
           },
-          child: BlocBuilder<HomeCardCubit, HomeCardState>(
-            builder: (context, homeCardState) {
-              // Initialize cubit if needed
-              if (homeCardState is HomeCardInitial) {
-                context.read<HomeCardCubit>().initialize();
-                return const LoadingLottie();
-              }
-
-              return _HomeBody(
-                dataListOnPressed: () => _dataListOnPressed(context),
-                chartOnPressed: () => _chartOnPressed(context),
-                spots: _chartItems._spots,
-                leftTitles: _chartItems._leftTitles,
-                bottomTitle: _chartItems._bottomTitle,
-                homeCardState: homeCardState,
-                animatedListController: _animatedListController,
-                animatedChartController: _animatedChartController,
-                userMetrics: _userMetrics,
-              );
-            },
-          ),
         ),
       ),
     );
@@ -123,7 +109,6 @@ final class _HomeBody extends StatelessWidget {
     required this.spots,
     required this.leftTitles,
     required this.bottomTitle,
-    required this.homeCardState,
     required this.animatedListController,
     required this.animatedChartController,
     required this.userMetrics,
@@ -134,39 +119,40 @@ final class _HomeBody extends StatelessWidget {
   final List<FlSpot>? spots;
   final List<Map<int, String>>? leftTitles;
   final List<Map<int, String>>? bottomTitle;
-  final HomeCardState homeCardState;
   final AnimationController animatedListController;
   final AnimationController animatedChartController;
   final UserMetrics? userMetrics;
 
   @override
   Widget build(BuildContext context) {
-    final expandedCard = homeCardState is HomeCardLoaded
-        ? (homeCardState as HomeCardLoaded).expandedCard
-        : ExpandedCard.none;
-
-    return Padding(
-      padding: ProductPadding.ten().copyWith(bottom: 0),
-      child: SingleChildScrollView(
-        child: Column(
-          children: [
-            _DataList(
-              animatedController: animatedListController,
-              userMetrics: userMetrics,
-              onPressed: dataListOnPressed,
-              expandedCard: expandedCard,
+    return BlocBuilder<HomeCardCubit, HomeCardState>(
+      builder: (context, state) {
+        final expandedCard =
+            state is HomeCardLoaded ? state.expandedCard : ExpandedCard.none;
+        return Padding(
+          padding: ProductPadding.ten().copyWith(bottom: 0),
+          child: SingleChildScrollView(
+            child: Column(
+              children: [
+                _DataList(
+                  animatedController: animatedListController,
+                  userMetrics: userMetrics,
+                  onPressed: dataListOnPressed,
+                  expandedCard: expandedCard,
+                ),
+                VerticalSpace.s(),
+                _Chart(
+                  animatedController: animatedChartController,
+                  onPressed: chartOnPressed,
+                  spot: spots,
+                  leftTitles: leftTitles,
+                  bottomTitles: bottomTitle,
+                ),
+              ],
             ),
-            VerticalSpace.s(),
-            _Chart(
-              animatedController: animatedChartController,
-              onPressed: chartOnPressed,
-              spot: spots,
-              leftTitles: leftTitles,
-              bottomTitles: bottomTitle,
-            ),
-          ],
-        ),
-      ),
+          ),
+        );
+      },
     );
   }
 }

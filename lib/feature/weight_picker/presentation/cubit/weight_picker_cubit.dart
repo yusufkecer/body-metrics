@@ -51,7 +51,8 @@ final class WeightPickerCubit extends Cubit<WeightPickerState> {
     return bmi;
   }
 
-  Future<bool> saveBodyMetrics(double weight) async {
+  Future<bool> saveBodyMetrics(
+      {required double weight, double oldWeight = 0}) async {
     final id = AppUtil.currentUserId;
     if (id == null) return false;
 
@@ -61,6 +62,7 @@ final class WeightPickerCubit extends Cubit<WeightPickerState> {
       userId: id,
       weight: weight,
       bmi: bmi,
+      weightDiff: weight - oldWeight,
     ).toJson();
 
     final userMetricEntity = UserMetric.fromJson(metricsEntity);

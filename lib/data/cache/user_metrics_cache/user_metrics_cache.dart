@@ -21,6 +21,7 @@ final class UserMetricsCache extends ImpCache
           ${UserMetricsColumns.height.value} INTEGER NOT NULL, 
           ${UserMetricsColumns.userId.value} INTEGER NOT NULL,
           ${UserMetricsColumns.bmi.value} INTEGER NOT NULL,
+          ${UserMetricsColumns.diff.value} INTEGER NULL,
           FOREIGN KEY (${UserMetricsColumns.userId.value}) REFERENCES user(id)
         )
       ''');

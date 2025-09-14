@@ -16,15 +16,13 @@ class HomeCardLoaded extends HomeCardState {
     required this.expandedCard,
     required this.shouldAnimateList,
     required this.shouldAnimateChart,
-    required this.itemLength,
   });
 
   final ExpandedCard expandedCard;
   final bool shouldAnimateList;
   final bool shouldAnimateChart;
-  final int itemLength;
 
   @override
   List<Object?> get props =>
-      [expandedCard, shouldAnimateList, shouldAnimateChart, itemLength];
+      [expandedCard, shouldAnimateList, shouldAnimateChart];
 }

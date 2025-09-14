@@ -170,10 +170,9 @@ mixin _WeightPickerModel
 
   Future<void> _saveAndPush() async {
     final weight = double.parse(_weightTextController.text);
-    await _cubit?.saveBodyMetrics(weight);
-    final userCubit = Locator.sl<UserCubit>();
+    await _cubit?.saveBodyMetrics(weight: weight);
 
-    if (userCubit.state is UserLoaded) {
+    if (_cubit?.state is WeightPickerSuccess) {
       await saveApp(Pages.homePage);
       await _goToHomeView();
     } else {
