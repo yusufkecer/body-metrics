@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/core/widgets/rich_text_widgets/custom_rich_text.dart';
 import 'package:bodymetrics/core/widgets/space_column.dart';
+import 'package:bodymetrics/feature/home/presentation/cubit/home_card_cubit/home_card_cubit.dart';
 import 'package:bodymetrics/feature/home/presentation/cubit/user_cubit/user_cubit.dart';
 import 'package:bodymetrics/feature/home/presentation/cubit/user_metric_cubit/user_metric_cubit.dart';
 import 'package:bodymetrics/injection/locator.dart';
@@ -43,6 +44,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, _HomeModel {
         BlocProvider<UserMetricCubit>(
           create: (_) => Locator.sl<UserMetricCubit>(),
         ),
+        BlocProvider<HomeCardCubit>(
+          create: (_) => Locator.sl<HomeCardCubit>(),
+        ),
       ],
       child: Builder(
         builder: (context) {
@@ -80,16 +84,31 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, _HomeModel {
             icon: const Icon(Icons.menu),
           ),
         ),
-        body: _HomeBody(
-          dataListOnPressed: _dataListOnPressed,
-          chartOnPressed: _chartOnPressed,
-          spots: _chartItems._spots,
-          leftTitles: _chartItems._leftTitles,
-          bottomTitle: _chartItems._bottomTitle,
-          expandedCard: _expandedCard,
-          animatedListController: _animatedListController,
-          animatedChartController: _animatedChartController,
-          userMetrics: _userMetrics,
+        body: BlocListener<HomeCardCubit, HomeCardState>(
+          listener: (context, homeCardState) {
+            _handleAnimationChanges(homeCardState);
+          },
+          child: BlocBuilder<HomeCardCubit, HomeCardState>(
+            builder: (context, homeCardState) {
+              // Initialize cubit if needed
+              if (homeCardState is HomeCardInitial) {
+                context.read<HomeCardCubit>().initialize();
+                return const LoadingLottie();
+              }
+
+              return _HomeBody(
+                dataListOnPressed: () => _dataListOnPressed(context),
+                chartOnPressed: () => _chartOnPressed(context),
+                spots: _chartItems._spots,
+                leftTitles: _chartItems._leftTitles,
+                bottomTitle: _chartItems._bottomTitle,
+                homeCardState: homeCardState,
+                animatedListController: _animatedListController,
+                animatedChartController: _animatedChartController,
+                userMetrics: _userMetrics,
+              );
+            },
+          ),
         ),
       ),
     );
@@ -104,7 +123,7 @@ final class _HomeBody extends StatelessWidget {
     required this.spots,
     required this.leftTitles,
     required this.bottomTitle,
-    required this.expandedCard,
+    required this.homeCardState,
     required this.animatedListController,
     required this.animatedChartController,
     required this.userMetrics,
@@ -115,13 +134,17 @@ final class _HomeBody extends StatelessWidget {
   final List<FlSpot>? spots;
   final List<Map<int, String>>? leftTitles;
   final List<Map<int, String>>? bottomTitle;
-  final _ExpandedCard expandedCard;
+  final HomeCardState homeCardState;
   final AnimationController animatedListController;
   final AnimationController animatedChartController;
   final UserMetrics? userMetrics;
 
   @override
   Widget build(BuildContext context) {
+    final expandedCard = homeCardState is HomeCardLoaded
+        ? (homeCardState as HomeCardLoaded).expandedCard
+        : ExpandedCard.none;
+
     return Padding(
       padding: ProductPadding.ten().copyWith(bottom: 0),
       child: SingleChildScrollView(

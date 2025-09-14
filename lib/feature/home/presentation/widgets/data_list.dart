@@ -11,7 +11,7 @@ final class _DataList extends StatelessWidget {
 
   final UserMetrics? userMetrics;
   final void Function() onPressed;
-  final _ExpandedCard? expandedCard;
+  final ExpandedCard? expandedCard;
   final AnimationController animatedController;
 
   @override

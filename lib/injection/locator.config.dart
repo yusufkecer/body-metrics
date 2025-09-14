@@ -50,6 +50,8 @@ import 'package:bodymetrics/feature/home/domain/repository/user_metric_repositor
     as _i674;
 import 'package:bodymetrics/feature/home/domain/use_case/user_metric_use_case.dart'
     as _i799;
+import 'package:bodymetrics/feature/home/presentation/cubit/home_card_cubit/home_card_cubit.dart'
+    as _i319;
 import 'package:bodymetrics/feature/home/presentation/cubit/user_cubit/user_cubit.dart'
     as _i954;
 import 'package:bodymetrics/feature/home/presentation/cubit/user_metric_cubit/user_metric_cubit.dart'
@@ -103,6 +105,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i612.HeightSelectorCubit>(() => _i612.HeightSelectorCubit());
     gh.factory<_i938.CalculateBmiUseCase>(
         () => const _i938.CalculateBmiUseCase());
+    gh.factory<_i319.HomeCardCubit>(() => _i319.HomeCardCubit());
     gh.lazySingleton<_i1072.AppRouter>(() => _i1072.AppRouter());
     gh.lazySingleton<_i906.CustomTheme>(() => _i906.CustomTheme());
     gh.lazySingleton<_i458.AppCache>(() => _i458.AppCache());
