@@ -1,4 +1,4 @@
-// TODO:Temporary disabled
+//Temporary disabled
 
 // part of '../home.dart';
 

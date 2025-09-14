@@ -169,14 +169,16 @@ mixin _WeightPickerModel
   }
 
   Future<void> _saveAndPush() async {
-    final w = double.tryParse(_weightTextController.text) ?? 0;
-    await _cubit?.saveBodyMetrics(w);
+    final weight = double.parse(_weightTextController.text);
+    await _cubit?.saveBodyMetrics(weight);
     final userCubit = Locator.sl<UserCubit>();
-    await userCubit.getUserAndHistory();
-    final user = (userCubit.state as UserLoaded).user;
 
-    await saveApp(Pages.homePage);
-    await _goToHomeView();
+    if (userCubit.state is UserLoaded) {
+      await saveApp(Pages.homePage);
+      await _goToHomeView();
+    } else {
+      showLottieError(LocaleKeys.exception_user_not_found);
+    }
   }
 
   Future<void> _goToHomeView() async {

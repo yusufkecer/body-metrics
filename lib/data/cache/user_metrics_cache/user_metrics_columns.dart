@@ -22,7 +22,7 @@ enum UserMetricsColumns {
       case UserMetricsColumns.bmi:
         return 'bmi';
       case UserMetricsColumns.table:
-        return 'bmi';
+        return 'user_metrics';
     }
   }
 }

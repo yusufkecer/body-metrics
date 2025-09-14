@@ -10,13 +10,13 @@ UserMetric _$UserMetricFromJson(Map<String, dynamic> json) => UserMetric(
       statusIcon: json['statusIcon'] == null
           ? null
           : IconDataModel.fromJson(json['statusIcon'] as Map<String, dynamic>),
-      weightDiff: (json['weightDiff'] as num?)?.toDouble(),
+      weightDiff: (json['weight_diff'] as num?)?.toDouble(),
       bmi: (json['bmi'] as num?)?.toDouble(),
       id: (json['id'] as num?)?.toInt(),
       date: json['date'] as String?,
       weight: (json['weight'] as num?)?.toDouble(),
       userMetric:
-          $enumDecodeNullable(_$BodyMetricResultEnumMap, json['userMetric']),
+          $enumDecodeNullable(_$BodyMetricResultEnumMap, json['body_metric']),
       userId: (json['user_id'] as num?)?.toInt(),
     );
 
@@ -27,8 +27,8 @@ Map<String, dynamic> _$UserMetricToJson(UserMetric instance) =>
       'date': instance.date,
       'weight': instance.weight,
       'bmi': instance.bmi,
-      'weightDiff': instance.weightDiff,
-      'userMetric': _$BodyMetricResultEnumMap[instance.userMetric],
+      'weight_diff': instance.weightDiff,
+      'body_metric': _$BodyMetricResultEnumMap[instance.userMetric],
       'statusIcon': instance.statusIcon,
     };
 

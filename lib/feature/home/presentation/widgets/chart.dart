@@ -10,14 +10,16 @@ final class _Chart extends StatelessWidget {
     required this.animatedController,
   });
 
-  final List<FlSpot> spot;
-  final List<Map<int, String>> leftTitles;
-  final List<Map<int, String>> bottomTitles;
+  final List<FlSpot>? spot;
+  final List<Map<int, String>>? leftTitles;
+  final List<Map<int, String>>? bottomTitles;
   final void Function() onPressed;
   final AnimationController animatedController;
 
   @override
   Widget build(BuildContext context) {
+    if (values) return const SizedBox.shrink();
+
     return HomeCard(
       animationController: animatedController,
       buttonTitle: LocaleKeys.home_see_more,
@@ -26,11 +28,16 @@ final class _Chart extends StatelessWidget {
       icon: ProductIcon.chart.icon,
       children: [
         LineChartWidget(
-          spots: spot,
-          leftTitles: leftTitles,
-          bottomTitles: bottomTitles,
+          spots: spot!,
+          leftTitles: leftTitles!,
+          bottomTitles: bottomTitles!,
         ),
       ],
     );
   }
+
+  bool get values =>
+      spot.isNullOrEmpty ||
+      leftTitles.isNullOrEmpty ||
+      bottomTitles.isNullOrEmpty;
 }

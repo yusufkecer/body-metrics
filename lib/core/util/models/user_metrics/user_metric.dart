@@ -9,7 +9,6 @@ part 'user_metric.g.dart';
 @immutable
 final class UserMetric extends Equatable implements BaseModel<UserMetric> {
   const UserMetric({
-    this.statusIcon,
     this.weightDiff,
     this.bmi,
     this.id,
@@ -62,9 +61,10 @@ final class UserMetric extends Equatable implements BaseModel<UserMetric> {
   final String? date;
   final double? weight;
   final double? bmi;
+  @JsonKey(name: 'weight_diff')
   final double? weightDiff;
+  @JsonKey(name: 'body_metric')
   final BodyMetricResult? userMetric;
-  final IconDataModel? statusIcon;
 
   @override
   List<Object?> get props =>

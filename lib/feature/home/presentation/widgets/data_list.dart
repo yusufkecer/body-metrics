@@ -16,9 +16,8 @@ final class _DataList extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final metrics = userMetrics!.userMetrics;
-    // ignore: unused_local_variable FIXME:
-    final statusIcon = metrics?.first.statusIcon;
+    final metrics = userMetrics?.userMetrics ?? [];
+    if (metrics.isEmpty) return const SizedBox.shrink();
 
     return HomeCard(
       animationController: animatedController,
@@ -30,7 +29,7 @@ final class _DataList extends StatelessWidget {
         GridView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: expandedCard?.adjustLength(metrics!.length),
+          itemCount: expandedCard?.adjustLength(metrics.length),
           gridDelegate: const GridDelegate.dashBoard(),
           itemBuilder: (context, index) {
             return DecoratedBox(
@@ -51,7 +50,7 @@ final class _DataList extends StatelessWidget {
                         CustomRichText(
                           icon: ProductIcon.weight.icon,
                           title: LocaleKeys.home_weight,
-                          subTitle: metrics![index].weight.toString(),
+                          subTitle: metrics[index].weight.toString(),
                         ),
                         CustomRichText(
                           icon: ProductIcon.userCheck.icon,
@@ -77,7 +76,7 @@ final class _DataList extends StatelessWidget {
                       ],
                     ),
                     CustomRichText(
-                      icon: ProductIcon.calendar.icon,
+                      icon: metrics[index].resultIcon,
                       title: LocaleKeys.home_weight_change,
                       subTitle: metrics[index].weightDiff.toString(),
                     ),
@@ -89,5 +88,14 @@ final class _DataList extends StatelessWidget {
         ),
       ],
     );
+  }
+}
+
+extension _ResultIconExtension on UserMetric {
+  IconData get resultIcon {
+    if (weightDiff == null) return ProductIcon.minus.icon;
+    if (weightDiff! > 0) return ProductIcon.arrowUp.icon;
+    if (weightDiff! < 0) return ProductIcon.trendingFlat.icon;
+    return ProductIcon.minus.icon;
   }
 }

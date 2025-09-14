@@ -16,7 +16,6 @@ final class WeightPickerCubit extends Cubit<WeightPickerState> {
     this._saveWeightUseCase,
     this._calculateBmiUseCase,
   ) : super(const WeightPickerInitial()) {
-    print("initilazing");
     getUser();
   }
 

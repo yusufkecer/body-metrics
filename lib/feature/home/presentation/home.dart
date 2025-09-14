@@ -3,6 +3,7 @@ import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/core/widgets/rich_text_widgets/custom_rich_text.dart';
 import 'package:bodymetrics/core/widgets/space_column.dart';
 import 'package:bodymetrics/feature/home/presentation/cubit/user_cubit/user_cubit.dart';
+import 'package:bodymetrics/feature/home/presentation/cubit/user_metric_cubit/user_metric_cubit.dart';
 import 'package:bodymetrics/injection/locator.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:fl_chart/fl_chart.dart';
@@ -11,10 +12,15 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
 part 'home_model.dart';
+
 part 'mixin/title_mixin.dart';
+
 part 'widgets/chart.dart';
+
 part 'widgets/data_list.dart';
+
 part 'widgets/menu_view.dart';
+
 part 'enum/expanded.dart';
 
 @immutable
@@ -26,12 +32,18 @@ final class Home extends StatefulWidget {
   State<Home> createState() => _HomeState();
 }
 
-class _HomeState extends State<Home>
-    with _TitleMixin, TickerProviderStateMixin, _HomeModel {
+class _HomeState extends State<Home> with TickerProviderStateMixin, _HomeModel {
   @override
   Widget build(BuildContext context) {
-    return BlocProvider(
-      create: (context) => Locator.sl<UserCubit>(),
+    return MultiBlocProvider(
+      providers: [
+        BlocProvider<UserCubit>(
+          create: (_) => Locator.sl<UserCubit>(),
+        ),
+        BlocProvider<UserMetricCubit>(
+          create: (_) => Locator.sl<UserMetricCubit>(),
+        ),
+      ],
       child: Builder(
         builder: (context) {
           return BlocBuilder<UserCubit, UserState>(
@@ -71,9 +83,9 @@ class _HomeState extends State<Home>
         body: _HomeBody(
           dataListOnPressed: _dataListOnPressed,
           chartOnPressed: _chartOnPressed,
-          spots: _spots,
-          leftTitles: _leftTitles,
-          bottomTitle: const [],
+          spots: _chartItems._spots,
+          leftTitles: _chartItems._leftTitles,
+          bottomTitle: _chartItems._bottomTitle,
           expandedCard: _expandedCard,
           animatedListController: _animatedListController,
           animatedChartController: _animatedChartController,
@@ -100,13 +112,13 @@ final class _HomeBody extends StatelessWidget {
 
   final void Function() dataListOnPressed;
   final void Function() chartOnPressed;
-  final List<FlSpot> spots;
-  final List<Map<int, String>> leftTitles;
-  final List<Map<int, String>> bottomTitle;
+  final List<FlSpot>? spots;
+  final List<Map<int, String>>? leftTitles;
+  final List<Map<int, String>>? bottomTitle;
   final _ExpandedCard expandedCard;
   final AnimationController animatedListController;
   final AnimationController animatedChartController;
-  final UserMetrics userMetrics;
+  final UserMetrics? userMetrics;
 
   @override
   Widget build(BuildContext context) {
