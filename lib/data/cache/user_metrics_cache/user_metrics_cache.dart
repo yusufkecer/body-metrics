@@ -18,9 +18,10 @@ final class UserMetricsCache extends ImpCache
           ${UserMetricsColumns.id.value} INTEGER PRIMARY KEY AUTOINCREMENT,
           ${UserMetricsColumns.date.value} TEXT NOT NULL,
           ${UserMetricsColumns.weight.value} TEXT NULL,
-          ${UserMetricsColumns.height.value} int NOT NULL, 
+          ${UserMetricsColumns.height.value} INTEGER NOT NULL, 
           ${UserMetricsColumns.userId.value} INTEGER NOT NULL,
-          ${UserMetricsColumns.bmi.value} int NOT NULL,
+          ${UserMetricsColumns.bmi.value} INTEGER NOT NULL,
+          ${UserMetricsColumns.diff.value} INTEGER NULL,
           FOREIGN KEY (${UserMetricsColumns.userId.value}) REFERENCES user(id)
         )
       ''');

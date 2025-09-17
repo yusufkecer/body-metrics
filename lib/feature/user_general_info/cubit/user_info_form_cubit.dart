@@ -23,8 +23,11 @@ class UserInfoFormCubit extends Cubit<UserInfoFormCubitState> {
     final result = await _createProfileUseCase.executeWithParams(params: user);
 
     if (result == null || result == false) {
-      emit(const UserInfoFormCubitError(
-          error: LocaleKeys.exception_user_not_created));
+      emit(
+        const UserInfoFormCubitError(
+          error: LocaleKeys.exception_user_not_created,
+        ),
+      );
       return;
     }
     emit(const UserInfoFormCubitSuccess());
