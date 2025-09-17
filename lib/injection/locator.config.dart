@@ -103,9 +103,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i830.SetIdUseCase>(() => const _i830.SetIdUseCase());
     gh.factory<_i612.HeightSelectorCubit>(() => _i612.HeightSelectorCubit());
+    gh.factory<_i319.HomeCardCubit>(() => _i319.HomeCardCubit());
     gh.factory<_i938.CalculateBmiUseCase>(
         () => const _i938.CalculateBmiUseCase());
-    gh.factory<_i319.HomeCardCubit>(() => _i319.HomeCardCubit());
     gh.lazySingleton<_i1072.AppRouter>(() => _i1072.AppRouter());
     gh.lazySingleton<_i906.CustomTheme>(() => _i906.CustomTheme());
     gh.lazySingleton<_i458.AppCache>(() => _i458.AppCache());

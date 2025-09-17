@@ -1,6 +1,5 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/feature/home/presentation/cubit/user_cubit/user_cubit.dart';
 import 'package:bodymetrics/feature/weight_picker/presentation/cubit/weight_picker_cubit.dart';
 import 'package:bodymetrics/injection/locator.dart';
 import 'package:easy_localization/easy_localization.dart';

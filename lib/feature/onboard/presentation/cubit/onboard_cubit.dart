@@ -7,7 +7,7 @@ import 'package:injectable/injectable.dart';
 final class OnboardCubit extends Cubit<OnboardState> {
   OnboardCubit(this._useCase) : super(const OnboardInitial());
 
-  final OnboardUseCase _useCase;
+  final UseCase<bool, AppModel> _useCase;
   void skip(int index, IntroKey key) {
     key.currentState?.controller.jumpToPage(index);
   }
