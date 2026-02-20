@@ -15,7 +15,7 @@ final class SaveWeightRepository implements Repository<int, UserMetric> {
 
     if (params == null) throw ArgumentError.notNull();
 
-    final result = await _userMetricsCache.update(db, params);
+    final result = await _userMetricsCache.insert(db, params);
 
     return result;
   }

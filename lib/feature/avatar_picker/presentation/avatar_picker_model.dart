@@ -2,7 +2,7 @@ part of 'avatar_picker.dart';
 
 mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil<AvatarPicker>, SaveAppMixin {
   final List<String> avatarList = AssetValue.values.profileImageList;
-  late final List<User>? userList;
+  List<User> _userList = const [];
 
   @override
   void initState() {
@@ -20,9 +20,10 @@ mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil<AvatarPicker>, SaveA
 
     if (users == null) {
       showLottieError(LocaleKeys.register_avatar_select_failed);
+      return;
     }
 
-    userList = users!.users ?? [];
+    _userList = users.users ?? [];
   }
 
   Future<void> _addNewProfile(int index) async {
@@ -41,6 +42,7 @@ mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil<AvatarPicker>, SaveA
         const HomeView(),
         predicate: (route) => false,
       );
+      return;
     }
 
     await Locator.sl<SetIdUseCase>().executeWithParams(params: insertId);
@@ -64,7 +66,23 @@ mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil<AvatarPicker>, SaveA
     }
   }
 
-  Future<bool?> _changeProfile(int userId) async {
+  Future<bool?> _changeProfileByIndex(int index) async {
+    if (_userList.isEmpty) {
+      await _getAllUsers();
+    }
+
+    if (_userList.isEmpty || index >= _userList.length) {
+      showLottieError(LocaleKeys.change_profile_profile_not_changed);
+      return false;
+    }
+
+    final userId = _userList[index].id;
+    if (userId == null) {
+      showLottieError(LocaleKeys.change_profile_profile_not_changed);
+      return false;
+    }
+
+
     await Locator.sl<SetIdUseCase>().executeWithParams(params: userId);
 
     final appModel = AppModel(
@@ -83,7 +101,7 @@ mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil<AvatarPicker>, SaveA
       predicate: (route) => false,
     );
 
-    return _setValues(appModel);
+    return result;
   }
 
   Future<bool?> _setValues(AppModel model) async {
@@ -96,7 +114,7 @@ mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil<AvatarPicker>, SaveA
 
   void _tappedAvatar(int index) {
     if (widget.isChangeProfile) {
-      _changeProfile(index);
+      _changeProfileByIndex(index);
       return;
     }
 
