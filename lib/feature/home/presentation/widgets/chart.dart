@@ -38,6 +38,7 @@ final class _Chart extends StatelessWidget {
 
   bool get values =>
       spot.isNullOrEmpty ||
+      spot!.length < 2 ||
       leftTitles.isNullOrEmpty ||
       bottomTitles.isNullOrEmpty;
 }

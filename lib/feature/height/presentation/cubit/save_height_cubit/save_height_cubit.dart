@@ -13,7 +13,10 @@ final class SaveHeightCubit extends Cubit<SaveHeightState> {
 
   Future<void> saveHeight(int height) async {
     emit(SaveHeightLoading());
-    final result = await _saveHeightUseCase.executeWithParams(params: User(height: height));
+    final userId = AppUtil.currentUserId;
+    final result = await _saveHeightUseCase.executeWithParams(
+      params: User(id: userId, height: height),
+    );
     if (result == null || result == false) {
       emit(const SaveHeightError(error: LocaleKeys.exception_height_not_saved));
     } else {

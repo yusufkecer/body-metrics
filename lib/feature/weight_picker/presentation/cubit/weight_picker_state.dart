@@ -18,9 +18,12 @@ final class WeightPickerLoading extends WeightPickerState {
 }
 
 final class WeightPickerError extends WeightPickerState {
-  const WeightPickerError({required this.error});
+  const WeightPickerError({required this.error, super.user});
 
   final String error;
+
+  @override
+  List<Object> get props => [...super.props, error];
 }
 
 final class WeightPickerSuccess extends WeightPickerState {

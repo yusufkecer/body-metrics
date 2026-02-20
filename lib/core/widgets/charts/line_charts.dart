@@ -125,21 +125,13 @@ class _LineChartWidgetState extends State<LineChartWidget> {
         show: true,
         border: Border.all(color: const Color(0xff37434d)),
       ),
-      minX: 0,
-      maxX: 13,
-      minY: 0,
-      maxY: 10,
+      minX: widget.spots.map((e) => e.x).reduce((a, b) => a < b ? a : b),
+      maxX: widget.spots.map((e) => e.x).reduce((a, b) => a > b ? a : b),
+      minY: widget.spots.map((e) => e.y).reduce((a, b) => a < b ? a : b) - 1,
+      maxY: widget.spots.map((e) => e.y).reduce((a, b) => a > b ? a : b) + 1,
       lineBarsData: [
         LineChartBarData(
-          spots: [
-            FlSpot(0, 120.calculateEquation),
-            FlSpot(2, 108.calculateEquation),
-            FlSpot(4, 89.calculateEquation),
-            FlSpot(6, 97.calculateEquation),
-            FlSpot(8, 78.calculateEquation),
-            FlSpot(10, 70.calculateEquation),
-            FlSpot(12, 120.calculateEquation),
-          ],
+          spots: widget.spots,
           isCurved: true,
           color: ProductColor.instance.white,
           barWidth: 5,
@@ -156,11 +148,5 @@ class _LineChartWidgetState extends State<LineChartWidget> {
         ),
       ],
     );
-  }
-}
-
-extension _CalculateEquation on num {
-  double get calculateEquation {
-    return (this - 50) / 10;
   }
 }
