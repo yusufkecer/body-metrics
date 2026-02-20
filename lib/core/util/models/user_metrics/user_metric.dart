@@ -16,6 +16,7 @@ final class UserMetric extends Equatable implements BaseModel<UserMetric> {
     this.weight,
     this.userMetric,
     this.userId,
+    this.height,
   });
 
   UserMetric.copyWith(UserMetric userMetric)
@@ -26,6 +27,7 @@ final class UserMetric extends Equatable implements BaseModel<UserMetric> {
           date: userMetric.date,
           weight: userMetric.weight,
           userMetric: userMetric.userMetric,
+          height: userMetric.height,
         );
 
   @override
@@ -42,6 +44,7 @@ final class UserMetric extends Equatable implements BaseModel<UserMetric> {
     double? bmi,
     double? weightDiff,
     BodyMetricResult? userMetric,
+    int? height,
   }) {
     return UserMetric(
       weightDiff: weightDiff ?? this.weightDiff,
@@ -51,6 +54,7 @@ final class UserMetric extends Equatable implements BaseModel<UserMetric> {
       weight: weight ?? this.weight,
       userId: userId ?? this.userId,
       userMetric: userMetric ?? this.userMetric,
+      height: height ?? this.height,
     );
   }
 
@@ -65,8 +69,9 @@ final class UserMetric extends Equatable implements BaseModel<UserMetric> {
   final double? weightDiff;
   @JsonKey(name: 'body_metric')
   final BodyMetricResult? userMetric;
+  final int? height;
 
   @override
   List<Object?> get props =>
-      [id, date, weight, userMetric, bmi, weightDiff, userId];
+      [id, date, weight, userMetric, bmi, weightDiff, userId, height];
 }

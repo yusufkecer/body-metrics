@@ -40,7 +40,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, _HomeModel {
           create: (_) => Locator.sl<UserCubit>(),
         ),
         BlocProvider<UserMetricCubit>(
-          create: (_) => Locator.sl<UserMetricCubit>(),
+          create: (_) {
+            final cubit = Locator.sl<UserMetricCubit>();
+            final userId = AppUtil.currentUserId;
+            if (userId != null) {
+              cubit.getUserMetric(userId);
+            }
+            return cubit;
+          },
         ),
         BlocProvider<HomeCardCubit>(
           create: (_) => Locator.sl<HomeCardCubit>(),
@@ -84,20 +91,69 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, _HomeModel {
         ),
         body: BlocBuilder<UserMetricCubit, UserMetricState>(
           builder: (context, homeCardState) {
+            final userMetrics = switch (homeCardState) {
+              UserMetricSuccess() => homeCardState.userMetric,
+              _ => null,
+            };
+
             return _HomeBody(
               dataListOnPressed: () => _dataListOnPressed(context),
               chartOnPressed: () => _chartOnPressed(context),
-              spots: _chartItems._spots,
-              leftTitles: _chartItems._leftTitles,
-              bottomTitle: _chartItems._bottomTitle,
+              spots: _buildSpots(userMetrics),
+              leftTitles: _buildLeftTitles(userMetrics),
+              bottomTitle: _buildBottomTitles(userMetrics),
               animatedListController: _animatedListController,
               animatedChartController: _animatedChartController,
-              userMetrics: _userMetrics,
+              userMetrics: userMetrics,
             );
           },
         ),
       ),
     );
+  }
+
+  List<FlSpot>? _buildSpots(UserMetrics? userMetrics) {
+    final values = userMetrics?.userMetrics
+        ?.where((metric) => metric.bmi != null)
+        .toList();
+
+    if (values.isNullOrEmpty) return null;
+
+    return values!
+        .asMap()
+        .entries
+        .map((entry) => FlSpot((entry.key * 2).toDouble(), entry.value.bmi!))
+        .toList();
+  }
+
+  List<Map<int, String>>? _buildLeftTitles(UserMetrics? userMetrics) {
+    final values = userMetrics?.userMetrics
+        ?.where((metric) => metric.bmi != null)
+        .map((metric) => metric.bmi!.round())
+        .toSet()
+        .toList();
+
+    if (values.isNullOrEmpty) return null;
+
+    values!.sort();
+    return values.map((value) => {value: value.toString()}).toList();
+  }
+
+  List<Map<int, String>>? _buildBottomTitles(UserMetrics? userMetrics) {
+    final values = userMetrics?.userMetrics
+        ?.where((metric) => metric.bmi != null)
+        .toList();
+
+    if (values.isNullOrEmpty) return null;
+
+    return values!
+        .asMap()
+        .entries
+        .map((entry) => {
+              entry.key * 2: entry.value.date?.split('-').take(2).join('/') ??
+                  '${entry.key + 1}',
+            })
+        .toList();
   }
 }
 

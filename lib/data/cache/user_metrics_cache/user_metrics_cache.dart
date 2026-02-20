@@ -17,14 +17,32 @@ final class UserMetricsCache extends ImpCache
         CREATE TABLE IF NOT EXISTS $table (
           ${UserMetricsColumns.id.value} INTEGER PRIMARY KEY AUTOINCREMENT,
           ${UserMetricsColumns.date.value} TEXT NOT NULL,
-          ${UserMetricsColumns.weight.value} TEXT NULL,
+          ${UserMetricsColumns.weight.value} REAL NULL,
           ${UserMetricsColumns.height.value} INTEGER NOT NULL, 
           ${UserMetricsColumns.userId.value} INTEGER NOT NULL,
-          ${UserMetricsColumns.bmi.value} INTEGER NOT NULL,
-          ${UserMetricsColumns.diff.value} INTEGER NULL,
+          ${UserMetricsColumns.bmi.value} REAL NOT NULL,
+          ${UserMetricsColumns.diff.value} REAL NULL,
+          body_metric TEXT NULL,
           FOREIGN KEY (${UserMetricsColumns.userId.value}) REFERENCES user(id)
         )
       ''');
+
+
+
+    final columnsInfo = await db.rawQuery('PRAGMA table_info($table)');
+    final existingColumns = columnsInfo
+        .map((item) => item['name']?.toString() ?? '')
+        .toSet();
+
+    if (!existingColumns.contains('body_metric')) {
+      await db.execute('ALTER TABLE $table ADD COLUMN body_metric TEXT NULL');
+    }
+
+    if (!existingColumns.contains(UserMetricsColumns.height.value)) {
+      await db.execute(
+        'ALTER TABLE $table ADD COLUMN ${UserMetricsColumns.height.value} INTEGER NULL',
+      );
+    }
 
     'init database'.log();
   }

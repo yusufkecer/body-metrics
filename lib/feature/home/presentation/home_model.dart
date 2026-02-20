@@ -2,7 +2,6 @@ part of 'home.dart';
 
 mixin _HomeModel on TickerProviderStateMixin<Home> {
   final ZoomDrawerController _zoomDrawerController = ZoomDrawerController();
-  final _ChartItems _chartItems = _ChartItems._instance;
 
   late AnimationController _animatedListController;
   late AnimationController _animatedChartController;
@@ -32,7 +31,6 @@ mixin _HomeModel on TickerProviderStateMixin<Home> {
     super.dispose();
   }
 
-  UserMetrics? _userMetrics;
 
   void _dataListOnPressed(BuildContext context) {
     context.read<HomeCardCubit>().dataListOnPressed();
