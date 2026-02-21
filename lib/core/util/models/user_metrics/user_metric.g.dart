@@ -7,17 +7,19 @@ part of 'user_metric.dart';
 // **************************************************************************
 
 UserMetric _$UserMetricFromJson(Map<String, dynamic> json) => UserMetric(
-      weightDiff: (json['weight_diff'] as num?)?.toDouble(),
-      bmi: (json['bmi'] as num?)?.toDouble(),
-      id: (json['id'] as num?)?.toInt(),
-      date: json['date'] as String?,
-      weight: (json['weight'] as num?)?.toDouble(),
-      userMetric:
-          $enumDecodeNullable(_$BodyMetricResultEnumMap, json['body_metric']),
-      userId: (json['user_id'] as num?)?.toInt(),
-      height: (json['height'] as num?)?.toInt(),
-      createdAt: json['created_at'] as String?,
-    );
+  weightDiff: (json['weight_diff'] as num?)?.toDouble(),
+  bmi: (json['bmi'] as num?)?.toDouble(),
+  id: (json['id'] as num?)?.toInt(),
+  date: json['date'] as String?,
+  weight: (json['weight'] as num?)?.toDouble(),
+  userMetric: $enumDecodeNullable(
+    _$BodyMetricResultEnumMap,
+    json['body_metric'],
+  ),
+  userId: (json['user_id'] as num?)?.toInt(),
+  height: (json['height'] as num?)?.toInt(),
+  createdAt: json['created_at'] as String?,
+);
 
 Map<String, dynamic> _$UserMetricToJson(UserMetric instance) =>
     <String, dynamic>{

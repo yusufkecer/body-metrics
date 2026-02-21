@@ -7,16 +7,16 @@ part of 'app_model.dart';
 // **************************************************************************
 
 AppModel _$AppModelFromJson(Map<String, dynamic> json) => AppModel(
-      isCompleteOnboard: json['is_complete_onboard'] as bool?,
-      page: $enumDecodeNullable(_$PagesEnumMap, json['page']),
-      activeUser: (json['active_user'] as num?)?.toInt(),
-    );
+  isCompleteOnboard: json['is_complete_onboard'] as bool?,
+  page: $enumDecodeNullable(_$PagesEnumMap, json['page']),
+  activeUser: (json['active_user'] as num?)?.toInt(),
+);
 
 Map<String, dynamic> _$AppModelToJson(AppModel instance) => <String, dynamic>{
-      'page': _$PagesEnumMap[instance.page],
-      'is_complete_onboard': instance.isCompleteOnboard,
-      'active_user': instance.activeUser,
-    };
+  'page': _$PagesEnumMap[instance.page],
+  'is_complete_onboard': instance.isCompleteOnboard,
+  'active_user': instance.activeUser,
+};
 
 const _$PagesEnumMap = {
   Pages.avatarPage: 'avatarPage',

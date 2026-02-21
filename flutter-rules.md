@@ -1,96 +1,131 @@
-# AI Rules for Body-Metrics Flutter Project
+# Flutter Rules — BodyMetrics Project
 
-These rules are specifically customized for the **body-metrics** project and designed to align with the existing project architecture and patterns.
+Rules specifically tailored for the **body-metrics** codebase. All conventions described here reflect what is already implemented — follow these patterns when adding or modifying code.
+
+---
 
 ## Project Architecture
 
-### Clean Architecture + Feature-First Structure
+### Clean Architecture + Feature-First
+
 ```
 lib/
-├── core/           # Core infrastructure
-├── data/           # Data layer (Cache, Database)
-├── domain/         # Business logic
-├── feature/        # Feature-based organization
-└── injection/      # Dependency injection
+├── core/       # Shared infrastructure (router, theme, widgets, extensions, constants, base classes)
+├── data/       # SQLite cache implementations (UserCache, UserMetricsCache, AppCache) + DB init
+├── domain/     # Global entities, use-case contracts, repository implementations
+├── feature/    # Feature modules — each owns its presentation layer (+ optional domain)
+└── injection/  # GetIt + Injectable DI (locator.dart, locator.config.dart)
 ```
 
-*   Use **feature-first** organization - each feature in its own directory
-*   Follow **Clean Architecture** principles
-*   Maintain **separation of concerns** - presentation, domain, data layers
-*   Centralize shared utilities in the **core** module
+**Rules:**
+- Every new feature lives in `lib/feature/<feature_name>/presentation/`
+- Business logic (calculation, validation) belongs in a `UseCase`, not in a Cubit or widget
+- Data access always goes through a `Cache` class — never call sqflite directly from a Cubit
+- Shared utilities live in `lib/core/`; never duplicate them inside a feature
 
-## State Management
+---
 
-### BLoC/Cubit Pattern (Current Implementation)
-*   Continue using the **BLoC pattern** already implemented
-*   Use **Cubit** for simple state, **BLoC** for complex event handling
-*   Register Cubit/BLoC with **Injectable** dependency injection
-*   Optimize state comparisons using **Equatable**
+## State Management — BLoC/Cubit
+
+### Cubit for simple state, BLoC for complex event flows
 
 ```dart
 @injectable
 class WeightPickerCubit extends Cubit<WeightPickerState> {
-  WeightPickerCubit(this._useCase) : super(const WeightPickerInitial());
-  
-  // Use case injection via constructor
+  WeightPickerCubit(this._calculateBmiUseCase, this._saveWeightUseCase)
+      : super(const WeightPickerInitial());
 }
 ```
 
-*   Provide multiple blocs using **MultiBlocProvider**
-*   Use **BlocBuilder** and **BlocListener** with pattern matching
-*   Handle loading, success, and error states consistently
-*   Emit appropriate states for UI feedback
-
-## Dependency Injection
-
-### Get_it + Injectable (Current Implementation)
-*   Use **Injectable** annotations (@injectable, @lazySingleton)
-*   Resolve dependencies with **Locator.sl<Type>()**
-*   Run code generation with **build_runner**
+**State class conventions:**
+- Extend `Equatable`, always override `props`
+- Name states: `<Feature>Initial`, `<Feature>Loading`, `<Feature>Success(<data>)`, `<Feature>Error(<message>)`
+- Keep states immutable — use `copyWith` pattern if mutation needed
 
 ```dart
-@injectable
-class MyRepository {
-  MyRepository(this._cache);
+// States file pattern
+part of 'weight_picker_cubit.dart';
+
+sealed class WeightPickerState extends Equatable {
+  const WeightPickerState();
 }
 
-// Usage
-final repo = Locator.sl<MyRepository>();
+final class WeightPickerInitial extends WeightPickerState {
+  const WeightPickerInitial([this.user]);
+  final User? user;
+  @override List<Object?> get props => [user];
+}
 ```
 
-*   Use **@injectable** for repository pattern
-*   Use **@lazySingleton** for singleton services
-*   Use **@injectable** (factory) for UI Cubits
-*   Register all dependencies in the injection module
+**UI binding:**
+- Use `BlocBuilder` for rebuild-on-state, `BlocListener` for side effects
+- Use `MultiBlocProvider` when a screen needs multiple cubits
+- Always handle loading + error + success states in the UI
 
-## Database & Cache
+---
 
-### SQLite + Custom Cache Layer (Current Implementation)
-*   Use **sqflite** for local database
-*   Implement **cache pattern** for data access abstraction
-*   Implement **BaseCache** interface
+## Dependency Injection — GetIt + Injectable
+
+```dart
+@injectable        // Factory — use for Cubits (new instance per request)
+@lazySingleton     // Singleton — use for Caches, Repositories, UseCases, Router, Theme
+
+// Resolution anywhere in the app:
+Locator.sl<SomeUseCase>()
+```
+
+**Rules:**
+- Every Cubit must be `@injectable` (factory)
+- Every Cache/Repository/Service must be `@lazySingleton`
+- After adding/modifying any annotation, run:
+  ```bash
+  dart run build_runner build --delete-conflicting-outputs
+  ```
+- Never instantiate dependencies manually — always resolve via `Locator.sl<>()`
+
+---
+
+## Database & Cache — sqflite
+
+### BaseCache implementation pattern
 
 ```dart
 @lazySingleton
-class UserCache extends ImpCache implements BaseCache<Users, Json, Json, Users> {
+class UserMetricsCache extends ImpCache
+    implements BaseCache<UserMetrics, Json, Json, UserMetrics> {
+
   @override
   Future<void> initializeTable(Database db, int version) async {
-    // Table creation SQL
+    await db.execute('''
+      CREATE TABLE IF NOT EXISTS user_metrics (
+        id          INTEGER PRIMARY KEY AUTOINCREMENT,
+        user_id     INTEGER NOT NULL REFERENCES user(id),
+        weight      REAL,
+        height      INTEGER NOT NULL,
+        bmi         REAL NOT NULL,
+        weight_diff REAL,
+        body_metric TEXT,
+        date        TEXT NOT NULL,
+        created_at  TEXT
+      )
+    ''');
+    // Migrations: always idempotent
+    await _migrate(db);
   }
 }
 ```
 
-*   Use **foreign key** constraints
-*   Implement **JSON serialization** for data mapping
-*   Support **database versioning** for migrations
-*   Handle database initialization and cleanup properly
+**Rules:**
+- Column names defined as string constants in a `*_columns.dart` file
+- Migrations use `PRAGMA table_info` + `ALTER TABLE` — never drop/recreate tables
+- Always use `created_at` (ISO8601) as the canonical sort key; `date` is legacy
+- Read order must be `ORDER BY created_at ASC, id ASC`
+- Use foreign key constraints between tables
+- Use `@JsonKey(name: 'snake_case')` when model field name differs from DB column name
 
-## Navigation
+---
 
-### Auto Route (Current Implementation)
-*   Use **auto_route** package (not go_router)
-*   Configure routes with **@AutoRouterConfig()**
-*   Implement **type-safe** navigation
+## Navigation — auto_route
 
 ```dart
 @lazySingleton
@@ -99,248 +134,270 @@ class AppRouter extends RootStackRouter {
   @override
   List<AutoRoute> get routes => [
     AutoRoute(page: SplashView.page, initial: true),
-    // Other routes
+    AutoRoute(page: OnboardView.page),
+    AutoRoute(page: AvatarPickerView.page),
+    AutoRoute(page: UserGeneralInfoView.page),
+    AutoRoute(page: GenderView.page),
+    AutoRoute(page: HeightView.page),
+    AutoRoute(page: WeightView.page),
+    AutoRoute(page: HomeView.page),
   ];
 }
 ```
 
-*   Use **RouteAware** mixins when needed
-*   Support **deep linking** with path parameters
-*   Handle navigation guards for authentication
-*   Maintain consistent navigation patterns
+**Rules:**
+- Use `auto_route` only — do not use go_router or Navigator.push directly
+- Route file is `lib/core/router/app_router.dart`; generated file is `app_router.gr.dart` (never edit)
+- Track the last visited page by saving a `Pages` enum value via `SaveAppUseCase`
+- Use `SaveAppMixin.saveApp(Pages page)` for consistent page persistence across features
+
+---
 
 ## Theme & UI
 
-### Custom Theme + Material 3 (Current Implementation)
-*   Use **CustomTheme** class for centralized theming
-*   Enable **Material 3** (`useMaterial3: true`)
-*   Focus on **dark theme** design (current structure)
+### CustomTheme (Material 3, Dark)
 
 ```dart
 @lazySingleton
 class CustomTheme implements BaseTheme {
+  @override
   ThemeData get theme => ThemeData(
     useMaterial3: true,
     brightness: Brightness.dark,
-    // Custom theme properties
+    colorSchemeSeed: Colors.deepPurple,
+    // Custom overrides in cardTheme, dialogTheme, appBarTheme...
   );
 }
 ```
 
-*   Manage color palette with **ProductColor**
-*   Create consistent UI with **custom widgets**
-*   Enhance UX with **Lottie animations**
-*   Use purple theme (#673AB7) as primary color
+**Rules:**
+- Primary color: `#673AB7` (deep purple) — use `ProductColor.deepPurple`
+- Background gradient: `#6A1B9A → #9747FF` — always wrap screens in `GradientScaffold`
+- Never hardcode colors — use `ProductColor`, `context.colorScheme`, or `context.theme`
+- Use `ProductPadding`, `ProductRadius`, `SpaceValues` for consistent spacing
+- Card border radius: 15px (`ProductRadius.fifTeen()`)
+- Input border radius: 10px
 
-## Localization
+### Standard widgets to reuse
 
-### Easy Localization (Current Implementation)
-*   Use **easy_localization** package
-*   Support multiple languages with **JSON** files
-*   Implement **type-safe** localization with LocaleKeys
+| Widget | Where |
+|--------|-------|
+| `GradientScaffold` | All screen backgrounds |
+| `CustomAppBar` | All screens with app bars |
+| `CustomTextField` | All text inputs |
+| `CustomFilled` | Primary action buttons |
+| `ChipButton` | Secondary/toggle buttons |
+| `LottieDialog` | Error/success dialogs |
+| `LottieConfirmDialog` | Destructive action confirmation |
+| `LoadingLottie` | Loading states |
+| `SpaceColumn` | Vertically spaced widget lists |
+| `HomeCard` | Metric summary cards |
+| `LineCharts` | BMI/metric trend charts |
+
+---
+
+## Localization — easy_localization
 
 ```dart
-Text(LocaleKeys.exception_user_not_found.tr())
+// Always use LocaleKeys, never hardcode strings
+Text(LocaleKeys.weight_title.tr())
 ```
 
-*   Organize language files in assets directory
-*   Provide easy access with **context extensions**
-*   Support Turkish and English languages
-*   Generate locale keys automatically
+**Rules:**
+- All UI text must use `LocaleKeys.<namespace>_<key>.tr()`
+- Add new keys to both `assets/language/tr.json` and `assets/language/en.json`
+- Namespace convention: `onboard_*`, `register_*`, `weight_*`, `height_*`, `gender_*`, `dialog_*`, `exception_*`, `bmi_result_*`
+- Error messages emitted from Cubits must reference `LocaleKeys` strings (not raw strings)
+
+---
 
 ## Error Handling
 
-### Custom Exception + Logging
-*   Use **AppException** custom exception class
-*   Implement **structured logging** with logger package
-*   Provide **convenient logging** with extension methods
-
 ```dart
 try {
-  // Business logic
+  final result = await _useCase.executeWithParams(params: params);
+  emit(FeatureSuccess(result));
 } catch (e, st) {
-  'Error message: $e\n$st'.log();
-  emit(ErrorState(message: LocaleKeys.exception_generic_error));
+  'FeatureCubit error: $e\n$st'.e();
+  emit(FeatureError(LocaleKeys.exception_generic_error));
 }
 ```
 
-*   Handle errors gracefully in all layers
-*   Provide meaningful error messages to users
-*   Log errors with appropriate severity levels
-*   Use try-catch blocks consistently
+**Rules:**
+- Use `.log()` for info, `.w()` for warnings, `.e()` for errors (Logger extensions)
+- Always emit a localized error state — never let an exception bubble to the widget silently
+- Use `DialogUtil` mixin for displaying errors: `showLottieError(context, message)`
+- Validate inputs (weight, height, name) before business logic — emit error state on invalid input
+
+---
+
+## Models & Entities
+
+### Model conventions
+
+```dart
+@JsonSerializable()
+class UserMetric extends Equatable implements BaseModel<UserMetric> {
+  const UserMetric({this.id, this.bmi, ...});
+
+  @JsonKey(name: 'created_at')
+  final String? createdAt;
+
+  @override
+  UserMetric copyWith({String? createdAt, ...}) => UserMetric(createdAt: createdAt ?? this.createdAt, ...);
+
+  factory UserMetric.fromJson(Json json) => _$UserMetricFromJson(json);
+  Json toJson() => _$UserMetricToJson(this);
+
+  @override
+  List<Object?> get props => [id, bmi, createdAt, ...];
+}
+```
+
+**Rules:**
+- All models extend `Equatable` and implement `BaseModel<T>`
+- Use `@JsonKey(name: 'snake_case')` for any field whose DB column differs from the Dart name
+- Always provide `copyWith` for immutable updates
+- Wrapper models (`Users`, `UserMetrics`) wrap `List<Model>?`
+- After modifying a model, run `build_runner` to regenerate `.g.dart`
+
+---
 
 ## Code Generation
 
-### Build Runner (Current Implementation)
-*   Use **json_serializable** for model generation
-*   Use **injectable** for DI registration
-*   Use **auto_route** for route generation
-
 ```bash
+# Run after: model changes, new routes, new @injectable/@lazySingleton
 dart run build_runner build --delete-conflicting-outputs
 ```
 
-*   Run code generation after model changes
-*   Keep generated files in version control
-*   Use part files for generated code
-*   Handle conflicts with delete-conflicting-outputs
+Generated files (commit these, never edit manually):
+- `*.g.dart` — json_serializable output
+- `*.gr.dart` — auto_route output
+- `lib/injection/locator.config.dart` — injectable output
 
-## Assets & Resources
+---
 
-### Organized Asset Structure (Current Implementation)
+## BMI / Health Metric Logic
+
+```dart
+// Formula
+double bmi = weight / (heightInMeters * heightInMeters);
+bmi = double.parse(bmi.toStringAsFixed(2)); // Always 2 decimal places
+
+// Classification (BodyMetricResult enum)
+// < 18.5   → underweight
+// 18.5–25  → normal
+// 25–30    → overweight
+// 30–40    → obese
+// ≥ 40     → morbidlyObese
 ```
-assets/
-├── app_logo/
-├── images/
-│   ├── onboard/
-│   └── profiles/
-├── lotties/
-└── language/
+
+**Rules:**
+- BMI calculation must stay in `CalculateBmiUseCase`, not in the Cubit or widget
+- Weight diff is always relative to the previous stored measurement for the same user
+- `body_metric` column stores the `BodyMetricResult` enum `.name` string
+- Input validation: weight and height must be positive non-zero numbers
+
+---
+
+## Chart Visualization — fl_chart
+
+```dart
+// Spots: X = measurement index, Y = BMI value
+final spots = metrics.asMap().entries.map((e) {
+  return FlSpot(e.key.toDouble(), e.value.bmi ?? 0);
+}).toList();
 ```
 
-*   Use **Lottie animations** for engaging UX
-*   Provide **profile avatars** for user personalization
-*   Maintain **organized folder structure** for maintainability
-*   Declare all assets in pubspec.yaml
+**Rules:**
+- Use `LineCharts` widget in `lib/core/widgets/charts/line_charts.dart` — do not build fl_chart directly in feature widgets
+- X-axis: sequential index (every 2 points for readability)
+- Y-axis: unique BMI values, left titles
+- Bottom titles: `dd/MM` format from `created_at` (fallback to sequential number)
+- Keep chart data computation out of the widget — prepare `FlSpot` list in the Cubit or a helper
+
+---
 
 ## Testing
-
-### Flutter Test + Unit Tests
-*   Use **widget_test.dart** for widget testing
-*   Use **bloc_test** package for Cubit testing
-*   Use **Mockito** for dependency mocking
 
 ```dart
 group('WeightPickerCubit', () {
   late WeightPickerCubit cubit;
-  
+
   setUp(() {
-    cubit = WeightPickerCubit(mockUseCase);
+    cubit = WeightPickerCubit(FakeCalculateBmiUseCase(), FakeSaveWeightUseCase());
   });
-  
-  test('should emit success when calculation succeeds', () {
-    // Test implementation
-  });
+
+  blocTest<WeightPickerCubit, WeightPickerState>(
+    'emits Success after valid saveBodyMetrics call',
+    build: () => cubit,
+    act: (c) => c.saveBodyMetrics(weight: 75.0),
+    expect: () => [isA<WeightPickerLoading>(), isA<WeightPickerSuccess>()],
+  );
 });
 ```
 
-*   Test all business logic in use cases
-*   Mock external dependencies
-*   Test error scenarios
-*   Maintain high test coverage
+**Rules:**
+- Use `bloc_test` package for all Cubit tests
+- Use `FakeUseCase` stubs (simple manual fakes), not Mockito where already established
+- Every new UseCase must have a unit test
+- Every new Cubit must have a test covering: initial state, success path, error path
+- Test files live under `test/feature/<feature_name>/`
 
-## Performance & Optimization
+---
 
-### Body-Metrics Specific
-*   Optimize **BMI calculations** performance
-*   Optimize **chart rendering** with fl_chart
-*   Use **database indexing** for queries
-*   Implement **image caching** for profile avatars
-*   Use const constructors for widgets
-*   Implement lazy loading for lists
+## Performance
 
-## Security & Health Data
+- Use `const` constructors on all widgets where possible
+- Memoize or cache heavy computations (e.g., FlSpot list generation)
+- Use `UserMetricsCache` indexes; order queries use `created_at ASC, id ASC`
+- Implement lazy loading for long metrics lists
+- Avoid rebuilding the whole chart on unrelated state changes — scope `BlocBuilder` tightly
+- Use `Equatable` on all states to prevent unnecessary rebuilds
 
-### Health App Best Practices
-*   Ensure **secure storage** of sensitive health data
-*   Implement **input validation** for BMI/weight data
-*   Use **data encryption** for critical information
-*   Comply with **privacy regulations** for health data
-*   Validate all user inputs
-*   Sanitize data before storage
+---
 
-## Code Quality
+## Security & Data Integrity
 
-### Project-Specific Standards
-*   Use **very_good_analysis** lint rules (current)
-*   Follow **meaningful naming** with feature-based convention
-*   Add **documentation** for public APIs
-*   Enhance **code reusability** with extension methods
-*   Follow Effective Dart guidelines
-*   Use pattern matching where appropriate
+- Validate weight (> 0, ≤ 500 kg) and height (65–252 cm) before persisting
+- Sanitize all user inputs before inserting into SQLite
+- Do not log sensitive health data (weight, BMI) at info level in production builds
+- Use parameterized queries — never string-concatenate SQL
 
-## Package Usage Guidelines
+---
 
-### Optimal Usage of Current Packages
-*   **animated_text_kit**: Engaging text animations
-*   **fl_chart**: BMI/weight tracking charts and visualizations
-*   **font_awesome_flutter**: Consistent iconography
-*   **introduction_screen**: Smooth onboarding experience
-*   **flutter_zoom_drawer**: Intuitive navigation drawer
-*   **lottie**: Engaging animations and loading states
-*   **sqflite**: Reliable local data storage
-*   **equatable**: Efficient state comparisons
+## Code Quality — very_good_analysis
 
-## Visual Design & Theming
+Active lint rules (enforced, see `analysis_options.yaml`):
+- No public members without docs → disabled for this project
+- Lines ≤ 80 chars → disabled for this project
+- `library_private_types_in_public_api` → disabled
 
-### Body-Metrics UI Guidelines
-*   Use **purple theme** (#673AB7) as primary color
-*   Prioritize **dark mode** design (current structure)
-*   Implement **card-based layout** for information hierarchy
-*   Use **gradient backgrounds** for premium feel
-*   Add **subtle animations** for user engagement
-*   Ensure responsive design for different screen sizes
+**Follow Effective Dart guidelines:**
+- Prefer `final` over `var`
+- Use `late` only when initialization is guaranteed
+- Prefer named parameters for clarity
+- Use pattern matching (`switch` expressions) for enum handling
+- Avoid dynamic types; prefer explicit generics
 
-### Component Standards
-*   Use **custom elevated buttons** for consistent styling
-*   Implement **rich text widgets** for formatted text
-*   Use **chart components** for data visualization
-*   Show **loading states** with Lottie animations
-*   Create reusable widget components
-*   Follow Material Design 3 guidelines
+---
 
-## Data Flow & Architecture
+## Package Reference
 
-### Repository Pattern
-*   Define **abstract repositories** in domain layer
-*   Implement **concrete implementations** in data layer
-*   Use **use cases** for business logic encapsulation
-
-```dart
-abstract class UserRepository {
-  Future<User?> getCurrentUser();
-}
-
-class UserRepositoryImpl implements UserRepository {
-  UserRepositoryImpl(this._userCache);
-  // Implementation
-}
-```
-
-### Entity & Model Structure
-*   Use **domain entities** for business logic
-*   Use **data models** for JSON serialization
-*   Implement **extension methods** for mapping
-*   Keep entities immutable
-*   Use value objects where appropriate
-
-## Advanced Patterns
-
-### Mixin Usage
-*   Use **mixins** for shared functionality across widgets
-*   Implement **lifecycle mixins** for common patterns
-*   Use **validation mixins** for form handling
-
-### Extension Methods
-*   Create **context extensions** for easy access to theme/locale
-*   Implement **utility extensions** for common operations
-*   Use **logger extensions** for convenient logging
-*   Add **validation extensions** for data types
-
-## Health & Fitness Specific Rules
-
-### BMI & Body Metrics
-*   Validate weight and height inputs thoroughly
-*   Handle edge cases in BMI calculations
-*   Store historical data for tracking
-*   Implement proper units conversion
-*   Provide meaningful health insights
-
-### Data Visualization
-*   Use fl_chart for trend visualization
-*   Implement interactive charts
-*   Show progress over time
-*   Provide clear data labels
-*   Use appropriate chart types for different metrics
-
-These rules support the existing architecture of the body-metrics project and ensure maintainability as the project grows.
+| Package | Version | Usage |
+|---------|---------|-------|
+| flutter_bloc | 9.1.1 | BLoC/Cubit state management |
+| auto_route | 10.1.2 | Type-safe navigation |
+| injectable | 2.5.1 | DI annotations |
+| get_it | — | Service locator (via injectable) |
+| sqflite | 2.4.2 | Local SQLite database |
+| easy_localization | 3.0.8 | i18n (tr + en) |
+| fl_chart | 1.1.1 | BMI/metric trend charts |
+| flutter_zoom_drawer | 3.2.0 | Home navigation drawer |
+| lottie | 3.3.2 | Animated feedback (loading, success, error) |
+| introduction_screen | 4.0.0 | Onboarding flow |
+| font_awesome_flutter | 10.12.0 | Icon library |
+| json_annotation | 4.9.0 | JSON serialization |
+| equatable | 2.0.7 | Value equality for states/models |
+| logger | 2.6.1 | Structured logging |
+| very_good_analysis | 10.0.0 | Lint rules |

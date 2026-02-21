@@ -18,11 +18,10 @@ class AvatarPickerView extends PageRouteInfo<AvatarPickerViewArgs> {
     bool isChangeProfile = false,
     List<PageRouteInfo>? children,
   }) : super(
-          AvatarPickerView.name,
-          args:
-              AvatarPickerViewArgs(key: key, isChangeProfile: isChangeProfile),
-          initialChildren: children,
-        );
+         AvatarPickerView.name,
+         args: AvatarPickerViewArgs(key: key, isChangeProfile: isChangeProfile),
+         initialChildren: children,
+       );
 
   static const String name = 'AvatarPickerView';
 
@@ -64,7 +63,7 @@ class AvatarPickerViewArgs {
 /// [Gender]
 class GenderView extends PageRouteInfo<void> {
   const GenderView({List<PageRouteInfo>? children})
-      : super(GenderView.name, initialChildren: children);
+    : super(GenderView.name, initialChildren: children);
 
   static const String name = 'GenderView';
 
@@ -84,10 +83,10 @@ class HeightView extends PageRouteInfo<HeightViewArgs> {
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
-          HeightView.name,
-          args: HeightViewArgs(gender: gender, key: key),
-          initialChildren: children,
-        );
+         HeightView.name,
+         args: HeightViewArgs(gender: gender, key: key),
+         initialChildren: children,
+       );
 
   static const String name = 'HeightView';
 
@@ -127,7 +126,7 @@ class HeightViewArgs {
 /// [Home]
 class HomeView extends PageRouteInfo<void> {
   const HomeView({List<PageRouteInfo>? children})
-      : super(HomeView.name, initialChildren: children);
+    : super(HomeView.name, initialChildren: children);
 
   static const String name = 'HomeView';
 
@@ -143,7 +142,7 @@ class HomeView extends PageRouteInfo<void> {
 /// [Onboard]
 class OnboardView extends PageRouteInfo<void> {
   const OnboardView({List<PageRouteInfo>? children})
-      : super(OnboardView.name, initialChildren: children);
+    : super(OnboardView.name, initialChildren: children);
 
   static const String name = 'OnboardView';
 
@@ -159,7 +158,7 @@ class OnboardView extends PageRouteInfo<void> {
 /// [Splash]
 class SplashView extends PageRouteInfo<void> {
   const SplashView({List<PageRouteInfo>? children})
-      : super(SplashView.name, initialChildren: children);
+    : super(SplashView.name, initialChildren: children);
 
   static const String name = 'SplashView';
 
@@ -179,10 +178,10 @@ class UserGeneralInfoView extends PageRouteInfo<UserGeneralInfoViewArgs> {
     Key? key,
     List<PageRouteInfo>? children,
   }) : super(
-          UserGeneralInfoView.name,
-          args: UserGeneralInfoViewArgs(avatar: avatar, key: key),
-          initialChildren: children,
-        );
+         UserGeneralInfoView.name,
+         args: UserGeneralInfoViewArgs(avatar: avatar, key: key),
+         initialChildren: children,
+       );
 
   static const String name = 'UserGeneralInfoView';
 
@@ -222,7 +221,7 @@ class UserGeneralInfoViewArgs {
 /// [WeightPicker]
 class WeightView extends PageRouteInfo<void> {
   const WeightView({List<PageRouteInfo>? children})
-      : super(WeightView.name, initialChildren: children);
+    : super(WeightView.name, initialChildren: children);
 
   static const String name = 'WeightView';
 
