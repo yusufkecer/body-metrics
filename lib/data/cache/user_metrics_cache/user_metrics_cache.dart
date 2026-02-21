@@ -52,6 +52,12 @@ final class UserMetricsCache extends ImpCache
       );
     }
 
+    if (!existingColumns.contains(UserMetricsColumns.diff.value)) {
+      await db.execute(
+        'ALTER TABLE $table ADD COLUMN ${UserMetricsColumns.diff.value} REAL NULL',
+      );
+    }
+
     'init database'.log();
   }
 
@@ -92,9 +98,15 @@ final class UserMetricsCache extends ImpCache
       return 0;
     }
 
+    if (value.id == null) {
+      'UserMetric id is null'.e();
+      return 0;
+    }
+
     final jsonData = value.toJson();
-    final filteredValue =
-        jsonData.entries.where((entry) => entry.value != null).toList();
+    final filteredValue = jsonData.entries
+        .where((entry) => entry.value != null && entry.key != 'id')
+        .toList();
 
     if (filteredValue.isEmpty) {
       'No values to update'.e();
