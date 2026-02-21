@@ -14,7 +14,7 @@ final class WeightPickerInitial extends WeightPickerState {
 }
 
 final class WeightPickerLoading extends WeightPickerState {
-  const WeightPickerLoading();
+  const WeightPickerLoading({super.user});
 }
 
 final class WeightPickerError extends WeightPickerState {

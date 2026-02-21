@@ -71,7 +71,8 @@ final class UserCache extends ImpCache
     }
 
     final result = await db!.query(
-      '$table WHERE id = ?',
+      table,
+      where: '${UserCacheColumns.id.value} = ?',
       whereArgs: [user['id']],
     );
 

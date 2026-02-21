@@ -95,7 +95,7 @@ extension _ResultIconExtension on UserMetric {
   IconData get resultIcon {
     if (weightDiff == null) return ProductIcon.minus.icon;
     if (weightDiff! > 0) return ProductIcon.arrowUp.icon;
-    if (weightDiff! < 0) return ProductIcon.trendingFlat.icon;
+    if (weightDiff! < 0) return ProductIcon.arrowDown.icon;
     return ProductIcon.minus.icon;
   }
 }

@@ -176,6 +176,7 @@ extension GetItInjectableX on _i174.GetIt {
           gh<_i34.UserUseCaseImpl>(),
           gh<_i986.SaveWeightUseCase>(),
           gh<_i938.CalculateBmiUseCase>(),
+          gh<_i799.UserMetricUseCase>(),
         ));
     gh.factory<_i954.UserCubit>(
         () => _i954.UserCubit(gh<_i34.UserUseCaseImpl>()));

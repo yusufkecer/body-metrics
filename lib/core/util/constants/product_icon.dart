@@ -20,6 +20,7 @@ enum ProductIcon {
   userCheck(FontAwesomeIcons.userCheck),
   diff(FontAwesomeIcons.codeCompare),
   arrowUp(FontAwesomeIcons.arrowUp),
+  arrowDown(FontAwesomeIcons.arrowDown),
   trendingFlat(FontAwesomeIcons.arrowTrendUp);
 
   final IconData icon;

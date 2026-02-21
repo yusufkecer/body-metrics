@@ -1,5 +1,6 @@
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/domain/index.dart';
+import 'package:bodymetrics/feature/home/domain/use_case/user_metric_use_case.dart';
 import 'package:bodymetrics/feature/weight_picker/domain/entity/bmi_value.dart';
 import 'package:bodymetrics/feature/weight_picker/domain/use_case/calculate_bmi_use_case.dart';
 import 'package:bodymetrics/feature/weight_picker/domain/use_case/save_weight_use_case.dart';
@@ -16,6 +17,7 @@ final class WeightPickerCubit extends Cubit<WeightPickerState> {
     this._userUseCase,
     this._saveWeightUseCase,
     this._calculateBmiUseCase,
+    this._userMetricUseCase,
   ) : super(const WeightPickerInitial()) {
     getUser();
   }
@@ -23,6 +25,7 @@ final class WeightPickerCubit extends Cubit<WeightPickerState> {
   final UserUseCaseImpl _userUseCase;
   final SaveWeightUseCase _saveWeightUseCase;
   final CalculateBmiUseCase _calculateBmiUseCase;
+  final UserMetricUseCase _userMetricUseCase;
 
   Future<void> getUser() async {
     try {
@@ -53,11 +56,25 @@ final class WeightPickerCubit extends Cubit<WeightPickerState> {
     return roundedBmi;
   }
 
+  Future<double> _getLastWeight(int userId) async {
+    try {
+      final metrics = await _userMetricUseCase.executeWithParams(
+        params: UserMetric(userId: userId),
+      );
+      final list = metrics?.userMetrics;
+      if (list == null || list.isEmpty) return 0;
+      return list.last.weight ?? 0;
+    } catch (e) {
+      'WeightPickerCubit _getLastWeight error: $e'.log();
+      return 0;
+    }
+  }
+
   Future<bool> saveBodyMetrics({
     required double weight,
-    double oldWeight = 0,
   }) async {
-    emit(WeightPickerLoading());
+    final currentUser = state.user;
+    emit(WeightPickerLoading(user: currentUser));
 
     final id = AppUtil.currentUserId;
     if (id == null) {
@@ -81,6 +98,7 @@ final class WeightPickerCubit extends Cubit<WeightPickerState> {
       return false;
     }
 
+    final oldWeight = await _getLastWeight(id);
     final createdAt = DateTime.now();
 
     final metricsEntity = UserMetric(

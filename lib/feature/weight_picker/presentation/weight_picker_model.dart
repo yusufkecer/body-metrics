@@ -173,8 +173,8 @@ mixin _WeightPickerModel
     await _cubit?.saveBodyMetrics(weight: weight);
 
     if (_cubit?.state is WeightPickerSuccess) {
-      // await saveApp(Pages.homePage);
-      // await _goToHomeView();
+      await saveApp(Pages.homePage);
+      await _goToHomeView();
     } else {
       showLottieError(LocaleKeys.exception_user_not_found);
     }

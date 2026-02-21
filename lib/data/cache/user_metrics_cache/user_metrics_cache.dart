@@ -130,7 +130,7 @@ final class UserMetricsCache extends ImpCache
     final result = await db!.query(
       table,
       where: '${UserMetricsColumns.userId.value} = ?',
-      whereArgs: [value['userId']],
+      whereArgs: [value['user_id']],
       orderBy: '${UserMetricsColumns.createdAt.value} ASC, ${UserMetricsColumns.id.value} ASC',
     );
     'UserMetric selected $result'.log();
