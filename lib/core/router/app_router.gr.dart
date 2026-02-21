@@ -12,51 +12,18 @@ part of 'app_router.dart';
 
 /// generated route for
 /// [AvatarPicker]
-class AvatarPickerView extends PageRouteInfo<AvatarPickerViewArgs> {
-  AvatarPickerView({
-    Key? key,
-    bool isChangeProfile = false,
-    List<PageRouteInfo>? children,
-  }) : super(
-         AvatarPickerView.name,
-         args: AvatarPickerViewArgs(key: key, isChangeProfile: isChangeProfile),
-         initialChildren: children,
-       );
+class AvatarPickerView extends PageRouteInfo<void> {
+  const AvatarPickerView({List<PageRouteInfo>? children})
+    : super(AvatarPickerView.name, initialChildren: children);
 
   static const String name = 'AvatarPickerView';
 
   static PageInfo page = PageInfo(
     name,
     builder: (data) {
-      final args = data.argsAs<AvatarPickerViewArgs>(
-        orElse: () => const AvatarPickerViewArgs(),
-      );
-      return AvatarPicker(key: args.key, isChangeProfile: args.isChangeProfile);
+      return const AvatarPicker();
     },
   );
-}
-
-class AvatarPickerViewArgs {
-  const AvatarPickerViewArgs({this.key, this.isChangeProfile = false});
-
-  final Key? key;
-
-  final bool isChangeProfile;
-
-  @override
-  String toString() {
-    return 'AvatarPickerViewArgs{key: $key, isChangeProfile: $isChangeProfile}';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    if (identical(this, other)) return true;
-    if (other is! AvatarPickerViewArgs) return false;
-    return key == other.key && isChangeProfile == other.isChangeProfile;
-  }
-
-  @override
-  int get hashCode => key.hashCode ^ isChangeProfile.hashCode;
 }
 
 /// generated route for

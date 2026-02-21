@@ -45,24 +45,6 @@ final class _MenuView extends StatelessWidget {
                     },
                   ),
                   VerticalSpace.s(),
-                  CustomListTile(
-                    ProductIcon.user.icon,
-                    LocaleKeys.home_menu_change_profile,
-                    () async {
-                      await context.router.push(
-                        AvatarPickerView(isChangeProfile: true),
-                      );
-                    },
-                  ),
-                  VerticalSpace.s(),
-                  CustomListTile(
-                    ProductIcon.plus.icon,
-                    LocaleKeys.home_menu_add_profile,
-                    () async {
-                      await context.router.push(AvatarPickerView());
-                    },
-                  ),
-                  VerticalSpace.s(),
                 ],
               ),
             ],

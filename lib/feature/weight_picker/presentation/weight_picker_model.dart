@@ -26,9 +26,7 @@ mixin _WeightPickerModel
       initialPage: _selectedWeight - _minWeight.toInt(),
       viewportFraction: 0.20,
     );
-    _decimalWeightController = PageController(
-      viewportFraction: 0.14,
-    );
+    _decimalWeightController = PageController(viewportFraction: 0.14);
 
     _weightController.addListener(_onChangeWeight);
     _decimalWeightController.addListener(_onChangeDecimalWeight);
@@ -178,10 +176,5 @@ mixin _WeightPickerModel
     } else {
       showLottieError(LocaleKeys.exception_user_not_found);
     }
-  }
-
-  Future<void> _goToHomeView() async {
-    await context.router
-        .pushAndPopUntil(const HomeView(), predicate: (route) => false);
   }
 }

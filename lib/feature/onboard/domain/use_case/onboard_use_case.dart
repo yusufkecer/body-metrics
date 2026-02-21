@@ -14,6 +14,6 @@ final class OnboardUseCase implements UseCase<bool, AppModel> {
     if (params == null) throw ArgumentError.notNull();
 
     final result = await _onboardRepository.executeWithParams(params: params);
-    return result?.convertBoolResult;
+    return result.convertBoolResult;
   }
 }
