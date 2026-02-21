@@ -83,6 +83,17 @@ class _LineChartWidgetState extends State<LineChartWidget> {
   }
 
   LineChartData avgData() {
+    if (widget.spots.isEmpty) {
+      return LineChartData(lineBarsData: const []);
+    }
+
+    final xs = widget.spots.map((e) => e.x);
+    final ys = widget.spots.map((e) => e.y);
+    final minX = xs.reduce((a, b) => a < b ? a : b);
+    final maxX = xs.reduce((a, b) => a > b ? a : b);
+    final minY = ys.reduce((a, b) => a < b ? a : b) - 1;
+    final maxY = ys.reduce((a, b) => a > b ? a : b) + 1;
+
     return LineChartData(
       lineTouchData: const LineTouchData(enabled: false),
       gridData: FlGridData(
@@ -125,10 +136,10 @@ class _LineChartWidgetState extends State<LineChartWidget> {
         show: true,
         border: Border.all(color: const Color(0xff37434d)),
       ),
-      minX: widget.spots.map((e) => e.x).reduce((a, b) => a < b ? a : b),
-      maxX: widget.spots.map((e) => e.x).reduce((a, b) => a > b ? a : b),
-      minY: widget.spots.map((e) => e.y).reduce((a, b) => a < b ? a : b) - 1,
-      maxY: widget.spots.map((e) => e.y).reduce((a, b) => a > b ? a : b) + 1,
+      minX: minX,
+      maxX: maxX == minX ? minX + 1 : maxX,
+      minY: minY,
+      maxY: maxY,
       lineBarsData: [
         LineChartBarData(
           spots: widget.spots,

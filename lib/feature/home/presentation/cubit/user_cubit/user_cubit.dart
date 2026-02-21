@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/data/index.dart';
 import 'package:bodymetrics/domain/index.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
@@ -17,30 +16,10 @@ class UserCubit extends Cubit<UserState> {
 
   Future<void> getUserAndHistory() async {
     try {
-      final userId = AppUtil.currentUserId;
-      if (userId == null) {
-        emit(const UserError(message: LocaleKeys.exception_user_not_found));
-        return;
-      }
-
-      final filters = UserFilters(id: userId);
-
-      final join = JoinEntity(
-        currentKey: UserCacheColumns.id.value,
-        joinKey: UserMetricsColumns.id.value,
-        table: UserMetricsColumns.table.value,
-        type: JoinType.inner.type,
-      );
-
-      final params = ParamsEntity(
-        filters: filters.toJson(),
-        joins: [join],
-      );
-
-      final user = await _userUseCase.executeWithParams(params: params);
+      final user = await _userUseCase.getCurrentUser();
 
       if (user == null) {
-        emit(const UserError(message: LocaleKeys.exception_user_metrics_not_found));
+        emit(const UserError(message: LocaleKeys.exception_user_not_found));
         return;
       }
 

@@ -71,7 +71,8 @@ final class UserCache extends ImpCache
     }
 
     final result = await db!.query(
-      '$table WHERE id = ?',
+      table,
+      where: 'id = ?',
       whereArgs: [user['id']],
     );
 
@@ -118,8 +119,16 @@ final class UserCache extends ImpCache
       return 0;
     }
 
-    final filteredValue =
-        value.entries.where((entry) => entry.value != null).toList();
+    final id = value['id'];
+
+    if (id == null) {
+      'User id is null'.e();
+      return 0;
+    }
+
+    final filteredValue = value.entries
+        .where((entry) => entry.value != null && entry.key != 'id')
+        .toList();
 
     if (filteredValue.isEmpty) {
       'No values to update'.e();
@@ -129,13 +138,6 @@ final class UserCache extends ImpCache
     final columns = filteredValue.map((e) => '${e.key} = ?').join(', ');
 
     final values = filteredValue.map((e) => e.value).toList();
-
-    final id = value['id'];
-
-    if (id == null) {
-      'User id is null'.e();
-      return 0;
-    }
 
     final result = await db.rawUpdate(
       'UPDATE $table SET $columns WHERE id = ?',
