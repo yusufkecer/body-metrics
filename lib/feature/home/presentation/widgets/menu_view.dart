@@ -21,8 +21,9 @@ final class _MenuView extends StatelessWidget {
                 child: Column(
                   children: [
                     CircleAvatar(
-                      backgroundImage:
-                          image.isNotEmpty ? AssetImage(image) : null,
+                      backgroundImage: image.isNotEmpty
+                          ? AssetImage(image)
+                          : null,
                       radius: 50,
                     ),
                     VerticalSpace.s(),
@@ -58,7 +59,7 @@ final class _MenuView extends StatelessWidget {
                     ProductIcon.plus.icon,
                     LocaleKeys.home_menu_add_profile,
                     () async {
-                      await context.router.push(const AvatarPickerView());
+                      await context.router.push(AvatarPickerView());
                     },
                   ),
                   VerticalSpace.s(),

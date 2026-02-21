@@ -1,4 +1,5 @@
 import 'package:bodymetrics/core/index.dart';
+import 'package:bodymetrics/feature/onboard/domain/repository/onboard_repository.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
@@ -6,7 +7,7 @@ import 'package:injectable/injectable.dart';
 @immutable
 final class OnboardUseCase implements UseCase<bool, AppModel> {
   const OnboardUseCase(this._onboardRepository);
-  final Repository<int, AppModel> _onboardRepository;
+  final OnboardRepository _onboardRepository;
 
   @override
   Future<bool?> executeWithParams({AppModel? params}) async {
