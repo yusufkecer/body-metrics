@@ -50,7 +50,6 @@ final class WeightPickerCubit extends Cubit<WeightPickerState> {
     final bmi = await _calculateBmiUseCase.executeWithParams(params: bmiValue);
     final roundedBmi = double.parse(bmi.toStringAsFixed(2));
 
-    emit(WeightPickerSuccess(user: state.user));
     return roundedBmi;
   }
 
@@ -58,25 +57,61 @@ final class WeightPickerCubit extends Cubit<WeightPickerState> {
     required double weight,
     double oldWeight = 0,
   }) async {
+    emit(WeightPickerLoading());
+
     final id = AppUtil.currentUserId;
-    if (id == null) return false;
+    if (id == null) {
+      emit(const WeightPickerError(error: LocaleKeys.exception_user_not_found));
+      return false;
+    }
+
+    if (state.user.isNullOrEmpty) {
+      await getUser();
+    }
+
+    final userHeight = state.user?.height;
+    if (userHeight.isNullOrEmpty) {
+      emit(const WeightPickerError(error: LocaleKeys.exception_height_not_saved));
+      return false;
+    }
 
     final bmi = await calculateBmi(weight);
-    'bmi: $bmi'.log();
+    if (bmi == null) {
+      emit(const WeightPickerError(error: LocaleKeys.exception_generic_error));
+      return false;
+    }
+
+    final createdAt = DateTime.now();
 
     final metricsEntity = UserMetric(
       userId: id,
+      height: userHeight,
       weight: weight,
       bmi: bmi,
-      date: DateFormat('dd-MM-yyyy').format(DateTime.now()),
+      userMetric: _resolveBodyMetricResult(bmi),
+      date: DateFormat('dd-MM-yyyy').format(createdAt),
+      createdAt: createdAt.toIso8601String(),
       weightDiff: weight - oldWeight,
-    ).toJson();
+    );
 
-    final userMetricEntity = UserMetric.fromJson(metricsEntity);
-    'Saving weight: $userMetricEntity'.log();
+    'Saving weight: $metricsEntity'.log();
     final result =
-        await _saveWeightUseCase.executeWithParams(params: userMetricEntity);
+        await _saveWeightUseCase.executeWithParams(params: metricsEntity);
 
-    return result;
+    if (!result) {
+      emit(const WeightPickerError(error: LocaleKeys.exception_generic_error));
+      return false;
+    }
+
+    emit(WeightPickerSuccess(user: state.user));
+    return true;
+  }
+
+  BodyMetricResult _resolveBodyMetricResult(double bmi) {
+    if (bmi < 18.5) return BodyMetricResult.underweight;
+    if (bmi < 25) return BodyMetricResult.normal;
+    if (bmi < 30) return BodyMetricResult.overweight;
+    if (bmi < 40) return BodyMetricResult.obese;
+    return BodyMetricResult.morbidlyObese;
   }
 }

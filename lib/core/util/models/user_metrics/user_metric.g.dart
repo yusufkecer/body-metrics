@@ -15,6 +15,8 @@ UserMetric _$UserMetricFromJson(Map<String, dynamic> json) => UserMetric(
       userMetric:
           $enumDecodeNullable(_$BodyMetricResultEnumMap, json['body_metric']),
       userId: (json['user_id'] as num?)?.toInt(),
+      height: (json['height'] as num?)?.toInt(),
+      createdAt: json['created_at'] as String?,
     );
 
 Map<String, dynamic> _$UserMetricToJson(UserMetric instance) =>
@@ -26,6 +28,8 @@ Map<String, dynamic> _$UserMetricToJson(UserMetric instance) =>
       'bmi': instance.bmi,
       'weight_diff': instance.weightDiff,
       'body_metric': _$BodyMetricResultEnumMap[instance.userMetric],
+      'height': instance.height,
+      'created_at': instance.createdAt,
     };
 
 const _$BodyMetricResultEnumMap = {

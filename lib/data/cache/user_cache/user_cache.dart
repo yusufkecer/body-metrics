@@ -130,9 +130,16 @@ final class UserCache extends ImpCache
 
     final values = filteredValue.map((e) => e.value).toList();
 
+    final id = value['id'];
+
+    if (id == null) {
+      'User id is null'.e();
+      return 0;
+    }
+
     final result = await db.rawUpdate(
-      'UPDATE $table SET $columns',
-      values,
+      'UPDATE $table SET $columns WHERE id = ?',
+      [...values, id],
     );
 
     await closeDb();

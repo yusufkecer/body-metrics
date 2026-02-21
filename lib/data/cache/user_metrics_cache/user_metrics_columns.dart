@@ -6,6 +6,7 @@ enum UserMetricsColumns {
   userId,
   bmi,
   diff,
+  createdAt,
   table;
 
   String get value {
@@ -24,6 +25,8 @@ enum UserMetricsColumns {
         return 'bmi';
       case UserMetricsColumns.diff:
         return 'weight_diff';
+      case UserMetricsColumns.createdAt:
+        return 'created_at';
       case UserMetricsColumns.table:
         return 'user_metrics';
     }

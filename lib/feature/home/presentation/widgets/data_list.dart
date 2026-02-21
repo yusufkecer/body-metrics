@@ -71,7 +71,7 @@ final class _DataList extends StatelessWidget {
                         CustomRichText(
                           icon: ProductIcon.calendar.icon,
                           title: LocaleKeys.home_date,
-                          subTitle: metrics[index].date ?? '',
+                          subTitle: metrics[index].displayDate,
                         ),
                       ],
                     ),
@@ -97,5 +97,17 @@ extension _ResultIconExtension on UserMetric {
     if (weightDiff! > 0) return ProductIcon.arrowUp.icon;
     if (weightDiff! < 0) return ProductIcon.trendingFlat.icon;
     return ProductIcon.minus.icon;
+  }
+}
+
+
+extension _MetricDateExtension on UserMetric {
+  String get displayDate {
+    if (createdAt.isNullOrEmpty) return date ?? '';
+
+    final parsed = DateTime.tryParse(createdAt!);
+    if (parsed == null) return date ?? '';
+
+    return DateFormat('dd-MM-yyyy').format(parsed);
   }
 }
