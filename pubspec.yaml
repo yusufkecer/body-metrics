@@ -8,37 +8,37 @@ environment:
   sdk: '>=3.11.0 <4.0.0'
 
 dependencies:
-  animated_text_kit: ^4.2.3
+  animated_text_kit: ^4.3.0
   auto_route: ^10.1.2
-  bloc: ^9.1.0
+  bloc: ^9.2.0
   easy_localization: ^3.0.8
-  equatable: ^2.0.7
+  equatable: ^2.0.8
   fl_chart: ^1.1.1
   flutter:
     sdk: flutter
   flutter_bloc: ^9.1.1
   flutter_launcher_icons: ^0.14.4
-  flutter_native_splash: ^2.4.6
+  flutter_native_splash: ^2.4.7
   flutter_zoom_drawer: ^3.2.0 
 
   font_awesome_flutter: ^10.12.0
   get_it: ^8.2.0
-  injectable: ^2.5.1
+  injectable: ^2.7.1
   introduction_screen: ^4.0.0
-  json_annotation: ^4.9.0
-  logger: ^2.6.1
+  json_annotation: ^4.11.0
+  logger: ^2.6.2
   lottie: ^3.3.2
   sqflite: ^2.4.2
 
 dev_dependencies:
-  auto_route_generator: ^10.2.3
+  auto_route_generator: ^10.3.1
   bloc_test: ^10.0.0
-  build_runner: ^2.7.1
+  build_runner: ^2.11.1
   flutter_test:
     sdk: flutter
-  injectable_generator: ^2.7.0
-  json_serializable: ^6.11.1
-  very_good_analysis: ^10.0.0
+  injectable_generator: ^2.12.0
+  json_serializable: ^6.13.0
+  very_good_analysis: ^10.2.0
 
 flutter_launcher_icons:
   android: "launcher_icon"
