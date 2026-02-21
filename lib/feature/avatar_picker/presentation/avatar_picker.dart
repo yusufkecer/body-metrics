@@ -11,12 +11,7 @@ part 'avatar_picker_model.dart';
 @RoutePage(name: 'AvatarPickerView')
 @immutable
 final class AvatarPicker extends StatefulWidget {
-  const AvatarPicker({
-    super.key,
-    this.isChangeProfile = false,
-  });
-
-  final bool isChangeProfile;
+  const AvatarPicker({super.key});
 
   @override
   State<AvatarPicker> createState() => _AvatarPickerState();

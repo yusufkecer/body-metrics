@@ -1,7 +1,6 @@
 import 'package:bloc/bloc.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/feature/index.dart';
-import 'package:bodymetrics/feature/onboard/domain/use_case/onboard_use_case.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable

@@ -46,17 +46,6 @@ final class UserRepositoryImpl implements UserRepository {
   }
 
   @override
-  Future<Users?> getUsers({Json? filters}) async {
-    final db = await _userCache.initializeDatabase();
-
-    if (filters == null || filters.isEmpty) {
-      return _userCache.selectAll(db);
-    }
-
-    return _userCache.select(db, filters);
-  }
-
-  @override
   Future<int?> saveUser({Json? data}) async {
     if (data == null) throw ArgumentError.notNull();
 

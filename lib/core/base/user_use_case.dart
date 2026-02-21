@@ -9,5 +9,4 @@ abstract interface class UserUseCase implements UseCase<User, ParamsEntity> {
   Future<User?> getCurrentUser();
   Future<User?> getCurrentUserWithMetrics();
   Future<User?> getUserById(int userId);
-  Future<Users?> getAllUsers();
 }

@@ -365,7 +365,7 @@ dart run build_runner build --delete-conflicting-outputs
 
 Generated files (committed, do not edit manually):
 - `*.g.dart` — json_serializable
-- `*.gr.dart` — auto_route
+- `*.gr.dart` — auto_route (**never create or edit by hand; always regenerate via build_runner**)
 - `locator.config.dart` — injectable
 
 ---

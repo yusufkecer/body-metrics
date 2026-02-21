@@ -44,8 +44,4 @@ final class UserUseCaseImpl implements UserUseCase {
     return _userRepository.executeWithParams(params: filters);
   }
 
-  @override
-  Future<Users?> getAllUsers() async {
-    return _userRepository.getUsers(filters: {});
-  }
 }
