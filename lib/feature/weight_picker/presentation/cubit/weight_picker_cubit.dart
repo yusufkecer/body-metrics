@@ -34,42 +34,32 @@ final class WeightPickerCubit extends Cubit<WeightPickerState> {
     }
   }
 
-  Future<double?> calculateBmi(double weight) async {
-    if (state.user.isNullOrEmpty) {
-      await getUser();
-    }
+  Future<double?> _computeBmi(double weight, int heightCm) async {
+    if (weight.isNullOrEmpty) return null;
 
-    if (state.user.isNullOrEmpty) return null;
-
-    final heightCm = state.user?.height;
-
-    if (weight.isNullOrEmpty || heightCm.isNullOrEmpty) return null;
-
-    final heightM = heightCm! / 100;
+    final heightM = heightCm / 100;
     final bmiValue = BmiValue(weight: weight, height: heightM);
     final bmi = await _calculateBmiUseCase.executeWithParams(params: bmiValue);
-    final roundedBmi = double.parse(bmi.toStringAsFixed(2));
-
-    return roundedBmi;
+    return double.parse(bmi.toStringAsFixed(2));
   }
 
   Future<bool> saveBodyMetrics({
     required double weight,
     double oldWeight = 0,
   }) async {
-    emit(const WeightPickerLoading());
-
     final id = AppUtil.currentUserId;
     if (id == null) {
       emit(const WeightPickerError(error: LocaleKeys.exception_user_not_found));
       return false;
     }
 
-    if (state.user.isNullOrEmpty) {
+    var currentUser = state.user;
+    if (currentUser.isNullOrEmpty) {
       await getUser();
+      currentUser = state.user;
     }
 
-    final userHeight = state.user?.height;
+    final userHeight = currentUser?.height;
     if (userHeight.isNullOrEmpty) {
       emit(
         const WeightPickerError(error: LocaleKeys.exception_height_not_saved),
@@ -77,7 +67,9 @@ final class WeightPickerCubit extends Cubit<WeightPickerState> {
       return false;
     }
 
-    final bmi = await calculateBmi(weight);
+    emit(const WeightPickerLoading());
+
+    final bmi = await _computeBmi(weight, userHeight!);
     if (bmi == null) {
       emit(const WeightPickerError(error: LocaleKeys.exception_generic_error));
       return false;
@@ -106,7 +98,7 @@ final class WeightPickerCubit extends Cubit<WeightPickerState> {
       return false;
     }
 
-    emit(WeightPickerSuccess(user: state.user));
+    emit(WeightPickerSuccess(user: currentUser));
     return true;
   }
 

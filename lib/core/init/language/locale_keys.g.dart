@@ -82,6 +82,7 @@ abstract class  LocaleKeys {
   static const home_menu_calculate_bmi = 'home.menu.calculate_bmi';
   static const home_menu_user_operations = 'home.menu.user_operations';
   static const home_menu_logout = 'home.menu.logout';
+  static const home_menu_change_language = 'home.menu.change_language';
   static const home_menu = 'home.menu';
   static const home = 'home';
   static const auth_login = 'auth.login';

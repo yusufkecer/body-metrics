@@ -52,6 +52,7 @@ flutter:
   assets:
     - assets/
     - assets/images/
+    - assets/countries/
     - assets/images/profiles/
     - assets/images/onboard/
     - assets/lotties/

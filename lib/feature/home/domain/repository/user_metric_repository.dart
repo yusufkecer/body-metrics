@@ -31,7 +31,7 @@ final class UserMetricRepository
         }
       }
     } catch (e) {
-      'Failed to sync metrics from API: $e'.e();
+      'Failed to sync metrics from API: $e'.w();
     }
 
     return result;

@@ -23,6 +23,7 @@ final class _DataList extends StatelessWidget {
       animationController: animatedController,
       buttonTitle: LocaleKeys.home_see_more,
       onPressed: onPressed,
+      showButton: metrics.length >= 2,
       title: LocaleKeys.home_report,
       icon: ProductIcon.weight.icon,
       children: [
@@ -34,9 +35,7 @@ final class _DataList extends StatelessWidget {
           itemBuilder: (context, index) {
             return DecoratedBox(
               decoration: BoxDecoration(
-                border: Border.all(
-                  color: ProductColor.instance.white,
-                ),
+                border: Border.all(color: ProductColor.instance.white),
                 borderRadius: const ProductRadius.ten(),
               ),
               child: Padding(
@@ -99,7 +98,6 @@ extension _ResultIconExtension on UserMetric {
     return ProductIcon.minus.icon;
   }
 }
-
 
 extension _MetricDateExtension on UserMetric {
   String get displayDate {

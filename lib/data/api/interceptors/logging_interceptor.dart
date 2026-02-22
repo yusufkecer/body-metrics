@@ -16,6 +16,10 @@ final class LoggingInterceptor extends Interceptor {
 
   @override
   void onError(DioException err, ErrorInterceptorHandler handler) {
+    if (err.type == DioExceptionType.cancel) {
+      handler.next(err);
+      return;
+    }
     '✗ ${err.response?.statusCode} ${err.requestOptions.path}: ${err.message}'.e();
     handler.next(err);
   }

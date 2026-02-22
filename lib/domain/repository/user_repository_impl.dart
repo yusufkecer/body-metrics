@@ -31,7 +31,7 @@ final class UserRepositoryImpl implements UserRepository {
         }
       }
     } catch (e) {
-      'Failed to fetch user from API: $e'.e();
+      'Failed to fetch user from API: $e'.w();
     }
 
     return null;
@@ -67,7 +67,7 @@ final class UserRepositoryImpl implements UserRepository {
     try {
       await _userApiService.createUser(data);
     } catch (e) {
-      'Failed to sync user to API: $e'.e();
+      'Failed to sync user to API: $e'.w();
     }
 
     return result;
@@ -86,7 +86,7 @@ final class UserRepositoryImpl implements UserRepository {
         await _userApiService.updateUser(id, data);
       }
     } catch (e) {
-      'Failed to sync user update to API: $e'.e();
+      'Failed to sync user update to API: $e'.w();
     }
 
     return result;

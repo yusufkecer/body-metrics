@@ -5,7 +5,8 @@ enum SpaceValues {
   ss(12),
   m(16),
   l(20),
-  xl(24);
+  xl(24),
+  xxl(40);
 
   final double value;
 

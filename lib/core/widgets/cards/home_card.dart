@@ -10,6 +10,7 @@ class HomeCard extends StatelessWidget {
     required this.children,
     required this.buttonTitle,
     required this.animationController,
+    this.showButton = true,
     super.key,
   });
 
@@ -18,6 +19,7 @@ class HomeCard extends StatelessWidget {
   final String title;
   final String buttonTitle;
   final IconData icon;
+  final bool showButton;
 
   final AnimationController animationController;
 
@@ -29,7 +31,10 @@ class HomeCard extends StatelessWidget {
         duration: Durations.medium1,
         child: Card(
           child: Padding(
-            padding: const ProductPadding.fifTeen().copyWith(top: 0, bottom: 0),
+            padding: const ProductPadding.fifTeen().copyWith(
+              top: 0,
+              bottom: SpaceValues.l.value,
+            ),
             child: Column(
               children: [
                 Row(
@@ -39,9 +44,7 @@ class HomeCard extends StatelessWidget {
                       width: const CustomSize.dashboardTitle().width,
                       child: Align(
                         alignment: Alignment.topLeft,
-                        child: Icon(
-                          icon,
-                        ),
+                        child: Icon(icon),
                       ),
                     ),
                     Center(
@@ -54,21 +57,24 @@ class HomeCard extends StatelessWidget {
                     ),
                     SizedBox(
                       width: const CustomSize.dashboardTitle().width,
-                      child: Align(
-                        alignment: Alignment.topRight,
-                        child: TextButton(
-                          onPressed: onPressed,
-                          style: TextButton.styleFrom(
-                            padding: EdgeInsets.zero,
-                          ),
-                          child: Text(
-                            buttonTitle.tr(),
-                            style: context.textTheme.titleMedium?.copyWith(
-                              color: ProductColor.instance.white,
-                            ),
-                          ),
-                        ),
-                      ),
+                      child: showButton
+                          ? Align(
+                              alignment: Alignment.topRight,
+                              child: TextButton(
+                                onPressed: onPressed,
+                                style: TextButton.styleFrom(
+                                  padding: EdgeInsets.zero,
+                                ),
+                                child: Text(
+                                  buttonTitle.tr(),
+                                  style: context.textTheme.titleMedium
+                                      ?.copyWith(
+                                        color: ProductColor.instance.white,
+                                      ),
+                                ),
+                              ),
+                            )
+                          : SizedBox(height: SpaceValues.xxl.value),
                     ),
                   ],
                 ),

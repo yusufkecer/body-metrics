@@ -25,7 +25,9 @@ final class AuthService implements AuthServiceBase {
     final token = data[AppCacheColumns.jwtToken.value] as String?;
     final email = data[AppCacheColumns.email.value] as String?;
 
-    return (token?.isNotEmpty ?? false) && (email?.isNotEmpty ?? false);
+    final result = (token?.isNotEmpty ?? false) && (email?.isNotEmpty ?? false);
+    AppUtil.hasSession = result;
+    return result;
   }
 
   @override
@@ -84,6 +86,7 @@ final class AuthService implements AuthServiceBase {
 
     AppUtil.currentUserId = null;
     AppUtil.lastPage = null;
+    AppUtil.hasSession = false;
   }
 
   Future<void> _saveSession({
@@ -95,6 +98,7 @@ final class AuthService implements AuthServiceBase {
       AppCacheColumns.jwtToken.value: token,
       AppCacheColumns.email.value: email,
     });
+    AppUtil.hasSession = true;
     if (updated > 0) return;
 
     final db2 = await _appCache.initializeDatabase();

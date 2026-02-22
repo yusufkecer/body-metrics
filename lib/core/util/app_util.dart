@@ -6,6 +6,7 @@ final class AppUtil {
   // Application configuration
   static late int? currentUserId;
   static late Pages? lastPage;
+  static bool hasSession = false;
   // Application constants
   static const String appName = 'BodyMetrics';
   static const String appVersion = '1.0.0';
