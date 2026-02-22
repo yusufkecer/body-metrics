@@ -1,7 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/extensions/regex_extension.dart';
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/feature/user_general_info/cubit/user_info_form_cubit.dart';
+import 'package:bodymetrics/feature/user_general_info/presentation/cubit/user_info_form_cubit.dart';
 
 import 'package:bodymetrics/injection/locator.dart';
 import 'package:easy_localization/easy_localization.dart';

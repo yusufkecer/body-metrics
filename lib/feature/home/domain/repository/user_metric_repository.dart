@@ -16,7 +16,6 @@ final class UserMetricRepository
   Future<UserMetrics?> executeWithParams({UserMetric? params}) async {
     if (params == null) throw ArgumentError.notNull();
 
-    // Read from local cache first
     final db = await _userMetricsCache.initializeDatabase();
     final result = await _userMetricsCache.select(db, params.toJson());
 

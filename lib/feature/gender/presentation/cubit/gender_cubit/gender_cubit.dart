@@ -5,7 +5,7 @@ import 'package:equatable/equatable.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:injectable/injectable.dart';
 
-part 'change_gender_state.dart';
+part 'gender_state.dart';
 
 @injectable
 class GenderCubit extends Cubit<GenderState> {
