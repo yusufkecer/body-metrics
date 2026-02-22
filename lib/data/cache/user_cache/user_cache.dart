@@ -12,6 +12,16 @@ final class UserCache extends ImpCache
   UserCache();
 
   @override
+  Future<Database?> initializeDatabase(
+      {Future<void> Function()? initTable}) async {
+    final db = await super.initializeDatabase(initTable: initTable);
+    if (db != null) {
+      await initializeTable(db, 1);
+    }
+    return db;
+  }
+
+  @override
   Future<void> initializeTable(Database db, int version) async {
     await db.execute('''
         CREATE TABLE IF NOT EXISTS user (

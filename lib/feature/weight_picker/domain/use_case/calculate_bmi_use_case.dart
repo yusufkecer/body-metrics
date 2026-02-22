@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class CalculateBmiUseCase implements UseCase<double, BmiValue> {
+class CalculateBmiUseCase implements UseCase<double, BmiValue> {
   const CalculateBmiUseCase();
 
   @override

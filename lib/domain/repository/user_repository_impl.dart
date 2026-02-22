@@ -4,7 +4,7 @@ import 'package:bodymetrics/domain/index.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
-@injectable
+@Injectable(as: UserRepository)
 @immutable
 final class UserRepositoryImpl implements UserRepository {
   const UserRepositoryImpl(this._userCache, this._userApiService);

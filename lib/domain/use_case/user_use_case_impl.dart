@@ -4,11 +4,11 @@ import 'package:bodymetrics/domain/index.dart';
 import 'package:flutter/material.dart';
 import 'package:injectable/injectable.dart';
 
-@injectable
+@Injectable(as: UserUseCase)
 @immutable
 final class UserUseCaseImpl implements UserUseCase {
   const UserUseCaseImpl(this._userRepository);
-  final UserRepositoryImpl _userRepository;
+  final UserRepository _userRepository;
 
   @override
   Future<User?> executeWithParams({ParamsEntity? params}) async {
