@@ -1,22 +1,26 @@
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/data/index.dart';
-import 'package:bodymetrics/injection/locator.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
 final class AuthService implements AuthServiceBase {
-  AuthService(this._apiClient, this._userCache, this._userMetricsCache);
+  AuthService(
+    this._apiClient,
+    this._appCache,
+    this._userCache,
+    this._userMetricsCache,
+  );
 
   final ApiClient _apiClient;
+  final AppCache _appCache;
   final UserCache _userCache;
   final UserMetricsCache _userMetricsCache;
 
   @override
   Future<bool> hasSession() async {
-    final appCache = Locator.sl<AppCache>();
-    final db = await appCache.initializeDatabase();
-    final data = await appCache.selectAll(db);
+    final db = await _appCache.initializeDatabase();
+    final data = await _appCache.selectAll(db);
 
     final token = data[AppCacheColumns.jwtToken.value] as String?;
     final email = data[AppCacheColumns.email.value] as String?;
@@ -68,17 +72,15 @@ final class AuthService implements AuthServiceBase {
 
   @override
   Future<void> logoutLocal() async {
-    final appCache = Locator.sl<AppCache>();
-    final db = await appCache.initializeDatabase();
+    final db = await _appCache.initializeDatabase();
     if (db == null) return;
 
     await db.delete(_userMetricsCache.table);
 
     await db.delete(_userCache.table);
+    await db.delete(_appCache.table);
 
-    await db.delete(appCache.table);
-
-    await appCache.closeDb();
+    await _appCache.closeDb();
 
     AppUtil.currentUserId = null;
     AppUtil.lastPage = null;
@@ -88,16 +90,15 @@ final class AuthService implements AuthServiceBase {
     required String email,
     required String token,
   }) async {
-    final appCache = Locator.sl<AppCache>();
-    final db = await appCache.initializeDatabase();
-    final updated = await appCache.update(db, {
+    final db = await _appCache.initializeDatabase();
+    final updated = await _appCache.update(db, {
       AppCacheColumns.jwtToken.value: token,
       AppCacheColumns.email.value: email,
     });
     if (updated > 0) return;
 
-    final db2 = await appCache.initializeDatabase();
-    await appCache.insert(db2, {
+    final db2 = await _appCache.initializeDatabase();
+    await _appCache.insert(db2, {
       AppCacheColumns.jwtToken.value: token,
       AppCacheColumns.email.value: email,
     });

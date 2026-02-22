@@ -1,4 +1,4 @@
-part of 'change_gender.dart';
+part of 'gender_cubit.dart';
 
 sealed class GenderState extends Equatable {
   const GenderState();

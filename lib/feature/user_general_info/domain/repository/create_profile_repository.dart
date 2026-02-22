@@ -20,8 +20,14 @@ final class CreateProfileRepository implements Repository<int, User> {
     final db = await _userCache.initializeDatabase();
     final userMap = user.toJson();
     'userMap $userMap'.log();
-    final result = await _userCache.update(db, userMap);
+    var result = await _userCache.update(db, userMap);
     'result: $result'.log();
+
+    if (result == 0) {
+      final insertDb = await _userCache.initializeDatabase();
+      result = await _userCache.insert(insertDb, userMap);
+      'insert result: $result'.log();
+    }
 
     try {
       if (user.id != null) {

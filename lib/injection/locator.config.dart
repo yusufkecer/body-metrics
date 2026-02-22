@@ -9,6 +9,7 @@
 // coverage:ignore-file
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
+import 'package:bodymetrics/core/index.dart' as _i243;
 import 'package:bodymetrics/core/router/app_router.dart' as _i1072;
 import 'package:bodymetrics/core/theme/custom_theme.dart' as _i906;
 import 'package:bodymetrics/data/api/api_client.dart' as _i260;
@@ -27,6 +28,8 @@ import 'package:bodymetrics/domain/repository/app_info_repository.dart'
     as _i728;
 import 'package:bodymetrics/domain/repository/save_app_repository.dart'
     as _i395;
+import 'package:bodymetrics/domain/repository/sync_data_repository.dart'
+    as _i121;
 import 'package:bodymetrics/domain/repository/user_repository_impl.dart'
     as _i302;
 import 'package:bodymetrics/domain/use_case/app_info_use_case.dart' as _i792;
@@ -49,8 +52,8 @@ import 'package:bodymetrics/feature/gender/domain/repository/save_gender_reposit
     as _i218;
 import 'package:bodymetrics/feature/gender/domain/use_case/save_gender_use_case.dart'
     as _i708;
-import 'package:bodymetrics/feature/gender/presentation/cubit/change_gender_cubit/change_gender.dart'
-    as _i778;
+import 'package:bodymetrics/feature/gender/presentation/cubit/gender_cubit/gender_cubit.dart'
+    as _i30;
 import 'package:bodymetrics/feature/height/domain/repository/save_height_repository.dart'
     as _i896;
 import 'package:bodymetrics/feature/height/domain/use_case/save_height_use_case.dart'
@@ -84,14 +87,14 @@ import 'package:bodymetrics/feature/splash/domain/use_case/splash_app_use_case.d
     as _i31;
 import 'package:bodymetrics/feature/splash/domain/use_case/splash_user_use_case.dart'
     as _i193;
-import 'package:bodymetrics/feature/user_general_info/cubit/user_info_form_cubit.dart'
-    as _i226;
 import 'package:bodymetrics/feature/user_general_info/domain/index.dart'
     as _i171;
 import 'package:bodymetrics/feature/user_general_info/domain/repository/create_profile_repository.dart'
     as _i1073;
 import 'package:bodymetrics/feature/user_general_info/domain/use_case/create_profile_use_case.dart'
     as _i470;
+import 'package:bodymetrics/feature/user_general_info/presentation/cubit/user_info_form_cubit.dart'
+    as _i962;
 import 'package:bodymetrics/feature/weight_picker/domain/repository/save_weight_repository.dart'
     as _i406;
 import 'package:bodymetrics/feature/weight_picker/domain/use_case/calculate_bmi_use_case.dart'
@@ -132,15 +135,24 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i85.OnboardRepository>(
       () => _i85.OnboardRepository(gh<_i101.AppCache>()),
     );
-    gh.lazySingleton<_i631.AuthService>(
-      () => _i631.AuthService(
-        gh<_i101.ApiClient>(),
+    gh.lazySingleton<_i121.SyncDataRepository>(
+      () => _i121.SyncDataRepository(
         gh<_i101.UserCache>(),
         gh<_i101.UserMetricsCache>(),
+        gh<_i243.UserApiServiceBase>(),
+        gh<_i243.MetricsApiServiceBase>(),
       ),
     );
     gh.factory<_i78.SaveAppUseCase>(
       () => _i78.SaveAppUseCase(gh<_i395.SaveAppRepository>()),
+    );
+    gh.lazySingleton<_i631.AuthService>(
+      () => _i631.AuthService(
+        gh<_i101.ApiClient>(),
+        gh<_i101.AppCache>(),
+        gh<_i101.UserCache>(),
+        gh<_i101.UserMetricsCache>(),
+      ),
     );
     gh.factory<_i437.SplashAppRepository>(
       () => _i437.SplashAppRepository(
@@ -151,11 +163,26 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i31.SplashAppUseCase>(
       () => _i31.SplashAppUseCase(gh<_i437.SplashAppRepository>()),
     );
+    gh.lazySingleton<_i1010.SyncLocalDataUseCase>(
+      () => _i1010.SyncLocalDataUseCase(gh<_i243.SyncDataRepositoryBase>()),
+    );
     gh.lazySingleton<_i821.MetricsApiService>(
       () => _i821.MetricsApiService(gh<_i260.ApiClient>()),
     );
     gh.lazySingleton<_i440.UserApiService>(
       () => _i440.UserApiService(gh<_i260.ApiClient>()),
+    );
+    gh.factory<_i896.LoginCubit>(
+      () => _i896.LoginCubit(
+        gh<_i101.AuthService>(),
+        gh<_i34.SyncLocalDataUseCase>(),
+      ),
+    );
+    gh.factory<_i1024.RegisterCubit>(
+      () => _i1024.RegisterCubit(
+        gh<_i101.AuthService>(),
+        gh<_i34.SyncLocalDataUseCase>(),
+      ),
     );
     gh.factory<_i792.AppInfoUseCase>(
       () => _i792.AppInfoUseCase(gh<_i34.AppInfoRepository>()),
@@ -183,14 +210,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i986.SaveWeightUseCase>(
       () => _i986.SaveWeightUseCase(gh<_i406.SaveWeightRepository>()),
-    );
-    gh.lazySingleton<_i1010.SyncLocalDataUseCase>(
-      () => _i1010.SyncLocalDataUseCase(
-        gh<_i101.UserCache>(),
-        gh<_i101.UserMetricsCache>(),
-        gh<_i101.UserApiService>(),
-        gh<_i101.MetricsApiService>(),
-      ),
     );
     gh.factory<_i388.SaveAvatarRepository>(
       () => _i388.SaveAvatarRepository(
@@ -234,18 +253,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i958.UserUseCaseImpl>(
       () => _i958.UserUseCaseImpl(gh<_i34.UserRepositoryImpl>()),
     );
-    gh.factory<_i896.LoginCubit>(
-      () => _i896.LoginCubit(
-        gh<_i101.AuthService>(),
-        gh<_i34.SyncLocalDataUseCase>(),
-      ),
-    );
-    gh.factory<_i1024.RegisterCubit>(
-      () => _i1024.RegisterCubit(
-        gh<_i101.AuthService>(),
-        gh<_i34.SyncLocalDataUseCase>(),
-      ),
-    );
     gh.factory<_i681.SaveHeightUseCase>(
       () => _i681.SaveHeightUseCase(gh<_i896.SaveHeightRepository>()),
     );
@@ -267,8 +274,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i708.SaveGenderUseCase>(
       () => _i708.SaveGenderUseCase(gh<_i218.SaveGenderRepository>()),
     );
-    gh.factory<_i226.UserInfoFormCubit>(
-      () => _i226.UserInfoFormCubit(gh<_i171.CreateProfileUseCase>()),
+    gh.factory<_i962.UserInfoFormCubit>(
+      () => _i962.UserInfoFormCubit(gh<_i171.CreateProfileUseCase>()),
     );
     gh.factory<_i906.UserMetricCubit>(
       () => _i906.UserMetricCubit(gh<_i799.UserMetricUseCase>()),
@@ -280,8 +287,8 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i938.CalculateBmiUseCase>(),
       ),
     );
-    gh.factory<_i778.GenderCubit>(
-      () => _i778.GenderCubit(gh<_i708.SaveGenderUseCase>()),
+    gh.factory<_i30.GenderCubit>(
+      () => _i30.GenderCubit(gh<_i708.SaveGenderUseCase>()),
     );
     return this;
   }

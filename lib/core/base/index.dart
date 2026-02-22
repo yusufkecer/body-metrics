@@ -4,6 +4,7 @@ export 'package:bodymetrics/core/base/base_model.dart';
 export 'package:bodymetrics/core/base/base_theme.dart';
 export 'package:bodymetrics/core/base/metrics_api_service_base.dart';
 export 'package:bodymetrics/core/base/repository.dart';
+export 'package:bodymetrics/core/base/sync_data_repository_base.dart';
 export 'package:bodymetrics/core/base/use_case.dart';
 export 'package:bodymetrics/core/base/user_api_service_base.dart';
 export 'package:bodymetrics/core/base/user_repository.dart';
