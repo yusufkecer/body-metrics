@@ -2,7 +2,7 @@
 
 // ignore_for_file: constant_identifier_names
 
-abstract class  LocaleKeys {
+abstract class LocaleKeys {
   static const calculator = 'calculator';
   static const cont = 'cont';
   static const save = 'save';
@@ -23,12 +23,14 @@ abstract class  LocaleKeys {
   static const register_birth_of_date = 'register.birth_of_date';
   static const register_complete = 'register.complete';
   static const register_or = 'register.or';
-  static const register_select_profile_picture = 'register.select_profile_picture';
+  static const register_select_profile_picture =
+      'register.select_profile_picture';
   static const register_information_is_empty = 'register.information_is_empty';
   static const register_avatar_select_failed = 'register.avatar_select_failed';
   static const register_name_required = 'register.name_required';
   static const register_surname_required = 'register.surname_required';
-  static const register_birth_of_date_required = 'register.birth_of_date_required';
+  static const register_birth_of_date_required =
+      'register.birth_of_date_required';
   static const register = 'register';
   static const weight_weight_name = 'weight.weight_name';
   static const weight_select_weight = 'weight.select_weight';
@@ -42,7 +44,8 @@ abstract class  LocaleKeys {
   static const bmi_result_over_weight = 'bmi_result.over_weight';
   static const bmi_result_obese = 'bmi_result.obese';
   static const bmi_result_severely_obese = 'bmi_result.severely_obese';
-  static const bmi_result_very_severely_obese = 'bmi_result.very_severely_obese';
+  static const bmi_result_very_severely_obese =
+      'bmi_result.very_severely_obese';
   static const bmi_result_unknown = 'bmi_result.unknown';
   static const bmi_result = 'bmi_result';
   static const dialog_progress_lost = 'dialog.progress_lost';
@@ -78,6 +81,8 @@ abstract class  LocaleKeys {
   static const home_weight_change = 'home.weight_change';
   static const home_report = 'home.report';
   static const home_chart = 'home.chart';
+  static const home_line_chart = 'home.line_chart';
+  static const home_bar_chart = 'home.bar_chart';
   static const home_menu_change_profile = 'home.menu.change_profile';
   static const home_menu_add_profile = 'home.menu.add_profile';
   static const home_menu_calculate_bmi = 'home.menu.calculate_bmi';
@@ -96,21 +101,27 @@ abstract class  LocaleKeys {
   static const change_profile_change_profile = 'change_profile.change_profile';
   static const change_profile_select_profile = 'change_profile.select_profile';
   static const change_profile_delete_profile = 'change_profile.delete_profile';
-  static const change_profile_delete_profile_confirm = 'change_profile.delete_profile_confirm';
+  static const change_profile_delete_profile_confirm =
+      'change_profile.delete_profile_confirm';
   static const change_profile_delete = 'change_profile.delete';
-  static const change_profile_profile_deleted = 'change_profile.profile_deleted';
-  static const change_profile_profile_not_deleted = 'change_profile.profile_not_deleted';
-  static const change_profile_profile_changed = 'change_profile.profile_changed';
-  static const change_profile_profile_not_changed = 'change_profile.profile_not_changed';
+  static const change_profile_profile_deleted =
+      'change_profile.profile_deleted';
+  static const change_profile_profile_not_deleted =
+      'change_profile.profile_not_deleted';
+  static const change_profile_profile_changed =
+      'change_profile.profile_changed';
+  static const change_profile_profile_not_changed =
+      'change_profile.profile_not_changed';
   static const change_profile = 'change_profile';
   static const exception_generic_error = 'exception.generic_error';
   static const exception_gender_not_found = 'exception.gender_not_found';
   static const exception_user_not_found = 'exception.user_not_found';
-  static const exception_user_metrics_not_found = 'exception.user_metrics_not_found';
+  static const exception_user_metrics_not_found =
+      'exception.user_metrics_not_found';
   static const exception_context_not_found = 'exception.context_not_found';
-  static const exception_weight_and_height_must_be_positive_values = 'exception.weight_and_height_must_be_positive_values';
+  static const exception_weight_and_height_must_be_positive_values =
+      'exception.weight_and_height_must_be_positive_values';
   static const exception_user_not_created = 'exception.user_not_created';
   static const exception_height_not_saved = 'exception.height_not_saved';
   static const exception = 'exception';
-
 }

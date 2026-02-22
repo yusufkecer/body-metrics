@@ -21,23 +21,35 @@ final class LineChartWidget extends StatefulWidget {
 }
 
 class _LineChartWidgetState extends State<LineChartWidget> {
+  final double _pointWidth = 150;
+
   @override
   Widget build(BuildContext context) {
-    return Stack(
-      children: [
-        AspectRatio(
-          aspectRatio: 1.70,
-          child: Padding(
-            padding: ProductPadding.ten(),
-            child: LineChart(avgData()),
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final pointCount = widget.spots.length;
+        final screenWidth = constraints.maxWidth;
+
+        final dynamicWidth = pointCount * _pointWidth;
+        final chartWidth = dynamicWidth.clamp(screenWidth, double.infinity);
+
+        return SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: SizedBox(
+            width: chartWidth,
+            height: screenWidth / 1.70,
+            child: Padding(
+              padding: ProductPadding.ten(),
+              child: LineChart(avgData()),
+            ),
           ),
-        ),
-      ],
+        );
+      },
     );
   }
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
-    const style = TextStyle(fontWeight: FontWeight.bold, fontSize: 16);
+    const style = TextStyle(fontWeight: FontWeight.bold, fontSize: 13);
 
     Text? text;
 
@@ -73,15 +85,33 @@ class _LineChartWidgetState extends State<LineChartWidget> {
       return LineChartData();
     }
 
-    final xs = widget.spots.map((e) => e.x);
     final ys = widget.spots.map((e) => e.y);
-    final minX = xs.reduce((a, b) => a < b ? a : b);
-    final maxX = xs.reduce((a, b) => a > b ? a : b);
-    final minY = ys.reduce((a, b) => a < b ? a : b) - 1;
-    final maxY = ys.reduce((a, b) => a > b ? a : b) + 1;
+    const minX = 0.0;
+    final maxX = (widget.spots.length - 1).toDouble();
+    final minY = ys.reduce((a, b) => a < b ? a : b) - 2;
+    final maxY = ys.reduce((a, b) => a > b ? a : b) + 2;
 
     return LineChartData(
-      lineTouchData: const LineTouchData(enabled: false),
+      lineTouchData: LineTouchData(
+        touchTooltipData: LineTouchTooltipData(
+          getTooltipColor: (touchedSpot) =>
+              ProductColor.instance.lightPurple.withAlpha(200),
+          tooltipMargin: 8,
+          fitInsideHorizontally: true,
+          fitInsideVertically: true,
+          getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
+            return touchedBarSpots.map((barSpot) {
+              return LineTooltipItem(
+                barSpot.y.toString(),
+                const TextStyle(
+                  color: Colors.white,
+                  fontWeight: FontWeight.bold,
+                ),
+              );
+            }).toList();
+          },
+        ),
+      ),
       gridData: FlGridData(
         verticalInterval: 1,
         horizontalInterval: 1,
@@ -117,7 +147,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
         border: Border.all(color: const Color(0xff37434d)),
       ),
       minX: minX,
-      maxX: maxX == minX ? minX + 1 : maxX,
+      maxX: maxX,
       minY: minY,
       maxY: maxY,
       lineBarsData: [
@@ -127,7 +157,6 @@ class _LineChartWidgetState extends State<LineChartWidget> {
           color: ProductColor.instance.white,
           barWidth: 5,
           isStrokeCapRound: true,
-          dotData: const FlDotData(show: false),
           belowBarData: BarAreaData(
             show: true,
             gradient: LinearGradient(
