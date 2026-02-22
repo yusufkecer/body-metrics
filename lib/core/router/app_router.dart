@@ -18,6 +18,7 @@ final class AppRouter extends RootStackRouter {
         AutoRoute(page: GenderView.page),
         AutoRoute(page: HeightView.page),
         AutoRoute(page: WeightView.page),
+        AutoRoute(page: UserOperationsView.page),
         AutoRoute(page: HomeView.page),
       ];
 }

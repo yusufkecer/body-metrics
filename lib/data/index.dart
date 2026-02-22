@@ -1,4 +1,10 @@
 export 'package:bodymetrics/core/base/base_cache.dart';
+export 'package:bodymetrics/data/api/api_client.dart';
+export 'package:bodymetrics/data/api/api_constants.dart';
+export 'package:bodymetrics/data/api/error/api_exception.dart';
+export 'package:bodymetrics/data/api/services/auth_service.dart';
+export 'package:bodymetrics/data/api/services/metrics_api_service.dart';
+export 'package:bodymetrics/data/api/services/user_api_service.dart';
 export 'package:bodymetrics/data/cache/index.dart';
 export 'package:bodymetrics/data/db/imp_cache.dart';
 export 'package:bodymetrics/data/enum/join_type.dart';

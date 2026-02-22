@@ -58,12 +58,12 @@
         "welcome": "Hoş Geldiniz!",
         "onboarding_1_title": "BodyMetrics'e Hoş Geldiniz! ⚖️",
         "onboarding_1": "Bu uygulama, vücut kitle indeksinizi (BMI) hesaplamak ve kilo ile BMI değerlerinizi takip etmek için geliştirildi.",
-        "onboarding_2_title": "Veri Güvenliği 🛡️",
-        "onboarding_2": "Verilerinizi saklamıyoruz, bu yüzden gizliliğiniz konusunda endişelenmenize gerek yok.",
+        "onboarding_2_title": "Yerel & Bulut Depolama 🛡️",
+        "onboarding_2": "Verileriniz önce cihazınıza güvenle kaydedilir. İsterseniz bir hesap oluşturarak verilerinizi bulut sunucusuna da yedekleyebilirsiniz.",
         "onboarding_3_title": "Birden Fazla Profil 📊",
         "onboarding_3": "Aile bireyleriniz için ayrı profiller oluşturabilir ve onların BMI değerlerini takip edebilirsiniz. İsterseniz bu adımları atlayarak doğrudan BMI hesaplamaya geçebilirsiniz.",
-        "onboarding_4_title": "Yedekleme ve Geri Yükleme 💾",
-        "onboarding_4": "Sonuçları dışa aktararak verilerinizi yedekleyebilirsiniz. Yedek dosyanız kaybolmadığı sürece, verileriniz asla kaybolmaz.",
+        "onboarding_4_title": "Bulut Yedekleme 💾",
+        "onboarding_4": "Hesap oluşturarak tüm ölçümlerinizi otomatik olarak buluta yedekleyin. Cihazınız değişse bile verileriniz kaybolmaz.",
         "onboarding_5": "Hadi başlayalım! 🚀",
         "skip": "Atla"
     },
@@ -83,8 +83,18 @@
         "menu": {
             "change_profile": "Profil Değiştir",
             "add_profile": "Profil Ekle",
-            "calculate_bmi": "VTİ Hesapla"
+            "calculate_bmi": "VTİ Hesapla",
+            "user_operations": "Kullanıcı İşlemleri",
+            "logout": "Çıkış Yap"
         }
+    },
+    "auth": {
+        "login": "Giriş Yap",
+        "register": "Kayıt Ol",
+        "email": "E-posta",
+        "password": "Şifre",
+        "invalid_email": "Geçerli bir e-posta girin.",
+        "password_min": "Şifre en az 6 karakter olmalı."
     },
     "chart": {
         "month": {

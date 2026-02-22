@@ -27,6 +27,7 @@ mixin _UserGeneralInfoModel
 
     final birthDay = _birthOfDateController.text.toYMD;
     final user = User(
+      id: AppUtil.currentUserId,
       name: _nameController.text.trim(),
       surname: _surnameController.text.trim(),
       birthOfDate: birthDay,

@@ -23,14 +23,12 @@ mixin _OnboardModel on State<_OnboardBody>, _PageViewMixin, SaveAppMixin {
   }
 
   Future<void> _onDone() async {
-    const entity = AppModel(
-      isCompleteOnboard: true,
-    );
+    const entity = AppModel(isCompleteOnboard: true);
     final result = await context.read<OnboardCubit>().done(entity);
     await saveApp(Pages.avatarPage);
     if (result && mounted) {
       await context.router.pushAndPopUntil(
-        AvatarPickerView(),
+        const AvatarPickerView(),
         predicate: (route) => false,
       );
     }
@@ -40,5 +38,6 @@ mixin _OnboardModel on State<_OnboardBody>, _PageViewMixin, SaveAppMixin {
     context.read<OnboardCubit>().updateIndex(value);
   }
 
-  bool get _isEnd => context.watch<OnboardCubit>().state.currentPage != _pageListCount;
+  bool get _isEnd =>
+      context.watch<OnboardCubit>().state.currentPage != _pageListCount;
 }

@@ -185,6 +185,22 @@ class UserGeneralInfoViewArgs {
 }
 
 /// generated route for
+/// [UserOperations]
+class UserOperationsView extends PageRouteInfo<void> {
+  const UserOperationsView({List<PageRouteInfo>? children})
+    : super(UserOperationsView.name, initialChildren: children);
+
+  static const String name = 'UserOperationsView';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const UserOperations();
+    },
+  );
+}
+
+/// generated route for
 /// [WeightPicker]
 class WeightView extends PageRouteInfo<void> {
   const WeightView({List<PageRouteInfo>? children})

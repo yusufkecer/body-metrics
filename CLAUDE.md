@@ -15,12 +15,12 @@ Health metrics tracking app (Flutter):
 
 ## 2) Architecture
 
-**Stack:** Flutter + BLoC/Cubit + Clean Architecture + sqflite + auto_route + injectable/get_it
+**Stack:** Flutter + BLoC/Cubit + Clean Architecture + sqflite + Dio (REST API) + auto_route + injectable/get_it
 
 ```
 lib/
 ├── core/          # Shared infrastructure (router, theme, widgets, extensions, constants)
-├── data/          # SQLite cache implementations, DB init
+├── data/          # SQLite cache + REST API (Dio client, services, interceptors)
 ├── domain/        # Global entities, use cases, repository contracts
 ├── feature/       # Feature-based modules (each has presentation + optional domain)
 │   ├── splash/
@@ -37,7 +37,7 @@ lib/
 **Layers (per feature):**
 - `presentation/` → View + Cubit + State
 - `domain/` → UseCase + Repository (abstract)
-- `data/` (in `lib/data/`) → Cache implementations (sqflite)
+- `data/` (in `lib/data/`) → Cache implementations (sqflite) + API services (Dio)
 
 ---
 
@@ -112,6 +112,25 @@ Splash reads `AppModel.page` (enum `Pages`) and `AppModel.isCompleteOnboard` to 
 | `lib/feature/gender/` | Male/female selection |
 | `lib/feature/height/` | Ruler-based height picker (65–252 cm) |
 
+### API layer
+| File | Role |
+|------|------|
+| `lib/data/api/api_client.dart` | Dio HTTP client (singleton), sets base URL, timeouts, API key header, interceptors |
+| `lib/data/api/api_constants.dart` | Base URL (`http://10.0.2.2:8080/api/v1`), timeouts, API key (`String.fromEnvironment`) |
+| `lib/data/api/interceptors/auth_interceptor.dart` | Injects `Authorization: Bearer <token>` header, clears session on 401 |
+| `lib/data/api/interceptors/logging_interceptor.dart` | Logs HTTP request/response/error lifecycle |
+| `lib/data/api/services/auth_service.dart` | `register()`, `login()`, `hasSession()`, `logoutLocal()` |
+| `lib/data/api/services/user_api_service.dart` | `createUser()`, `getUserById()`, `getAllUsers()`, `updateUser()` |
+| `lib/data/api/services/metrics_api_service.dart` | `createMetric()`, `getMetricsByUserId()` |
+| `lib/data/api/error/api_exception.dart` | Custom exception wrapping `DioException` with user-friendly messages |
+
+### Auth feature
+| File | Role |
+|------|------|
+| `lib/feature/auth/presentation/cubit/auth_session_cubit.dart` | App-level session state (authenticated/unauthenticated) |
+| `lib/feature/auth/presentation/cubit/login_cubit.dart` | Login flow states |
+| `lib/feature/auth/presentation/cubit/register_cubit.dart` | Registration flow states |
+
 ---
 
 ## 5) Database Schema
@@ -152,7 +171,7 @@ CREATE TABLE user_metrics (
 **Migrations (idempotent):** use `PRAGMA table_info` + `ALTER TABLE` to add new columns.
 
 ### `app_cache` table
-Stores: `is_complete_onboard`, `active_user`, `page` (current Pages enum value)
+Stores: `is_complete_onboard`, `active_user`, `page` (current Pages enum value), `jwt_token` (JWT), `email` (user email)
 
 ---
 
@@ -218,7 +237,71 @@ class FeatureCubit extends Cubit<FeatureState> {
 
 ---
 
-## 8) Dependency Injection
+## 8) API Integration & Security
+
+### Backend
+- **URL:** `http://10.0.2.2:8080/api/v1` (Android emulator → host machine)
+- **Stack:** Go 1.23 + gorilla/mux + MySQL 8.0 + JWT (HS256)
+- **Repo:** `body-metrics-backend/`
+
+### Two-Layer Security
+
+**Layer 1 — API Key (App-Level)**
+- Header: `X-API-Key: <key>`
+- Stored in `.env` at project root (never committed — in `.gitignore`)
+- Read via `envied` package (`Env.apiKey`) — XOR-obfuscated at code generation time
+- Key is not plaintext in the compiled binary
+- Sent on every request via `ApiClient` default headers
+- If empty, backend skips validation (dev mode)
+- After changing `.env`, run build_runner to regenerate `lib/data/api/env/env.g.dart`
+
+**Layer 2 — JWT Token (User-Level)**
+- Header: `Authorization: Bearer <token>`
+- Injected automatically by `AuthInterceptor` on every request
+- Token stored in SQLite `app_cache` table (`jwt_token` column)
+- On 401 response, `AuthInterceptor` clears session from cache
+- Token TTL: 30 days
+
+### API Endpoints
+| Method | Path | Auth | Description |
+|--------|------|------|-------------|
+| POST | `/auth/register` | API Key | Register (email + password) → JWT |
+| POST | `/auth/login` | API Key | Login (email + password) → JWT |
+| POST | `/users` | API Key + JWT | Create user profile |
+| GET | `/users` | API Key + JWT | List all users |
+| GET | `/users/{id}` | API Key + JWT | Get user by ID |
+| PATCH | `/users/{id}` | API Key + JWT | Partial update user |
+| POST | `/users/{id}/metrics` | API Key + JWT | Add health metric |
+| GET | `/users/{id}/metrics` | API Key + JWT | Get user metrics |
+
+### Data Sync Strategy
+- **Cache-first, API-fallback:** Read from local SQLite first, try API if cache is empty
+- **Write-through:** Save to local cache first, then sync to API in background
+- API failures are logged but don't block the user (offline-friendly)
+
+### Auth Flow
+1. User registers/logs in → API returns JWT token
+2. Token saved to `app_cache.jwt_token` via `AuthService._saveSession()`
+3. `AuthSessionCubit.loadSession()` checks session on app startup
+4. `AuthInterceptor` adds Bearer token to all subsequent requests
+5. On 401 → tokens cleared, user redirected to login
+
+### Setup API Key
+```bash
+# 1. Create .env in project root
+echo "API_KEY=your-api-key-here" > .env
+
+# 2. Regenerate obfuscated env.g.dart
+dart run build_runner build --delete-conflicting-outputs
+
+# 3. Run / build normally
+flutter run
+flutter build apk
+```
+
+---
+
+## 9) Dependency Injection
 
 ```dart
 // Resolve anywhere:
@@ -234,7 +317,7 @@ dart run build_runner build --delete-conflicting-outputs
 
 ---
 
-## 9) Models
+## 10) Models
 
 All models use `@JsonSerializable` + `Equatable`. Generated files: `*.g.dart`.
 
@@ -271,7 +354,7 @@ class AppModel extends Equatable {
 
 ---
 
-## 10) Core Utilities
+## 11) Core Utilities
 
 ### Extensions (`lib/core/extensions/`)
 - **String:** `.toYMD` (dd/MM/yyyy→yyyy-MM-dd), `.isValidNumber`, `.toGenderValue`
@@ -305,7 +388,7 @@ abstract interface class Repository<OUT, IN> {
 
 ---
 
-## 11) Theme & UI
+## 12) Theme & UI
 
 - **Material 3** dark theme, seed: `Colors.deepPurple`
 - **Primary color:** #673AB7 (deep purple)
@@ -329,7 +412,7 @@ abstract interface class Repository<OUT, IN> {
 
 ---
 
-## 12) Localization
+## 13) Localization
 
 - **Package:** easy_localization
 - **Languages:** Turkish (`tr`), English (`en`)
@@ -339,7 +422,7 @@ abstract interface class Repository<OUT, IN> {
 
 ---
 
-## 13) Assets
+## 14) Assets
 
 ```
 assets/
@@ -356,7 +439,7 @@ assets/
 
 ---
 
-## 14) Code Generation
+## 15) Code Generation
 
 Run after any model, route, or DI annotation change:
 ```bash
@@ -370,7 +453,7 @@ Generated files (committed, do not edit manually):
 
 ---
 
-## 15) Testing
+## 16) Testing
 
 ```
 test/
@@ -397,7 +480,7 @@ blocTest<OnboardCubit, OnboardState>(
 
 ---
 
-## 16) Quick Debug Guide
+## 17) Quick Debug Guide
 
 ### "BMI calculated correctly but Home shows wrong value"
 1. `weight_picker_cubit.dart` → `saveBodyMetrics` — check `UserMetric` construction
@@ -421,9 +504,24 @@ blocTest<OnboardCubit, OnboardState>(
 2. Verify `@injectable` / `@lazySingleton` annotation is present
 3. Check constructor parameter types match registered types
 
+### "API returns 403 Forbidden"
+1. Check `API_KEY` is passed via `--dart-define=API_KEY=...` at build time
+2. Verify `ApiConstants.apiKey` is not empty
+3. Confirm backend `API_KEY` env matches the Flutter compile-time key
+
+### "API returns 401 Unauthorized"
+1. Check `AuthInterceptor` is injecting the Bearer token
+2. Verify `app_cache.jwt_token` is not null/empty in SQLite
+3. Token may have expired (30-day TTL) — user needs to re-login
+
+### "API sync fails but app works"
+1. Cache-first pattern means local data is shown regardless of API status
+2. Check `LoggingInterceptor` output for HTTP errors
+3. Verify backend is running and reachable (10.0.2.2:8080 for emulator)
+
 ---
 
-## 17) Development Principles
+## 18) Development Principles
 
 1. Define new features at **Domain contract level first** (abstract repository + use case interface), then implement Data → Presentation.
 2. Keep **formatting/computation out of UI**; put in use cases or services.
@@ -433,3 +531,6 @@ blocTest<OnboardCubit, OnboardState>(
 6. Use **const constructors** on all widgets where possible.
 7. Every new Cubit/UseCase/Repository must be **registered in DI** and **regenerated**.
 8. Log errors with `.e()` extension; emit localized error states for UI.
+9. **API key** must never be hardcoded — always use `--dart-define=API_KEY=...` at compile time.
+10. **Cache-first, API-fallback** pattern: write to local cache first, sync to API in background.
+11. All API services must be `@lazySingleton` and injected via constructor — never instantiate directly.

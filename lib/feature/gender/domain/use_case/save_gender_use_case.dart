@@ -13,7 +13,7 @@ class SaveGenderUseCase implements UseCase<bool, GenderValue> {
   Future<bool?> executeWithParams({GenderValue? params}) async {
     if (params == null) throw ArgumentError.notNull();
 
-    final user = User(gender: params).toJson();
+    final user = User(id: AppUtil.currentUserId, gender: params).toJson();
     final result = await _repository.executeWithParams(params: user);
     return result?.convertBoolResult;
   }

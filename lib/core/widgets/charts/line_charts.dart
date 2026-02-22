@@ -29,9 +29,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
           aspectRatio: 1.70,
           child: Padding(
             padding: ProductPadding.ten(),
-            child: LineChart(
-              avgData(),
-            ),
+            child: LineChart(avgData()),
           ),
         ),
       ],
@@ -39,26 +37,17 @@ class _LineChartWidgetState extends State<LineChartWidget> {
   }
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
-    const style = TextStyle(
-      fontWeight: FontWeight.bold,
-      fontSize: 16,
-    );
+    const style = TextStyle(fontWeight: FontWeight.bold, fontSize: 16);
 
     Text? text;
 
     for (final element in widget.bottomTitles) {
       if (element.containsKey(value.toInt())) {
-        text = Text(
-          element[value.toInt()]!,
-          style: style,
-        );
+        text = Text(element[value.toInt()]!, style: style);
       }
     }
 
-    return SideTitleWidget(
-      meta: meta,
-      child: text ?? const SizedBox.shrink(),
-    );
+    return SideTitleWidget(meta: meta, child: text ?? const SizedBox.shrink());
   }
 
   Widget leftTitleWidgets(double value, TitleMeta meta) {
@@ -76,15 +65,12 @@ class _LineChartWidgetState extends State<LineChartWidget> {
       }
     }
 
-    return SideTitleWidget(
-      meta: meta,
-      child: text ?? const SizedBox.shrink(),
-    );
+    return SideTitleWidget(meta: meta, child: text ?? const SizedBox.shrink());
   }
 
   LineChartData avgData() {
     if (widget.spots.isEmpty) {
-      return LineChartData(lineBarsData: const []);
+      return LineChartData();
     }
 
     final xs = widget.spots.map((e) => e.x);
@@ -100,16 +86,10 @@ class _LineChartWidgetState extends State<LineChartWidget> {
         verticalInterval: 1,
         horizontalInterval: 1,
         getDrawingVerticalLine: (value) {
-          return FlLine(
-            color: ProductColor.instance.white,
-            strokeWidth: 1,
-          );
+          return FlLine(color: ProductColor.instance.white, strokeWidth: 1);
         },
         getDrawingHorizontalLine: (value) {
-          return FlLine(
-            color: ProductColor.instance.white,
-            strokeWidth: 1,
-          );
+          return FlLine(color: ProductColor.instance.white, strokeWidth: 1);
         },
       ),
       titlesData: FlTitlesData(
@@ -147,9 +127,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
           color: ProductColor.instance.white,
           barWidth: 5,
           isStrokeCapRound: true,
-          dotData: const FlDotData(
-            show: false,
-          ),
+          dotData: const FlDotData(show: false),
           belowBarData: BarAreaData(
             show: true,
             gradient: LinearGradient(

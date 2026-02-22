@@ -6,8 +6,9 @@ import 'package:injectable/injectable.dart';
 @injectable
 @immutable
 class SaveGenderRepository implements Repository<int, Json> {
-  const SaveGenderRepository(this._userCache);
+  const SaveGenderRepository(this._userCache, this._userApiService);
   final UserCache _userCache;
+  final UserApiService _userApiService;
 
   @override
   Future<int?> executeWithParams({Json? params}) async {
@@ -15,6 +16,16 @@ class SaveGenderRepository implements Repository<int, Json> {
 
     final db = await _userCache.initializeDatabase();
     final result = await _userCache.update(db, params);
+
+    try {
+      final userId = params['id'] as int?;
+      if (userId != null) {
+        await _userApiService.updateUser(userId, params);
+      }
+    } catch (e) {
+      'Failed to sync gender to API: $e'.e();
+    }
+
     return result;
   }
 }

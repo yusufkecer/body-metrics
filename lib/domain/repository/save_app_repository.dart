@@ -15,9 +15,9 @@ final class SaveAppRepository implements Repository<int, AppModel> {
     if (params == null) throw ArgumentError.notNull();
 
     final db = await _appCache.initializeDatabase();
-    return _appCache.update(
-      db,
-      params.toJson(),
-    );
+    final updated = await _appCache.update(db, params.toJson());
+    if (updated > 0) return updated;
+
+    return _appCache.insert(db, params.toJson());
   }
 }

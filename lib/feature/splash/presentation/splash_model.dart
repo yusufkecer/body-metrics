@@ -7,6 +7,7 @@ mixin _SplashModel on State<Splash>, DialogUtil<Splash> {
       Locator.sl<SplashUserUseCase>();
 
   late final ImpCache _impCache = Locator.sl<ImpCache>();
+  late final AuthService _authService = Locator.sl<AuthService>();
 
   @override
   void initState() {
@@ -17,6 +18,7 @@ mixin _SplashModel on State<Splash>, DialogUtil<Splash> {
   Future<void> _asyncInitState() async {
     await _initializeDatabase();
     await _handleAppInitialization();
+    await _restoreAuthSession();
 
     if (!mounted) return;
 
@@ -35,10 +37,7 @@ mixin _SplashModel on State<Splash>, DialogUtil<Splash> {
   }
 
   Future<void> _handleAppInitialization() async {
-    final isExist = await _impCache.isExist();
-    if (!isExist) {
-      await _initializeTables();
-    }
+    await _initializeTables();
   }
 
   Future<void> _initializeTables() async {
@@ -57,6 +56,15 @@ mixin _SplashModel on State<Splash>, DialogUtil<Splash> {
       Locator.sl<UserMetricsCache>().initializeTable(db, version),
       Locator.sl<UserCache>().initializeTable(db, version),
     ]);
+  }
+
+  Future<void> _restoreAuthSession() async {
+    try {
+      await _authService.restoreSessionFromCache();
+      'Session restore completed'.log();
+    } catch (e) {
+      'Session restore failed: $e'.e();
+    }
   }
 
   void _setAppState(AppModel? result) {
@@ -81,7 +89,7 @@ mixin _SplashModel on State<Splash>, DialogUtil<Splash> {
       case Pages.genderPage:
         _pushNewView(const GenderView());
       case Pages.avatarPage:
-        _pushNewView(AvatarPickerView());
+        _pushNewView(const AvatarPickerView());
       case Pages.userGeneralInfo:
         await _navigateToUserGeneralInfo();
       case Pages.heightPage:
@@ -126,9 +134,6 @@ mixin _SplashModel on State<Splash>, DialogUtil<Splash> {
   }
 
   void _pushNewView(PageRouteInfo arguments) {
-    context.router.pushAndPopUntil(
-      arguments,
-      predicate: (route) => false,
-    );
+    context.router.pushAndPopUntil(arguments, predicate: (route) => false);
   }
 }

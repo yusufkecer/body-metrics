@@ -11,13 +11,14 @@ final class _PageView extends PageViewModel {
       bodyTextStyle: TextStyle(),
     ),
     BuildContext? context,
-  }) {
-    decoration = decoration.copyWith(
-      titleTextStyle:
-          context?.textTheme.titleMedium ?? decoration.titleTextStyle,
-      bodyTextStyle: context?.textTheme.bodyMedium ?? decoration.bodyTextStyle,
-    );
-  }
+  }) : super(
+         decoration: decoration.copyWith(
+           titleTextStyle:
+               context?.textTheme.titleMedium ?? decoration.titleTextStyle,
+           bodyTextStyle:
+               context?.textTheme.bodyMedium ?? decoration.bodyTextStyle,
+         ),
+       );
 }
 
 mixin _PageViewMixin {

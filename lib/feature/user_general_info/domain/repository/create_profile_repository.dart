@@ -6,9 +6,10 @@ import 'package:injectable/injectable.dart';
 @injectable
 @immutable
 final class CreateProfileRepository implements Repository<int, User> {
-  const CreateProfileRepository(this._userCache);
+  const CreateProfileRepository(this._userCache, this._userApiService);
 
   final UserCache _userCache;
+  final UserApiService _userApiService;
 
   @override
   Future<int> executeWithParams({User? params}) async {
@@ -21,6 +22,15 @@ final class CreateProfileRepository implements Repository<int, User> {
     'userMap $userMap'.log();
     final result = await _userCache.update(db, userMap);
     'result: $result'.log();
+
+    try {
+      if (user.id != null) {
+        await _userApiService.updateUser(user.id!, userMap);
+      }
+    } catch (e) {
+      'Failed to sync profile to API: $e'.e();
+    }
+
     return result;
   }
 }
