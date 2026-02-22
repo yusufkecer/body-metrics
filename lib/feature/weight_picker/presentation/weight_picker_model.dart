@@ -169,7 +169,7 @@ mixin _WeightPickerModel
   Future<void> _saveAndPush() async {
     if (_cubit?.state is WeightPickerLoading) return;
 
-    await GlobalLoadingController.track(() async {
+    await GlobalLoadingController.contract.track(() async {
       final weight = double.parse(_weightTextController.text);
       final success = await _cubit?.saveBodyMetrics(weight: weight) ?? false;
 
