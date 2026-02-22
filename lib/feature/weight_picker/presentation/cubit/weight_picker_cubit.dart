@@ -57,7 +57,7 @@ final class WeightPickerCubit extends Cubit<WeightPickerState> {
     required double weight,
     double oldWeight = 0,
   }) async {
-    emit(WeightPickerLoading());
+    emit(const WeightPickerLoading());
 
     final id = AppUtil.currentUserId;
     if (id == null) {
@@ -71,7 +71,9 @@ final class WeightPickerCubit extends Cubit<WeightPickerState> {
 
     final userHeight = state.user?.height;
     if (userHeight.isNullOrEmpty) {
-      emit(const WeightPickerError(error: LocaleKeys.exception_height_not_saved));
+      emit(
+        const WeightPickerError(error: LocaleKeys.exception_height_not_saved),
+      );
       return false;
     }
 
@@ -95,8 +97,9 @@ final class WeightPickerCubit extends Cubit<WeightPickerState> {
     );
 
     'Saving weight: $metricsEntity'.log();
-    final result =
-        await _saveWeightUseCase.executeWithParams(params: metricsEntity);
+    final result = await _saveWeightUseCase.executeWithParams(
+      params: metricsEntity,
+    );
 
     if (!result) {
       emit(const WeightPickerError(error: LocaleKeys.exception_generic_error));

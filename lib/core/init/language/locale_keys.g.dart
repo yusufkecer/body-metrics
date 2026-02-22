@@ -80,8 +80,17 @@ abstract class  LocaleKeys {
   static const home_menu_change_profile = 'home.menu.change_profile';
   static const home_menu_add_profile = 'home.menu.add_profile';
   static const home_menu_calculate_bmi = 'home.menu.calculate_bmi';
+  static const home_menu_user_operations = 'home.menu.user_operations';
+  static const home_menu_logout = 'home.menu.logout';
   static const home_menu = 'home.menu';
   static const home = 'home';
+  static const auth_login = 'auth.login';
+  static const auth_register = 'auth.register';
+  static const auth_email = 'auth.email';
+  static const auth_password = 'auth.password';
+  static const auth_invalid_email = 'auth.invalid_email';
+  static const auth_password_min = 'auth.password_min';
+  static const auth = 'auth';
   static const change_profile_change_profile = 'change_profile.change_profile';
   static const change_profile_select_profile = 'change_profile.select_profile';
   static const change_profile_delete_profile = 'change_profile.delete_profile';

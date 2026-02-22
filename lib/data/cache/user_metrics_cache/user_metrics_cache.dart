@@ -18,7 +18,7 @@ final class UserMetricsCache extends ImpCache
           ${UserMetricsColumns.id.value} INTEGER PRIMARY KEY AUTOINCREMENT,
           ${UserMetricsColumns.date.value} TEXT NOT NULL,
           ${UserMetricsColumns.weight.value} REAL NULL,
-          ${UserMetricsColumns.height.value} INTEGER NOT NULL, 
+          ${UserMetricsColumns.height.value} INTEGER NOT NULL,
           ${UserMetricsColumns.userId.value} INTEGER NOT NULL,
           ${UserMetricsColumns.bmi.value} REAL NOT NULL,
           ${UserMetricsColumns.diff.value} REAL NULL,
@@ -28,42 +28,26 @@ final class UserMetricsCache extends ImpCache
         )
       ''');
 
-
-
-    final columnsInfo = await db.rawQuery('PRAGMA table_info($table)');
-    final existingColumns = columnsInfo
-        .map((item) => item['name']?.toString() ?? '')
-        .toSet();
-
-    if (!existingColumns.contains('body_metric')) {
-      await db.execute('ALTER TABLE $table ADD COLUMN body_metric TEXT NULL');
-    }
-
-    if (!existingColumns.contains(UserMetricsColumns.height.value)) {
-      await db.execute(
-        'ALTER TABLE $table ADD COLUMN ${UserMetricsColumns.height.value} INTEGER NULL',
-      );
-    }
-
-
-    if (!existingColumns.contains(UserMetricsColumns.createdAt.value)) {
-      await db.execute(
-        'ALTER TABLE $table ADD COLUMN ${UserMetricsColumns.createdAt.value} TEXT NULL',
-      );
-    }
-
-    if (!existingColumns.contains(UserMetricsColumns.diff.value)) {
-      await db.execute(
-        'ALTER TABLE $table ADD COLUMN ${UserMetricsColumns.diff.value} REAL NULL',
-      );
-    }
-
     'init database'.log();
   }
 
   @override
   Future<int> delete(Database? db, int id) {
     throw UnimplementedError();
+  }
+
+  Future<int> deleteAllByUserId(Database? db, int userId) async {
+    if (db == null) {
+      'Database is null'.e();
+      return 0;
+    }
+    final count = await db.delete(
+      table,
+      where: '${UserMetricsColumns.userId.value} = ?',
+      whereArgs: [userId],
+    );
+    'UserMetricsCache: deleted $count rows for userId=$userId'.log();
+    return count;
   }
 
   @override

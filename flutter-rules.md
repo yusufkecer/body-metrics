@@ -382,6 +382,205 @@ Active lint rules (enforced, see `analysis_options.yaml`):
 
 ---
 
+## REST API Integration — Dio
+
+### Architecture
+
+```
+lib/data/api/
+├── api_client.dart                    # Dio singleton (@lazySingleton)
+├── api_constants.dart                 # Base URL, timeouts, API key
+├── error/
+│   └── api_exception.dart             # DioException → user-friendly ApiException
+├── interceptors/
+│   ├── auth_interceptor.dart          # Bearer token injection + 401 handling
+│   └── logging_interceptor.dart       # HTTP lifecycle logging
+└── services/
+    ├── auth_service.dart              # register, login, hasSession, logoutLocal
+    ├── user_api_service.dart          # User CRUD
+    └── metrics_api_service.dart       # Metrics CRUD
+```
+
+### API Client Setup
+
+```dart
+@lazySingleton
+final class ApiClient {
+  ApiClient() {
+    _dio = Dio(BaseOptions(
+      baseUrl: ApiConstants.baseUrl,     // http://10.0.2.2:8080/api/v1
+      connectTimeout: ApiConstants.connectTimeout,  // 15s
+      receiveTimeout: ApiConstants.receiveTimeout,  // 15s
+      headers: {
+        'Content-Type': 'application/json',
+        if (ApiConstants.apiKey.isNotEmpty)
+          'X-API-Key': ApiConstants.apiKey,         // App-level auth
+      },
+    ));
+    _dio.interceptors.addAll([
+      AuthInterceptor(),   // JWT token injection
+      LoggingInterceptor(),
+    ]);
+  }
+}
+```
+
+### Two-Layer Security
+
+**Layer 1 — API Key (App-Level):**
+- Prevents unauthorized clients from accessing the backend
+- Stored in `.env` file at project root (never committed — in `.gitignore`)
+- Read via `envied` package (`Env.apiKey`) — XOR-obfuscated at code generation time
+- Key is NOT plaintext in binary; appears as two integer arrays XOR'd at runtime
+- Sent as `X-API-Key` header on every request via `ApiClient` default headers
+- Backend validates via `APIKeyMiddleware` — returns 403 if invalid
+- After changing `.env`, run `dart run build_runner build --delete-conflicting-outputs` to regenerate `env.g.dart`
+
+**Layer 2 — JWT Token (User-Level):**
+- `AuthInterceptor` reads token from SQLite `app_cache.jwt_token`
+- Sends `Authorization: Bearer <token>` header on every request
+- On 401 response → clears session, user must re-authenticate
+- Token TTL: 30 days (set by backend)
+
+**Rules:**
+- Never hardcode API keys in source code — always use `--dart-define`
+- Never log JWT tokens at info level
+- API key header is set in `ApiClient` default headers (not interceptor)
+- JWT token header is set in `AuthInterceptor` (per-request from cache)
+
+### Data Sync Strategy — Cache-First, API-Fallback
+
+```dart
+// Repository pattern
+class UserRepositoryImpl implements UserRepository {
+  // READ: local cache first, API fallback
+  Future<User?> executeWithParams({Json? params}) async {
+    final localResult = await _userCache.select(db, params);
+    if (localResult != null) return localResult;
+    // Fallback to API
+    return await _userApiService.getUserById(id);
+  }
+
+  // WRITE: local cache first, then API sync
+  Future<int?> saveUser({Json? data}) async {
+    final result = await _userCache.insert(db, data);  // Local first
+    await _userApiService.createUser(data);             // Then API
+    return result;
+  }
+}
+```
+
+**Rules:**
+- Always save to local cache first (offline-friendly)
+- API sync failures are logged but don't block the user
+- Use `try/catch` around API calls — emit error state only for critical failures
+- Background sync should never throw to the UI layer
+
+### API Service Conventions
+
+```dart
+@lazySingleton
+final class UserApiService {
+  const UserApiService(this._apiClient);
+  final ApiClient _apiClient;
+
+  Future<Json> createUser(Json data) async {
+    final response = await _apiClient.dio.post<Map<String, dynamic>>(
+      '/users',
+      data: data,
+    );
+    return response.data!;
+  }
+}
+```
+
+**Rules:**
+- All API services must be `@lazySingleton`
+- Constructor takes `ApiClient` as dependency (injected via DI)
+- Return raw `Json` (`Map<String, dynamic>`) — let repository/cubit handle mapping
+- Path strings must start with `/` (relative to base URL)
+- Use typed generic on Dio methods: `.post<Map<String, dynamic>>()`
+- Wrap Dio calls in `try/catch` and convert to `ApiException`
+
+### Error Handling
+
+```dart
+final class ApiException implements Exception {
+  const ApiException({required this.message, this.statusCode});
+
+  factory ApiException.fromDioException(DioException e) {
+    // Maps: timeout → "Connection timeout"
+    //       connection error → "No internet connection"
+    //       bad response → "Server error ({statusCode})"
+  }
+}
+```
+
+**Rules:**
+- All HTTP errors must be caught and converted to `ApiException`
+- Check response body for `error` field (backend standard format)
+- Never expose raw Dio errors to the UI
+- Use `LocaleKeys` for user-facing error messages
+
+### Auth Flow
+
+1. `POST /auth/register` or `POST /auth/login` → JWT token returned
+2. `AuthService._saveSession()` → stores token in `app_cache.jwt_token`
+3. On app startup → `AuthSessionCubit.loadSession()` checks session
+4. All subsequent requests → `AuthInterceptor` injects Bearer token
+5. On 401 → `AuthInterceptor.onError()` clears session from DB
+
+### Environments & Flavor
+
+Base URL is selected via `--dart-define=FLAVOR` at run/build time:
+
+| Flavor | `FLAVOR` value | Base URL |
+|--------|---------------|----------|
+| Android Emulator (local) | `local` (default) | `http://10.0.2.2:8080/api/v1` |
+| iOS Simulator (local) | `local_ios` | `http://localhost:8080/api/v1` |
+| Physical Device (local) | `local` + `LOCAL_IP=<ip>` | `http://<ip>:8080/api/v1` |
+| Production | `production` | `https://api.bodymetrics.app/api/v1` |
+
+**VS Code:** Use the pre-configured launch configurations in `.vscode/launch.json` — no manual `--dart-define` needed.
+
+**Terminal:**
+```bash
+# Android emulator (default, no flag needed)
+flutter run
+
+# iOS simulator
+flutter run --dart-define=FLAVOR=local_ios
+
+# Physical device (replace IP with your machine's LAN IP)
+flutter run --dart-define=FLAVOR=local --dart-define=LOCAL_IP=192.168.1.100
+
+# Production build
+flutter build apk --dart-define=FLAVOR=production
+flutter build ios --dart-define=FLAVOR=production
+```
+
+**Rules:**
+- Never hardcode a URL string in feature code — always use `ApiConstants.baseUrl`
+- Production URL is defined only in `ApiConstants` — never in `.env`
+- When adding a new environment, add it to both `ApiConstants.baseUrl` switch and `.vscode/launch.json`
+
+### Setup & Build
+
+```bash
+# 1. Create .env file in project root
+echo "API_KEY=your-api-key-here" > .env
+
+# 2. Generate obfuscated env.g.dart
+dart run build_runner build --delete-conflicting-outputs
+
+# 3. Run (FLAVOR defaults to local → Android emulator)
+flutter run
+```
+
+**Note:** `.env` and `lib/data/api/env/env.g.dart` are in `.gitignore` — never committed.
+
+---
+
 ## Package Reference
 
 | Package | Version | Usage |
@@ -391,6 +590,7 @@ Active lint rules (enforced, see `analysis_options.yaml`):
 | injectable | 2.5.1 | DI annotations |
 | get_it | — | Service locator (via injectable) |
 | sqflite | 2.4.2 | Local SQLite database |
+| dio | 5.7.0 | HTTP client with interceptors |
 | easy_localization | 3.0.8 | i18n (tr + en) |
 | fl_chart | 1.1.1 | BMI/metric trend charts |
 | flutter_zoom_drawer | 3.2.0 | Home navigation drawer |

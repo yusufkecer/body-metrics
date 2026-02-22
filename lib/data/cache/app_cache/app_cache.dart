@@ -24,7 +24,9 @@ final class AppCache extends ImpCache
     CREATE TABLE IF NOT EXISTS $table (
       ${AppCacheColumns.isCompletedOnboard.value} INTEGER NULL,
       ${AppCacheColumns.activeUser.value} INTEGER NULL,
-      ${AppCacheColumns.page.value} TEXT NULL
+      ${AppCacheColumns.page.value} TEXT NULL,
+      ${AppCacheColumns.jwtToken.value} TEXT NULL,
+      ${AppCacheColumns.email.value} TEXT NULL
     )
   ''');
   }
@@ -33,6 +35,8 @@ final class AppCache extends ImpCache
     AppCacheColumns.isCompletedOnboard.value,
     AppCacheColumns.activeUser.value,
     AppCacheColumns.page.value,
+    AppCacheColumns.jwtToken.value,
+    AppCacheColumns.email.value,
   ];
 
   ///There should be only one row

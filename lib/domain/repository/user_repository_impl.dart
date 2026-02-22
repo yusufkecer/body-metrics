@@ -7,8 +7,9 @@ import 'package:injectable/injectable.dart';
 @injectable
 @immutable
 final class UserRepositoryImpl implements UserRepository {
-  const UserRepositoryImpl(this._userCache);
+  const UserRepositoryImpl(this._userCache, this._userApiService);
   final UserCache _userCache;
+  final UserApiService _userApiService;
 
   @override
   Future<User?> executeWithParams({Json? params}) async {
@@ -17,8 +18,23 @@ final class UserRepositoryImpl implements UserRepository {
     final db = await _userCache.initializeDatabase();
     final result = await _userCache.select(db, params);
 
-    if (result.isNullOrEmpty || result!.users!.isEmpty) return null;
-    return result.users!.first;
+    if (result?.users?.isNotEmpty ?? false) {
+      return result!.users!.first;
+    }
+
+    try {
+      final id = params['id'] as int?;
+      if (id != null) {
+        final apiResult = await _userApiService.getUserById(id);
+        if (apiResult != null) {
+          return User.fromJson(apiResult);
+        }
+      }
+    } catch (e) {
+      'Failed to fetch user from API: $e'.e();
+    }
+
+    return null;
   }
 
   @override
@@ -34,15 +50,11 @@ final class UserRepositoryImpl implements UserRepository {
       type: JoinType.inner.type,
     );
 
-    final params = ParamsEntity(
-      filters: filters,
-      joins: [join],
-    );
+    final params = ParamsEntity(filters: filters, joins: [join]);
 
     final result = await _userCache.select(db, params.filters!);
 
-    if (result.isNullOrEmpty || result!.users!.isNullOrEmpty) return null;
-    return result.users!.first;
+    return result?.users?.firstOrNull;
   }
 
   @override
@@ -50,7 +62,15 @@ final class UserRepositoryImpl implements UserRepository {
     if (data == null) throw ArgumentError.notNull();
 
     final db = await _userCache.initializeDatabase();
-    return _userCache.insert(db, data);
+    final result = await _userCache.insert(db, data);
+
+    try {
+      await _userApiService.createUser(data);
+    } catch (e) {
+      'Failed to sync user to API: $e'.e();
+    }
+
+    return result;
   }
 
   @override
@@ -58,6 +78,17 @@ final class UserRepositoryImpl implements UserRepository {
     if (data == null) throw ArgumentError.notNull();
 
     final db = await _userCache.initializeDatabase();
-    return _userCache.update(db, data);
+    final result = await _userCache.update(db, data);
+
+    try {
+      final id = data['id'] as int?;
+      if (id != null) {
+        await _userApiService.updateUser(id, data);
+      }
+    } catch (e) {
+      'Failed to sync user update to API: $e'.e();
+    }
+
+    return result;
   }
 }

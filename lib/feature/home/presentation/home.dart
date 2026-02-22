@@ -2,6 +2,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/core/widgets/rich_text_widgets/custom_rich_text.dart';
 import 'package:bodymetrics/core/widgets/space_column.dart';
+import 'package:bodymetrics/feature/auth/presentation/cubit/auth_session_cubit.dart';
 import 'package:bodymetrics/feature/home/presentation/cubit/home_card_cubit/home_card_cubit.dart';
 import 'package:bodymetrics/feature/home/presentation/cubit/user_cubit/user_cubit.dart';
 import 'package:bodymetrics/feature/home/presentation/cubit/user_metric_cubit/user_metric_cubit.dart';
@@ -13,8 +14,6 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter_zoom_drawer/flutter_zoom_drawer.dart';
 
 part 'home_model.dart';
-
-part 'mixin/title_mixin.dart';
 
 part 'widgets/chart.dart';
 
@@ -36,9 +35,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, _HomeModel {
   Widget build(BuildContext context) {
     return MultiBlocProvider(
       providers: [
-        BlocProvider<UserCubit>(
-          create: (_) => Locator.sl<UserCubit>(),
-        ),
+        BlocProvider<UserCubit>(create: (_) => Locator.sl<UserCubit>()),
         BlocProvider<UserMetricCubit>(
           create: (_) {
             final cubit = Locator.sl<UserMetricCubit>();
@@ -49,8 +46,9 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, _HomeModel {
             return cubit;
           },
         ),
-        BlocProvider<HomeCardCubit>(
-          create: (_) => Locator.sl<HomeCardCubit>(),
+        BlocProvider<HomeCardCubit>(create: (_) => Locator.sl<HomeCardCubit>()),
+        BlocProvider<AuthSessionCubit>(
+          create: (_) => Locator.sl<AuthSessionCubit>()..loadSession(),
         ),
       ],
       child: Builder(
@@ -149,9 +147,14 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, _HomeModel {
     return values!
         .asMap()
         .entries
-        .map((entry) => {
-              entry.key * 2: _toChartDateLabel(entry.value, fallback: '${entry.key + 1}'),
-            })
+        .map(
+          (entry) => {
+            entry.key * 2: _toChartDateLabel(
+              entry.value,
+              fallback: '${entry.key + 1}',
+            ),
+          },
+        )
         .toList();
   }
 
@@ -196,8 +199,9 @@ final class _HomeBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return BlocBuilder<HomeCardCubit, HomeCardState>(
       builder: (context, state) {
-        final expandedCard =
-            state is HomeCardLoaded ? state.expandedCard : ExpandedCard.none;
+        final expandedCard = state is HomeCardLoaded
+            ? state.expandedCard
+            : ExpandedCard.none;
         return Padding(
           padding: ProductPadding.ten().copyWith(bottom: 0),
           child: SingleChildScrollView(

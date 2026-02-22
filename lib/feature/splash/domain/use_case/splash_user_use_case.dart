@@ -16,15 +16,6 @@ final class SplashUserUseCase implements UseCase<User, ParamsEntity> {
     if (params == null) throw ArgumentError.notNull();
 
     final value = await _splashRepository.executeWithParams(params: params);
-
-    if (value.isNullOrEmpty || value!.users is! List) {
-      return null;
-    }
-
-    final column = params.columns;
-
-    if (column.isNullOrEmpty) return null;
-
-    return value.users?.first;
+    return value?.users?.firstOrNull;
   }
 }

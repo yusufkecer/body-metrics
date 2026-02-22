@@ -4,6 +4,8 @@ enum AppCacheColumns {
   isCompletedOnboard,
   activeUser,
   page,
+  jwtToken,
+  email,
   table;
 
   String get value {
@@ -14,6 +16,10 @@ enum AppCacheColumns {
         return 'active_user';
       case AppCacheColumns.page:
         return 'page';
+      case AppCacheColumns.jwtToken:
+        return 'jwt_token';
+      case AppCacheColumns.email:
+        return 'email';
       case AppCacheColumns.table:
         return 'app';
     }
