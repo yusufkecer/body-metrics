@@ -34,7 +34,7 @@ final class CreateProfileRepository implements Repository<int, User> {
         await _userApiService.updateUser(user.id!, userMap);
       }
     } catch (e) {
-      'Failed to sync profile to API: $e'.e();
+      'Failed to sync profile to API: $e'.w();
     }
 
     return result;

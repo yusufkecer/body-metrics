@@ -20,8 +20,9 @@ final class ApiException implements Exception {
           message = 'No internet connection';
         case DioExceptionType.badResponse:
           message = 'Server error ($statusCode)';
-        case DioExceptionType.badCertificate:
         case DioExceptionType.cancel:
+          message = 'No active session';
+        case DioExceptionType.badCertificate:
         case DioExceptionType.unknown:
           message = 'Unexpected error';
       }

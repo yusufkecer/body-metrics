@@ -23,7 +23,7 @@ class SaveGenderRepository implements Repository<int, Json> {
         await _userApiService.updateUser(userId, params);
       }
     } catch (e) {
-      'Failed to sync gender to API: $e'.e();
+      'Failed to sync gender to API: $e'.w();
     }
 
     return result;

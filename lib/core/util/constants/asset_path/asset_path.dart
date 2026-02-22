@@ -6,6 +6,7 @@ abstract final class AssetPath {
   static const String image = 'assets/images';
   static const String language = 'assets/language';
   static const String gif = 'assets/gif';
+  static const String countries = 'assets/countries';
 }
 
 extension AssetPathExtension on String {

@@ -25,7 +25,7 @@ class SaveAvatarRepository implements Repository<int, UserFilters> {
       final apiResult = await _userApiService.createUser(value);
       'User created on API: $apiResult'.log();
     } catch (e) {
-      'Failed to sync avatar to API: $e'.e();
+      'Failed to sync avatar to API: $e'.w();
     }
 
     return result;

@@ -61,8 +61,8 @@
         "onboarding_1": "This app is designed to calculate your Body Mass Index (BMI) and help you track your weight and BMI values.",
         "onboarding_2_title": "Local & Cloud Storage 🛡️",
         "onboarding_2": "Your data is stored securely on your device first. Optionally, create an account to also back it up to the cloud.",
-        "onboarding_3_title": "Multiple Profiles 📊",
-        "onboarding_3": "You can create separate profiles for your family members and track their BMI values. If you prefer, you can skip these steps and go straight to calculating your BMI.",
+        "onboarding_3_title": "History & Charts 📈",
+        "onboarding_3": "All your measurements are listed in chronological order. Easily follow your BMI and weight changes through interactive charts.",
         "onboarding_4_title": "Cloud Backup 💾",
         "onboarding_4": "Create an account to automatically sync all your measurements to the cloud. Your data stays safe even when you change your device.",
         "onboarding_5": "Let's get started! 🚀",
@@ -86,7 +86,8 @@
             "add_profile": "Add Profile",
             "calculate_bmi": "Calculate BMI",
             "user_operations": "User Operations",
-            "logout": "Logout"
+            "logout": "Logout",
+            "change_language": "Change Language"
         }
     },
     "auth": {

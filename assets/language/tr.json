@@ -60,8 +60,8 @@
         "onboarding_1": "Bu uygulama, vücut kitle indeksinizi (BMI) hesaplamak ve kilo ile BMI değerlerinizi takip etmek için geliştirildi.",
         "onboarding_2_title": "Yerel & Bulut Depolama 🛡️",
         "onboarding_2": "Verileriniz önce cihazınıza güvenle kaydedilir. İsterseniz bir hesap oluşturarak verilerinizi bulut sunucusuna da yedekleyebilirsiniz.",
-        "onboarding_3_title": "Birden Fazla Profil 📊",
-        "onboarding_3": "Aile bireyleriniz için ayrı profiller oluşturabilir ve onların BMI değerlerini takip edebilirsiniz. İsterseniz bu adımları atlayarak doğrudan BMI hesaplamaya geçebilirsiniz.",
+        "onboarding_3_title": "Geçmiş & Grafikler 📈",
+        "onboarding_3": "Tüm ölçümleriniz tarih sırasıyla listelenir. BMI ve kilo değişimlerinizi grafikler üzerinden kolayca takip edebilirsiniz.",
         "onboarding_4_title": "Bulut Yedekleme 💾",
         "onboarding_4": "Hesap oluşturarak tüm ölçümlerinizi otomatik olarak buluta yedekleyin. Cihazınız değişse bile verileriniz kaybolmaz.",
         "onboarding_5": "Hadi başlayalım! 🚀",
@@ -85,7 +85,8 @@
             "add_profile": "Profil Ekle",
             "calculate_bmi": "VTİ Hesapla",
             "user_operations": "Kullanıcı İşlemleri",
-            "logout": "Çıkış Yap"
+            "logout": "Çıkış Yap",
+            "change_language": "Dili Değiştir"
         }
     },
     "auth": {

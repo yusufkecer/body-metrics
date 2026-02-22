@@ -24,7 +24,7 @@ class SaveHeightRepository implements Repository<bool, User> {
         await _userApiService.updateUser(params.id!, value);
       }
     } catch (e) {
-      'Failed to sync height to API: $e'.e();
+      'Failed to sync height to API: $e'.w();
     }
 
     return result.convertBoolResult;

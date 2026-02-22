@@ -35,7 +35,7 @@ final class SaveWeightRepository implements Repository<int, UserMetric> {
         );
       }
     } catch (e) {
-      'Failed to sync metric to API: $e'.e();
+      'Failed to sync metric to API: $e'.w();
     }
 
     return result;
@@ -55,7 +55,7 @@ final class SaveWeightRepository implements Repository<int, UserMetric> {
       limit: 1,
     );
 
-    if (rows.isEmpty) return currentWeight;
+    if (rows.isEmpty) return 0.0;
 
     final lastWeight =
         (rows.first[UserMetricsColumns.weight.value] as num?)?.toDouble();
