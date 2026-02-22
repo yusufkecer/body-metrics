@@ -82,6 +82,8 @@
         "weight_change": "Change",
         "report": "Report",
         "chart": "Chart",
+        "line_chart": "BMI Chart",
+        "bar_chart": "Statistics Chart",
         "menu": {
             "change_profile": "Change Profile",
             "add_profile": "Add Profile",

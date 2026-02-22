@@ -1,0 +1,118 @@
+import 'package:bodymetrics/core/index.dart';
+import 'package:fl_chart/fl_chart.dart';
+import 'package:flutter/material.dart';
+
+@immutable
+final class BarChartWidget extends StatefulWidget {
+  const BarChartWidget({
+    required this.barGroups,
+    required this.leftTitles,
+    required this.bottomTitles,
+    super.key,
+  });
+
+  final List<BarChartGroupData> barGroups;
+  final List<Map<int, String>> leftTitles;
+  final List<Map<int, String>> bottomTitles;
+
+  @override
+  State<BarChartWidget> createState() => _BarChartWidgetState();
+}
+
+class _BarChartWidgetState extends State<BarChartWidget> {
+  final double _barWidth = 150;
+
+  @override
+  Widget build(BuildContext context) {
+    return LayoutBuilder(
+      builder: (context, constraints) {
+        final groupCount = widget.barGroups.length;
+        final screenWidth = constraints.maxWidth;
+
+        final dynamicWidth = groupCount * _barWidth;
+        final chartWidth = dynamicWidth.clamp(screenWidth, double.infinity);
+
+        return SingleChildScrollView(
+          scrollDirection: Axis.horizontal,
+          child: SizedBox(
+            width: chartWidth,
+            height: screenWidth / 1.70,
+            child: Padding(
+              padding: ProductPadding.ten(),
+              child: BarChart(mainBarData()),
+            ),
+          ),
+        );
+      },
+    );
+  }
+
+  Widget bottomTitleWidgets(double value, TitleMeta meta) {
+    const style = TextStyle(fontWeight: FontWeight.bold, fontSize: 13);
+    Text? text;
+
+    for (final element in widget.bottomTitles) {
+      if (element.containsKey(value.toInt())) {
+        text = Text(element[value.toInt()]!, style: style);
+      }
+    }
+
+    return SideTitleWidget(meta: meta, child: text ?? const SizedBox.shrink());
+  }
+
+  Widget leftTitleWidgets(double value, TitleMeta meta) {
+    Text? text;
+
+    for (final element in widget.leftTitles) {
+      if (element.containsKey(value.toInt())) {
+        text = Text(
+          element[value.toInt()]!,
+          style: context.textTheme.titleMedium?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.left,
+        );
+      }
+    }
+
+    return SideTitleWidget(meta: meta, child: text ?? const SizedBox.shrink());
+  }
+
+  BarChartData mainBarData() {
+    return BarChartData(
+      barTouchData: BarTouchData(
+        enabled: true,
+        touchTooltipData: BarTouchTooltipData(
+          getTooltipColor: (_) =>
+              ProductColor.instance.lightPurple.withAlpha(200),
+          tooltipMargin: 4,
+          fitInsideHorizontally: true,
+          fitInsideVertically: true,
+          getTooltipItem: (group, groupIndex, rod, rodIndex) {
+            return BarTooltipItem(
+              rod.toY.toString(),
+              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+            );
+          },
+        ),
+      ),
+      titlesData: FlTitlesData(
+        rightTitles: const AxisTitles(),
+        topTitles: const AxisTitles(),
+        bottomTitles: AxisTitles(
+          sideTitles: SideTitles(
+            showTitles: true,
+            getTitlesWidget: bottomTitleWidgets,
+            reservedSize: 38,
+          ),
+        ),
+        leftTitles: const AxisTitles(),
+      ),
+      alignment: BarChartAlignment.start,
+      groupsSpace: 80,
+      borderData: FlBorderData(show: false),
+      barGroups: widget.barGroups,
+      gridData: const FlGridData(show: false),
+    );
+  }
+}

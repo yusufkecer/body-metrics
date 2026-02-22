@@ -1,8 +1,8 @@
 part of '../home.dart';
 
 @immutable
-final class _Chart extends StatelessWidget {
-  const _Chart({
+final class _LineChartCard extends StatelessWidget {
+  const _LineChartCard({
     required this.spot,
     required this.leftTitles,
     required this.bottomTitles,
@@ -25,7 +25,7 @@ final class _Chart extends StatelessWidget {
       buttonTitle: LocaleKeys.home_see_more,
       onPressed: onPressed,
       showButton: false,
-      title: LocaleKeys.home_chart,
+      title: LocaleKeys.home_line_chart,
       icon: ProductIcon.chart.icon,
       children: [
         LineChartWidget(
@@ -40,6 +40,50 @@ final class _Chart extends StatelessWidget {
   bool get values =>
       spot.isNullOrEmpty ||
       spot!.length < 2 ||
+      leftTitles.isNullOrEmpty ||
+      bottomTitles.isNullOrEmpty;
+}
+
+@immutable
+final class _BarChartCard extends StatelessWidget {
+  const _BarChartCard({
+    required this.barGroups,
+    required this.leftTitles,
+    required this.bottomTitles,
+    required this.onPressed,
+    required this.animatedController,
+  });
+
+  final List<BarChartGroupData>? barGroups;
+  final List<Map<int, String>>? leftTitles;
+  final List<Map<int, String>>? bottomTitles;
+  final void Function() onPressed;
+  final AnimationController animatedController;
+
+  @override
+  Widget build(BuildContext context) {
+    if (values) return const SizedBox.shrink();
+
+    return HomeCard(
+      animationController: animatedController,
+      buttonTitle: LocaleKeys.home_see_more,
+      onPressed: onPressed,
+      showButton: false,
+      title: LocaleKeys.home_bar_chart,
+      icon: ProductIcon.chart.icon,
+      children: [
+        BarChartWidget(
+          barGroups: barGroups!,
+          leftTitles: leftTitles!,
+          bottomTitles: bottomTitles!,
+        ),
+      ],
+    );
+  }
+
+  bool get values =>
+      barGroups.isNullOrEmpty ||
+      barGroups!.length < 2 ||
       leftTitles.isNullOrEmpty ||
       bottomTitles.isNullOrEmpty;
 }

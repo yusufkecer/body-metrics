@@ -96,12 +96,16 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, _HomeModel {
 
             return _HomeBody(
               dataListOnPressed: () => _dataListOnPressed(context),
-              chartOnPressed: () => _chartOnPressed(context),
+              lineChartOnPressed: () => _lineChartOnPressed(context),
+              barChartOnPressed: () => _barChartOnPressed(context),
               spots: _buildSpots(userMetrics),
-              leftTitles: _buildLeftTitles(userMetrics),
+              barGroups: _buildBarGroups(userMetrics),
+              lineLeftTitles: _buildLineLeftTitles(userMetrics),
+              barLeftTitles: _buildBarLeftTitles(userMetrics),
               bottomTitle: _buildBottomTitles(userMetrics),
               animatedListController: _animatedListController,
-              animatedChartController: _animatedChartController,
+              animatedLineChartController: _animatedLineChartController,
+              animatedBarChartController: _animatedBarChartController,
               userMetrics: userMetrics,
             );
           },
@@ -120,14 +124,53 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, _HomeModel {
     return values!
         .asMap()
         .entries
-        .map((entry) => FlSpot((entry.key * 2).toDouble(), entry.value.bmi!))
+        .map((entry) => FlSpot(entry.key.toDouble(), entry.value.bmi!))
         .toList();
   }
 
-  List<Map<int, String>>? _buildLeftTitles(UserMetrics? userMetrics) {
+  List<BarChartGroupData>? _buildBarGroups(UserMetrics? userMetrics) {
+    final values = userMetrics?.userMetrics
+        ?.where((metric) => metric.weight != null)
+        .toList();
+
+    if (values.isNullOrEmpty) return null;
+
+    return values!
+        .asMap()
+        .entries
+        .map(
+          (entry) => BarChartGroupData(
+            x: entry.key,
+            barRods: [
+              BarChartRodData(
+                toY: entry.value.weight!,
+                color: ProductColor.instance.white,
+                width: 16,
+                borderRadius: const ProductRadius.four(),
+              ),
+            ],
+          ),
+        )
+        .toList();
+  }
+
+  List<Map<int, String>>? _buildLineLeftTitles(UserMetrics? userMetrics) {
     final values = userMetrics?.userMetrics
         ?.where((metric) => metric.bmi != null)
         .map((metric) => metric.bmi!.round())
+        .toSet()
+        .toList();
+
+    if (values.isNullOrEmpty) return null;
+
+    values!.sort();
+    return values.map((value) => {value: value.toString()}).toList();
+  }
+
+  List<Map<int, String>>? _buildBarLeftTitles(UserMetrics? userMetrics) {
+    final values = userMetrics?.userMetrics
+        ?.where((metric) => metric.weight != null)
+        .map((metric) => metric.weight!.round())
         .toSet()
         .toList();
 
@@ -149,7 +192,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, _HomeModel {
         .entries
         .map(
           (entry) => {
-            entry.key * 2: _toChartDateLabel(
+            entry.key: _toChartDateLabel(
               entry.value,
               fallback: '${entry.key + 1}',
             ),
@@ -177,22 +220,30 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, _HomeModel {
 final class _HomeBody extends StatelessWidget {
   const _HomeBody({
     required this.dataListOnPressed,
-    required this.chartOnPressed,
+    required this.lineChartOnPressed,
+    required this.barChartOnPressed,
     required this.spots,
-    required this.leftTitles,
+    required this.barGroups,
+    required this.lineLeftTitles,
+    required this.barLeftTitles,
     required this.bottomTitle,
     required this.animatedListController,
-    required this.animatedChartController,
+    required this.animatedLineChartController,
+    required this.animatedBarChartController,
     required this.userMetrics,
   });
 
   final void Function() dataListOnPressed;
-  final void Function() chartOnPressed;
+  final void Function() lineChartOnPressed;
+  final void Function() barChartOnPressed;
   final List<FlSpot>? spots;
-  final List<Map<int, String>>? leftTitles;
+  final List<BarChartGroupData>? barGroups;
+  final List<Map<int, String>>? lineLeftTitles;
+  final List<Map<int, String>>? barLeftTitles;
   final List<Map<int, String>>? bottomTitle;
   final AnimationController animatedListController;
-  final AnimationController animatedChartController;
+  final AnimationController animatedLineChartController;
+  final AnimationController animatedBarChartController;
   final UserMetrics? userMetrics;
 
   @override
@@ -214,11 +265,19 @@ final class _HomeBody extends StatelessWidget {
                   expandedCard: expandedCard,
                 ),
                 VerticalSpace.s(),
-                _Chart(
-                  animatedController: animatedChartController,
-                  onPressed: chartOnPressed,
+                _LineChartCard(
+                  animatedController: animatedLineChartController,
+                  onPressed: lineChartOnPressed,
                   spot: spots,
-                  leftTitles: leftTitles,
+                  leftTitles: lineLeftTitles,
+                  bottomTitles: bottomTitle,
+                ),
+                VerticalSpace.s(),
+                _BarChartCard(
+                  animatedController: animatedBarChartController,
+                  onPressed: barChartOnPressed,
+                  barGroups: barGroups,
+                  leftTitles: barLeftTitles,
                   bottomTitles: bottomTitle,
                 ),
               ],

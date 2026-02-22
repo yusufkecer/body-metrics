@@ -4,7 +4,8 @@ mixin _HomeModel on TickerProviderStateMixin<Home> {
   final ZoomDrawerController _zoomDrawerController = ZoomDrawerController();
 
   late AnimationController _animatedListController;
-  late AnimationController _animatedChartController;
+  late AnimationController _animatedLineChartController;
+  late AnimationController _animatedBarChartController;
 
   @override
   void initState() {
@@ -13,12 +14,18 @@ mixin _HomeModel on TickerProviderStateMixin<Home> {
       duration: Durations.long2,
     );
 
-    _animatedChartController = AnimationController(
+    _animatedLineChartController = AnimationController(
       vsync: this,
       duration: Durations.long2,
     );
 
-    _animatedChartController.forward();
+    _animatedBarChartController = AnimationController(
+      vsync: this,
+      duration: Durations.long2,
+    );
+
+    _animatedLineChartController.forward();
+    _animatedBarChartController.forward();
     _animatedListController.forward();
     super.initState();
   }
@@ -26,17 +33,21 @@ mixin _HomeModel on TickerProviderStateMixin<Home> {
   @override
   void dispose() {
     _animatedListController.dispose();
-    _animatedChartController.dispose();
+    _animatedLineChartController.dispose();
+    _animatedBarChartController.dispose();
     _zoomDrawerController.close!();
     super.dispose();
   }
-
 
   void _dataListOnPressed(BuildContext context) {
     context.read<HomeCardCubit>().dataListOnPressed();
   }
 
-  void _chartOnPressed(BuildContext context) {
+  void _lineChartOnPressed(BuildContext context) {
+    context.read<HomeCardCubit>().chartOnPressed();
+  }
+
+  void _barChartOnPressed(BuildContext context) {
     context.read<HomeCardCubit>().chartOnPressed();
   }
 }
