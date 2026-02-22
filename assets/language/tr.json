@@ -21,7 +21,7 @@
         "surname": "Soyisim",
         "birth_of_date": "Doğum Tarihi",
         "complete": "Kaydını Tamamla",
-        "skip": "Atla",
+        "or": "veya",
         "select_profile_picture": "Avatarınızı Seçin",
         "information_is_empty": "Kaydı tamamlamak için adınızı ve doğum tarihinizi girmeniz gerekiyor.",
         "avatar_select_failed": "Avatar seçilirken bir sorun oluştu. Hesaplama adımına geçmek ister misiniz?",

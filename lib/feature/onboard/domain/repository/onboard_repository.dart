@@ -17,6 +17,8 @@ final class OnboardRepository implements Repository<int, AppModel> {
     final isComplete = (params.isCompleteOnboard ?? false) ? 1 : 0;
 
     final data = {AppCacheColumns.isCompletedOnboard.value: isComplete};
+    final updated = await _appCache.update(db, data);
+    if (updated > 0) return updated;
 
     return _appCache.insert(db, data);
   }

@@ -28,7 +28,11 @@ final class AppModel extends Equatable implements BaseModel<AppModel> {
         activeUser: activeUser ?? this.activeUser,
       );
   final Pages? page;
-  @JsonKey(name: 'is_complete_onboard')
+  @JsonKey(
+    name: 'is_completed_onboard',
+    fromJson: _boolFromDb,
+    toJson: _boolToDb,
+  )
   final bool? isCompleteOnboard;
   @JsonKey(name: 'active_user')
   final int? activeUser;
@@ -40,4 +44,16 @@ final class AppModel extends Equatable implements BaseModel<AppModel> {
 
   @override
   int? get id => throw UnimplementedError();
+
+  static bool? _boolFromDb(dynamic value) {
+    if (value == null) return null;
+    if (value is bool) return value;
+    if (value is num) return value == 1;
+    return null;
+  }
+
+  static int? _boolToDb(bool? value) {
+    if (value == null) return null;
+    return value ? 1 : 0;
+  }
 }

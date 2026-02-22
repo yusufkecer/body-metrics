@@ -23,6 +23,11 @@ class BodyMetrics extends StatelessWidget {
       title: AppUtil.appName,
       theme: Locator.sl<CustomTheme>().theme,
       routerConfig: Locator.sl<AppRouter>().config(),
+      builder: (context, child) {
+        return GlobalLoadingOverlay(
+          child: child ?? const SizedBox.shrink(),
+        );
+      },
       debugShowCheckedModeBanner: false,
       localizationsDelegates: context.localizationDelegates,
       supportedLocales: context.supportedLocales,

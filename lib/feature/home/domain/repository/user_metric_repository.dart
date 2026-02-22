@@ -10,7 +10,7 @@ final class UserMetricRepository
   const UserMetricRepository(this._userMetricsCache, this._metricsApiService);
 
   final UserMetricsCache _userMetricsCache;
-  final MetricsApiService _metricsApiService;
+  final MetricsApiServiceBase _metricsApiService;
 
   @override
   Future<UserMetrics?> executeWithParams({UserMetric? params}) async {

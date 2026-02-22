@@ -4,7 +4,7 @@ import 'package:bodymetrics/data/api/error/api_exception.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
-@lazySingleton
+@LazySingleton(as: UserApiServiceBase)
 final class UserApiService implements UserApiServiceBase {
   const UserApiService(this._apiClient);
 

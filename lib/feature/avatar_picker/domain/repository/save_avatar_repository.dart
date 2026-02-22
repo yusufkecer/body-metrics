@@ -10,7 +10,7 @@ import 'package:injectable/injectable.dart';
 class SaveAvatarRepository implements Repository<int, UserFilters> {
   const SaveAvatarRepository(this.userCache, this._userApiService);
   final UserCache userCache;
-  final UserApiService _userApiService;
+  final UserApiServiceBase _userApiService;
 
   @override
   Future<int?> executeWithParams({UserFilters? params}) async {

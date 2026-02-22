@@ -10,6 +10,7 @@ export 'package:bodymetrics/core/widgets/custom_drawer.dart';
 export 'package:bodymetrics/core/widgets/custom_error.dart';
 export 'package:bodymetrics/core/widgets/custom_list_tile.dart';
 export 'package:bodymetrics/core/widgets/custom_text_field.dart';
+export 'package:bodymetrics/core/widgets/global_loading_overlay.dart';
 export 'package:bodymetrics/core/widgets/dialogs/loading.dart';
 export 'package:bodymetrics/core/widgets/dialogs/lottie_confirm_dialog.dart';
 export 'package:bodymetrics/core/widgets/dialogs/lottie_dialog.dart';

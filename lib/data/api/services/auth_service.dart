@@ -76,11 +76,16 @@ final class AuthService implements AuthServiceBase {
   Future<void> logoutLocal() async {
     final db = await _appCache.initializeDatabase();
     if (db == null) return;
-
     await db.delete(_userMetricsCache.table);
-
     await db.delete(_userCache.table);
-    await db.delete(_appCache.table);
+
+    await db.rawUpdate(
+      'UPDATE ${_appCache.table} '
+      'SET ${AppCacheColumns.activeUser.value} = NULL, '
+      '${AppCacheColumns.page.value} = NULL, '
+      '${AppCacheColumns.jwtToken.value} = NULL, '
+      '${AppCacheColumns.email.value} = NULL',
+    );
 
     await _appCache.closeDb();
 
