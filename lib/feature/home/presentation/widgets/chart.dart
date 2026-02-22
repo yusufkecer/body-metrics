@@ -24,6 +24,7 @@ final class _Chart extends StatelessWidget {
       animationController: animatedController,
       buttonTitle: LocaleKeys.home_see_more,
       onPressed: onPressed,
+      showButton: false,
       title: LocaleKeys.home_chart,
       icon: ProductIcon.chart.icon,
       children: [

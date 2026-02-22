@@ -19,9 +19,14 @@ final class _DataList extends StatelessWidget {
     final metrics = userMetrics?.userMetrics ?? [];
     if (metrics.isEmpty) return const SizedBox.shrink();
 
+    final isExpanded = expandedCard == ExpandedCard.list;
+    final itemCount = isExpanded ? metrics.length : metrics.length.clamp(0, 2);
+
     return HomeCard(
       animationController: animatedController,
-      buttonTitle: LocaleKeys.home_see_more,
+      buttonTitle: isExpanded
+          ? LocaleKeys.home_see_less
+          : LocaleKeys.home_see_more,
       onPressed: onPressed,
       showButton: metrics.length >= 2,
       title: LocaleKeys.home_report,
@@ -30,7 +35,7 @@ final class _DataList extends StatelessWidget {
         GridView.builder(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: context.read<HomeCardCubit>().adjustLength(metrics.length),
+          itemCount: itemCount,
           gridDelegate: const GridDelegate.dashBoard(),
           itemBuilder: (context, index) {
             return DecoratedBox(
@@ -74,11 +79,12 @@ final class _DataList extends StatelessWidget {
                         ),
                       ],
                     ),
-                    CustomRichText(
-                      icon: metrics[index].resultIcon,
-                      title: LocaleKeys.home_weight_change,
-                      subTitle: metrics[index].weightDiff.toString(),
-                    ),
+                    if (index != 0)
+                      CustomRichText(
+                        icon: metrics[index].resultIcon,
+                        title: LocaleKeys.home_weight_change,
+                        subTitle: metrics[index].weightDiff.toString(),
+                      ),
                   ],
                 ),
               ),

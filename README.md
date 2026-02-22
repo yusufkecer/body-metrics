@@ -24,6 +24,28 @@ Bu Flutter uygulaması, kullanıcıların Vücut Kitle İndeksi (BMI) ve Vücut 
 - **Animated UI | Animasyonlu Kullanıcı Arayüzü:** Smooth and engaging animations throughout the app.  
   Uygulama boyunca akıcı ve ilgi çekici animasyonlar.
 
+## API Integration & Caching | API Entegrasyonu ve Önbellekleme
+
+- **REST API Integration | REST API Entegrasyonu:**  
+  The app communicates with the backend through a structured API layer using `dio` (auth, user profile, and metrics endpoints).  
+  Uygulama backend ile `dio` tabanlı katmanlı API yapısı üzerinden haberleşir (auth, kullanıcı profili ve metrik endpointleri).
+
+- **Authentication Flow | Kimlik Doğrulama Akışı:**  
+  Requests are secured with API key and JWT token headers; session state is managed locally and reused across app restarts.  
+  İstekler API key ve JWT token header'ları ile korunur; oturum durumu yerelde tutulur ve uygulama yeniden açıldığında devam eder.
+
+- **Local Cache (SQLite) | Yerel Önbellek (SQLite):**  
+  User and metric data is stored locally with `sqflite` to provide fast read access and offline-friendly behavior.  
+  Kullanıcı ve metrik verileri `sqflite` ile yerelde saklanarak hızlı okuma ve çevrimdışı kullanım desteği sağlanır.
+
+- **Cache-First Strategy | Cache-First Stratejisi:**  
+  The app prioritizes local cached data for UI responsiveness, then syncs with backend when needed.  
+  Uygulama arayüz hızını korumak için önce yerel cache verisini kullanır, gerektiğinde backend ile senkronize eder.
+
+- **Write + Sync Flow | Yazma + Senkron Akışı:**  
+  New measurements are saved locally first, then pushed to the backend to keep user experience uninterrupted.  
+  Yeni ölçümler önce yerel veritabanına yazılır, ardından backend'e gönderilerek kullanıcı deneyimi kesintisiz tutulur.
+
 ## Packages Used | Kullanılan Paketler
 
 This app utilizes the following packages to provide enhanced functionality:
