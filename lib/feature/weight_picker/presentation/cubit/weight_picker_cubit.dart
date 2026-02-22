@@ -20,7 +20,7 @@ final class WeightPickerCubit extends Cubit<WeightPickerState> {
     getUser();
   }
 
-  final UserUseCaseImpl _userUseCase;
+  final UserUseCase _userUseCase;
   final SaveWeightUseCase _saveWeightUseCase;
   final CalculateBmiUseCase _calculateBmiUseCase;
 

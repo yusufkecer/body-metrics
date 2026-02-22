@@ -146,6 +146,9 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i101.UserMetricsCache>(),
       ),
     );
+    gh.factory<_i954.UserCubit>(
+      () => _i954.UserCubit(gh<_i34.UserUseCaseImpl>()),
+    );
     gh.lazySingleton<_i243.UserApiServiceBase>(
       () => _i440.UserApiService(gh<_i260.ApiClient>()),
     );
@@ -169,12 +172,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i31.SplashAppUseCase>(
       () => _i31.SplashAppUseCase(gh<_i437.SplashAppRepository>()),
-    );
-    gh.factory<_i302.UserRepositoryImpl>(
-      () => _i302.UserRepositoryImpl(
-        gh<_i101.UserCache>(),
-        gh<_i243.UserApiServiceBase>(),
-      ),
     );
     gh.factory<_i218.SaveGenderRepository>(
       () => _i218.SaveGenderRepository(
@@ -215,14 +212,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i799.UserMetricUseCase>(
       () => _i799.UserMetricUseCase(gh<_i674.UserMetricRepository>()),
     );
-    gh.factory<_i958.UserUseCaseImpl>(
-      () => _i958.UserUseCaseImpl(gh<_i34.UserRepositoryImpl>()),
-    );
     gh.factory<_i681.SaveHeightUseCase>(
       () => _i681.SaveHeightUseCase(gh<_i896.SaveHeightRepository>()),
     );
     gh.factory<_i193.SplashUserUseCase>(
       () => _i193.SplashUserUseCase(gh<_i288.SplashUserRepository>()),
+    );
+    gh.factory<_i243.UserRepository>(
+      () => _i302.UserRepositoryImpl(
+        gh<_i101.UserCache>(),
+        gh<_i243.UserApiServiceBase>(),
+      ),
     );
     gh.factory<_i792.AppInfoUseCase>(
       () => _i792.AppInfoUseCase(gh<_i34.AppInfoRepository>()),
@@ -250,14 +250,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i578.OnboardCubit>(
       () => _i578.OnboardCubit(gh<_i501.OnboardUseCase>()),
     );
+    gh.factory<_i243.UserUseCase>(
+      () => _i958.UserUseCaseImpl(gh<_i243.UserRepository>()),
+    );
     gh.factory<_i470.CreateProfileUseCase>(
       () => _i470.CreateProfileUseCase(gh<_i1073.CreateProfileRepository>()),
     );
     gh.factory<_i406.SaveAvatarUseCase>(
       () => _i406.SaveAvatarUseCase(gh<_i388.SaveAvatarRepository>()),
-    );
-    gh.factory<_i954.UserCubit>(
-      () => _i954.UserCubit(gh<_i34.UserUseCaseImpl>()),
     );
     gh.factory<_i986.SaveWeightUseCase>(
       () => _i986.SaveWeightUseCase(gh<_i406.SaveWeightRepository>()),
@@ -273,7 +273,7 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i978.WeightPickerCubit>(
       () => _i978.WeightPickerCubit(
-        gh<_i34.UserUseCaseImpl>(),
+        gh<_i243.UserUseCase>(),
         gh<_i986.SaveWeightUseCase>(),
         gh<_i938.CalculateBmiUseCase>(),
       ),

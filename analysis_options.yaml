@@ -69,6 +69,7 @@ analyzer:
     - "**/*.gr.dart"
     - "**/*.iconfig.dart"
     - "**/*.p.dart"
+    - "test/"
 
 linter:
   rules:

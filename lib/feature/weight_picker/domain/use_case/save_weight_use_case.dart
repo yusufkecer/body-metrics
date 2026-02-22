@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class SaveWeightUseCase implements UseCase<bool, UserMetric> {
+class SaveWeightUseCase implements UseCase<bool, UserMetric> {
   const SaveWeightUseCase(this._repository);
   final SaveWeightRepository _repository;
 
