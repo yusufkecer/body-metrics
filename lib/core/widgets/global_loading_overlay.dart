@@ -1,6 +1,5 @@
 import 'package:bodymetrics/core/index.dart';
 import 'package:flutter/material.dart';
-import 'package:lottie/lottie.dart';
 
 @immutable
 final class GlobalLoadingOverlay extends StatelessWidget {
@@ -13,8 +12,9 @@ final class GlobalLoadingOverlay extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final loadingController = GlobalLoadingController.contract;
     return ValueListenableBuilder<bool>(
-      valueListenable: GlobalLoadingController.isLoading,
+      valueListenable: loadingController.isLoading,
       builder: (context, isLoading, _) {
         return Stack(
           children: [
@@ -25,15 +25,8 @@ final class GlobalLoadingOverlay extends StatelessWidget {
                   child: ColoredBox(
                     color: Colors.black45,
                     child: Center(
-                      child: Container(
-                        width: 180,
-                        height: 180,
-                        padding: ProductPadding.ten(),
-                        decoration: BoxDecoration(
-                          color: ProductColor.instance.seedColor.withAlpha(220),
-                          borderRadius: const ProductRadius.fifteen(),
-                        ),
-                        child: Lottie.asset(AssetValue.loading.value.lottie),
+                      child: LoadingDialog(
+                        assetValue: AssetValue.loading.value.lottie,
                       ),
                     ),
                   ),

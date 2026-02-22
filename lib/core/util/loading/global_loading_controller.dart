@@ -1,30 +1,39 @@
-import 'package:flutter/material.dart';
+import 'package:bodymetrics/core/index.dart';
+import 'package:flutter/foundation.dart';
 
-@immutable
-final class GlobalLoadingController {
-  const GlobalLoadingController._();
+final class GlobalLoadingController implements GlobalLoadingControllerBase {
+  GlobalLoadingController._();
 
-  static final ValueNotifier<bool> isLoading = ValueNotifier<bool>(false);
-  static int _activeCount = 0;
+  static final GlobalLoadingController _instance = GlobalLoadingController._();
+  static GlobalLoadingControllerBase get contract => _instance;
 
-  static void show() {
+  final ValueNotifier<bool> _isLoading = ValueNotifier<bool>(false);
+  int _activeCount = 0;
+
+  @override
+  ValueListenable<bool> get isLoading => _isLoading;
+
+  @override
+  void show() {
     _activeCount++;
-    if (!isLoading.value) {
-      isLoading.value = true;
+    if (!_isLoading.value) {
+      _isLoading.value = true;
     }
   }
 
-  static void hide() {
+  @override
+  void hide() {
     if (_activeCount > 0) {
       _activeCount--;
     }
 
-    if (_activeCount == 0 && isLoading.value) {
-      isLoading.value = false;
+    if (_activeCount == 0 && _isLoading.value) {
+      _isLoading.value = false;
     }
   }
 
-  static Future<T> track<T>(Future<T> Function() operation) async {
+  @override
+  Future<T> track<T>(Future<T> Function() operation) async {
     show();
     try {
       return await operation();
