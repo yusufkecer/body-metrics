@@ -24,6 +24,21 @@ final class ProductColor {
 
   final Color _transparent = Colors.transparent;
 
+  // Home UI modernization colors
+  final Color _teal = const Color(0xFF00BCD4);
+  final Color _cardBg = const Color(0x33673AB7);
+  final Color _chartGradientStart = const Color(0xFF00E5FF);
+  final Color _chartGradientEnd = const Color(0xFF9C27B0);
+  final Color _cardBorder = const Color(0x1AFFFFFF);
+  final Color _subtleGrid = const Color(0x14FFFFFF);
+
+  // BMI badge colors
+  final Color _bmiUnderweight = const Color(0xFF42A5F5);
+  final Color _bmiNormal = const Color(0xFF66BB6A);
+  final Color _bmiOverweight = const Color(0xFFFFA726);
+  final Color _bmiObese = const Color(0xFFEF5350);
+  final Color _bmiMorbidlyObese = const Color(0xFFD32F2F);
+
   final List<Color> animatedColorList = [
     const Color.fromARGB(255, 255, 255, 255),
     const Color.fromARGB(255, 133, 188, 233),
@@ -48,6 +63,17 @@ final class ProductColor {
   Color get white => _white;
   Color get whiteEightTenths => _whiteEightTenths;
   Color get transparent => _transparent;
+  Color get teal => _teal;
+  Color get cardBg => _cardBg;
+  Color get chartGradientStart => _chartGradientStart;
+  Color get chartGradientEnd => _chartGradientEnd;
+  Color get cardBorder => _cardBorder;
+  Color get subtleGrid => _subtleGrid;
+  Color get bmiUnderweight => _bmiUnderweight;
+  Color get bmiNormal => _bmiNormal;
+  Color get bmiOverweight => _bmiOverweight;
+  Color get bmiObese => _bmiObese;
+  Color get bmiMorbidlyObese => _bmiMorbidlyObese;
 
   List<Color> get backgroundColorList => _backgroundColorList;
 

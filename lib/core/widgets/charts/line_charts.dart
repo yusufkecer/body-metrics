@@ -21,23 +21,26 @@ final class LineChartWidget extends StatefulWidget {
 }
 
 class _LineChartWidgetState extends State<LineChartWidget> {
-  final double _pointWidth = 150;
+  final double _pointWidth = 95;
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         final pointCount = widget.spots.length;
-        final screenWidth = constraints.maxWidth;
+        final availableWidth = constraints.hasBoundedWidth
+            ? constraints.maxWidth
+            : (MediaQuery.sizeOf(context).width - 20);
 
         final dynamicWidth = pointCount * _pointWidth;
-        final chartWidth = dynamicWidth.clamp(screenWidth, double.infinity);
+        final chartWidth = dynamicWidth.clamp(availableWidth, double.infinity);
+        final chartHeight = availableWidth / 1.7;
 
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: SizedBox(
             width: chartWidth,
-            height: screenWidth / 1.70,
+            height: chartHeight,
             child: Padding(
               padding: ProductPadding.ten(),
               child: LineChart(avgData()),
@@ -49,7 +52,16 @@ class _LineChartWidgetState extends State<LineChartWidget> {
   }
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
-    const style = TextStyle(fontWeight: FontWeight.bold, fontSize: 13);
+    final rounded = value.roundToDouble();
+    if ((value - rounded).abs() > 0.001) {
+      return const SizedBox.shrink();
+    }
+
+    final style = TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: 11,
+      color: ProductColor.instance.whiteEightTenths,
+    );
 
     Text? text;
 
@@ -69,8 +81,9 @@ class _LineChartWidgetState extends State<LineChartWidget> {
       if (element.containsKey(value.toInt())) {
         text = Text(
           element[value.toInt()]!,
-          style: context.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
+          style: context.textTheme.bodySmall?.copyWith(
+            fontWeight: FontWeight.w600,
+            color: ProductColor.instance.whiteEightTenths,
           ),
           textAlign: TextAlign.left,
         );
@@ -87,7 +100,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
 
     final ys = widget.spots.map((e) => e.y);
     const minX = 0.0;
-    final maxX = (widget.spots.length - 1).toDouble();
+    final maxX = (widget.spots.length - 1).toDouble() + 0.1;
     final minY = ys.reduce((a, b) => a < b ? a : b) - 2;
     final maxY = ys.reduce((a, b) => a > b ? a : b) + 2;
 
@@ -95,7 +108,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
       lineTouchData: LineTouchData(
         touchTooltipData: LineTouchTooltipData(
           getTooltipColor: (touchedSpot) =>
-              ProductColor.instance.lightPurple.withAlpha(200),
+              ProductColor.instance.seedColor.withAlpha(220),
           tooltipMargin: 8,
           fitInsideHorizontally: true,
           fitInsideVertically: true,
@@ -116,10 +129,18 @@ class _LineChartWidgetState extends State<LineChartWidget> {
         verticalInterval: 1,
         horizontalInterval: 1,
         getDrawingVerticalLine: (value) {
-          return FlLine(color: ProductColor.instance.white, strokeWidth: 1);
+          return FlLine(
+            color: ProductColor.instance.subtleGrid,
+            strokeWidth: 1,
+            dashArray: [5, 4],
+          );
         },
         getDrawingHorizontalLine: (value) {
-          return FlLine(color: ProductColor.instance.white, strokeWidth: 1);
+          return FlLine(
+            color: ProductColor.instance.subtleGrid,
+            strokeWidth: 1,
+            dashArray: [5, 4],
+          );
         },
       ),
       titlesData: FlTitlesData(
@@ -144,7 +165,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
       ),
       borderData: FlBorderData(
         show: true,
-        border: Border.all(color: const Color(0xff37434d)),
+        border: Border.all(color: ProductColor.instance.transparent),
       ),
       minX: minX,
       maxX: maxX,
@@ -154,13 +175,33 @@ class _LineChartWidgetState extends State<LineChartWidget> {
         LineChartBarData(
           spots: widget.spots,
           isCurved: true,
-          color: ProductColor.instance.white,
-          barWidth: 5,
+          gradient: LinearGradient(
+            colors: [
+              ProductColor.instance.chartGradientStart,
+              ProductColor.instance.chartGradientEnd,
+            ],
+          ),
+          barWidth: 4,
           isStrokeCapRound: true,
+          dotData: FlDotData(
+            getDotPainter: (spot, percent, barData, index) {
+              return FlDotCirclePainter(
+                radius: 3.4,
+                color: ProductColor.instance.white,
+                strokeWidth: 2,
+                strokeColor: ProductColor.instance.chartGradientEnd,
+              );
+            },
+          ),
           belowBarData: BarAreaData(
             show: true,
             gradient: LinearGradient(
-              colors: ProductColor.instance.backgroundColorList,
+              begin: Alignment.topCenter,
+              end: Alignment.bottomCenter,
+              colors: [
+                ProductColor.instance.teal.withAlpha(70),
+                ProductColor.instance.chartGradientEnd.withAlpha(15),
+              ],
             ),
           ),
         ),

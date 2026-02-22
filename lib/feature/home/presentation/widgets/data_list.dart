@@ -38,13 +38,30 @@ final class _DataList extends StatelessWidget {
           itemCount: itemCount,
           gridDelegate: const GridDelegate.dashBoard(),
           itemBuilder: (context, index) {
+            final metric = metrics[index];
             return DecoratedBox(
               decoration: BoxDecoration(
-                border: Border.all(color: ProductColor.instance.white),
-                borderRadius: const ProductRadius.ten(),
+                gradient: LinearGradient(
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                  colors: [
+                    ProductColor.instance.seedColor.withAlpha(185),
+                    ProductColor.instance.lightPurple.withAlpha(165),
+                  ],
+                ),
+                borderRadius: const ProductRadius.fourteen(),
+                border: Border.all(color: ProductColor.instance.cardBorder),
+                boxShadow: [
+                  BoxShadow(
+                    color: ProductColor.instance.chartGradientEnd.withAlpha(45),
+                    blurRadius: 14,
+                    spreadRadius: 1,
+                    offset: const Offset(0, 6),
+                  ),
+                ],
               ),
               child: Padding(
-                padding: ProductPadding.ten(),
+                padding: ProductPadding.twelve(),
                 child: SpaceColumn(
                   space: SpaceValues.xs.value,
                   children: [
@@ -54,13 +71,24 @@ final class _DataList extends StatelessWidget {
                         CustomRichText(
                           icon: ProductIcon.weight.icon,
                           title: LocaleKeys.home_weight,
-                          subTitle: metrics[index].weight.toString(),
+                          subTitle: metric.weight?.toStringAsFixed(1) ?? '-',
                         ),
-                        CustomRichText(
-                          icon: ProductIcon.userCheck.icon,
-                          title: LocaleKeys.home_situation,
-                          subTitle:
-                              metrics[index].userMetric?.result.tr() ?? '',
+                        Container(
+                          padding: EdgeInsets.symmetric(
+                            horizontal: SpaceValues.s.value,
+                            vertical: SpaceValues.xs.value,
+                          ),
+                          decoration: BoxDecoration(
+                            color: metric.bmiBadgeColor.withAlpha(220),
+                            borderRadius: const ProductRadius.ten(),
+                          ),
+                          child: Text(
+                            metric.userMetric?.result.tr() ?? '',
+                            style: context.textTheme.bodySmall?.copyWith(
+                              color: ProductColor.instance.white,
+                              fontWeight: FontWeight.w700,
+                            ),
+                          ),
                         ),
                       ],
                     ),
@@ -70,21 +98,47 @@ final class _DataList extends StatelessWidget {
                         CustomRichText(
                           icon: ProductIcon.chart.icon,
                           title: LocaleKeys.home_bmi,
-                          subTitle: metrics[index].bmi.toString(),
+                          subTitle: metric.bmi?.toStringAsFixed(2) ?? '-',
                         ),
                         CustomRichText(
                           icon: ProductIcon.calendar.icon,
                           title: LocaleKeys.home_date,
-                          subTitle: metrics[index].displayDate,
+                          subTitle: metric.displayDate,
                         ),
                       ],
                     ),
-                    if (index != 0)
-                      CustomRichText(
-                        icon: metrics[index].resultIcon,
-                        title: LocaleKeys.home_weight_change,
-                        subTitle: metrics[index].weightDiff.toString(),
+                    if (index != 0) ...[
+                      VerticalSpace.s(),
+                      Container(
+                        width: double.infinity,
+                        padding: EdgeInsets.symmetric(
+                          horizontal: SpaceValues.s.value,
+                          vertical: SpaceValues.xs.value,
+                        ),
+                        decoration: BoxDecoration(
+                          color: ProductColor.instance.white.withAlpha(20),
+                          borderRadius: const ProductRadius.ten(),
+                        ),
+                        child: Row(
+                          children: [
+                            Icon(
+                              metric.resultIcon,
+                              size: 14,
+                              color: metric.weightDiffColor,
+                            ),
+                            HorizontalSpace.s(),
+                            Text(
+                              '${LocaleKeys.home_weight_change.tr()}: '
+                              '${metric.weightDiffLabel}',
+                              style: context.textTheme.bodySmall?.copyWith(
+                                color: metric.weightDiffColor,
+                                fontWeight: FontWeight.w700,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
+                    ],
                   ],
                 ),
               ),
@@ -100,8 +154,40 @@ extension _ResultIconExtension on UserMetric {
   IconData get resultIcon {
     if (weightDiff == null) return ProductIcon.minus.icon;
     if (weightDiff! > 0) return ProductIcon.arrowUp.icon;
-    if (weightDiff! < 0) return ProductIcon.trendingFlat.icon;
+    if (weightDiff! < 0) return Icons.arrow_downward_rounded;
     return ProductIcon.minus.icon;
+  }
+
+  Color get bmiBadgeColor {
+    switch (userMetric) {
+      case BodyMetricResult.underweight:
+        return ProductColor.instance.bmiUnderweight;
+      case BodyMetricResult.normal:
+        return ProductColor.instance.bmiNormal;
+      case BodyMetricResult.overweight:
+        return ProductColor.instance.bmiOverweight;
+      case BodyMetricResult.obese:
+        return ProductColor.instance.bmiObese;
+      case BodyMetricResult.morbidlyObese:
+        return ProductColor.instance.bmiMorbidlyObese;
+      case BodyMetricResult.unknown:
+      case null:
+        return ProductColor.instance.whiteEightTenths;
+    }
+  }
+
+  Color get weightDiffColor {
+    if (weightDiff == null || weightDiff == 0) {
+      return ProductColor.instance.whiteEightTenths;
+    }
+    if (weightDiff! > 0) return ProductColor.instance.bmiObese;
+    return ProductColor.instance.bmiNormal;
+  }
+
+  String get weightDiffLabel {
+    if (weightDiff == null || weightDiff == 0) return '-';
+    final prefix = weightDiff! > 0 ? '+' : '';
+    return '$prefix${weightDiff!.toStringAsFixed(1)}';
   }
 }
 

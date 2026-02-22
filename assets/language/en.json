@@ -83,7 +83,7 @@
         "report": "Report",
         "chart": "Chart",
         "line_chart": "BMI Chart",
-        "bar_chart": "Statistics Chart",
+        "bar_chart": "Weight Chart",
         "menu": {
             "change_profile": "Change Profile",
             "add_profile": "Add Profile",

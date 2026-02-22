@@ -28,6 +28,16 @@ final class _LineChartCard extends StatelessWidget {
       title: LocaleKeys.home_line_chart,
       icon: ProductIcon.chart.icon,
       children: [
+        Padding(
+          padding: EdgeInsets.only(bottom: SpaceValues.xs.value),
+          child: Text(
+            LocaleKeys.home_bmi.tr(),
+            style: context.textTheme.bodySmall?.copyWith(
+              color: ProductColor.instance.white.withAlpha(190),
+              letterSpacing: 0.3,
+            ),
+          ),
+        ),
         LineChartWidget(
           spots: spot!,
           leftTitles: leftTitles!,
@@ -72,6 +82,16 @@ final class _BarChartCard extends StatelessWidget {
       title: LocaleKeys.home_bar_chart,
       icon: ProductIcon.chart.icon,
       children: [
+        Padding(
+          padding: EdgeInsets.only(bottom: SpaceValues.xs.value),
+          child: Text(
+            LocaleKeys.home_weight.tr(),
+            style: context.textTheme.bodySmall?.copyWith(
+              color: ProductColor.instance.white.withAlpha(190),
+              letterSpacing: 0.3,
+            ),
+          ),
+        ),
         BarChartWidget(
           barGroups: barGroups!,
           leftTitles: leftTitles!,
