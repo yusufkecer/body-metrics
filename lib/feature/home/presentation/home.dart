@@ -80,11 +80,26 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, _HomeModel {
       ),
       mainScreen: GradientScaffold(
         appBar: CustomAppBar(
+          title: AppUtil.appName,
           leading: IconButton(
             onPressed: () {
               _zoomDrawerController.toggle!();
             },
             icon: const Icon(Icons.menu),
+          ),
+          action: Container(
+            margin: EdgeInsets.only(right: SpaceValues.xs.value),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: ProductColor.instance.white.withAlpha(30),
+              border: Border.all(color: ProductColor.instance.cardBorder),
+            ),
+            child: IconButton(
+              onPressed: () async {
+                await context.router.push(const WeightView());
+              },
+              icon: Icon(Icons.add_rounded, color: ProductColor.instance.white),
+            ),
           ),
         ),
         body: BlocBuilder<UserMetricCubit, UserMetricState>(
@@ -144,9 +159,18 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, _HomeModel {
             barRods: [
               BarChartRodData(
                 toY: entry.value.weight!,
-                color: ProductColor.instance.white,
+                gradient: LinearGradient(
+                  begin: Alignment.bottomCenter,
+                  end: Alignment.topCenter,
+                  colors: [
+                    ProductColor.instance.teal,
+                    ProductColor.instance.chartGradientEnd,
+                  ],
+                ),
                 width: 16,
-                borderRadius: const ProductRadius.four(),
+                borderRadius: BorderRadius.vertical(
+                  top: Radius.circular(SpaceValues.s.value),
+                ),
               ),
             ],
           ),

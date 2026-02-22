@@ -20,23 +20,26 @@ final class BarChartWidget extends StatefulWidget {
 }
 
 class _BarChartWidgetState extends State<BarChartWidget> {
-  final double _barWidth = 150;
+  final double _barWidth = 90;
 
   @override
   Widget build(BuildContext context) {
     return LayoutBuilder(
       builder: (context, constraints) {
         final groupCount = widget.barGroups.length;
-        final screenWidth = constraints.maxWidth;
+        final availableWidth = constraints.hasBoundedWidth
+            ? constraints.maxWidth
+            : (MediaQuery.sizeOf(context).width - 20);
 
         final dynamicWidth = groupCount * _barWidth;
-        final chartWidth = dynamicWidth.clamp(screenWidth, double.infinity);
+        final chartWidth = dynamicWidth.clamp(availableWidth, double.infinity);
+        final chartHeight = availableWidth / 1.7;
 
         return SingleChildScrollView(
           scrollDirection: Axis.horizontal,
           child: SizedBox(
             width: chartWidth,
-            height: screenWidth / 1.70,
+            height: chartHeight,
             child: Padding(
               padding: ProductPadding.ten(),
               child: BarChart(mainBarData()),
@@ -48,7 +51,11 @@ class _BarChartWidgetState extends State<BarChartWidget> {
   }
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
-    const style = TextStyle(fontWeight: FontWeight.bold, fontSize: 13);
+    final style = TextStyle(
+      fontWeight: FontWeight.w600,
+      fontSize: 10,
+      color: ProductColor.instance.whiteEightTenths,
+    );
     Text? text;
 
     for (final element in widget.bottomTitles) {
@@ -57,7 +64,11 @@ class _BarChartWidgetState extends State<BarChartWidget> {
       }
     }
 
-    return SideTitleWidget(meta: meta, child: text ?? const SizedBox.shrink());
+    return SideTitleWidget(
+      meta: meta,
+      angle: -0.35,
+      child: text ?? const SizedBox.shrink(),
+    );
   }
 
   Widget leftTitleWidgets(double value, TitleMeta meta) {
@@ -67,8 +78,9 @@ class _BarChartWidgetState extends State<BarChartWidget> {
       if (element.containsKey(value.toInt())) {
         text = Text(
           element[value.toInt()]!,
-          style: context.textTheme.titleMedium?.copyWith(
-            fontWeight: FontWeight.bold,
+          style: context.textTheme.bodySmall?.copyWith(
+            fontWeight: FontWeight.w600,
+            color: ProductColor.instance.whiteEightTenths,
           ),
           textAlign: TextAlign.left,
         );
@@ -84,7 +96,7 @@ class _BarChartWidgetState extends State<BarChartWidget> {
         enabled: true,
         touchTooltipData: BarTouchTooltipData(
           getTooltipColor: (_) =>
-              ProductColor.instance.lightPurple.withAlpha(200),
+              ProductColor.instance.seedColor.withAlpha(220),
           tooltipMargin: 4,
           fitInsideHorizontally: true,
           fitInsideVertically: true,
@@ -106,13 +118,28 @@ class _BarChartWidgetState extends State<BarChartWidget> {
             reservedSize: 38,
           ),
         ),
-        leftTitles: const AxisTitles(),
+        leftTitles: AxisTitles(
+          sideTitles: SideTitles(
+            showTitles: true,
+            reservedSize: 32,
+            interval: 10,
+            getTitlesWidget: leftTitleWidgets,
+          ),
+        ),
       ),
       alignment: BarChartAlignment.start,
-      groupsSpace: 80,
+      groupsSpace: 26,
       borderData: FlBorderData(show: false),
       barGroups: widget.barGroups,
-      gridData: const FlGridData(show: false),
+      gridData: FlGridData(
+        drawVerticalLine: false,
+        horizontalInterval: 10,
+        getDrawingHorizontalLine: (_) => FlLine(
+          color: ProductColor.instance.white.withAlpha(25),
+          strokeWidth: 1,
+          dashArray: [6, 4],
+        ),
+      ),
     );
   }
 }

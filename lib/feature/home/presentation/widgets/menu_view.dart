@@ -13,23 +13,36 @@ final class _MenuView extends StatelessWidget {
     final currentLocale = context.locale;
     final isCurrentlyTr = currentLocale == Lang.tr.locale;
     final nextLang = isCurrentlyTr ? Lang.en : Lang.tr;
-    final currentFlag = isCurrentlyTr ? Lang.tr.flag : Lang.en.flag;
+    final nextFlag = nextLang.flag;
 
     return Padding(
       padding: const ProductPadding.fifTeen(),
       child: SafeArea(
         child: Scaffold(
+          backgroundColor: ProductColor.instance.transparent,
           body: Column(
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Align(
                 child: Column(
                   children: [
-                    CircleAvatar(
-                      backgroundImage: image.isNotEmpty
-                          ? AssetImage(image)
-                          : null,
-                      radius: 50,
+                    Container(
+                      padding: ProductPadding.four(),
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: LinearGradient(
+                          colors: [
+                            ProductColor.instance.chartGradientStart,
+                            ProductColor.instance.chartGradientEnd,
+                          ],
+                        ),
+                      ),
+                      child: CircleAvatar(
+                        backgroundImage: image.isNotEmpty
+                            ? AssetImage(image)
+                            : null,
+                        radius: 50,
+                      ),
                     ),
                     VerticalSpace.s(),
                     Text(
@@ -42,46 +55,52 @@ final class _MenuView extends StatelessWidget {
               ),
               Column(
                 children: [
-                  CustomListTile(
-                    ProductIcon.weight.icon,
-                    LocaleKeys.home_menu_calculate_bmi,
-                    () async {
-                      await context.router.push(const WeightView());
-                    },
+                  _MenuTileWrapper(
+                    child: CustomListTile(
+                      ProductIcon.weight.icon,
+                      LocaleKeys.home_menu_calculate_bmi,
+                      () async {
+                        await context.router.push(const WeightView());
+                      },
+                    ),
                   ),
                   VerticalSpace.s(),
                   BlocBuilder<AuthSessionCubit, AuthSessionState>(
                     builder: (context, state) {
                       final isAuthenticated = state is AuthSessionAuthenticated;
                       if (isAuthenticated) {
-                        return CustomListTile(
-                          Icons.logout,
-                          LocaleKeys.home_menu_logout,
-                          () async {
-                            await context.read<AuthSessionCubit>().logout();
-                            if (context.mounted) {
-                              await context.router.pushAndPopUntil(
-                                const AvatarPickerView(),
-                                predicate: (_) => false,
-                              );
-                            }
-                          },
+                        return _MenuTileWrapper(
+                          child: CustomListTile(
+                            Icons.logout,
+                            LocaleKeys.home_menu_logout,
+                            () async {
+                              await context.read<AuthSessionCubit>().logout();
+                              if (context.mounted) {
+                                await context.router.pushAndPopUntil(
+                                  const AvatarPickerView(),
+                                  predicate: (_) => false,
+                                );
+                              }
+                            },
+                          ),
                         );
                       }
 
-                      return CustomListTile(
-                        Icons.manage_accounts,
-                        LocaleKeys.home_menu_user_operations,
-                        () async {
-                          final result = await context.router.push<bool>(
-                            const UserOperationsView(),
-                          );
-                          if ((result ?? false) && context.mounted) {
-                            await context
-                                .read<AuthSessionCubit>()
-                                .loadSession();
-                          }
-                        },
+                      return _MenuTileWrapper(
+                        child: CustomListTile(
+                          Icons.manage_accounts,
+                          LocaleKeys.home_menu_user_operations,
+                          () async {
+                            final result = await context.router.push<bool>(
+                              const UserOperationsView(),
+                            );
+                            if ((result ?? false) && context.mounted) {
+                              await context
+                                  .read<AuthSessionCubit>()
+                                  .loadSession();
+                            }
+                          },
+                        ),
                       );
                     },
                   ),
@@ -91,11 +110,26 @@ final class _MenuView extends StatelessWidget {
               Align(
                 alignment: Alignment.centerLeft,
                 child: InkWell(
-                  borderRadius: BorderRadius.circular(8),
+                  borderRadius: const ProductRadius.twelve(),
                   onTap: () => context.setLocale(nextLang.locale),
                   child: Padding(
-                    padding: const EdgeInsets.all(8),
-                    child: Image.asset(currentFlag, width: 40, height: 40),
+                    padding: EdgeInsets.symmetric(
+                      horizontal: SpaceValues.s.value,
+                      vertical: SpaceValues.xs.value,
+                    ),
+                    child: Row(
+                      mainAxisSize: MainAxisSize.min,
+                      children: [
+                        Image.asset(nextFlag, width: 32, height: 32),
+                        HorizontalSpace.xs(),
+                        Text(
+                          nextLang == Lang.tr ? 'TR' : 'EN',
+                          style: context.textTheme.titleMedium?.copyWith(
+                            fontWeight: FontWeight.w700,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -103,6 +137,26 @@ final class _MenuView extends StatelessWidget {
           ),
         ),
       ),
+    );
+  }
+}
+
+@immutable
+final class _MenuTileWrapper extends StatelessWidget {
+  const _MenuTileWrapper({required this.child});
+
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: ProductPadding.horizontalEight(),
+      decoration: BoxDecoration(
+        color: ProductColor.instance.white.withAlpha(24),
+        borderRadius: const ProductRadius.ten(),
+        border: Border.all(color: ProductColor.instance.cardBorder),
+      ),
+      child: child,
     );
   }
 }
