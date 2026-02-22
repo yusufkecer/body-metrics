@@ -9,7 +9,7 @@ final class CreateProfileRepository implements Repository<int, User> {
   const CreateProfileRepository(this._userCache, this._userApiService);
 
   final UserCache _userCache;
-  final UserApiService _userApiService;
+  final UserApiServiceBase _userApiService;
 
   @override
   Future<int> executeWithParams({User? params}) async {

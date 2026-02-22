@@ -4,11 +4,7 @@ import 'package:flutter/material.dart';
 
 @immutable
 final class CustomFilled extends StatelessWidget {
-  const CustomFilled({
-    required this.text,
-    required this.onPressed,
-    super.key,
-  });
+  const CustomFilled({required this.text, required this.onPressed, super.key});
 
   final String text;
   final void Function() onPressed;

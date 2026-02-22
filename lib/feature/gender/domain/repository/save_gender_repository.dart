@@ -8,7 +8,7 @@ import 'package:injectable/injectable.dart';
 class SaveGenderRepository implements Repository<int, Json> {
   const SaveGenderRepository(this._userCache, this._userApiService);
   final UserCache _userCache;
-  final UserApiService _userApiService;
+  final UserApiServiceBase _userApiService;
 
   @override
   Future<int?> executeWithParams({Json? params}) async {

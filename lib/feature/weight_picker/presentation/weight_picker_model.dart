@@ -169,15 +169,17 @@ mixin _WeightPickerModel
   Future<void> _saveAndPush() async {
     if (_cubit?.state is WeightPickerLoading) return;
 
-    final weight = double.parse(_weightTextController.text);
-    final success = await _cubit?.saveBodyMetrics(weight: weight) ?? false;
+    await GlobalLoadingController.track(() async {
+      final weight = double.parse(_weightTextController.text);
+      final success = await _cubit?.saveBodyMetrics(weight: weight) ?? false;
 
-    if (success) {
-      await saveApp(Pages.homePage);
-      if (mounted) _goToHomeView();
-    } else {
-      showLottieError(LocaleKeys.exception_user_not_found);
-    }
+      if (success) {
+        await saveApp(Pages.homePage);
+        if (mounted) _goToHomeView();
+      } else {
+        showLottieError(LocaleKeys.exception_user_not_found);
+      }
+    });
   }
 
   void _goToHomeView() {

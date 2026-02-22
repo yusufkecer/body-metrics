@@ -9,7 +9,7 @@ import 'package:injectable/injectable.dart';
 final class UserRepositoryImpl implements UserRepository {
   const UserRepositoryImpl(this._userCache, this._userApiService);
   final UserCache _userCache;
-  final UserApiService _userApiService;
+  final UserApiServiceBase _userApiService;
 
   @override
   Future<User?> executeWithParams({Json? params}) async {

@@ -3,6 +3,7 @@ import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/domain/index.dart';
 import 'package:bodymetrics/feature/avatar_picker/domain/use_case/save_avatar_use_case.dart';
 import 'package:bodymetrics/injection/locator.dart';
+import 'package:easy_localization/easy_localization.dart';
 
 import 'package:flutter/material.dart';
 
@@ -17,7 +18,8 @@ final class AvatarPicker extends StatefulWidget {
   State<AvatarPicker> createState() => _AvatarPickerState();
 }
 
-class _AvatarPickerState extends State<AvatarPicker> with DialogUtil, SaveAppMixin, _AvatarPickerModel {
+class _AvatarPickerState extends State<AvatarPicker>
+    with DialogUtil, SaveAppMixin, _AvatarPickerModel {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
@@ -29,6 +31,25 @@ class _AvatarPickerState extends State<AvatarPicker> with DialogUtil, SaveAppMix
         child: Column(
           children: [
             grid(),
+            VerticalSpace.m(),
+            if (!AppUtil.hasSession) ...[
+              Text(
+                LocaleKeys.register_or.tr(),
+                style: context.textTheme.titleLarge?.copyWith(
+                  fontStyle: FontStyle.italic,
+                ),
+              ),
+              VerticalSpace.m(),
+              SizedBox(
+                width: double.infinity,
+                child: CustomFilled(
+                  text: LocaleKeys.auth_register,
+                  onPressed: () async {
+                    await context.router.push(const UserOperationsView());
+                  },
+                ),
+              ),
+            ],
             VerticalSpace.m(),
           ],
         ),
@@ -48,10 +69,7 @@ class _AvatarPickerState extends State<AvatarPicker> with DialogUtil, SaveAppMix
           child: InkWell(
             onTap: () => _tappedAvatar(index),
             child: CircleAvatar(
-              child: Image.asset(
-                avatarList[index],
-                fit: BoxFit.cover,
-              ),
+              child: Image.asset(avatarList[index], fit: BoxFit.cover),
             ),
           ),
         );

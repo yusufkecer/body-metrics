@@ -2,7 +2,7 @@ import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/data/index.dart';
 import 'package:injectable/injectable.dart';
 
-@lazySingleton
+@LazySingleton(as: SyncDataRepositoryBase)
 final class SyncDataRepository implements SyncDataRepositoryBase {
   const SyncDataRepository(
     this._userCache,
@@ -18,17 +18,14 @@ final class SyncDataRepository implements SyncDataRepositoryBase {
 
   @override
   Future<void> sync() async {
-    final userId = AppUtil.currentUserId;
+    final userId = await _resolveUserId();
     if (userId == null) {
-      'SyncDataRepository: no current user, skipping sync'.w();
+      'SyncDataRepository: no current user, skipping sync'.log();
       return;
     }
 
     try {
-      final userDb = await _userCache.initializeDatabase();
-      final localUser = (await _userCache.select(userDb, {
-        'id': userId,
-      }))?.users?.firstOrNull;
+      final localUser = await _resolveLocalUser(userId);
 
       if (localUser == null) {
         'SyncDataRepository: local user not found, skipping sync'.w();
@@ -98,6 +95,50 @@ final class SyncDataRepository implements SyncDataRepositoryBase {
     } catch (e) {
       'SyncDataRepository error: $e'.e();
     }
+  }
+
+  Future<int?> _resolveUserId() async {
+    final currentUserId = AppUtil.currentUserId;
+    if (currentUserId != null) return currentUserId;
+
+    final userDb = await _userCache.initializeDatabase();
+    final users = (await _userCache.selectAll(userDb))?.users ?? [];
+    if (users.isEmpty) return null;
+
+    final fallbackUserId = users
+        .map((user) => user.id)
+        .whereType<int>()
+        .fold<int>(0, (maxId, id) => id > maxId ? id : maxId);
+
+    if (fallbackUserId == 0) return null;
+
+    AppUtil.currentUserId = fallbackUserId;
+    'SyncDataRepository: resolved fallback user id=$fallbackUserId'.w();
+    return fallbackUserId;
+  }
+
+  Future<User?> _resolveLocalUser(int userId) async {
+    final userDb = await _userCache.initializeDatabase();
+    final selectedUser = (await _userCache.select(userDb, {
+      'id': userId,
+    }))?.users?.firstOrNull;
+
+    if (selectedUser != null) return selectedUser;
+
+    final fallbackDb = await _userCache.initializeDatabase();
+    final users = (await _userCache.selectAll(fallbackDb))?.users ?? [];
+    if (users.isEmpty) return null;
+
+    final fallbackUser = users
+        .where((user) => user.id != null)
+        .reduce((a, b) => (a.id! >= b.id!) ? a : b);
+
+    if (fallbackUser.id != null) {
+      AppUtil.currentUserId = fallbackUser.id;
+      'SyncDataRepository: switched to fallback local user id=${fallbackUser.id}'
+          .w();
+    }
+    return fallbackUser;
   }
 
   Json _buildUserPayload(User user) => {

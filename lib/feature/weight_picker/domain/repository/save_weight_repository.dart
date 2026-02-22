@@ -7,13 +7,10 @@ import 'package:sqflite/sqflite.dart';
 @injectable
 @immutable
 final class SaveWeightRepository implements Repository<int, UserMetric> {
-  const SaveWeightRepository(
-    this._userMetricsCache,
-    this._metricsApiService,
-  );
+  const SaveWeightRepository(this._userMetricsCache, this._metricsApiService);
 
   final UserMetricsCache _userMetricsCache;
-  final MetricsApiService _metricsApiService;
+  final MetricsApiServiceBase _metricsApiService;
 
   @override
   Future<int?> executeWithParams({UserMetric? params}) async {
@@ -29,10 +26,7 @@ final class SaveWeightRepository implements Repository<int, UserMetric> {
 
     try {
       if (metric.userId != null) {
-        await _metricsApiService.createMetric(
-          metric.userId!,
-          metric.toJson(),
-        );
+        await _metricsApiService.createMetric(metric.userId!, metric.toJson());
       }
     } catch (e) {
       'Failed to sync metric to API: $e'.w();
@@ -57,8 +51,8 @@ final class SaveWeightRepository implements Repository<int, UserMetric> {
 
     if (rows.isEmpty) return 0.0;
 
-    final lastWeight =
-        (rows.first[UserMetricsColumns.weight.value] as num?)?.toDouble();
+    final lastWeight = (rows.first[UserMetricsColumns.weight.value] as num?)
+        ?.toDouble();
     if (lastWeight == null) return currentWeight;
 
     return currentWeight - lastWeight;

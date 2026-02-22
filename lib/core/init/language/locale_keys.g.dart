@@ -22,7 +22,7 @@ abstract class  LocaleKeys {
   static const register_surname = 'register.surname';
   static const register_birth_of_date = 'register.birth_of_date';
   static const register_complete = 'register.complete';
-  static const register_skip = 'register.skip';
+  static const register_or = 'register.or';
   static const register_select_profile_picture = 'register.select_profile_picture';
   static const register_information_is_empty = 'register.information_is_empty';
   static const register_avatar_select_failed = 'register.avatar_select_failed';

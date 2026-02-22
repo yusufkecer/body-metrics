@@ -107,7 +107,7 @@ final class UserCache extends ImpCache
       'User selected $users'.log();
       return users;
     } else {
-      'User not selected'.w();
+      'User not selected'.log();
       return null;
     }
   }

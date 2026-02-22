@@ -7,6 +7,10 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
+part 'widgets/auth_form_layout.dart';
+part 'widgets/auth_input_field.dart';
+part 'widgets/auth_tab_switcher.dart';
+
 @RoutePage(name: 'UserOperationsView')
 final class UserOperations extends StatelessWidget {
   const UserOperations({super.key});
@@ -30,17 +34,23 @@ final class _UserOperationsBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
+      initialIndex: 1,
       child: GradientScaffold(
-        appBar: AppBar(
-          title: Text(LocaleKeys.home_menu_user_operations.tr()),
-          bottom: TabBar(
-            tabs: [
-              Tab(text: LocaleKeys.auth_login.tr()),
-              Tab(text: LocaleKeys.auth_register.tr()),
-            ],
+        appBar: const CustomAppBar(title: LocaleKeys.home_menu_user_operations),
+        body: SafeArea(
+          child: Padding(
+            padding: const ProductPadding.fifTeen(),
+            child: Column(
+              children: [
+                const _AuthTabSwitcher(),
+                VerticalSpace.m(),
+                const Expanded(
+                  child: TabBarView(children: [_LoginTab(), _RegisterTab()]),
+                ),
+              ],
+            ),
           ),
         ),
-        body: const TabBarView(children: [_LoginTab(), _RegisterTab()]),
       ),
     );
   }
@@ -82,33 +92,35 @@ final class _LoginTabState extends State<_LoginTab> {
       },
       builder: (context, state) {
         final isLoading = state is LoginLoading;
-        return Padding(
-          padding: const ProductPadding.fifTeen(),
+        return _AuthFormLayout(
+          title: LocaleKeys.auth_login.tr(),
           child: Form(
             key: _formKey,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                TextFormField(
+                _AuthInputField(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    labelText: LocaleKeys.auth_email.tr(),
-                  ),
+                  labelText: LocaleKeys.auth_email.tr(),
+                  icon: Icons.alternate_email_rounded,
                   validator: _validateEmail,
                 ),
                 VerticalSpace.m(),
-                TextFormField(
+                _AuthInputField(
                   controller: _passwordController,
                   obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: LocaleKeys.auth_password.tr(),
-                  ),
+                  labelText: LocaleKeys.auth_password.tr(),
+                  icon: Icons.lock_outline_rounded,
                   validator: _validatePassword,
                 ),
                 VerticalSpace.l(),
                 if (isLoading)
-                  const CircularProgressIndicator()
+                  Center(
+                    child: CircularProgressIndicator(
+                      color: context.colorScheme.surfaceBright,
+                    ),
+                  )
                 else
                   CustomFilled(
                     text: LocaleKeys.auth_login,
@@ -130,7 +142,7 @@ final class _LoginTabState extends State<_LoginTab> {
 
   String? _validateEmail(String? value) {
     final email = value?.trim() ?? '';
-    if (email.isEmpty || !email.contains('@')) {
+    if (email.isEmpty || !ProductRegex.email.hasMatch(email)) {
       return LocaleKeys.auth_invalid_email.tr();
     }
     return null;
@@ -181,33 +193,35 @@ final class _RegisterTabState extends State<_RegisterTab> {
       },
       builder: (context, state) {
         final isLoading = state is RegisterLoading;
-        return Padding(
-          padding: const ProductPadding.fifTeen(),
+        return _AuthFormLayout(
+          title: LocaleKeys.auth_register.tr(),
           child: Form(
             key: _formKey,
             child: Column(
-              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                TextFormField(
+                _AuthInputField(
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
-                  decoration: InputDecoration(
-                    labelText: LocaleKeys.auth_email.tr(),
-                  ),
+                  labelText: LocaleKeys.auth_email.tr(),
+                  icon: Icons.alternate_email_rounded,
                   validator: _validateEmail,
                 ),
                 VerticalSpace.m(),
-                TextFormField(
+                _AuthInputField(
                   controller: _passwordController,
                   obscureText: true,
-                  decoration: InputDecoration(
-                    labelText: LocaleKeys.auth_password.tr(),
-                  ),
+                  labelText: LocaleKeys.auth_password.tr(),
+                  icon: Icons.lock_outline_rounded,
                   validator: _validatePassword,
                 ),
                 VerticalSpace.l(),
                 if (isLoading)
-                  const CircularProgressIndicator()
+                  Center(
+                    child: CircularProgressIndicator(
+                      color: context.colorScheme.surfaceBright,
+                    ),
+                  )
                 else
                   CustomFilled(
                     text: LocaleKeys.auth_register,
@@ -229,7 +243,7 @@ final class _RegisterTabState extends State<_RegisterTab> {
 
   String? _validateEmail(String? value) {
     final email = value?.trim() ?? '';
-    if (email.isEmpty || !email.contains('@')) {
+    if (email.isEmpty || !ProductRegex.email.hasMatch(email)) {
       return LocaleKeys.auth_invalid_email.tr();
     }
     return null;

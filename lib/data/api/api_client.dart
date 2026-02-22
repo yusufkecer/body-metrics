@@ -1,5 +1,6 @@
 import 'package:bodymetrics/data/api/api_constants.dart';
 import 'package:bodymetrics/data/api/interceptors/auth_interceptor.dart';
+import 'package:bodymetrics/data/api/interceptors/loading_interceptor.dart';
 import 'package:bodymetrics/data/api/interceptors/logging_interceptor.dart';
 import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
@@ -21,6 +22,7 @@ final class ApiClient {
     );
 
     _dio.interceptors.addAll([
+      LoadingInterceptor(),
       AuthInterceptor(),
       LoggingInterceptor(),
     ]);

@@ -21,7 +21,7 @@
         "surname": "Surname",
         "birth_of_date": "Birth of Date",
         "complete": "Complete Registration",
-        "skip": "Skip",
+        "or": "or",
         "select_profile_picture": "Select Your Avatar",
         "information_is_empty": "To complete the registration, you need to enter your name and date of birth.",
         "avatar_select_failed": "There was a problem selecting an avatar. Would you like to proceed to the calculation step?",

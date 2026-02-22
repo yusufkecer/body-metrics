@@ -20,10 +20,10 @@ final class SplashAppRepository implements Repository<AppModel, EmptyModel> {
     if (appModel.activeUser.isNullOrEmpty) {
       final db = await _userCache.initializeDatabase();
       final user = await _userCache.selectAll(db);
-      'user $user'.e();
-      if (user.isNullOrEmpty) return null;
-
-      appModel = appModel.copyWith(activeUser: user?.users?.first.id);
+      'SplashAppRepository user fallback: $user'.log();
+      if (user.isNotNull && (user?.users?.isNotEmpty ?? false)) {
+        appModel = appModel.copyWith(activeUser: user?.users?.first.id);
+      }
     }
     return appModel;
   }

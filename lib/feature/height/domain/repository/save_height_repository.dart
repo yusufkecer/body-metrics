@@ -8,7 +8,7 @@ import 'package:injectable/injectable.dart';
 class SaveHeightRepository implements Repository<bool, User> {
   const SaveHeightRepository(this.userCache, this._userApiService);
   final UserCache userCache;
-  final UserApiService _userApiService;
+  final UserApiServiceBase _userApiService;
 
   @override
   Future<bool?> executeWithParams({User? params}) async {
