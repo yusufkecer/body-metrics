@@ -43,7 +43,7 @@ class HomeCard extends StatelessWidget {
                     SizedBox(
                       width: const CustomSize.dashboardTitle().width,
                       child: Align(
-                        alignment: Alignment.topLeft,
+                        alignment: Alignment.centerLeft,
                         child: Icon(icon),
                       ),
                     ),
@@ -59,7 +59,7 @@ class HomeCard extends StatelessWidget {
                       width: const CustomSize.dashboardTitle().width,
                       child: showButton
                           ? Align(
-                              alignment: Alignment.topRight,
+                              alignment: Alignment.centerRight,
                               child: TextButton(
                                 onPressed: onPressed,
                                 style: TextButton.styleFrom(
@@ -67,6 +67,8 @@ class HomeCard extends StatelessWidget {
                                 ),
                                 child: Text(
                                   buttonTitle.tr(),
+                                  maxLines: 1,
+                                  overflow: TextOverflow.ellipsis,
                                   style: context.textTheme.titleMedium
                                       ?.copyWith(
                                         color: ProductColor.instance.white,

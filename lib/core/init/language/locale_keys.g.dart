@@ -70,6 +70,7 @@ abstract class  LocaleKeys {
   static const home_monthly = 'home.monthly';
   static const home_weekly = 'home.weekly';
   static const home_see_more = 'home.see_more';
+  static const home_see_less = 'home.see_less';
   static const home_bmi = 'home.bmi';
   static const home_weight = 'home.weight';
   static const home_situation = 'home.situation';
