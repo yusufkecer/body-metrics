@@ -24,25 +24,22 @@ Due to the use of `final` classes, we will rely on `mockito` with code generatio
     *   Fixed `NoSuchTableError` in `UserCache` by correctly overriding `initializeDatabase`.
     *   Verified database operations using `sqflite_common_ffi`.
 
-## Phase 4: Feature Layer (State Management) (In Progress)
+## Phase 4: Feature Layer (State Management) (Completed)
 *   **Goal**: Verify UI logic and state changes.
 *   **Completed**:
     *   `lib/feature/gender/presentation/cubit/gender_cubit.dart` - **Tests Added**
-    *   `lib/feature/weight_picker/presentation/cubit/weight_picker_cubit.dart` - **Tests Written (Pending DI Fix)**
-*   **Pending**:
-    *   Fix DI issue: `UserCubit` depends on concrete `UserUseCaseImpl`, but it is now bound to `UserUseCase`.
-    *   Run `WeightPickerCubit` tests after DI fix.
-    *   Add tests for other critical Cubits (`UserCubit`, `HomeCubit`, etc.).
+    *   `lib/feature/weight_picker/presentation/cubit/weight_picker_cubit.dart` - **Tests Added**
+*   **Also Completed**:
+    *   Fixed DI issue: `UserCubit` now depends on `UserUseCase` interface.
+    *   Added tests for `UserCubit`, `HomeCardCubit`, and `UserMetricCubit`.
 
 ## Execution Log
 - [x] Setup Test Environment (dependencies: mockito, build_runner, sqflite_common_ffi)
 - [x] Phase 1: Core Tests
 - [x] Phase 2: Domain Tests
 - [x] Phase 3: Data Tests
-- [ ] Phase 4: Feature Tests (Partial)
+- [x] Phase 4: Feature Tests
 
 ## Next Steps (To-Do)
-1.  **Refactor `UserCubit`**: Update `lib/feature/home/presentation/cubit/user_cubit/user_cubit.dart` to depend on `UserUseCase` interface instead of `UserUseCaseImpl`.
-2.  **Regenerate Code**: Run `flutter pub run build_runner build --delete-conflicting-outputs` to fix DI registration.
-3.  **Verify WeightPicker**: Run tests for `WeightPickerCubit`.
-4.  **Expand Coverage**: Continue adding tests for remaining features.
+1.  Add tests for remaining feature cubits (`Auth`, `Onboard`, `Height`, etc.).
+2.  Add integration tests for critical onboarding-to-home flows.

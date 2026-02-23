@@ -7,7 +7,7 @@ import 'package:injectable/injectable.dart';
 part 'register_state.dart';
 
 @injectable
-final class RegisterCubit extends Cubit<RegisterState> {
+class RegisterCubit extends Cubit<RegisterState> {
   RegisterCubit(this._authService, this._syncLocalDataUseCase)
     : super(const RegisterInitial());
 

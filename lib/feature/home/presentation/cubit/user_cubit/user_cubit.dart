@@ -12,7 +12,7 @@ class UserCubit extends Cubit<UserState> {
     getUserAndHistory();
   }
 
-  final UserUseCaseImpl _userUseCase;
+  final UserUseCase _userUseCase;
 
   Future<void> getUserAndHistory() async {
     try {

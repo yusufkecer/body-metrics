@@ -6,7 +6,7 @@ import 'package:injectable/injectable.dart';
 part 'login_state.dart';
 
 @injectable
-final class LoginCubit extends Cubit<LoginState> {
+class LoginCubit extends Cubit<LoginState> {
   LoginCubit(this._authService, this._syncLocalDataUseCase)
       : super(const LoginInitial());
 

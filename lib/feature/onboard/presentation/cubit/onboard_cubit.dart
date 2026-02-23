@@ -4,7 +4,7 @@ import 'package:bodymetrics/feature/index.dart';
 import 'package:injectable/injectable.dart';
 
 @injectable
-final class OnboardCubit extends Cubit<OnboardState> {
+class OnboardCubit extends Cubit<OnboardState> {
   OnboardCubit(this._useCase) : super(const OnboardInitial());
 
   final OnboardUseCase _useCase;

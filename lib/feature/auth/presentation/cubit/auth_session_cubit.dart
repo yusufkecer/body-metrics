@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 part 'auth_session_state.dart';
 
 @injectable
-final class AuthSessionCubit extends Cubit<AuthSessionState> {
+class AuthSessionCubit extends Cubit<AuthSessionState> {
   AuthSessionCubit(this._authService) : super(const AuthSessionLoading());
 
   final AuthService _authService;

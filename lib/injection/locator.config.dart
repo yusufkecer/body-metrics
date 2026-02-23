@@ -146,9 +146,7 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i101.UserMetricsCache>(),
       ),
     );
-    gh.factory<_i954.UserCubit>(
-      () => _i954.UserCubit(gh<_i34.UserUseCaseImpl>()),
-    );
+    gh.factory<_i954.UserCubit>(() => _i954.UserCubit(gh<_i243.UserUseCase>()));
     gh.lazySingleton<_i243.UserApiServiceBase>(
       () => _i440.UserApiService(gh<_i260.ApiClient>()),
     );
