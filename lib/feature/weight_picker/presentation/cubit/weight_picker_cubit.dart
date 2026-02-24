@@ -1,5 +1,4 @@
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/domain/index.dart';
 import 'package:bodymetrics/feature/weight_picker/domain/entity/bmi_value.dart';
 import 'package:bodymetrics/feature/weight_picker/domain/use_case/calculate_bmi_use_case.dart';
 import 'package:bodymetrics/feature/weight_picker/domain/use_case/save_weight_use_case.dart';

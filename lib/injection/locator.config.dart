@@ -146,9 +146,6 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i101.UserMetricsCache>(),
       ),
     );
-    gh.factory<_i954.UserCubit>(
-      () => _i954.UserCubit(gh<_i34.UserUseCaseImpl>()),
-    );
     gh.lazySingleton<_i243.UserApiServiceBase>(
       () => _i440.UserApiService(gh<_i260.ApiClient>()),
     );
@@ -259,6 +256,7 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i406.SaveAvatarUseCase>(
       () => _i406.SaveAvatarUseCase(gh<_i388.SaveAvatarRepository>()),
     );
+    gh.factory<_i954.UserCubit>(() => _i954.UserCubit(gh<_i243.UserUseCase>()));
     gh.factory<_i986.SaveWeightUseCase>(
       () => _i986.SaveWeightUseCase(gh<_i406.SaveWeightRepository>()),
     );
