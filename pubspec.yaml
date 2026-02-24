@@ -9,7 +9,7 @@ environment:
 
 dependencies:
   animated_text_kit: ^4.3.0
-  auto_route: ^10.1.2
+  auto_route: ^11.1.0
   bloc: ^9.2.0
   dio: ^5.7.0
   easy_localization: ^3.0.8
@@ -23,7 +23,7 @@ dependencies:
   flutter_native_splash: ^2.4.7
   flutter_zoom_drawer: ^3.2.0
   font_awesome_flutter: ^10.12.0
-  get_it: ^8.2.0
+  get_it: ^9.2.1
   injectable: ^2.7.1
   introduction_screen: ^4.0.0
   json_annotation: ^4.11.0
