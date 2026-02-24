@@ -5,7 +5,7 @@ import 'package:injectable/injectable.dart';
 
 @injectable
 @immutable
-final class UserMetricUseCase implements UseCase<UserMetrics, UserMetric> {
+class UserMetricUseCase implements UseCase<UserMetrics, UserMetric> {
   const UserMetricUseCase(this._repository);
   final UserMetricRepository _repository;
 

@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-final class AuthService implements AuthServiceBase {
+class AuthService implements AuthServiceBase {
   AuthService(
     this._apiClient,
     this._appCache,
