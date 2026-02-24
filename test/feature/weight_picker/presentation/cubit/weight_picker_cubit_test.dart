@@ -18,7 +18,6 @@ void main() {
   late MockUserUseCase mockUserUseCase;
   late MockSaveWeightUseCase mockSaveWeightUseCase;
   late MockCalculateBmiUseCase mockCalculateBmiUseCase;
-  late WeightPickerCubit cubit;
 
   setUp(() {
     mockUserUseCase = MockUserUseCase();
@@ -35,18 +34,16 @@ void main() {
     ).thenAnswer((_) async => 22.0);
   });
 
-  tearDown(() {
-    cubit.close();
-  });
-
   group('WeightPickerCubit', () {
-    test('initial state is WeightPickerInitial', () {
-      cubit = WeightPickerCubit(
+    test('initial state is WeightPickerInitial', () async {
+      final cubit = WeightPickerCubit(
         mockUserUseCase,
         mockSaveWeightUseCase,
         mockCalculateBmiUseCase,
       );
       expect(cubit.state, isA<WeightPickerInitial>());
+      await Future<void>.delayed(const Duration(milliseconds: 50));
+      await cubit.close();
     });
 
     blocTest<WeightPickerCubit, WeightPickerState>(
@@ -56,7 +53,6 @@ void main() {
         mockSaveWeightUseCase,
         mockCalculateBmiUseCase,
       ),
-      // getUser is called in constructor
       expect: () => [
         isA<WeightPickerInitial>().having((s) => s.user?.id, 'user.id', 1),
       ],
@@ -72,9 +68,17 @@ void main() {
         mockSaveWeightUseCase,
         mockCalculateBmiUseCase,
       ),
-      act: (cubit) => cubit.saveBodyMetrics(weight: 70),
-      expect: () => [isA<WeightPickerInitial>(), isA<WeightPickerError>()],
-      skip: 1,
+      act: (cubit) async {
+        // Wait for getUser from constructor to finish to avoid overlapping emissions
+        await Future<void>.delayed(const Duration(milliseconds: 50));
+        await cubit.saveBodyMetrics(weight: 70);
+      },
+      expect: () => [
+        // The first emission from constructor getUser() (which might be null user because currentUserId is null, wait... getUser calls _userUseCase.getCurrentUser() which returns mocked user. BUT we test if id is null in saveBodyMetrics)
+        isA<WeightPickerInitial>(),
+        // Then the error from saveBodyMetrics
+        isA<WeightPickerError>(),
+      ],
     );
 
     blocTest<WeightPickerCubit, WeightPickerState>(
@@ -90,11 +94,13 @@ void main() {
         mockCalculateBmiUseCase,
       ),
       act: (cubit) async {
-        await Future.delayed(Duration.zero);
+        await Future<void>.delayed(const Duration(milliseconds: 50));
         await cubit.saveBodyMetrics(weight: 70);
       },
       expect: () => [
+        // From constructor
         isA<WeightPickerInitial>(),
+        // From saveBodyMetrics
         isA<WeightPickerLoading>(),
         isA<WeightPickerSuccess>(),
       ],

@@ -1,6 +1,5 @@
 import 'package:bloc/bloc.dart';
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/domain/index.dart';
 import 'package:equatable/equatable.dart';
 import 'package:injectable/injectable.dart';
 
@@ -12,7 +11,7 @@ class UserCubit extends Cubit<UserState> {
     getUserAndHistory();
   }
 
-  final UserUseCaseImpl _userUseCase;
+  final UserUseCase _userUseCase;
 
   Future<void> getUserAndHistory() async {
     try {
