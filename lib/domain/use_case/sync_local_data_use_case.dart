@@ -2,7 +2,7 @@ import 'package:bodymetrics/core/index.dart';
 import 'package:injectable/injectable.dart';
 
 @lazySingleton
-final class SyncLocalDataUseCase {
+class SyncLocalDataUseCase {
   const SyncLocalDataUseCase(this._repository);
 
   final SyncDataRepositoryBase _repository;
