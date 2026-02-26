@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/feature/auth/presentation/cubit/login_cubit.dart';
 import 'package:bodymetrics/feature/auth/presentation/cubit/register_cubit.dart';
+import 'package:bodymetrics/feature/auth/presentation/validation/auth_validation.dart';
 import 'package:bodymetrics/feature/auth/presentation/widgets/auth_widgets.dart';
 import 'package:bodymetrics/injection/locator.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -11,6 +12,20 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 part 'widgets/auth_tab_switcher.dart';
+
+String? _validateAuthEmail(String? value) {
+  if (!AuthValidation.isValidEmail(value)) {
+    return LocaleKeys.auth_invalid_email.tr();
+  }
+  return null;
+}
+
+String? _validateAuthPassword(String? value) {
+  if (!AuthValidation.isValidPassword(value)) {
+    return LocaleKeys.auth_password_min.tr();
+  }
+  return null;
+}
 
 @RoutePage(name: 'UserOperationsView')
 final class UserOperations extends StatelessWidget {
@@ -163,7 +178,7 @@ final class _LoginTabState extends State<_LoginTab> {
                   keyboardType: TextInputType.emailAddress,
                   labelText: LocaleKeys.auth_email.tr(),
                   icon: ProductIcon.email.icon,
-                  validator: _validateEmail,
+                  validator: _validateAuthEmail,
                 ),
                 VerticalSpace.m(),
                 AuthInputField(
@@ -171,7 +186,7 @@ final class _LoginTabState extends State<_LoginTab> {
                   obscureText: true,
                   labelText: LocaleKeys.auth_password.tr(),
                   icon: ProductIcon.lockOutline.icon,
-                  validator: _validatePassword,
+                  validator: _validateAuthPassword,
                 ),
                 Align(
                   alignment: Alignment.centerRight,
@@ -210,22 +225,6 @@ final class _LoginTabState extends State<_LoginTab> {
         );
       },
     );
-  }
-
-  String? _validateEmail(String? value) {
-    final email = value?.trim() ?? '';
-    if (email.isEmpty || !ProductRegex.email.hasMatch(email)) {
-      return LocaleKeys.auth_invalid_email.tr();
-    }
-    return null;
-  }
-
-  String? _validatePassword(String? value) {
-    final password = value?.trim() ?? '';
-    if (password.length < 6) {
-      return LocaleKeys.auth_password_min.tr();
-    }
-    return null;
   }
 }
 
@@ -278,7 +277,7 @@ final class _RegisterTabState extends State<_RegisterTab> {
                   keyboardType: TextInputType.emailAddress,
                   labelText: LocaleKeys.auth_email.tr(),
                   icon: ProductIcon.email.icon,
-                  validator: _validateEmail,
+                  validator: _validateAuthEmail,
                 ),
                 VerticalSpace.m(),
                 AuthInputField(
@@ -286,7 +285,7 @@ final class _RegisterTabState extends State<_RegisterTab> {
                   obscureText: true,
                   labelText: LocaleKeys.auth_password.tr(),
                   icon: ProductIcon.lockOutline.icon,
-                  validator: _validatePassword,
+                  validator: _validateAuthPassword,
                 ),
                 VerticalSpace.l(),
                 if (isLoading)
@@ -312,21 +311,5 @@ final class _RegisterTabState extends State<_RegisterTab> {
         );
       },
     );
-  }
-
-  String? _validateEmail(String? value) {
-    final email = value?.trim() ?? '';
-    if (email.isEmpty || !ProductRegex.email.hasMatch(email)) {
-      return LocaleKeys.auth_invalid_email.tr();
-    }
-    return null;
-  }
-
-  String? _validatePassword(String? value) {
-    final password = value?.trim() ?? '';
-    if (password.length < 6) {
-      return LocaleKeys.auth_password_min.tr();
-    }
-    return null;
   }
 }

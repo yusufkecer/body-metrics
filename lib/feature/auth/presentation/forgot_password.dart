@@ -1,6 +1,7 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/feature/auth/presentation/cubit/forgot_password_cubit.dart';
+import 'package:bodymetrics/feature/auth/presentation/validation/auth_validation.dart';
 import 'package:bodymetrics/feature/auth/presentation/widgets/auth_widgets.dart';
 import 'package:bodymetrics/injection/locator.dart';
 import 'package:easy_localization/easy_localization.dart';
@@ -272,6 +273,7 @@ final class _ForgotPasswordBodyState extends State<_ForgotPasswordBody> {
               CustomFilled(
                 text: LocaleKeys.auth_forgot_password_reset,
                 onPressed: () {
+                  FocusScope.of(context).requestFocus(FocusNode());
                   if (_step2FormKey.currentState?.validate() != true) return;
                   context.read<ForgotPasswordCubit>().resetPassword(
                     email: _email,
@@ -287,31 +289,31 @@ final class _ForgotPasswordBodyState extends State<_ForgotPasswordBody> {
   }
 
   String? _validateEmail(String? value) {
-    final email = value?.trim() ?? '';
-    if (email.isEmpty || !ProductRegex.email.hasMatch(email)) {
+    if (!AuthValidation.isValidEmail(value)) {
       return LocaleKeys.auth_invalid_email.tr();
     }
     return null;
   }
 
   String? _validateToken(String? value) {
-    final token = value?.trim() ?? '';
-    if (token.length != 6) {
+    if (!AuthValidation.isValidForgotPasswordToken(value)) {
       return LocaleKeys.auth_forgot_password_code_hint.tr();
     }
     return null;
   }
 
   String? _validatePassword(String? value) {
-    final password = value?.trim() ?? '';
-    if (password.length < 6) {
+    if (!AuthValidation.isValidPassword(value)) {
       return LocaleKeys.auth_password_min.tr();
     }
     return null;
   }
 
   String? _validateConfirmPassword(String? value) {
-    if (value?.trim() != _passwordController.text.trim()) {
+    if (!AuthValidation.isPasswordConfirmationValid(
+      value,
+      _passwordController.text,
+    )) {
       return LocaleKeys.auth_forgot_password_passwords_not_match.tr();
     }
     return null;
