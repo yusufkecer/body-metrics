@@ -37,6 +37,7 @@ Due to the use of `final` classes, we will rely on `mockito` with code generatio
     *   `lib/feature/auth/presentation/cubit/login_cubit.dart` - **Tests Added**
     *   `lib/feature/auth/presentation/cubit/register_cubit.dart` - **Tests Added**
     *   `lib/feature/auth/presentation/cubit/auth_session_cubit.dart` - **Tests Added**
+    *   `lib/feature/auth/presentation/cubit/forgot_password_cubit.dart` - **Tests Added**
     *   `lib/feature/onboard/presentation/cubit/onboard_cubit.dart` - **Tests Added**
     *   `lib/feature/user_general_info/presentation/cubit/user_info_form_cubit.dart` - **Tests Added**
 

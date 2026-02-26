@@ -10,41 +10,51 @@ final class _AuthFormLayout extends StatelessWidget {
   Widget build(BuildContext context) {
     return SingleChildScrollView(
       keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
-      child: ConstrainedBox(
-        constraints: BoxConstraints(minHeight: context.height * 0.7),
-        child: Center(
-          child: Container(
-            width: double.infinity,
-            padding: const EdgeInsets.fromLTRB(16, 18, 16, 16),
-            decoration: BoxDecoration(
-              color: ProductColor.instance.seedColor.withAlpha(92),
-              borderRadius: const ProductRadius.fifteen(),
-              border: Border.all(
-                color: ProductColor.instance.white.withAlpha(132),
+      child: Padding(
+        padding: const ProductPadding.bottomM(),
+        child: ClipRRect(
+          borderRadius: const ProductRadius.twentyEight(),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 24, sigmaY: 24),
+            child: Container(
+              width: double.infinity,
+              padding: const ProductPadding.glassCard(),
+              decoration: BoxDecoration(
+                color: ProductColor.instance.whiteAlpha18,
+                borderRadius: const ProductRadius.twentyEight(),
+                border: Border.all(
+                  color: ProductColor.instance.whiteAlpha45,
+                ),
               ),
-              boxShadow: [
-                BoxShadow(
-                  color: ProductColor.instance.seedColor.withAlpha(45),
-                  blurRadius: 18,
-                  spreadRadius: 1,
-                  offset: const Offset(0, 12),
-                ),
-              ],
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  title,
-                  style: context.textTheme.headlineSmall?.copyWith(
-                    color: context.colorScheme.surfaceBright,
-                    fontWeight: FontWeight.w700,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    title,
+                    style: context.textTheme.titleLarge?.copyWith(
+                      color: ProductColor.instance.white,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: -0.3,
+                    ),
                   ),
-                ),
-
-                VerticalSpace.l(),
-                child,
-              ],
+                  VerticalSpace.xs(),
+                  Container(
+                    height: 2,
+                    width: 28,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          ProductColor.instance.white,
+                          ProductColor.instance.whiteAlpha0,
+                        ],
+                      ),
+                      borderRadius: const ProductRadius.one(),
+                    ),
+                  ),
+                  VerticalSpace.xl(),
+                  child,
+                ],
+              ),
             ),
           ),
         ),

@@ -1,13 +1,78 @@
-part of '../user_operations.dart';
+import 'dart:ui';
 
-final class _AuthInputField extends StatefulWidget {
-  const _AuthInputField({
+import 'package:bodymetrics/core/index.dart';
+import 'package:flutter/material.dart';
+
+final class AuthFormLayout extends StatelessWidget {
+  const AuthFormLayout({required this.title, required this.child, super.key});
+
+  final String title;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    return SingleChildScrollView(
+      keyboardDismissBehavior: ScrollViewKeyboardDismissBehavior.onDrag,
+      child: Padding(
+        padding: const ProductPadding.bottomM(),
+        child: ClipRRect(
+          borderRadius: const ProductRadius.twentyEight(),
+          child: BackdropFilter(
+            filter: ImageFilter.blur(sigmaX: 24, sigmaY: 24),
+            child: Container(
+              width: double.infinity,
+              padding: const ProductPadding.glassCard(),
+              decoration: BoxDecoration(
+                color: ProductColor.instance.whiteAlpha18,
+                borderRadius: const ProductRadius.twentyEight(),
+                border: Border.all(color: ProductColor.instance.whiteAlpha45),
+              ),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  Text(
+                    title,
+                    style: context.textTheme.titleLarge?.copyWith(
+                      color: ProductColor.instance.white,
+                      fontWeight: FontWeight.w700,
+                      letterSpacing: -0.3,
+                    ),
+                  ),
+                  VerticalSpace.xs(),
+                  Container(
+                    height: 2,
+                    width: 28,
+                    decoration: BoxDecoration(
+                      gradient: LinearGradient(
+                        colors: [
+                          ProductColor.instance.white,
+                          ProductColor.instance.whiteAlpha0,
+                        ],
+                      ),
+                      borderRadius: const ProductRadius.one(),
+                    ),
+                  ),
+                  VerticalSpace.xl(),
+                  child,
+                ],
+              ),
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+}
+
+final class AuthInputField extends StatefulWidget {
+  const AuthInputField({
     required this.controller,
     required this.labelText,
     required this.icon,
     this.validator,
     this.obscureText = false,
     this.keyboardType,
+    super.key,
   });
 
   final TextEditingController controller;
@@ -18,10 +83,10 @@ final class _AuthInputField extends StatefulWidget {
   final TextInputType? keyboardType;
 
   @override
-  State<_AuthInputField> createState() => _AuthInputFieldState();
+  State<AuthInputField> createState() => _AuthInputFieldState();
 }
 
-final class _AuthInputFieldState extends State<_AuthInputField> {
+class _AuthInputFieldState extends State<AuthInputField> {
   late bool _isObscured;
 
   @override
@@ -80,8 +145,7 @@ final class _AuthInputFieldState extends State<_AuthInputField> {
             prefixIconConstraints: const BoxConstraints(minWidth: 52),
             suffixIcon: widget.obscureText
                 ? IconButton(
-                    onPressed: () =>
-                        setState(() => _isObscured = !_isObscured),
+                    onPressed: () => setState(() => _isObscured = !_isObscured),
                     icon: Icon(
                       _isObscured
                           ? ProductIcon.eyeOpen.icon
@@ -104,8 +168,10 @@ final class _AuthInputFieldState extends State<_AuthInputField> {
             ),
             enabledBorder: baseBorder,
             focusedBorder: baseBorder.copyWith(
-              borderSide:
-                  BorderSide(color: ProductColor.instance.whiteAlpha160, width: 1.5),
+              borderSide: BorderSide(
+                color: ProductColor.instance.whiteAlpha160,
+                width: 1.5,
+              ),
             ),
             errorBorder: baseBorder.copyWith(
               borderSide: BorderSide(

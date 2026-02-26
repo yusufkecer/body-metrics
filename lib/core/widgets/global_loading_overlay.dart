@@ -23,7 +23,7 @@ final class GlobalLoadingOverlay extends StatelessWidget {
               Positioned.fill(
                 child: AbsorbPointer(
                   child: ColoredBox(
-                    color: Colors.black45,
+                    color: ProductColor.instance.blackAlpha40,
                     child: Center(
                       child: LoadingDialog(
                         assetValue: AssetValue.loading.value.lottie,

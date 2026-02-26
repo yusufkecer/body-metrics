@@ -27,6 +27,22 @@ class AvatarPickerView extends PageRouteInfo<void> {
 }
 
 /// generated route for
+/// [ForgotPassword]
+class ForgotPasswordView extends PageRouteInfo<void> {
+  const ForgotPasswordView({List<PageRouteInfo>? children})
+    : super(ForgotPasswordView.name, initialChildren: children);
+
+  static const String name = 'ForgotPasswordView';
+
+  static PageInfo page = PageInfo(
+    name,
+    builder: (data) {
+      return const ForgotPassword();
+    },
+  );
+}
+
+/// generated route for
 /// [Gender]
 class GenderView extends PageRouteInfo<void> {
   const GenderView({List<PageRouteInfo>? children})

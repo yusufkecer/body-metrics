@@ -42,7 +42,7 @@ class HomeCard extends StatelessWidget {
                 border: Border.all(color: ProductColor.instance.cardBorder),
                 boxShadow: [
                   BoxShadow(
-                    color: Colors.black.withAlpha(40),
+                    color: ProductColor.instance.blackAlpha40,
                     blurRadius: 16,
                     offset: const Offset(0, 8),
                   ),
@@ -102,7 +102,7 @@ class HomeCard extends StatelessWidget {
                                       ),
                                     ),
                                   )
-                                : SizedBox(height: SpaceValues.xxl.value),
+                                : VerticalSpace.xxl(),
                           ),
                         ],
                       ),

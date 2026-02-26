@@ -37,7 +37,7 @@ final class _Ruler extends StatelessWidget with _HeightCalculate {
                 else
                   Text(
                     '$adjustedIndex',
-                    style: TextStyle(
+                    style: context.textTheme.bodyMedium?.copyWith(
                       color: adjustedIndex.isMultipleOfFive
                           ? ProductColor.instance.white
                           : ProductColor.instance.whiteEightTenths,

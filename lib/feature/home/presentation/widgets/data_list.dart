@@ -74,10 +74,7 @@ final class _DataList extends StatelessWidget {
                           subTitle: metric.weight?.toStringAsFixed(1) ?? '-',
                         ),
                         Container(
-                          padding: EdgeInsets.symmetric(
-                            horizontal: SpaceValues.s.value,
-                            vertical: SpaceValues.xs.value,
-                          ),
+                          padding: ProductPadding.horizontalSVerticalXs(),
                           decoration: BoxDecoration(
                             color: metric.bmiBadgeColor.withAlpha(220),
                             borderRadius: const ProductRadius.ten(),
@@ -111,12 +108,9 @@ final class _DataList extends StatelessWidget {
                       VerticalSpace.s(),
                       Container(
                         width: double.infinity,
-                        padding: EdgeInsets.symmetric(
-                          horizontal: SpaceValues.s.value,
-                          vertical: SpaceValues.xs.value,
-                        ),
+                        padding: ProductPadding.horizontalSVerticalXs(),
                         decoration: BoxDecoration(
-                          color: ProductColor.instance.white.withAlpha(20),
+                          color: ProductColor.instance.whiteAlpha20,
                           borderRadius: const ProductRadius.ten(),
                         ),
                         child: Row(
@@ -154,7 +148,7 @@ extension _ResultIconExtension on UserMetric {
   IconData get resultIcon {
     if (weightDiff == null) return ProductIcon.minus.icon;
     if (weightDiff! > 0) return ProductIcon.arrowUp.icon;
-    if (weightDiff! < 0) return Icons.arrow_downward_rounded;
+    if (weightDiff! < 0) return ProductIcon.arrowDown.icon;
     return ProductIcon.minus.icon;
   }
 

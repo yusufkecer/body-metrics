@@ -20,7 +20,18 @@ enum ProductIcon {
   userCheck(FontAwesomeIcons.userCheck),
   diff(FontAwesomeIcons.codeCompare),
   arrowUp(FontAwesomeIcons.arrowUp),
-  trendingFlat(FontAwesomeIcons.arrowTrendUp);
+  arrowDown(Icons.arrow_downward_rounded),
+  menu(Icons.menu),
+  addRounded(Icons.add_rounded),
+  trendingFlat(FontAwesomeIcons.arrowTrendUp),
+  backArrow(Icons.arrow_back_ios_new_rounded),
+  heartMonitor(Icons.monitor_heart_rounded),
+  eyeOpen(Icons.visibility_outlined),
+  eyeClosed(Icons.visibility_off_outlined),
+  email(Icons.alternate_email_rounded),
+  lockOutline(Icons.lock_outline_rounded),
+  lockReset(Icons.lock_reset_rounded),
+  pin(Icons.pin_outlined);
 
   final IconData icon;
 

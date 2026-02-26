@@ -42,11 +42,18 @@ class _AvatarPickerState extends State<AvatarPicker>
               VerticalSpace.m(),
               SizedBox(
                 width: double.infinity,
-                child: CustomFilled(
-                  text: LocaleKeys.auth_register,
-                  onPressed: () async {
-                    await context.router.push(const UserOperationsView());
-                  },
+                child: Container(
+                  margin: ProductPadding.ten(),
+                  decoration: ProductDecoration.buttonDecoration(),
+                  child: FilledButton(
+                    onPressed: () async {
+                      await context.router.push(const UserOperationsView());
+                    },
+                    child: Text(
+                      '${LocaleKeys.auth_login.tr()}/${LocaleKeys.auth_register.tr()}',
+                      style: context.textTheme.titleMedium,
+                    ),
+                  ),
                 ),
               ),
             ],

@@ -99,7 +99,19 @@
         "email": "Email",
         "password": "Password",
         "invalid_email": "Please enter a valid email.",
-        "password_min": "Password must be at least 6 characters."
+        "password_min": "Password must be at least 6 characters.",
+        "forgot_password": "Forgot Password",
+        "forgot_password_link": "Forgot Password?",
+        "forgot_password_title": "Reset Password",
+        "forgot_password_send_code": "Send Code",
+        "forgot_password_code": "Verification Code",
+        "forgot_password_new_password": "New Password",
+        "forgot_password_confirm_password": "Confirm Password",
+        "forgot_password_reset": "Reset Password",
+        "forgot_password_code_sent": "Code has been sent to your email",
+        "forgot_password_success": "Your password has been reset successfully",
+        "forgot_password_passwords_not_match": "Passwords do not match",
+        "forgot_password_code_hint": "Enter the 6-digit code"
     },
     "change_profile": {
         "change_profile": "Change Profile",

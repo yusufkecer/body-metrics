@@ -22,7 +22,7 @@ void main() {
   group('UserUseCaseImpl', () {
     const tUserId = 1;
     const tUser = User(id: tUserId, name: 'Test User');
-    final tUserFilters = UserFilters(id: tUserId).toJson();
+    final tUserFilters = const UserFilters(id: tUserId).toJson();
     // Since ParamsEntity expects joins list or filters map
     // Check ParamsEntity implementation
 

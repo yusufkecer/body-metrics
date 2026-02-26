@@ -13,13 +13,14 @@ final class OnboardRepository implements Repository<int, AppModel> {
   Future<int> executeWithParams({AppModel? params}) async {
     if (params == null) throw ArgumentError.notNull();
 
-    final db = await _appCache.initializeDatabase();
     final isComplete = (params.isCompleteOnboard ?? false) ? 1 : 0;
-
     final data = {AppCacheColumns.isCompletedOnboard.value: isComplete};
+
+    final db = await _appCache.initializeDatabase();
     final updated = await _appCache.update(db, data);
     if (updated > 0) return updated;
 
-    return _appCache.insert(db, data);
+    final freshDb = await _appCache.initializeDatabase();
+    return _appCache.insert(freshDb, data);
   }
 }

@@ -34,7 +34,7 @@ final class CustomRichText extends StatelessWidget {
           ],
           TextSpan(
             text: title.tr(),
-            style: const TextStyle(
+            style: context.textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.bold,
             ),
           ),

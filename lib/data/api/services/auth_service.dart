@@ -73,6 +73,34 @@ class AuthService implements AuthServiceBase {
   }
 
   @override
+  Future<void> forgotPassword({required String email}) async {
+    try {
+      await _apiClient.dio.post<Map<String, dynamic>>(
+        '/auth/forgot-password',
+        data: {'email': email},
+      );
+    } on DioException catch (e) {
+      throw ApiException.fromDioException(e);
+    }
+  }
+
+  @override
+  Future<void> resetPassword({
+    required String email,
+    required String token,
+    required String password,
+  }) async {
+    try {
+      await _apiClient.dio.post<Map<String, dynamic>>(
+        '/auth/reset-password',
+        data: {'email': email, 'token': token, 'password': password},
+      );
+    } on DioException catch (e) {
+      throw ApiException.fromDioException(e);
+    }
+  }
+
+  @override
   Future<void> logoutLocal() async {
     final db = await _appCache.initializeDatabase();
     if (db == null) return;

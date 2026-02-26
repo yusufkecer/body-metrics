@@ -1,3 +1,4 @@
+export 'package:bodymetrics/feature/auth/presentation/forgot_password.dart';
 export 'package:bodymetrics/feature/auth/presentation/user_operations.dart';
 export 'package:bodymetrics/feature/avatar_picker/presentation/avatar_picker.dart';
 export 'package:bodymetrics/feature/gender/presentation/gender.dart';

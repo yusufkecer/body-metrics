@@ -69,11 +69,10 @@ analyzer:
     - "**/*.gr.dart"
     - "**/*.iconfig.dart"
     - "**/*.p.dart"
-    - "test/"
+    - "**test/"
 
 linter:
   rules:
     public_member_api_docs: false
     lines_longer_than_80_chars: false
-
     library_private_types_in_public_api: false

@@ -22,9 +22,29 @@ final class ProductColor {
   final Color _white = Colors.white;
   final Color _whiteEightTenths = Colors.white.withAlpha(204);
 
+  final Color _whiteAlpha0 = Colors.white.withAlpha(0);
+  final Color _whiteAlpha18 = Colors.white.withAlpha(18);
+  final Color _whiteAlpha20 = Colors.white.withAlpha(20);
+  final Color _whiteAlpha28 = Colors.white.withAlpha(28);
+  final Color _whiteAlpha40 = Colors.white.withAlpha(40);
+  final Color _whiteAlpha45 = Colors.white.withAlpha(45);
+  final Color _whiteAlpha50 = Colors.white.withAlpha(50);
+  final Color _whiteAlpha55 = Colors.white.withAlpha(55);
+  final Color _whiteAlpha70 = Colors.white.withAlpha(70);
+  final Color _whiteAlpha80 = Colors.white.withAlpha(80);
+  final Color _whiteAlpha130 = Colors.white.withAlpha(130);
+  final Color _whiteAlpha160 = Colors.white.withAlpha(160);
+  final Color _whiteAlpha200 = Colors.white.withAlpha(200);
+  final Color _whiteAlpha235 = Colors.white.withAlpha(235);
+
+  final Color _blackAlpha40 = Colors.black.withAlpha(40);
+  final Color _blackAlpha50 = Colors.black.withAlpha(50);
+  final Color _blackAlpha65 = Colors.black.withAlpha(65);
+
+  final Color _warning = const Color(0xFFFFD54F);
+
   final Color _transparent = Colors.transparent;
 
-  // Home UI modernization colors
   final Color _teal = const Color(0xFF00BCD4);
   final Color _cardBg = const Color(0x33673AB7);
   final Color _chartGradientStart = const Color(0xFF00E5FF);
@@ -32,7 +52,6 @@ final class ProductColor {
   final Color _cardBorder = const Color(0x1AFFFFFF);
   final Color _subtleGrid = const Color(0x14FFFFFF);
 
-  // BMI badge colors
   final Color _bmiUnderweight = const Color(0xFF42A5F5);
   final Color _bmiNormal = const Color(0xFF66BB6A);
   final Color _bmiOverweight = const Color(0xFFFFA726);
@@ -62,6 +81,27 @@ final class ProductColor {
   Color get drawerBg2 => _drawerBg2;
   Color get white => _white;
   Color get whiteEightTenths => _whiteEightTenths;
+  Color get whiteAlpha0 => _whiteAlpha0;
+  Color get whiteAlpha18 => _whiteAlpha18;
+  Color get whiteAlpha20 => _whiteAlpha20;
+  Color get whiteAlpha28 => _whiteAlpha28;
+  Color get whiteAlpha40 => _whiteAlpha40;
+  Color get whiteAlpha45 => _whiteAlpha45;
+  Color get whiteAlpha50 => _whiteAlpha50;
+  Color get whiteAlpha55 => _whiteAlpha55;
+  Color get whiteAlpha70 => _whiteAlpha70;
+  Color get whiteAlpha80 => _whiteAlpha80;
+  Color get whiteAlpha130 => _whiteAlpha130;
+  Color get whiteAlpha160 => _whiteAlpha160;
+  Color get whiteAlpha200 => _whiteAlpha200;
+  Color get whiteAlpha235 => _whiteAlpha235;
+
+  Color get blackAlpha40 => _blackAlpha40;
+  Color get blackAlpha50 => _blackAlpha50;
+  Color get blackAlpha65 => _blackAlpha65;
+
+  Color get warning => _warning;
+
   Color get transparent => _transparent;
   Color get teal => _teal;
   Color get cardBg => _cardBg;

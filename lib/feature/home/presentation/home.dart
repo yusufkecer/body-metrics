@@ -85,10 +85,10 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, _HomeModel {
             onPressed: () {
               _zoomDrawerController.toggle!();
             },
-            icon: const Icon(Icons.menu),
+            icon: Icon(ProductIcon.menu.icon),
           ),
           action: Container(
-            margin: EdgeInsets.only(right: SpaceValues.xs.value),
+            margin: ProductPadding.rightXs(),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: ProductColor.instance.white.withAlpha(30),
@@ -98,7 +98,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, _HomeModel {
               onPressed: () async {
                 await context.router.push(const WeightView());
               },
-              icon: Icon(Icons.add_rounded, color: ProductColor.instance.white),
+              icon: Icon(ProductIcon.addRounded.icon, color: ProductColor.instance.white),
             ),
           ),
         ),
@@ -169,7 +169,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, _HomeModel {
                 ),
                 width: 16,
                 borderRadius: BorderRadius.vertical(
-                  top: Radius.circular(SpaceValues.s.value),
+                  top: const ProductRadius.ten().topLeft,
                 ),
               ),
             ],

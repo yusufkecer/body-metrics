@@ -57,7 +57,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
       return const SizedBox.shrink();
     }
 
-    final style = TextStyle(
+    final style = context.textTheme.labelSmall?.copyWith(
       fontWeight: FontWeight.w600,
       fontSize: 11,
       color: ProductColor.instance.whiteEightTenths,
@@ -114,14 +114,13 @@ class _LineChartWidgetState extends State<LineChartWidget> {
           fitInsideVertically: true,
           getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
             return touchedBarSpots.map((barSpot) {
-              return LineTooltipItem(
-                barSpot.y.toString(),
-                const TextStyle(
-                  color: Colors.white,
-                  fontWeight: FontWeight.bold,
-                ),
-              );
-            }).toList();
+                              return LineTooltipItem(
+                                barSpot.y.toString(),
+                                context.textTheme.bodySmall?.copyWith(
+                                  color: ProductColor.instance.white,
+                                  fontWeight: FontWeight.bold,
+                                ) ?? const TextStyle(),
+                              );            }).toList();
           },
         ),
       ),

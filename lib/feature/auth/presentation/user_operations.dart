@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/feature/auth/presentation/cubit/login_cubit.dart';
@@ -34,21 +36,80 @@ final class _UserOperationsBody extends StatelessWidget {
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
-      initialIndex: 1,
+      initialIndex: 0,
       child: GradientScaffold(
-        appBar: const CustomAppBar(title: LocaleKeys.home_menu_user_operations),
         body: SafeArea(
-          child: Padding(
-            padding: const ProductPadding.fifTeen(),
-            child: Column(
-              children: [
-                const _AuthTabSwitcher(),
-                VerticalSpace.m(),
-                const Expanded(
-                  child: TabBarView(children: [_LoginTab(), _RegisterTab()]),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              Padding(
+                padding: const ProductPadding.authForm(),
+                child: Row(
+                  children: [
+                    GestureDetector(
+                      onTap: () => context.router.maybePop(),
+                      child: Container(
+                        width: 40,
+                        height: 40,
+                        decoration: BoxDecoration(
+                          color: ProductColor.instance.whiteAlpha20,
+                          borderRadius: const ProductRadius.twelve(),
+                          border: Border.all(
+                            color: ProductColor.instance.whiteAlpha40,
+                          ),
+                        ),
+                        child: Icon(
+                          ProductIcon.backArrow.icon,
+                          color: ProductColor.instance.white,
+                          size: 16,
+                        ),
+                      ),
+                    ),
+                    const Spacer(),
+                    Text(
+                      'BodyMetrics',
+                      style: context.textTheme.titleLarge?.copyWith(
+                        color: ProductColor.instance.white,
+                        fontSize: 20,
+                        fontWeight: FontWeight.w800,
+                        letterSpacing: -0.5,
+                      ),
+                    ),
+                    HorizontalSpace.s(),
+                    Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        color: ProductColor.instance.whiteAlpha20,
+                        border: Border.all(
+                          color: ProductColor.instance.whiteAlpha50,
+                        ),
+                      ),
+                      child: Icon(
+                        ProductIcon.heartMonitor.icon,
+                        color: ProductColor.instance.white,
+                        size: 22,
+                      ),
+                    ),
+                  ],
                 ),
-              ],
-            ),
+              ),
+              VerticalSpace.l(),
+              Padding(
+                padding: ProductPadding.horizontalTwentyFour(),
+                child: const _AuthTabSwitcher(),
+              ),
+              VerticalSpace.m(),
+              Expanded(
+                child: Padding(
+                  padding: ProductPadding.horizontalTwentyFour(),
+                  child: const TabBarView(
+                    children: [_LoginTab(), _RegisterTab()],
+                  ),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -103,7 +164,7 @@ final class _LoginTabState extends State<_LoginTab> {
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   labelText: LocaleKeys.auth_email.tr(),
-                  icon: Icons.alternate_email_rounded,
+                  icon: ProductIcon.email.icon,
                   validator: _validateEmail,
                 ),
                 VerticalSpace.m(),
@@ -111,8 +172,21 @@ final class _LoginTabState extends State<_LoginTab> {
                   controller: _passwordController,
                   obscureText: true,
                   labelText: LocaleKeys.auth_password.tr(),
-                  icon: Icons.lock_outline_rounded,
+                  icon: ProductIcon.lockOutline.icon,
                   validator: _validatePassword,
+                ),
+                Align(
+                  alignment: Alignment.centerRight,
+                  child: TextButton(
+                    onPressed: () =>
+                        context.router.push(const ForgotPasswordView()),
+                    child: Text(
+                      LocaleKeys.auth_forgot_password_link.tr(),
+                      style: context.textTheme.bodyMedium?.copyWith(
+                        color: context.colorScheme.surfaceBright,
+                      ),
+                    ),
+                  ),
                 ),
                 VerticalSpace.l(),
                 if (isLoading)
@@ -204,7 +278,7 @@ final class _RegisterTabState extends State<_RegisterTab> {
                   controller: _emailController,
                   keyboardType: TextInputType.emailAddress,
                   labelText: LocaleKeys.auth_email.tr(),
-                  icon: Icons.alternate_email_rounded,
+                  icon: ProductIcon.email.icon,
                   validator: _validateEmail,
                 ),
                 VerticalSpace.m(),
@@ -212,7 +286,7 @@ final class _RegisterTabState extends State<_RegisterTab> {
                   controller: _passwordController,
                   obscureText: true,
                   labelText: LocaleKeys.auth_password.tr(),
-                  icon: Icons.lock_outline_rounded,
+                  icon: ProductIcon.lockOutline.icon,
                   validator: _validatePassword,
                 ),
                 VerticalSpace.l(),

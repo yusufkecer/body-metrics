@@ -28,6 +28,7 @@ import 'package:mockito/mockito.dart' as _i1;
 /// A class which mocks [SaveGenderUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
+// ignore: must_be_immutable
 class MockSaveGenderUseCase extends _i1.Mock implements _i2.SaveGenderUseCase {
   @override
   _i3.Future<bool?> executeWithParams({_i4.GenderValue? params}) =>

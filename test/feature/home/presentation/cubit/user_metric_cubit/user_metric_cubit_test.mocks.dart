@@ -28,6 +28,7 @@ import 'package:mockito/mockito.dart' as _i1;
 /// A class which mocks [UserMetricUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
+// ignore: must_be_immutable
 class MockUserMetricUseCase extends _i1.Mock implements _i2.UserMetricUseCase {
   @override
   _i3.Future<_i4.UserMetrics?> executeWithParams({_i4.UserMetric? params}) =>

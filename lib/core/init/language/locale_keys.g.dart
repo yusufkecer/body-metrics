@@ -97,6 +97,23 @@ abstract class LocaleKeys {
   static const auth_password = 'auth.password';
   static const auth_invalid_email = 'auth.invalid_email';
   static const auth_password_min = 'auth.password_min';
+  static const auth_forgot_password = 'auth.forgot_password';
+  static const auth_forgot_password_link = 'auth.forgot_password_link';
+  static const auth_forgot_password_title = 'auth.forgot_password_title';
+  static const auth_forgot_password_send_code = 'auth.forgot_password_send_code';
+  static const auth_forgot_password_code = 'auth.forgot_password_code';
+  static const auth_forgot_password_new_password =
+      'auth.forgot_password_new_password';
+  static const auth_forgot_password_confirm_password =
+      'auth.forgot_password_confirm_password';
+  static const auth_forgot_password_reset = 'auth.forgot_password_reset';
+  static const auth_forgot_password_code_sent =
+      'auth.forgot_password_code_sent';
+  static const auth_forgot_password_success = 'auth.forgot_password_success';
+  static const auth_forgot_password_passwords_not_match =
+      'auth.forgot_password_passwords_not_match';
+  static const auth_forgot_password_code_hint =
+      'auth.forgot_password_code_hint';
   static const auth = 'auth';
   static const change_profile_change_profile = 'change_profile.change_profile';
   static const change_profile_select_profile = 'change_profile.select_profile';

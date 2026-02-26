@@ -40,6 +40,8 @@ import 'package:bodymetrics/domain/use_case/sync_local_data_use_case.dart'
 import 'package:bodymetrics/domain/use_case/user_use_case_impl.dart' as _i958;
 import 'package:bodymetrics/feature/auth/presentation/cubit/auth_session_cubit.dart'
     as _i276;
+import 'package:bodymetrics/feature/auth/presentation/cubit/forgot_password_cubit.dart'
+    as _i1032;
 import 'package:bodymetrics/feature/auth/presentation/cubit/login_cubit.dart'
     as _i896;
 import 'package:bodymetrics/feature/auth/presentation/cubit/register_cubit.dart'
@@ -226,6 +228,9 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i276.AuthSessionCubit>(
       () => _i276.AuthSessionCubit(gh<_i101.AuthService>()),
+    );
+    gh.factory<_i1032.ForgotPasswordCubit>(
+      () => _i1032.ForgotPasswordCubit(gh<_i101.AuthService>()),
     );
     gh.factory<_i293.OnboardUseCase>(
       () => _i293.OnboardUseCase(gh<_i85.OnboardRepository>()),

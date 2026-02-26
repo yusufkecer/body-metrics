@@ -140,6 +140,8 @@ class AppRouter extends RootStackRouter {
     AutoRoute(page: GenderView.page),
     AutoRoute(page: HeightView.page),
     AutoRoute(page: WeightView.page),
+    AutoRoute(page: UserOperationsView.page),
+    AutoRoute(page: ForgotPasswordView.page),
     AutoRoute(page: HomeView.page),
   ];
 }
@@ -206,8 +208,9 @@ Text(LocaleKeys.weight_title.tr())
 **Rules:**
 - All UI text must use `LocaleKeys.<namespace>_<key>.tr()`
 - Add new keys to both `assets/language/tr.json` and `assets/language/en.json`
-- Namespace convention: `onboard_*`, `register_*`, `weight_*`, `height_*`, `gender_*`, `dialog_*`, `exception_*`, `bmi_result_*`
+- Namespace convention: `onboard_*`, `register_*`, `weight_*`, `height_*`, `gender_*`, `dialog_*`, `exception_*`, `bmi_result_*`, `auth_*`
 - Error messages emitted from Cubits must reference `LocaleKeys` strings (not raw strings)
+- `locale_keys.g.dart` is **manually maintained** in this project — add new `static const` entries when adding new JSON keys (do not run `easy_localization` generator, it would overwrite custom additions)
 
 ---
 
@@ -363,6 +366,8 @@ group('WeightPickerCubit', () {
 - Sanitize all user inputs before inserting into SQLite
 - Do not log sensitive health data (weight, BMI) at info level in production builds
 - Use parameterized queries — never string-concatenate SQL
+- Never expose JWT token in logs — `AuthInterceptor` adds it silently
+- `android/key.properties` is gitignored — never commit keystore passwords
 
 ---
 
@@ -530,6 +535,21 @@ final class ApiException implements Exception {
 4. All subsequent requests → `AuthInterceptor` injects Bearer token
 5. On 401 → `AuthInterceptor.onError()` clears session from DB
 
+### Forgot Password Flow
+
+1. User taps "Şifremi Unuttum?" in `_LoginTab` → routes to `ForgotPasswordView`
+2. **Step 1** (email form) → `ForgotPasswordCubit.sendCode(email)` → `POST /auth/forgot-password`
+3. On `ForgotPasswordCodeSent` state → UI switches to Step 2 (code + new password form)
+4. **Step 2** → `ForgotPasswordCubit.resetPassword(email, token, password)` → `POST /auth/reset-password`
+5. On `ForgotPasswordSuccess` → SnackBar + `router.maybePop()`
+
+**Key files:**
+- `lib/feature/auth/presentation/forgot_password.dart` — 2-step form page (`@RoutePage(name: 'ForgotPasswordView')`)
+- `lib/feature/auth/presentation/cubit/forgot_password_cubit.dart` — `@injectable`
+- `lib/feature/auth/presentation/widgets/auth_widgets.dart` — public `AuthFormLayout`, `AuthInputField`
+- `lib/data/api/services/auth_service.dart` — `forgotPassword()`, `resetPassword()` methods
+- `lib/core/base/auth_service_base.dart` — interface definition
+
 ### Environments & Flavor
 
 Base URL is selected via `--dart-define=FLAVOR` at run/build time:
@@ -578,6 +598,36 @@ flutter run
 ```
 
 **Note:** `.env` and `lib/data/api/env/env.g.dart` are in `.gitignore` — never committed.
+
+---
+
+## Android Release Signing
+
+`android/app/build.gradle` reads keystore config from `android/key.properties` (gitignored).
+
+```properties
+# android/key.properties — DO NOT COMMIT
+storePassword=<your-keystore-password>
+keyPassword=<your-key-password>
+keyAlias=bodymetrics
+storeFile=../bodymetrics.keystore
+```
+
+Generate a new keystore:
+```bash
+keytool -genkey -v -keystore android/bodymetrics.keystore \
+  -alias bodymetrics -keyalg RSA -keysize 2048 -validity 10000
+```
+
+Build signed APK:
+```bash
+flutter build apk --release --dart-define=FLAVOR=production
+```
+
+**Rules:**
+- If `key.properties` is missing or `storeFile` is null, build falls back to debug signing (safe for local dev)
+- Never commit `*.keystore` or `key.properties` files
+- Store keystore and passwords in a password manager — loss means you cannot update the Play Store listing
 
 ---
 

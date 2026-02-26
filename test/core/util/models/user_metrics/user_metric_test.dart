@@ -9,7 +9,7 @@ void main() {
       userId: 1,
       date: '2023-01-01',
       weight: 70,
-      bmi: 22.0,
+      bmi: 22,
       weightDiff: -1,
       userMetric: BodyMetricResult.normal,
       height: 175,
@@ -48,7 +48,7 @@ void main() {
     });
 
     test('copyWith creates a new instance with updated values', () {
-      final updated = userMetric.copyWith(weight: 75.0);
+      final updated = userMetric.copyWith(weight: 75);
       expect(updated.weight, 75.0);
       expect(updated.id, userMetric.id);
     });

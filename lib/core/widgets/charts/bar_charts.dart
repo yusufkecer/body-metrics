@@ -51,7 +51,7 @@ class _BarChartWidgetState extends State<BarChartWidget> {
   }
 
   Widget bottomTitleWidgets(double value, TitleMeta meta) {
-    final style = TextStyle(
+    final style = context.textTheme.labelSmall?.copyWith(
       fontWeight: FontWeight.w600,
       fontSize: 10,
       color: ProductColor.instance.whiteEightTenths,
@@ -103,7 +103,7 @@ class _BarChartWidgetState extends State<BarChartWidget> {
           getTooltipItem: (group, groupIndex, rod, rodIndex) {
             return BarTooltipItem(
               rod.toY.toString(),
-              const TextStyle(color: Colors.white, fontWeight: FontWeight.bold),
+              context.textTheme.bodySmall?.copyWith(color: ProductColor.instance.white, fontWeight: FontWeight.bold) ?? const TextStyle(),
             );
           },
         ),

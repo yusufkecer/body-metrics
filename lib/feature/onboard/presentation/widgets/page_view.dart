@@ -6,10 +6,7 @@ final class _PageView extends PageViewModel {
     super.title,
     super.body,
     Image? super.image,
-    PageDecoration decoration = const PageDecoration(
-      titleTextStyle: TextStyle(),
-      bodyTextStyle: TextStyle(),
-    ),
+    PageDecoration decoration = const PageDecoration(),
     BuildContext? context,
   }) : super(
          decoration: decoration.copyWith(

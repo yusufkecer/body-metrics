@@ -72,6 +72,32 @@ class MockAuthService extends _i1.Mock implements _i2.AuthService {
           as _i3.Future<void>);
 
   @override
+  _i3.Future<void> forgotPassword({required String? email}) =>
+      (super.noSuchMethod(
+            Invocation.method(#forgotPassword, [], {#email: email}),
+            returnValue: _i3.Future<void>.value(),
+            returnValueForMissingStub: _i3.Future<void>.value(),
+          )
+          as _i3.Future<void>);
+
+  @override
+  _i3.Future<void> resetPassword({
+    required String? email,
+    required String? token,
+    required String? password,
+  }) =>
+      (super.noSuchMethod(
+            Invocation.method(#resetPassword, [], {
+              #email: email,
+              #token: token,
+              #password: password,
+            }),
+            returnValue: _i3.Future<void>.value(),
+            returnValueForMissingStub: _i3.Future<void>.value(),
+          )
+          as _i3.Future<void>);
+
+  @override
   _i3.Future<void> logoutLocal() =>
       (super.noSuchMethod(
             Invocation.method(#logoutLocal, []),

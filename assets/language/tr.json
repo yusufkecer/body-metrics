@@ -98,7 +98,19 @@
         "email": "E-posta",
         "password": "Şifre",
         "invalid_email": "Geçerli bir e-posta girin.",
-        "password_min": "Şifre en az 6 karakter olmalı."
+        "password_min": "Şifre en az 6 karakter olmalı.",
+        "forgot_password": "Şifremi Unuttum",
+        "forgot_password_link": "Şifremi Unuttum?",
+        "forgot_password_title": "Şifreyi Sıfırla",
+        "forgot_password_send_code": "Kod Gönder",
+        "forgot_password_code": "Doğrulama Kodu",
+        "forgot_password_new_password": "Yeni Şifre",
+        "forgot_password_confirm_password": "Şifre Onayı",
+        "forgot_password_reset": "Şifreyi Sıfırla",
+        "forgot_password_code_sent": "Kod email adresinize gönderildi",
+        "forgot_password_success": "Şifreniz başarıyla sıfırlandı",
+        "forgot_password_passwords_not_match": "Şifreler eşleşmiyor",
+        "forgot_password_code_hint": "6 haneli kodu girin"
     },
     "chart": {
         "month": {

@@ -27,6 +27,6 @@ final class ProductDecoration extends BoxDecoration {
             width: 2,
             color: ProductColor.instance.white,
           ),
-          borderRadius: BorderRadius.circular(10),
+          borderRadius: const ProductRadius.ten(),
         );
 }
