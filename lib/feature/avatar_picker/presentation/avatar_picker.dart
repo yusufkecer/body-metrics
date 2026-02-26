@@ -47,7 +47,18 @@ class _AvatarPickerState extends State<AvatarPicker>
                   decoration: ProductDecoration.buttonDecoration(),
                   child: FilledButton(
                     onPressed: () async {
-                      await context.router.push(const UserOperationsView());
+                      final result = await context.router.push<bool>(
+                        const UserOperationsView(),
+                      );
+                      if ((result ?? false) &&
+                          AppUtil.hasSession &&
+                          !AppUtil.syncPending) {
+                        if (!context.mounted) return;
+                        await context.router.pushAndPopUntil(
+                          const HomeView(),
+                          predicate: (route) => false,
+                        );
+                      }
                     },
                     child: Text(
                       '${LocaleKeys.auth_login.tr()}/${LocaleKeys.auth_register.tr()}',

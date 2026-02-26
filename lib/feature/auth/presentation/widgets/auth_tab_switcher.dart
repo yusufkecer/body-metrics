@@ -15,9 +15,7 @@ final class _AuthTabSwitcher extends StatelessWidget {
           decoration: BoxDecoration(
             color: ProductColor.instance.blackAlpha65,
             borderRadius: const ProductRadius.fifty(),
-            border: Border.all(
-              color: ProductColor.instance.whiteAlpha28,
-            ),
+            border: Border.all(color: ProductColor.instance.whiteAlpha28),
           ),
           child: TabBar(
             dividerColor: ProductColor.instance.transparent,
@@ -27,7 +25,7 @@ final class _AuthTabSwitcher extends StatelessWidget {
               color: ProductColor.instance.whiteAlpha235,
               boxShadow: [
                 BoxShadow(
-                  color: ProductColor.instance.whiteAlpha55,
+                  color: ProductColor.instance.whiteAlpha50,
                   blurRadius: 14,
                 ),
               ],

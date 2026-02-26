@@ -24,12 +24,12 @@ final class SaveWeightRepository implements Repository<int, UserMetric> {
 
     final result = await _userMetricsCache.insert(db, metric);
 
-    try {
-      if (metric.userId != null) {
+    if (!AppUtil.syncPending && metric.userId != null) {
+      try {
         await _metricsApiService.createMetric(metric.userId!, metric.toJson());
+      } catch (e) {
+        'Failed to sync metric to API: $e'.w();
       }
-    } catch (e) {
-      'Failed to sync metric to API: $e'.w();
     }
 
     return result;

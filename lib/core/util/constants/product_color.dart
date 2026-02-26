@@ -23,13 +23,10 @@ final class ProductColor {
   final Color _whiteEightTenths = Colors.white.withAlpha(204);
 
   final Color _whiteAlpha0 = Colors.white.withAlpha(0);
-  final Color _whiteAlpha18 = Colors.white.withAlpha(18);
   final Color _whiteAlpha20 = Colors.white.withAlpha(20);
   final Color _whiteAlpha28 = Colors.white.withAlpha(28);
   final Color _whiteAlpha40 = Colors.white.withAlpha(40);
-  final Color _whiteAlpha45 = Colors.white.withAlpha(45);
   final Color _whiteAlpha50 = Colors.white.withAlpha(50);
-  final Color _whiteAlpha55 = Colors.white.withAlpha(55);
   final Color _whiteAlpha70 = Colors.white.withAlpha(70);
   final Color _whiteAlpha80 = Colors.white.withAlpha(80);
   final Color _whiteAlpha130 = Colors.white.withAlpha(130);
@@ -82,13 +79,10 @@ final class ProductColor {
   Color get white => _white;
   Color get whiteEightTenths => _whiteEightTenths;
   Color get whiteAlpha0 => _whiteAlpha0;
-  Color get whiteAlpha18 => _whiteAlpha18;
   Color get whiteAlpha20 => _whiteAlpha20;
   Color get whiteAlpha28 => _whiteAlpha28;
   Color get whiteAlpha40 => _whiteAlpha40;
-  Color get whiteAlpha45 => _whiteAlpha45;
   Color get whiteAlpha50 => _whiteAlpha50;
-  Color get whiteAlpha55 => _whiteAlpha55;
   Color get whiteAlpha70 => _whiteAlpha70;
   Color get whiteAlpha80 => _whiteAlpha80;
   Color get whiteAlpha130 => _whiteAlpha130;

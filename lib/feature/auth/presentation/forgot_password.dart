@@ -75,9 +75,9 @@ final class _ForgotPasswordBodyState extends State<_ForgotPasswordBody> {
         }
 
         if (state is ForgotPasswordError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.message)),
-          );
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text(state.message)));
         }
       },
       builder: (context, state) {
@@ -120,9 +120,9 @@ final class _ForgotPasswordBodyState extends State<_ForgotPasswordBody> {
                     height: 64,
                     decoration: BoxDecoration(
                       shape: BoxShape.circle,
-                      color: ProductColor.instance.whiteAlpha18,
+                      color: ProductColor.instance.whiteAlpha20,
                       border: Border.all(
-                        color: ProductColor.instance.whiteAlpha45,
+                        color: ProductColor.instance.whiteAlpha40,
                         width: 1.5,
                       ),
                     ),

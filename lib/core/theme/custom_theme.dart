@@ -83,9 +83,46 @@ class CustomTheme implements BaseTheme {
     ),
   );
 
-  final InputDecorationTheme _inputDecorationTheme = const InputDecorationTheme(
-    border: OutlineInputBorder(borderRadius: ProductRadius.ten()),
-    errorStyle: TextStyle(fontSize: 15),
+  final InputDecorationTheme _inputDecorationTheme = InputDecorationTheme(
+    border: const OutlineInputBorder(
+      borderRadius: ProductRadius.sixteen(),
+      borderSide: BorderSide.none,
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderRadius: const ProductRadius.sixteen(),
+      borderSide: BorderSide(color: ProductColor.instance.whiteAlpha50),
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderRadius: const ProductRadius.sixteen(),
+      borderSide: BorderSide(
+        color: ProductColor.instance.whiteAlpha160,
+        width: 1.5,
+      ),
+    ),
+    errorBorder: OutlineInputBorder(
+      borderRadius: const ProductRadius.sixteen(),
+      borderSide: BorderSide(color: ProductColor.instance.warning, width: 1.5),
+    ),
+    focusedErrorBorder: OutlineInputBorder(
+      borderRadius: const ProductRadius.sixteen(),
+      borderSide: BorderSide(color: ProductColor.instance.warning, width: 1.5),
+    ),
+    hintStyle: TextStyle(
+      color: ProductColor.instance.white,
+      fontWeight: FontWeight.w400,
+      fontSize: 15,
+    ),
+    errorStyle: TextStyle(
+      color: ProductColor.instance.warning,
+      fontWeight: FontWeight.w500,
+      fontSize: 11,
+      height: 1.4,
+    ),
+    filled: true,
+    fillColor: ProductColor.instance.blackAlpha50,
+    floatingLabelBehavior: FloatingLabelBehavior.never,
+    contentPadding: const ProductPadding.horizontal16Vertical18(),
+    prefixIconConstraints: const BoxConstraints(minWidth: 52),
   );
 
   final CheckboxThemeData _checkboxTheme = CheckboxThemeData(

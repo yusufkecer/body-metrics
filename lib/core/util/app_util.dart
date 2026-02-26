@@ -7,6 +7,7 @@ final class AppUtil {
   static late int? currentUserId;
   static late Pages? lastPage;
   static bool hasSession = false;
+  static bool syncPending = false;
   // Application constants
   static const String appName = 'BodyMetrics';
   static const String appVersion = '1.0.0';

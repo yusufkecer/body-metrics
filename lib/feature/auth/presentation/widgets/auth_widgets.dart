@@ -23,9 +23,9 @@ final class AuthFormLayout extends StatelessWidget {
               width: double.infinity,
               padding: const ProductPadding.glassCard(),
               decoration: BoxDecoration(
-                color: ProductColor.instance.whiteAlpha18,
+                color: ProductColor.instance.whiteAlpha20,
                 borderRadius: const ProductRadius.twentyEight(),
-                border: Border.all(color: ProductColor.instance.whiteAlpha45),
+                border: Border.all(color: ProductColor.instance.whiteAlpha40),
               ),
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -97,11 +97,6 @@ class _AuthInputFieldState extends State<AuthInputField> {
 
   @override
   Widget build(BuildContext context) {
-    final baseBorder = OutlineInputBorder(
-      borderRadius: const ProductRadius.sixteen(),
-      borderSide: BorderSide(color: ProductColor.instance.whiteAlpha55),
-    );
-
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
@@ -122,27 +117,23 @@ class _AuthInputFieldState extends State<AuthInputField> {
           validator: widget.validator,
           obscureText: _isObscured,
           keyboardType: widget.keyboardType,
-          style: context.textTheme.bodyMedium?.copyWith(
-            color: ProductColor.instance.white,
-            fontWeight: FontWeight.w500,
-            fontSize: 15,
-          ),
+          style:
+              context.textTheme.bodyMedium?.copyWith(
+                color: ProductColor.instance.white,
+                fontWeight: FontWeight.w500,
+                fontSize: 15,
+              ) ??
+              TextStyle(
+                color: ProductColor.instance.white,
+                fontWeight: FontWeight.w500,
+                fontSize: 15,
+              ),
           decoration: InputDecoration(
             hintText: widget.labelText,
-            hintStyle: context.textTheme.bodyMedium?.copyWith(
-              color: ProductColor.instance.whiteAlpha80,
-              fontWeight: FontWeight.w400,
-              fontSize: 15,
-            ),
             prefixIcon: Padding(
               padding: const ProductPadding.left16Right12(),
-              child: Icon(
-                widget.icon,
-                color: ProductColor.instance.whiteAlpha160,
-                size: 20,
-              ),
+              child: Icon(widget.icon, size: 20),
             ),
-            prefixIconConstraints: const BoxConstraints(minWidth: 52),
             suffixIcon: widget.obscureText
                 ? IconButton(
                     onPressed: () => setState(() => _isObscured = !_isObscured),
@@ -150,41 +141,11 @@ class _AuthInputFieldState extends State<AuthInputField> {
                       _isObscured
                           ? ProductIcon.eyeOpen.icon
                           : ProductIcon.eyeClosed.icon,
-                      color: ProductColor.instance.whiteAlpha130,
                       size: 18,
                     ),
                     padding: const ProductPadding.right14(),
                   )
                 : null,
-            filled: true,
-            fillColor: ProductColor.instance.blackAlpha50,
-            floatingLabelBehavior: FloatingLabelBehavior.never,
-            contentPadding: const ProductPadding.horizontal16Vertical18(),
-            errorStyle: context.textTheme.labelSmall?.copyWith(
-              color: ProductColor.instance.warning,
-              fontWeight: FontWeight.w500,
-              fontSize: 11,
-              height: 1.4,
-            ),
-            enabledBorder: baseBorder,
-            focusedBorder: baseBorder.copyWith(
-              borderSide: BorderSide(
-                color: ProductColor.instance.whiteAlpha160,
-                width: 1.5,
-              ),
-            ),
-            errorBorder: baseBorder.copyWith(
-              borderSide: BorderSide(
-                color: ProductColor.instance.warning,
-                width: 1.5,
-              ),
-            ),
-            focusedErrorBorder: baseBorder.copyWith(
-              borderSide: BorderSide(
-                color: ProductColor.instance.warning,
-                width: 1.5,
-              ),
-            ),
           ),
         ),
       ],

@@ -21,11 +21,13 @@ class SaveAvatarRepository implements Repository<int, UserFilters> {
     final db = await userCache.initializeDatabase();
     final result = await userCache.insert(db, value);
 
-    try {
-      final apiResult = await _userApiService.createUser(value);
-      'User created on API: $apiResult'.log();
-    } catch (e) {
-      'Failed to sync avatar to API: $e'.w();
+    if (!AppUtil.syncPending) {
+      try {
+        final apiResult = await _userApiService.createUser(value);
+        'User created on API: $apiResult'.log();
+      } catch (e) {
+        'Failed to sync avatar to API: $e'.w();
+      }
     }
 
     return result;

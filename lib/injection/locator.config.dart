@@ -274,13 +274,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i906.UserMetricCubit>(
       () => _i906.UserMetricCubit(gh<_i799.UserMetricUseCase>()),
     );
-    gh.factory<_i978.WeightPickerCubit>(
-      () => _i978.WeightPickerCubit(
-        gh<_i243.UserUseCase>(),
-        gh<_i986.SaveWeightUseCase>(),
-        gh<_i938.CalculateBmiUseCase>(),
-      ),
-    );
     gh.factory<_i896.LoginCubit>(
       () => _i896.LoginCubit(
         gh<_i101.AuthService>(),
@@ -290,6 +283,14 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i1024.RegisterCubit>(
       () => _i1024.RegisterCubit(
         gh<_i101.AuthService>(),
+        gh<_i34.SyncLocalDataUseCase>(),
+      ),
+    );
+    gh.factory<_i978.WeightPickerCubit>(
+      () => _i978.WeightPickerCubit(
+        gh<_i243.UserUseCase>(),
+        gh<_i986.SaveWeightUseCase>(),
+        gh<_i938.CalculateBmiUseCase>(),
         gh<_i34.SyncLocalDataUseCase>(),
       ),
     );

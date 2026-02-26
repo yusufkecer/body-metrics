@@ -1,4 +1,5 @@
 import 'package:bodymetrics/core/index.dart';
+import 'package:bodymetrics/domain/index.dart';
 import 'package:bodymetrics/feature/weight_picker/domain/entity/bmi_value.dart';
 import 'package:bodymetrics/feature/weight_picker/domain/use_case/calculate_bmi_use_case.dart';
 import 'package:bodymetrics/feature/weight_picker/domain/use_case/save_weight_use_case.dart';
@@ -15,6 +16,7 @@ final class WeightPickerCubit extends Cubit<WeightPickerState> {
     this._userUseCase,
     this._saveWeightUseCase,
     this._calculateBmiUseCase,
+    this._syncLocalDataUseCase,
   ) : super(const WeightPickerInitial()) {
     getUser();
   }
@@ -22,6 +24,7 @@ final class WeightPickerCubit extends Cubit<WeightPickerState> {
   final UserUseCase _userUseCase;
   final SaveWeightUseCase _saveWeightUseCase;
   final CalculateBmiUseCase _calculateBmiUseCase;
+  final SyncLocalDataUseCase _syncLocalDataUseCase;
 
   Future<void> getUser() async {
     try {
@@ -95,6 +98,14 @@ final class WeightPickerCubit extends Cubit<WeightPickerState> {
     if (!result) {
       emit(const WeightPickerError(error: LocaleKeys.exception_generic_error));
       return false;
+    }
+
+    if (AppUtil.syncPending) {
+      try {
+        await _syncLocalDataUseCase.execute();
+      } catch (e) {
+        'WeightPickerCubit: sync failed: $e'.e();
+      }
     }
 
     emit(WeightPickerSuccess(user: currentUser));

@@ -18,6 +18,11 @@ final class SyncDataRepository implements SyncDataRepositoryBase {
 
   @override
   Future<void> sync() async {
+    if (!AppUtil.syncPending) {
+      'SyncDataRepository: sync not pending, skipping'.log();
+      return;
+    }
+
     final userId = await _resolveUserId();
     if (userId == null) {
       'SyncDataRepository: no current user, skipping sync'.log();
@@ -47,7 +52,7 @@ final class SyncDataRepository implements SyncDataRepositoryBase {
       final metricsDb = await _userMetricsCache.initializeDatabase();
       final localMetrics =
           (await _userMetricsCache.select(metricsDb, {
-            'userId': userId,
+            UserMetricsColumns.userId.value: userId,
           }))?.userMetrics ??
           [];
 
@@ -90,6 +95,7 @@ final class SyncDataRepository implements SyncDataRepositoryBase {
         }
       }
 
+      AppUtil.syncPending = false;
       'SyncDataRepository: sync complete — ${serverMetrics.length} metrics cached'
           .log();
     } catch (e) {
