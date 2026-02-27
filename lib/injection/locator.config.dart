@@ -140,16 +140,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i78.SaveAppUseCase>(
       () => _i78.SaveAppUseCase(gh<_i395.SaveAppRepository>()),
     );
+    gh.lazySingleton<_i243.UserApiServiceBase>(
+      () => _i440.UserApiService(gh<_i260.ApiClient>()),
+    );
     gh.lazySingleton<_i631.AuthService>(
       () => _i631.AuthService(
         gh<_i101.ApiClient>(),
         gh<_i101.AppCache>(),
         gh<_i101.UserCache>(),
         gh<_i101.UserMetricsCache>(),
+        gh<_i243.UserApiServiceBase>(),
       ),
-    );
-    gh.lazySingleton<_i243.UserApiServiceBase>(
-      () => _i440.UserApiService(gh<_i260.ApiClient>()),
     );
     gh.factory<_i388.SaveAvatarRepository>(
       () => _i388.SaveAvatarRepository(
