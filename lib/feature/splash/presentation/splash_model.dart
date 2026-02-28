@@ -8,6 +8,8 @@ mixin _SplashModel on State<Splash>, DialogUtil<Splash> {
 
   late final ImpCache _impCache = Locator.sl<ImpCache>();
   late final AuthService _authService = Locator.sl<AuthService>();
+  late final SyncLocalDataUseCase _syncLocalDataUseCase =
+      Locator.sl<SyncLocalDataUseCase>();
 
   @override
   void initState() {
@@ -19,6 +21,7 @@ mixin _SplashModel on State<Splash>, DialogUtil<Splash> {
     await _initializeDatabase();
     await _handleAppInitialization();
     await _restoreAuthSession();
+    await _retryPendingSync();
 
     if (!mounted) return;
 
@@ -64,6 +67,14 @@ mixin _SplashModel on State<Splash>, DialogUtil<Splash> {
       'Session restore completed'.log();
     } catch (e) {
       'Session restore failed: $e'.e();
+    }
+  }
+
+  Future<void> _retryPendingSync() async {
+    try {
+      await _syncLocalDataUseCase.restoreAndAttemptSync();
+    } catch (e) {
+      'Splash: background sync attempt failed — $e'.e();
     }
   }
 

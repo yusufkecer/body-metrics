@@ -252,7 +252,6 @@ final class _RegisterTabState extends State<_RegisterTab> {
     return BlocConsumer<RegisterCubit, RegisterState>(
       listener: (context, state) {
         if (state is RegisterSuccess) {
-          AppUtil.syncPending = true;
           context.router.maybePop(true);
           return;
         }

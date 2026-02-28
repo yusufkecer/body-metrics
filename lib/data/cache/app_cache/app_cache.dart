@@ -26,9 +26,18 @@ final class AppCache extends ImpCache
       ${AppCacheColumns.activeUser.value} INTEGER NULL,
       ${AppCacheColumns.page.value} TEXT NULL,
       ${AppCacheColumns.jwtToken.value} TEXT NULL,
-      ${AppCacheColumns.email.value} TEXT NULL
+      ${AppCacheColumns.email.value} TEXT NULL,
+      ${AppCacheColumns.syncPending.value} INTEGER DEFAULT 0
     )
   ''');
+
+    final cols = await db.rawQuery('PRAGMA table_info($table)');
+    final colNames = cols.map((c) => c['name']! as String).toSet();
+    if (!colNames.contains(AppCacheColumns.syncPending.value)) {
+      await db.execute(
+        'ALTER TABLE $table ADD COLUMN ${AppCacheColumns.syncPending.value} INTEGER DEFAULT 0',
+      );
+    }
   }
 
   final List<String> _columns = [
@@ -37,6 +46,7 @@ final class AppCache extends ImpCache
     AppCacheColumns.page.value,
     AppCacheColumns.jwtToken.value,
     AppCacheColumns.email.value,
+    AppCacheColumns.syncPending.value,
   ];
 
   ///There should be only one row
@@ -91,8 +101,9 @@ final class AppCache extends ImpCache
 
     columns ??= _columns;
 
-    final value =
-        await db!.rawQuery("SELECT ${columns.join(', ')} FROM $table $join");
+    final value = await db!.rawQuery(
+      "SELECT ${columns.join(', ')} FROM $table $join",
+    );
 
     await closeDb();
     'value: $value'.log();
@@ -108,8 +119,9 @@ final class AppCache extends ImpCache
       return 0;
     }
     'value: $value'.log();
-    final filteredValue =
-        value.entries.where((entry) => entry.value != null).toList();
+    final filteredValue = value.entries
+        .where((entry) => entry.value != null)
+        .toList();
 
     if (filteredValue.isEmpty) {
       'No values to update'.e();
@@ -122,10 +134,7 @@ final class AppCache extends ImpCache
 
     final values = filteredValue.map((e) => e.value).toList();
 
-    final result = await db.rawUpdate(
-      'UPDATE $table SET $columns',
-      values,
-    );
+    final result = await db.rawUpdate('UPDATE $table SET $columns', values);
 
     await closeDb();
 

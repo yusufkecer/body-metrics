@@ -12,7 +12,7 @@ abstract final class ApiConstants {
 
   static String get baseUrl => switch (_flavor) {
     'production' =>
-      'https://body-metrics-backend-production.up.railway.app/api/v1',
+      'https://api.bodymetrics.life/api/v1',
     'local_ios' => 'http://localhost:8080/api/v1',
     'local' when _localIp.isNotEmpty => 'http://$_localIp:8080/api/v1',
     _ => 'http://10.0.2.2:8080/api/v1',

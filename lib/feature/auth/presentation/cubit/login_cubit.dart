@@ -17,6 +17,7 @@ final class LoginCubit extends Cubit<LoginState> {
     emit(const LoginLoading());
     try {
       await _authService.login(email: email, password: password);
+      await _syncLocalDataUseCase.restore();
       await _syncLocalDataUseCase.execute();
       emit(const LoginSuccess());
     } catch (e) {

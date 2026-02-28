@@ -6,6 +6,7 @@ enum AppCacheColumns {
   page,
   jwtToken,
   email,
+  syncPending,
   table;
 
   String get value {
@@ -20,6 +21,8 @@ enum AppCacheColumns {
         return 'jwt_token';
       case AppCacheColumns.email:
         return 'email';
+      case AppCacheColumns.syncPending:
+        return 'sync_pending';
       case AppCacheColumns.table:
         return 'app';
     }

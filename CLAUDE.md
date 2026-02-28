@@ -171,7 +171,9 @@ CREATE TABLE user_metrics (
 **Migrations (idempotent):** use `PRAGMA table_info` + `ALTER TABLE` to add new columns.
 
 ### `app_cache` table
-Stores: `is_complete_onboard`, `active_user`, `page` (current Pages enum value), `jwt_token` (JWT), `email` (user email)
+Stores: `is_complete_onboard`, `active_user`, `page` (current Pages enum value), `jwt_token` (JWT), `email` (user email), `sync_pending` (0/1 — persisted across restarts)
+
+> **Migration:** `sync_pending INTEGER DEFAULT 0` is added via idempotent `PRAGMA table_info` + `ALTER TABLE` in `AppCache.initializeTable()`.
 
 ---
 
@@ -278,6 +280,21 @@ class FeatureCubit extends Cubit<FeatureState> {
 - **Cache-first, API-fallback:** Read from local SQLite first, try API if cache is empty
 - **Write-through:** Save to local cache first, then sync to API in background
 - API failures are logged but don't block the user (offline-friendly)
+- **Offline-resilient sync:** `syncPending` flag is persisted to `app_cache.sync_pending` so it survives app restarts. On every app start, Splash reads this flag and retries the sync automatically if internet is available.
+
+### Sync Flow (Post-Registration)
+1. `RegisterCubit.register()` → `SyncLocalDataUseCase.markPending()` → sets `AppUtil.syncPending = true` AND writes `sync_pending = 1` to SQLite
+2. User completes onboarding offline → all data saved to local SQLite only
+3. `WeightPickerCubit.saveBodyMetrics()` → triggers `execute()` if `syncPending` → may fail (offline)
+4. **App restart** → `SplashModel._retryPendingSync()` → reads `sync_pending` from DB → if true AND has session → retries `sync()` automatically
+5. On sync success → `sync_pending = 0` written to DB
+
+### Login Restore Flow (Avatar Page)
+When a user logs in from `AvatarPickerView` (no local profile):
+1. `LoginCubit` → `_syncLocalDataUseCase.restore()` → checks local SQLite first
+2. If no local user: calls `GET /users` → downloads profile + metrics from server
+3. Saves locally, sets `AppUtil.currentUserId`, updates `app_cache.active_user + page=homePage`
+4. Navigation to `HomeView` succeeds
 
 ### Auth Flow
 1. User registers/logs in → API returns JWT token
@@ -518,6 +535,18 @@ blocTest<OnboardCubit, OnboardState>(
 1. Cache-first pattern means local data is shown regardless of API status
 2. Check `LoggingInterceptor` output for HTTP errors
 3. Verify backend is running and reachable (10.0.2.2:8080 for emulator)
+
+### "Sync data lost after app restart"
+1. Check `app_cache.sync_pending` value in SQLite — should be `1` if sync is pending
+2. `SplashModel._retryPendingSync()` reads this flag and retries on next app start
+3. Verify `SyncDataRepository.markPending()` was called (from `RegisterCubit`)
+4. If flag resets incorrectly, check `_persistSyncPending()` in `SyncDataRepository`
+
+### "Login from AvatarPicker → user not found on Home"
+1. `LoginCubit` calls `restore()` before `execute()` — verify order
+2. `SyncDataRepository.restore()` checks local SQLite first, then `GET /users`
+3. If `AppUtil.currentUserId` is still null after restore, check `getAllUsers()` API response
+4. Ensure `app_cache.active_user` is updated after restore (see `_persistSession`)
 
 ---
 

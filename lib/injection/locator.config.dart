@@ -247,6 +247,7 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i101.UserMetricsCache>(),
         gh<_i243.UserApiServiceBase>(),
         gh<_i243.MetricsApiServiceBase>(),
+        gh<_i101.AppCache>(),
       ),
     );
     gh.factory<_i578.OnboardCubit>(

@@ -4,6 +4,7 @@ import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/data/index.dart';
 import 'package:bodymetrics/domain/entities/params_entity.dart';
+import 'package:bodymetrics/domain/use_case/sync_local_data_use_case.dart';
 import 'package:bodymetrics/feature/splash/domain/use_case/splash_app_use_case.dart';
 import 'package:bodymetrics/feature/splash/domain/use_case/splash_user_use_case.dart';
 import 'package:bodymetrics/injection/locator.dart';
