@@ -84,6 +84,7 @@
         "chart": "Chart",
         "line_chart": "BMI Chart",
         "bar_chart": "Weight Chart",
+        "bmi_zone": "BMI Zone",
         "menu": {
             "change_profile": "Change Profile",
             "add_profile": "Add Profile",

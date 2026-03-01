@@ -83,6 +83,7 @@
         "chart": "Grafik",
         "line_chart": "VTI Grafiği",
         "bar_chart": "Kilo Grafiği",
+        "bmi_zone": "VTİ Zonu",
         "menu": {
             "change_profile": "Profil Değiştir",
             "add_profile": "Profil Ekle",
