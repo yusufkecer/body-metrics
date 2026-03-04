@@ -100,7 +100,7 @@ class _DataListState extends State<_DataList>
                   child: FadeTransition(
                     opacity: CurvedAnimation(
                       parent: animation,
-                      curve: const Interval(0.0, 0.8, curve: Curves.easeOut),
+                      curve: const Interval(0, 0.8, curve: Curves.easeOut),
                     ),
                     child: child,
                   ),
@@ -174,7 +174,7 @@ class _DataListState extends State<_DataList>
                 top: Radius.circular(14),
               ),
               border: Border(
-                bottom: BorderSide(color: badgeColor.withAlpha(80), width: 1),
+                bottom: BorderSide(color: badgeColor.withAlpha(80)),
               ),
             ),
             child: Row(

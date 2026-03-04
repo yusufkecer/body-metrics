@@ -43,11 +43,11 @@ class _HomeCardState extends State<HomeCard>
       duration: const Duration(milliseconds: 180),
     );
 
-    _buttonScaleAnim = Tween<double>(begin: 1.0, end: 0.92).animate(
+    _buttonScaleAnim = Tween<double>(begin: 1, end: 0.92).animate(
       CurvedAnimation(parent: _buttonAnimController, curve: Curves.easeInOut),
     );
 
-    _buttonGlowAnim = Tween<double>(begin: 0.0, end: 1.0).animate(
+    _buttonGlowAnim = Tween<double>(begin: 0, end: 1).animate(
       CurvedAnimation(parent: _buttonAnimController, curve: Curves.easeOut),
     );
   }
@@ -154,7 +154,6 @@ class _HomeCardState extends State<HomeCard>
   }
 }
 
-/// Animasyonlu genişlet/daralt butonu
 class _AnimatedExpandButton extends StatelessWidget {
   const _AnimatedExpandButton({
     required this.buttonTitle,
@@ -170,7 +169,6 @@ class _AnimatedExpandButton extends StatelessWidget {
 
   bool get _isExpanded {
     final lower = buttonTitle.toLowerCase();
-    // TR: "Daha Az Gör", EN: "See Less", DE: "Weniger Anzeigen"
     return lower.contains('less') ||
         lower.contains('daha az') ||
         lower.contains('weniger');
@@ -198,12 +196,10 @@ class _AnimatedExpandButton extends StatelessWidget {
                   color: ProductColor.instance.white.withAlpha(
                     _isExpanded ? 50 : 0,
                   ),
-                  width: 1,
                 ),
               ),
               child: Row(
                 mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.center,
                 children: [
                   AnimatedSwitcher(
                     duration: const Duration(milliseconds: 300),
