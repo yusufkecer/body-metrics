@@ -120,4 +120,31 @@ class MockSyncLocalDataUseCase extends _i1.Mock
             returnValueForMissingStub: _i3.Future<void>.value(),
           )
           as _i3.Future<void>);
+
+  @override
+  _i3.Future<void> restore() =>
+      (super.noSuchMethod(
+            Invocation.method(#restore, []),
+            returnValue: _i3.Future<void>.value(),
+            returnValueForMissingStub: _i3.Future<void>.value(),
+          )
+          as _i3.Future<void>);
+
+  @override
+  _i3.Future<void> markPending() =>
+      (super.noSuchMethod(
+            Invocation.method(#markPending, []),
+            returnValue: _i3.Future<void>.value(),
+            returnValueForMissingStub: _i3.Future<void>.value(),
+          )
+          as _i3.Future<void>);
+
+  @override
+  _i3.Future<void> restoreAndAttemptSync() =>
+      (super.noSuchMethod(
+            Invocation.method(#restoreAndAttemptSync, []),
+            returnValue: _i3.Future<void>.value(),
+            returnValueForMissingStub: _i3.Future<void>.value(),
+          )
+          as _i3.Future<void>);
 }

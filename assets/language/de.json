@@ -1,0 +1,163 @@
+{
+    "calculator": "BMI Berechnen",
+    "cont": "Weiter",
+    "save": "Speichern",
+    "back": "Zurueck",
+    "try_again": "Erneut Versuchen",
+    "gender": {
+        "gender_name": "Geschlecht",
+        "select_gender": "Waehlen Sie Ihr Geschlecht",
+        "fm": "Weiblich",
+        "ml": "Maennlich",
+        "gender_is_null": "Geschlecht wurde nicht ausgewaehlt. Bitte waehlen Sie ein Geschlecht."
+    },
+    "height": {
+        "height_name": "Groesse",
+        "select_height": "Waehlen Sie Ihre Groesse",
+        "cm": "Cm"
+    },
+    "register": {
+        "name": "Vorname",
+        "surname": "Nachname",
+        "birth_of_date": "Geburtsdatum",
+        "complete": "Registrierung Abschliessen",
+        "or": "oder",
+        "select_profile_picture": "Waehlen Sie Ihren Avatar",
+        "information_is_empty": "Um die Registrierung abzuschliessen, geben Sie bitte Ihren Namen und Ihr Geburtsdatum ein.",
+        "avatar_select_failed": "Beim Auswaehlen des Avatars ist ein Fehler aufgetreten. Moechten Sie mit der Berechnung fortfahren?",
+        "name_required": "Der Name darf nicht leer sein und muss mindestens 3 Zeichen haben.",
+        "surname_required": "Der Nachname darf nicht leer sein und muss mindestens 3 Zeichen haben.",
+        "birth_of_date_required": "Das Geburtsdatum darf nicht leer sein."
+    },
+    "weight": {
+        "weight_name": "Gewicht",
+        "select_weight": "Waehlen Sie Ihr Gewicht",
+        "kg": "Kg",
+        "weight_empty": "Um fortzufahren, muessen Sie Ihr Gewicht eingeben.",
+        "weight_invalid": "Bitte geben Sie ein gueltiges Gewicht ein.",
+        "enter_range": "Bitte geben Sie ein gueltiges Gewicht im Bereich 25-635 ein."
+    },
+    "bmi_result": {
+        "under_weight": "Untergewicht",
+        "normal": "Normal",
+        "over_weight": "Uebergewicht",
+        "obese": "Adipoes",
+        "severely_obese": "Stark Adipoes",
+        "very_severely_obese": "Sehr Stark Adipoes",
+        "unknown": "Unbekannt"
+    },
+    "dialog": {
+        "progress_lost": "Sind Sie sicher? Ihr gesamter Fortschritt geht verloren.",
+        "general_error": "Ein Fehler ist aufgetreten. Bitte versuchen Sie es erneut.",
+        "cancel": "Abbrechen",
+        "ok": "OK",
+        "close": "Schliessen",
+        "yes": "Ja",
+        "page_not_saved": "Seite wurde nicht gespeichert. Bitte schliessen Sie die Registrierung ab."
+    },
+    "onboard": {
+        "welcome": "Willkommen!",
+        "onboarding_1_title": "Willkommen bei BodyMetrics! ⚖️",
+        "onboarding_1": "Diese App wurde entwickelt, um Ihren Body-Mass-Index (BMI) zu berechnen und Ihre Gewichts- und BMI-Werte zu verfolgen.",
+        "onboarding_2_title": "Lokaler & Cloud-Speicher 🛡️",
+        "onboarding_2": "Ihre Daten werden zuerst sicher auf Ihrem Geraet gespeichert. Optional koennen Sie ein Konto erstellen und Ihre Daten in der Cloud sichern.",
+        "onboarding_3_title": "Verlauf & Diagramme 📈",
+        "onboarding_3": "Alle Messungen werden chronologisch aufgelistet. Verfolgen Sie Ihre BMI- und Gewichtsveraenderungen einfach ueber Diagramme.",
+        "onboarding_4_title": "Cloud-Backup 💾",
+        "onboarding_4": "Erstellen Sie ein Konto, um alle Messungen automatisch in die Cloud zu sichern. Selbst bei Geraetewechsel bleiben Ihre Daten erhalten.",
+        "onboarding_5": "Los geht's! 🚀",
+        "skip": "Ueberspringen"
+    },
+    "home": {
+        "home": "Startseite",
+        "yearly": "Jaehrlich",
+        "monthly": "Monatlich",
+        "weekly": "Woechentlich",
+        "see_more": "Mehr Anzeigen",
+        "see_less": "Weniger Anzeigen",
+        "bmi": "BMI",
+        "weight": "Gewicht",
+        "situation": "Status",
+        "date": "Datum",
+        "weight_change": "Aenderung",
+        "report": "Bericht",
+        "chart": "Diagramm",
+        "line_chart": "BMI-Diagramm",
+        "bar_chart": "Gewichtsdiagramm",
+        "bmi_zone": "BMI-Bereich",
+        "menu": {
+            "change_profile": "Profil Wechseln",
+            "add_profile": "Profil Hinzufuegen",
+            "calculate_bmi": "BMI Berechnen",
+            "user_operations": "Benutzeraktionen",
+            "logout": "Abmelden",
+            "change_language": "Sprache Aendern"
+        }
+    },
+    "auth": {
+        "login": "Anmelden",
+        "register": "Registrieren",
+        "email": "E-Mail",
+        "password": "Passwort",
+        "invalid_email": "Bitte geben Sie eine gueltige E-Mail-Adresse ein.",
+        "password_min": "Das Passwort muss mindestens 6 Zeichen lang sein.",
+        "forgot_password": "Passwort Vergessen",
+        "forgot_password_link": "Passwort Vergessen?",
+        "forgot_password_title": "Passwort Zuruecksetzen",
+        "forgot_password_send_code": "Code Senden",
+        "forgot_password_code": "Bestaetigungscode",
+        "forgot_password_new_password": "Neues Passwort",
+        "forgot_password_confirm_password": "Passwort Bestaetigen",
+        "forgot_password_reset": "Passwort Zuruecksetzen",
+        "forgot_password_code_sent": "Der Code wurde an Ihre E-Mail gesendet",
+        "forgot_password_success": "Ihr Passwort wurde erfolgreich zurueckgesetzt",
+        "forgot_password_passwords_not_match": "Passwoerter stimmen nicht ueberein",
+        "forgot_password_code_hint": "Geben Sie den 6-stelligen Code ein"
+    },
+    "chart": {
+        "month": {
+            "jan": "Jan",
+            "feb": "Feb",
+            "mar": "Maer",
+            "apr": "Apr",
+            "may": "Mai",
+            "jun": "Jun",
+            "jul": "Jul",
+            "aug": "Aug",
+            "sep": "Sep",
+            "oct": "Okt",
+            "nov": "Nov",
+            "dec": "Dez"
+        },
+        "week": {
+            "mon": "Mo",
+            "tue": "Di",
+            "wed": "Mi",
+            "thu": "Do",
+            "fri": "Fr",
+            "sat": "Sa",
+            "sun": "So"
+        }
+    },
+    "change_profile": {
+        "change_profile": "Profil Wechseln",
+        "select_profile": "Profil Auswaehlen",
+        "delete_profile": "Profil Loeschen",
+        "delete_profile_confirm": "Sind Sie sicher, dass Sie Ihr Profil loeschen moechten?",
+        "delete": "Loeschen",
+        "profile_deleted": "Profil wurde erfolgreich geloescht.",
+        "profile_not_deleted": "Profil konnte nicht geloescht werden. Bitte versuchen Sie es erneut.",
+        "profile_changed": "Profil wurde erfolgreich gewechselt.",
+        "profile_not_changed": "Profil konnte nicht gewechselt werden. Bitte versuchen Sie es erneut."
+    },
+    "exception": {
+        "generic_error": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es spaeter erneut.",
+        "gender_not_found": "Geschlecht nicht gefunden. Bitte waehlen Sie ein gueltiges Geschlecht.",
+        "user_not_found": "Benutzer nicht gefunden.",
+        "user_metrics_not_found": "Benutzermetriken nicht gefunden.",
+        "context_not_found": "Kontext nicht gefunden. Bitte stellen Sie sicher, dass die Anwendung korrekt gestartet wurde.",
+        "weight_and_height_must_be_positive_values": "Gewicht und Groesse muessen positive Werte sein.",
+        "user_not_created": "Benutzer konnte nicht erstellt werden. Bitte versuchen Sie es erneut.",
+        "height_not_saved": "Groesse konnte nicht gespeichert werden. Bitte versuchen Sie es erneut."
+    }
+}

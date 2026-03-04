@@ -8,9 +8,8 @@ import 'package:injectable/injectable.dart';
 @injectable
 @immutable
 class SaveAvatarRepository implements Repository<int, UserFilters> {
-  const SaveAvatarRepository(this.userCache, this._userApiService);
+  const SaveAvatarRepository(this.userCache);
   final UserCache userCache;
-  final UserApiServiceBase _userApiService;
 
   @override
   Future<int?> executeWithParams({UserFilters? params}) async {
@@ -20,15 +19,6 @@ class SaveAvatarRepository implements Repository<int, UserFilters> {
 
     final db = await userCache.initializeDatabase();
     final result = await userCache.insert(db, value);
-
-    if (!AppUtil.syncPending) {
-      try {
-        final apiResult = await _userApiService.createUser(value);
-        'User created on API: $apiResult'.log();
-      } catch (e) {
-        'Failed to sync avatar to API: $e'.w();
-      }
-    }
 
     return result;
   }

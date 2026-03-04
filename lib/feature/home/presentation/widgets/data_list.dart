@@ -155,12 +155,12 @@ final class _BmiRangeIndicator extends StatelessWidget {
   final double? bmi;
   final BodyMetricResult? result;
 
-  static const double _min = 10.0;
-  static const double _max = 45.0;
-  static const double _t1 = 18.5; // underweight → normal
-  static const double _t2 = 25.0; // normal → overweight
-  static const double _t3 = 30.0; // overweight → obese
-  static const double _t4 = 40.0; // obese → morbidly obese
+  static const double _min = 10;
+  static const double _max = 45;
+  static const double _t1 = 18.5;
+  static const double _t2 = 25;
+  static const double _t3 = 30;
+  static const double _t4 = 40;
 
   @override
   Widget build(BuildContext context) {

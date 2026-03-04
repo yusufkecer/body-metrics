@@ -7,10 +7,9 @@ import 'package:injectable/injectable.dart';
 @immutable
 final class UserMetricRepository
     implements Repository<UserMetrics, UserMetric> {
-  const UserMetricRepository(this._userMetricsCache, this._metricsApiService);
+  const UserMetricRepository(this._userMetricsCache);
 
   final UserMetricsCache _userMetricsCache;
-  final MetricsApiServiceBase _metricsApiService;
 
   @override
   Future<UserMetrics?> executeWithParams({UserMetric? params}) async {
@@ -20,19 +19,6 @@ final class UserMetricRepository
     final result = await _userMetricsCache.select(db, params.toJson());
 
     'UserMetricRepository result: $result'.log();
-
-    try {
-      if (params.userId != null) {
-        final apiMetrics = await _metricsApiService.getMetricsByUserId(
-          params.userId!,
-        );
-        if (apiMetrics.isNotEmpty) {
-          'Synced ${apiMetrics.length} metrics from API'.log();
-        }
-      }
-    } catch (e) {
-      'Failed to sync metrics from API: $e'.w();
-    }
 
     return result;
   }

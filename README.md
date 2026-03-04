@@ -12,7 +12,7 @@ Flutter ile geliştirilmiş, bulut destekli sağlık metrik takip uygulaması. K
 - **Şifremi Unuttum** — E-posta ile 6 haneli OTP ile şifre sıfırlama
 - **Çevrimdışı Destek** — SQLite cache ile internet olmadan çalışır; sync bekleyen veriler uygulama yeniden açıldığında otomatik olarak sunucuya gönderilir
 - **Hesap Restore** — Mevcut hesapla giriş yapıldığında profil ve geçmiş ölçümler otomatik indirilir
-- **Çoklu Dil** — Türkçe ve İngilizce
+- **Çoklu Dil** — Türkçe, İngilizce ve Almanca
 
 ## Teknolojiler
 
@@ -22,7 +22,7 @@ Flutter ile geliştirilmiş, bulut destekli sağlık metrik takip uygulaması. K
 - **injectable/get_it** — Dependency injection
 - **sqflite** — Yerel SQLite önbellek
 - **Dio** — HTTP client
-- **easy_localization** — i18n (tr + en)
+- **easy_localization** — i18n (tr + en + de)
 - **fl_chart** — Grafik bileşenleri
 
 ## Proje Yapısı
@@ -107,6 +107,32 @@ flutter run --dart-define=FLAVOR=local_ios
 flutter build apk --release --dart-define=FLAVOR=production
 ```
 
+## Flavor Desteği
+
+Uygulama `--dart-define=FLAVOR=...` ile farklı backend URL'lerine bağlanır.
+
+| Flavor | Base URL | Kullanım |
+|--------|----------|----------|
+| `local` (default) | `http://10.0.2.2:8080/api/v1` | Android emülatör |
+| `local` + `LOCAL_IP` | `http://<LOCAL_IP>:8080/api/v1` | Fiziksel cihaz / aynı ağ |
+| `local_ios` | `http://localhost:8080/api/v1` | iOS simülatör |
+| `production` | `https://api.bodymetrics.life/api/v1` | Production |
+
+Örnek:
+```bash
+# Android emülatör (default local)
+flutter run
+
+# Fiziksel cihaz
+flutter run --dart-define=LOCAL_IP=192.168.1.20
+
+# iOS simülatör
+flutter run --dart-define=FLAVOR=local_ios
+
+# Production
+flutter run --dart-define=FLAVOR=production
+```
+
 ## Android Release Signing
 
 `android/key.properties` dosyasını doldur (gitignored):
@@ -126,7 +152,7 @@ keytool -genkey -v -keystore android/bodymetrics.keystore \
 
 ## Lokalizasyon
 
-Dil dosyaları: `assets/language/tr.json` ve `assets/language/en.json`
+Dil dosyaları: `assets/language/tr.json`, `assets/language/en.json`, `assets/language/de.json`
 
 Yeni key eklemek:
 1. Her iki JSON dosyasına key-value çifti ekle

@@ -7,9 +7,8 @@ import 'package:injectable/injectable.dart';
 @immutable
 @injectable
 final class SplashUserRepository implements Repository<Users, ParamsEntity> {
-  const SplashUserRepository(this._userCache, this._userApiService);
+  const SplashUserRepository(this._userCache);
   final UserCache _userCache;
-  final UserApiServiceBase _userApiService;
 
   @override
   Future<Users?> executeWithParams({ParamsEntity? params}) async {
@@ -20,22 +19,6 @@ final class SplashUserRepository implements Repository<Users, ParamsEntity> {
 
     final db = await _userCache.initializeDatabase();
     final result = await _userCache.select(db, filters, columns: columns);
-
-    if (result != null && result.users != null && result.users!.isNotEmpty) {
-      return result;
-    }
-
-    try {
-      final id = filters['id'] as int?;
-      if (id != null) {
-        final apiResult = await _userApiService.getUserById(id);
-        if (apiResult != null) {
-          return Users(users: [User.fromJson(apiResult)]);
-        }
-      }
-    } catch (e) {
-      'Failed to fetch user from API in splash: $e'.e();
-    }
 
     return result;
   }

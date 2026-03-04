@@ -17,6 +17,7 @@ final class AppLocalization extends EasyLocalization {
   static final List<Locale> _supportedItems = [
     Lang.tr.locale,
     Lang.en.locale,
+    Lang.de.locale,
   ];
 
   Future<void> updateLanguage({

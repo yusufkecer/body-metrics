@@ -66,45 +66,49 @@ class _UserInfoFormBodyState extends State<_UserInfoFormBody>
             onPopInvokedWithResult: (isPop, result) async {
               return _didPop(isFormEmpty: isPop);
             },
-            child: Column(
-              children: [
-                CustomTextField(
-                  label: LocaleKeys.register_name,
-                  prefixIcon: ProductIcon.user.icon,
-                  controller: _nameController,
-                  validator: (value) {
-                    return _formValidator(
-                      value,
-                      LocaleKeys.register_name_required,
-                    );
-                  },
-                ),
-                CustomTextField(
-                  label: LocaleKeys.register_surname,
-                  prefixIcon: ProductIcon.users.icon,
-                  controller: _surnameController,
-                  validator: (value) {
-                    return _formValidator(
-                      value,
-                      LocaleKeys.register_surname_required,
-                    );
-                  },
-                ),
-                CustomTextField(
-                  label: LocaleKeys.register_birth_of_date,
-                  readOnly: true,
-                  onTap: _openDatePicker,
-                  prefixIcon: ProductIcon.birthDay.icon,
-                  controller: _birthOfDateController,
-                  validator: (value) {
-                    // Controller value is set externally, so we need to use _birthOfDateController.text
-                    return _birthDateValidator(
-                      _birthOfDateController.text,
-                      LocaleKeys.register_birth_of_date_required,
-                    );
-                  },
-                ),
-              ],
+            child: Padding(
+              padding: ProductPadding.horizontalTwentyFour(),
+              child: Column(
+                children: [
+                  AuthInputField(
+                    controller: _nameController,
+                    labelText: LocaleKeys.register_name.tr(),
+                    icon: ProductIcon.user.icon,
+                    validator: (value) {
+                      return _formValidator(
+                        value,
+                        LocaleKeys.register_name_required,
+                      );
+                    },
+                  ),
+                  VerticalSpace.m(),
+                  AuthInputField(
+                    controller: _surnameController,
+                    labelText: LocaleKeys.register_surname.tr(),
+                    icon: ProductIcon.users.icon,
+                    validator: (value) {
+                      return _formValidator(
+                        value,
+                        LocaleKeys.register_surname_required,
+                      );
+                    },
+                  ),
+                  VerticalSpace.m(),
+                  AuthInputField(
+                    controller: _birthOfDateController,
+                    labelText: LocaleKeys.register_birth_of_date.tr(),
+                    icon: ProductIcon.birthDay.icon,
+                    readOnly: true,
+                    onTap: _openDatePicker,
+                    validator: (value) {
+                      return _birthDateValidator(
+                        _birthOfDateController.text,
+                        LocaleKeys.register_birth_of_date_required,
+                      );
+                    },
+                  ),
+                ],
+              ),
             ),
           ),
           BlocListener<UserInfoFormCubit, UserInfoFormCubitState>(

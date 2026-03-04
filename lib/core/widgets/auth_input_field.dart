@@ -72,6 +72,8 @@ final class AuthInputField extends StatefulWidget {
     this.validator,
     this.obscureText = false,
     this.keyboardType,
+    this.readOnly = false,
+    this.onTap,
     super.key,
   });
 
@@ -81,6 +83,8 @@ final class AuthInputField extends StatefulWidget {
   final String? Function(String?)? validator;
   final bool obscureText;
   final TextInputType? keyboardType;
+  final bool readOnly;
+  final VoidCallback? onTap;
 
   @override
   State<AuthInputField> createState() => _AuthInputFieldState();
@@ -117,6 +121,8 @@ class _AuthInputFieldState extends State<AuthInputField> {
           validator: widget.validator,
           obscureText: _isObscured,
           keyboardType: widget.keyboardType,
+          readOnly: widget.readOnly,
+          onTap: widget.onTap,
           style:
               context.textTheme.bodyMedium?.copyWith(
                 color: ProductColor.instance.white,

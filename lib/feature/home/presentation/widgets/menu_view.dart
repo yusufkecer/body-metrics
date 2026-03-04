@@ -8,13 +8,105 @@ final class _MenuView extends StatelessWidget {
   final String surname;
   final String image;
 
+  Future<void> _showLanguageDialog(BuildContext context) async {
+    final currentLang = Lang.fromLocale(context.locale);
+
+    await showDialog<void>(
+      context: context,
+      builder: (dialogContext) {
+        return AlertDialog(
+          backgroundColor: ProductColor.instance.seedColor,
+          shape: RoundedRectangleBorder(
+            borderRadius: const ProductRadius.fifteen(),
+            side: BorderSide(color: ProductColor.instance.cardBorder),
+          ),
+          title: Text(
+            LocaleKeys.home_menu_change_language.tr(),
+            style: dialogContext.textTheme.titleMedium?.copyWith(
+              color: ProductColor.instance.white,
+            ),
+          ),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: Lang.values.map((lang) {
+              return RadioListTile<Lang>(
+                value: lang,
+                groupValue: currentLang,
+                activeColor: ProductColor.instance.white,
+                tileColor: ProductColor.instance.white.withAlpha(20),
+                shape: const RoundedRectangleBorder(
+                  borderRadius: ProductRadius.ten(),
+                ),
+                title: Text(
+                  lang.displayName,
+                  style: dialogContext.textTheme.bodyLarge?.copyWith(
+                    color: ProductColor.instance.white,
+                    fontWeight: FontWeight.w600,
+                  ),
+                ),
+                secondary: Container(
+                  width: 52,
+                  height: 36,
+                  padding: const EdgeInsets.symmetric(horizontal: 6),
+                  decoration: BoxDecoration(
+                    color: ProductColor.instance.white.withAlpha(25),
+                    borderRadius: const ProductRadius.ten(),
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      ClipRRect(
+                        borderRadius: const ProductRadius.four(),
+                        child: Image.asset(
+                          lang.flag,
+                          width: 18,
+                          height: 18,
+                          fit: BoxFit.cover,
+                        ),
+                      ),
+                      Text(
+                        lang.code,
+                        style: dialogContext.textTheme.labelLarge?.copyWith(
+                          color: ProductColor.instance.white,
+                          fontWeight: FontWeight.w700,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                contentPadding: EdgeInsets.zero,
+                visualDensity: const VisualDensity(
+                  horizontal: -4,
+                  vertical: -3,
+                ),
+                onChanged: (selected) async {
+                  if (selected == null) return;
+                  await context.setLocale(selected.locale);
+                  if (dialogContext.mounted) {
+                    Navigator.of(dialogContext).pop();
+                  }
+                },
+              );
+            }).toList(),
+          ),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.of(dialogContext).pop(),
+              child: Text(
+                LocaleKeys.dialog_cancel.tr(),
+                style: dialogContext.textTheme.labelLarge?.copyWith(
+                  color: ProductColor.instance.white,
+                ),
+              ),
+            ),
+          ],
+        );
+      },
+    );
+  }
+
   @override
   Widget build(BuildContext context) {
-    final currentLocale = context.locale;
-    final isCurrentlyTr = currentLocale == Lang.tr.locale;
-    final nextLang = isCurrentlyTr ? Lang.en : Lang.tr;
-    final nextFlag = nextLang.flag;
-
     return Padding(
       padding: const ProductPadding.fifTeen(),
       child: SafeArea(
@@ -104,35 +196,17 @@ final class _MenuView extends StatelessWidget {
                       );
                     },
                   ),
+                  VerticalSpace.s(),
+                  _MenuTileWrapper(
+                    child: CustomListTile(
+                      Icons.language,
+                      LocaleKeys.home_menu_change_language,
+                      () => _showLanguageDialog(context),
+                    ),
+                  ),
                 ],
               ),
               const Spacer(),
-              Align(
-                alignment: Alignment.centerLeft,
-                child: InkWell(
-                  borderRadius: const ProductRadius.twelve(),
-                  onTap: () => context.setLocale(nextLang.locale),
-                  child: Padding(
-                    padding: EdgeInsets.symmetric(
-                      horizontal: SpaceValues.s.value,
-                      vertical: SpaceValues.xs.value,
-                    ),
-                    child: Row(
-                      mainAxisSize: MainAxisSize.min,
-                      children: [
-                        Image.asset(nextFlag, width: 32, height: 32),
-                        HorizontalSpace.xs(),
-                        Text(
-                          nextLang == Lang.tr ? 'TR' : 'EN',
-                          style: context.textTheme.titleMedium?.copyWith(
-                            fontWeight: FontWeight.w700,
-                          ),
-                        ),
-                      ],
-                    ),
-                  ),
-                ),
-              ),
             ],
           ),
         ),

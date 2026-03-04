@@ -137,6 +137,33 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i85.OnboardRepository>(
       () => _i85.OnboardRepository(gh<_i101.AppCache>()),
     );
+    gh.factory<_i674.UserMetricRepository>(
+      () => _i674.UserMetricRepository(gh<_i101.UserMetricsCache>()),
+    );
+    gh.factory<_i406.SaveWeightRepository>(
+      () => _i406.SaveWeightRepository(gh<_i101.UserMetricsCache>()),
+    );
+    gh.factory<_i388.SaveAvatarRepository>(
+      () => _i388.SaveAvatarRepository(gh<_i101.UserCache>()),
+    );
+    gh.factory<_i896.SaveHeightRepository>(
+      () => _i896.SaveHeightRepository(gh<_i101.UserCache>()),
+    );
+    gh.factory<_i218.SaveGenderRepository>(
+      () => _i218.SaveGenderRepository(gh<_i101.UserCache>()),
+    );
+    gh.factory<_i288.SplashUserRepository>(
+      () => _i288.SplashUserRepository(gh<_i101.UserCache>()),
+    );
+    gh.factory<_i1073.CreateProfileRepository>(
+      () => _i1073.CreateProfileRepository(gh<_i101.UserCache>()),
+    );
+    gh.factory<_i470.CreateProfileUseCase>(
+      () => _i470.CreateProfileUseCase(gh<_i1073.CreateProfileRepository>()),
+    );
+    gh.factory<_i406.SaveAvatarUseCase>(
+      () => _i406.SaveAvatarUseCase(gh<_i388.SaveAvatarRepository>()),
+    );
     gh.factory<_i78.SaveAppUseCase>(
       () => _i78.SaveAppUseCase(gh<_i395.SaveAppRepository>()),
     );
@@ -151,17 +178,8 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i243.UserApiServiceBase>(
       () => _i440.UserApiService(gh<_i260.ApiClient>()),
     );
-    gh.factory<_i388.SaveAvatarRepository>(
-      () => _i388.SaveAvatarRepository(
-        gh<_i101.UserCache>(),
-        gh<_i243.UserApiServiceBase>(),
-      ),
-    );
-    gh.factory<_i896.SaveHeightRepository>(
-      () => _i896.SaveHeightRepository(
-        gh<_i101.UserCache>(),
-        gh<_i243.UserApiServiceBase>(),
-      ),
+    gh.factory<_i986.SaveWeightUseCase>(
+      () => _i986.SaveWeightUseCase(gh<_i406.SaveWeightRepository>()),
     );
     gh.factory<_i437.SplashAppRepository>(
       () => _i437.SplashAppRepository(
@@ -172,44 +190,26 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i31.SplashAppUseCase>(
       () => _i31.SplashAppUseCase(gh<_i437.SplashAppRepository>()),
     );
-    gh.factory<_i218.SaveGenderRepository>(
-      () => _i218.SaveGenderRepository(
-        gh<_i101.UserCache>(),
-        gh<_i243.UserApiServiceBase>(),
-      ),
-    );
-    gh.factory<_i288.SplashUserRepository>(
-      () => _i288.SplashUserRepository(
-        gh<_i101.UserCache>(),
-        gh<_i243.UserApiServiceBase>(),
-      ),
-    );
-    gh.factory<_i1073.CreateProfileRepository>(
-      () => _i1073.CreateProfileRepository(
-        gh<_i101.UserCache>(),
-        gh<_i243.UserApiServiceBase>(),
-      ),
-    );
     gh.factory<_i708.SaveGenderUseCase>(
       () => _i708.SaveGenderUseCase(gh<_i218.SaveGenderRepository>()),
     );
     gh.lazySingleton<_i243.MetricsApiServiceBase>(
       () => _i821.MetricsApiService(gh<_i260.ApiClient>()),
     );
-    gh.factory<_i674.UserMetricRepository>(
-      () => _i674.UserMetricRepository(
-        gh<_i101.UserMetricsCache>(),
-        gh<_i243.MetricsApiServiceBase>(),
-      ),
-    );
-    gh.factory<_i406.SaveWeightRepository>(
-      () => _i406.SaveWeightRepository(
-        gh<_i101.UserMetricsCache>(),
-        gh<_i243.MetricsApiServiceBase>(),
-      ),
+    gh.factory<_i962.UserInfoFormCubit>(
+      () => _i962.UserInfoFormCubit(gh<_i171.CreateProfileUseCase>()),
     );
     gh.factory<_i799.UserMetricUseCase>(
       () => _i799.UserMetricUseCase(gh<_i674.UserMetricRepository>()),
+    );
+    gh.lazySingleton<_i243.SyncDataRepositoryBase>(
+      () => _i121.SyncDataRepository(
+        gh<_i101.UserCache>(),
+        gh<_i101.UserMetricsCache>(),
+        gh<_i243.UserApiServiceBase>(),
+        gh<_i243.MetricsApiServiceBase>(),
+        gh<_i101.AppCache>(),
+      ),
     );
     gh.factory<_i681.SaveHeightUseCase>(
       () => _i681.SaveHeightUseCase(gh<_i896.SaveHeightRepository>()),
@@ -241,36 +241,15 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i536.SaveHeightCubit>(
       () => _i536.SaveHeightCubit(gh<_i681.SaveHeightUseCase>()),
     );
-    gh.lazySingleton<_i243.SyncDataRepositoryBase>(
-      () => _i121.SyncDataRepository(
-        gh<_i101.UserCache>(),
-        gh<_i101.UserMetricsCache>(),
-        gh<_i243.UserApiServiceBase>(),
-        gh<_i243.MetricsApiServiceBase>(),
-        gh<_i101.AppCache>(),
-      ),
-    );
     gh.factory<_i578.OnboardCubit>(
       () => _i578.OnboardCubit(gh<_i501.OnboardUseCase>()),
     );
     gh.factory<_i243.UserUseCase>(
       () => _i958.UserUseCaseImpl(gh<_i243.UserRepository>()),
     );
-    gh.factory<_i470.CreateProfileUseCase>(
-      () => _i470.CreateProfileUseCase(gh<_i1073.CreateProfileRepository>()),
-    );
-    gh.factory<_i406.SaveAvatarUseCase>(
-      () => _i406.SaveAvatarUseCase(gh<_i388.SaveAvatarRepository>()),
-    );
     gh.factory<_i954.UserCubit>(() => _i954.UserCubit(gh<_i243.UserUseCase>()));
-    gh.factory<_i986.SaveWeightUseCase>(
-      () => _i986.SaveWeightUseCase(gh<_i406.SaveWeightRepository>()),
-    );
     gh.lazySingleton<_i1010.SyncLocalDataUseCase>(
       () => _i1010.SyncLocalDataUseCase(gh<_i243.SyncDataRepositoryBase>()),
-    );
-    gh.factory<_i962.UserInfoFormCubit>(
-      () => _i962.UserInfoFormCubit(gh<_i171.CreateProfileUseCase>()),
     );
     gh.factory<_i906.UserMetricCubit>(
       () => _i906.UserMetricCubit(gh<_i799.UserMetricUseCase>()),

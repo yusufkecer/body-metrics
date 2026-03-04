@@ -6,9 +6,8 @@ import 'package:injectable/injectable.dart';
 @injectable
 @immutable
 class SaveHeightRepository implements Repository<bool, User> {
-  const SaveHeightRepository(this.userCache, this._userApiService);
+  const SaveHeightRepository(this.userCache);
   final UserCache userCache;
-  final UserApiServiceBase _userApiService;
 
   @override
   Future<bool?> executeWithParams({User? params}) async {
@@ -18,14 +17,6 @@ class SaveHeightRepository implements Repository<bool, User> {
 
     final db = await userCache.initializeDatabase();
     final result = await userCache.update(db, value);
-
-    try {
-      if (params.id != null) {
-        await _userApiService.updateUser(params.id!, value);
-      }
-    } catch (e) {
-      'Failed to sync height to API: $e'.w();
-    }
 
     return result.convertBoolResult;
   }
