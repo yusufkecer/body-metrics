@@ -3,6 +3,7 @@ import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/feature/height/presentation/cubit/height_selector_cubit/height_picker_cubit.dart';
 import 'package:bodymetrics/feature/height/presentation/cubit/save_height_cubit/save_height_cubit.dart';
 import 'package:bodymetrics/injection/locator.dart';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:lottie/lottie.dart';
@@ -14,10 +15,7 @@ part 'widgets/ruler.dart';
 @RoutePage(name: 'HeightView')
 @immutable
 final class HeightPicker extends StatelessWidget {
-  const HeightPicker({
-    required this.gender,
-    super.key,
-  });
+  const HeightPicker({required this.gender, super.key});
 
   final GenderValue gender;
 
@@ -27,9 +25,7 @@ final class HeightPicker extends StatelessWidget {
       create: (context) => Locator.sl<HeightSelectorCubit>(),
       child: Builder(
         builder: (context) {
-          return _HeightBody(
-            isFemale: gender.isFemale(),
-          );
+          return _HeightBody(isFemale: gender.isFemale());
         },
       ),
     );
@@ -38,9 +34,7 @@ final class HeightPicker extends StatelessWidget {
 
 @immutable
 final class _HeightBody extends StatefulWidget {
-  const _HeightBody({
-    required this.isFemale,
-  });
+  const _HeightBody({required this.isFemale});
 
   final bool isFemale;
 
@@ -48,38 +42,127 @@ final class _HeightBody extends StatefulWidget {
   State<_HeightBody> createState() => _HeightBodyState();
 }
 
-class _HeightBodyState extends State<_HeightBody> with SaveAppMixin, DialogUtil<_HeightBody>, _HeightModel {
+class _HeightBodyState extends State<_HeightBody>
+    with SaveAppMixin, DialogUtil<_HeightBody>, _HeightModel {
   @override
   Widget build(BuildContext context) {
     cubit = context.watch<HeightSelectorCubit>();
     if (cubit == null) {
       return const CustomError();
     }
+
+    final selectedHeight = cubit!.state.userHeight ?? _minValue;
+
     return GradientScaffold(
-      appBar: CustomAppBar(
-        title: LocaleKeys.height_select_height,
-        action: ColorfulTextButton(
-          text: LocaleKeys.cont,
-          onTap: _onSaved,
-        ),
-      ),
-      body: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          const SizedBox.shrink(),
-          RepaintBoundary(
-            child: Lottie.asset(
-              _lottie!.lottie,
-              height: cubit!.state.height,
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: const ProductPadding.authForm(),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () => context.router.maybePop(),
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: ProductColor.instance.whiteAlpha20,
+                        borderRadius: const ProductRadius.twelve(),
+                        border: Border.all(
+                          color: ProductColor.instance.whiteAlpha40,
+                        ),
+                      ),
+                      child: Icon(
+                        ProductIcon.backArrow.icon,
+                        color: ProductColor.instance.white,
+                        size: 16,
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                  Text(
+                    AppUtil.appName,
+                    style: context.textTheme.titleLarge?.copyWith(
+                      color: ProductColor.instance.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: -0.5,
+                    ),
+                  ),
+                  HorizontalSpace.s(),
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: ProductColor.instance.whiteAlpha20,
+                      border: Border.all(
+                        color: ProductColor.instance.whiteAlpha50,
+                      ),
+                    ),
+                    child: Icon(
+                      ProductIcon.heartMonitor.icon,
+                      color: ProductColor.instance.white,
+                      size: 22,
+                    ),
+                  ),
+                ],
+              ),
             ),
-          ),
-          _Ruler(
-            pageController: _pageController,
-            maxValue: _maxValue,
-            minValue: _minValue,
-            selectedHeight: cubit!.state.userHeight!,
-          ),
-        ],
+            VerticalSpace.l(),
+            Expanded(
+              child: Padding(
+                padding: ProductPadding.horizontalTwentyFour(),
+                child: AuthFormLayout(
+                  title: LocaleKeys.height_select_height.tr(),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.stretch,
+                    children: [
+                      Center(
+                        child: Text(
+                          '$selectedHeight cm',
+                          style: context.textTheme.headlineSmall?.copyWith(
+                            color: ProductColor.instance.white,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ),
+                      VerticalSpace.m(),
+                      SizedBox(
+                        height: 360,
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            const SizedBox(width: 8),
+                            Expanded(
+                              child: RepaintBoundary(
+                                child: Lottie.asset(
+                                  _lottie!.lottie,
+                                  height: cubit!.state.height,
+                                ),
+                              ),
+                            ),
+                            _Ruler(
+                              pageController: _pageController,
+                              maxValue: _maxValue,
+                              minValue: _minValue,
+                              selectedHeight: selectedHeight,
+                              height: 340,
+                            ),
+                          ],
+                        ),
+                      ),
+                      VerticalSpace.l(),
+                      CustomFilled(text: LocaleKeys.cont, onPressed: _onSaved),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

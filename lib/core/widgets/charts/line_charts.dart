@@ -114,13 +114,15 @@ class _LineChartWidgetState extends State<LineChartWidget> {
           fitInsideVertically: true,
           getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
             return touchedBarSpots.map((barSpot) {
-                              return LineTooltipItem(
-                                barSpot.y.toString(),
-                                context.textTheme.bodySmall?.copyWith(
-                                  color: ProductColor.instance.white,
-                                  fontWeight: FontWeight.bold,
-                                ) ?? const TextStyle(),
-                              );            }).toList();
+              return LineTooltipItem(
+                barSpot.y.toString(),
+                context.textTheme.bodySmall?.copyWith(
+                      color: ProductColor.instance.white,
+                      fontWeight: FontWeight.bold,
+                    ) ??
+                    const TextStyle(),
+              );
+            }).toList();
           },
         ),
       ),

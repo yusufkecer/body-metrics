@@ -32,7 +32,7 @@ class _AvatarPickerState extends State<AvatarPicker>
           children: [
             grid(),
             VerticalSpace.m(),
-            if (!AppUtil.hasSession) ...[
+            if (!AppUtil.hasSession && !_isAuthCompleted) ...[
               Text(
                 LocaleKeys.register_or.tr(),
                 style: context.textTheme.titleLarge?.copyWith(
@@ -47,14 +47,19 @@ class _AvatarPickerState extends State<AvatarPicker>
                   decoration: ProductDecoration.buttonDecoration(),
                   child: FilledButton(
                     onPressed: () async {
-                      final result = await context.router.push<bool>(
+                      final router = context.router;
+                      final result = await router.push<bool>(
                         const UserOperationsView(),
                       );
+                      if (!mounted) return;
+                      if (result ?? false) {
+                        setState(() => _isAuthCompleted = true);
+                      }
+
                       if ((result ?? false) &&
                           AppUtil.hasSession &&
                           !AppUtil.syncPending) {
-                        if (!context.mounted) return;
-                        await context.router.pushAndPopUntil(
+                        await router.pushAndPopUntil(
                           const HomeView(),
                           predicate: (route) => false,
                         );

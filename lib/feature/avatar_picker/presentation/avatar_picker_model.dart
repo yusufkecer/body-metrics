@@ -1,12 +1,11 @@
 part of 'avatar_picker.dart';
 
-mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil<AvatarPicker>, SaveAppMixin {
+mixin _AvatarPickerModel
+    on State<AvatarPicker>, DialogUtil<AvatarPicker>, SaveAppMixin {
   final List<String> avatarList = AssetValue.values.profileImageList;
-
+  bool _isAuthCompleted = false;
   Future<void> _addNewProfile(int index) async {
-    final user = UserFilters(
-      avatar: avatarList[index],
-    );
+    final user = UserFilters(avatar: avatarList[index]);
 
     final avatarUseCase = Locator.sl<SaveAvatarUseCase>();
     final insertId = await avatarUseCase.executeWithParams(params: user);
@@ -33,9 +32,7 @@ mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil<AvatarPicker>, SaveA
 
     if (result.isNotNull && mounted) {
       await context.router.pushAndPopUntil(
-        UserGeneralInfoView(
-          avatar: avatarList[index],
-        ),
+        UserGeneralInfoView(avatar: avatarList[index]),
         predicate: (route) => false,
       );
     } else {

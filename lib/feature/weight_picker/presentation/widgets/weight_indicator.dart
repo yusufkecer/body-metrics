@@ -26,13 +26,19 @@ final class _WeightIndicator extends StatelessWidget {
               controller: weightTextController,
               keyboardType: TextInputType.number,
               onTapOutside: (_) => context.unfocus(),
-              inputFormatters: [
-                LengthLimitingTextInputFormatter(6),
-              ],
+              inputFormatters: [LengthLimitingTextInputFormatter(6)],
               onChanged: textFieldChange,
               decoration: const InputDecoration(
+                isDense: true,
+                filled: true,
+                fillColor: Colors.transparent,
                 contentPadding: EdgeInsets.zero,
                 border: InputBorder.none,
+                enabledBorder: InputBorder.none,
+                focusedBorder: InputBorder.none,
+                disabledBorder: InputBorder.none,
+                errorBorder: InputBorder.none,
+                focusedErrorBorder: InputBorder.none,
               ),
               textAlign: TextAlign.center,
               style: context.textTheme.displaySmall!.copyWith(

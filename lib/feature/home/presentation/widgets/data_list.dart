@@ -1,7 +1,6 @@
 part of '../home.dart';
 
-@immutable
-final class _DataList extends StatelessWidget {
+class _DataList extends StatefulWidget {
   const _DataList({
     required this.userMetrics,
     required this.onPressed,
@@ -15,135 +14,382 @@ final class _DataList extends StatelessWidget {
   final AnimationController animatedController;
 
   @override
+  State<_DataList> createState() => _DataListState();
+}
+
+class _DataListState extends State<_DataList>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _staggerController;
+
+  @override
+  void initState() {
+    super.initState();
+    _staggerController = AnimationController(
+      vsync: this,
+      duration: const Duration(milliseconds: 700),
+    )..forward();
+  }
+
+  @override
+  void dispose() {
+    _staggerController.dispose();
+    super.dispose();
+  }
+
+  @override
+  void didUpdateWidget(_DataList oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (oldWidget.expandedCard != widget.expandedCard) {
+      _staggerController.forward(from: 0);
+    }
+  }
+
+  @override
   Widget build(BuildContext context) {
-    final metrics = userMetrics?.userMetrics ?? [];
+    final metrics = (widget.userMetrics?.userMetrics ?? []).reversed.toList();
     if (metrics.isEmpty) return const SizedBox.shrink();
 
-    final isExpanded = expandedCard == ExpandedCard.list;
-    final itemCount = isExpanded ? metrics.length : metrics.length.clamp(0, 2);
+    final isExpanded = widget.expandedCard == ExpandedCard.list;
+    final baseMetrics = metrics.take(2).toList();
+    final extraMetrics = metrics.length > 2
+        ? metrics.sublist(2)
+        : const <UserMetric>[];
 
     return HomeCard(
-      animationController: animatedController,
+      animationController: widget.animatedController,
       buttonTitle: isExpanded
           ? LocaleKeys.home_see_less
           : LocaleKeys.home_see_more,
-      onPressed: onPressed,
-      showButton: metrics.length >= 2,
+      onPressed: metrics.length >= 3 ? widget.onPressed : () {},
+      showButton: metrics.length >= 3,
       title: LocaleKeys.home_report,
       icon: ProductIcon.weight.icon,
       children: [
         ListView.separated(
           physics: const NeverScrollableScrollPhysics(),
           shrinkWrap: true,
-          itemCount: itemCount,
+          itemCount: baseMetrics.length,
           separatorBuilder: (_, __) => const SizedBox(height: 12),
           itemBuilder: (context, index) {
-            final metric = metrics[index];
-            return DecoratedBox(
-              decoration: BoxDecoration(
-                gradient: LinearGradient(
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                  colors: [
-                    ProductColor.instance.seedColor.withAlpha(185),
-                    ProductColor.instance.lightPurple.withAlpha(165),
-                  ],
-                ),
-                borderRadius: const ProductRadius.fourteen(),
-                border: Border.all(color: ProductColor.instance.cardBorder),
-                boxShadow: [
-                  BoxShadow(
-                    color: ProductColor.instance.chartGradientEnd.withAlpha(45),
-                    blurRadius: 14,
-                    spreadRadius: 1,
-                    offset: const Offset(0, 6),
-                  ),
-                ],
-              ),
-              child: Padding(
-                padding: ProductPadding.twelve(),
-                child: SpaceColumn(
-                  space: SpaceValues.xs.value,
-                  children: [
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CustomRichText(
-                          icon: ProductIcon.weight.icon,
-                          title: LocaleKeys.home_weight,
-                          subTitle: metric.weight?.toStringAsFixed(1) ?? '-',
-                        ),
-                        Container(
-                          padding: ProductPadding.horizontalSVerticalXs(),
-                          decoration: BoxDecoration(
-                            color: metric.bmiBadgeColor.withAlpha(220),
-                            borderRadius: const ProductRadius.ten(),
-                          ),
-                          child: Text(
-                            metric.userMetric?.result.tr() ?? '',
-                            style: context.textTheme.bodySmall?.copyWith(
-                              color: ProductColor.instance.white,
-                              fontWeight: FontWeight.w700,
-                            ),
-                          ),
-                        ),
-                      ],
-                    ),
-                    Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        CustomRichText(
-                          icon: ProductIcon.chart.icon,
-                          title: LocaleKeys.home_bmi,
-                          subTitle: metric.bmi?.toStringAsFixed(2) ?? '-',
-                        ),
-                        CustomRichText(
-                          icon: ProductIcon.calendar.icon,
-                          title: LocaleKeys.home_date,
-                          subTitle: metric.displayDate,
-                        ),
-                      ],
-                    ),
-                    if (index != 0) ...[
-                      VerticalSpace.s(),
-                      Container(
-                        width: double.infinity,
-                        padding: ProductPadding.horizontalSVerticalXs(),
-                        decoration: BoxDecoration(
-                          color: ProductColor.instance.whiteAlpha20,
-                          borderRadius: const ProductRadius.ten(),
-                        ),
-                        child: Row(
-                          children: [
-                            Icon(
-                              metric.resultIcon,
-                              size: 14,
-                              color: metric.weightDiffColor,
-                            ),
-                            HorizontalSpace.s(),
-                            Text(
-                              '${LocaleKeys.home_weight_change.tr()}: '
-                              '${metric.weightDiffLabel}',
-                              style: context.textTheme.bodySmall?.copyWith(
-                                color: metric.weightDiffColor,
-                                fontWeight: FontWeight.w700,
-                              ),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                    _BmiRangeIndicator(
-                      bmi: metric.bmi,
-                      result: metric.userMetric,
-                    ),
-                  ],
-                ),
+            return _StaggeredMetricCard(
+              staggerController: _staggerController,
+              index: index,
+              child: _buildMetricCard(
+                context,
+                baseMetrics[index],
+                index,
+                isLast: index == metrics.length - 1,
               ),
             );
           },
         ),
+        if (extraMetrics.isNotEmpty) ...[
+          const SizedBox(height: 12),
+          AnimatedSwitcher(
+            duration: const Duration(milliseconds: 400),
+            switchInCurve: Curves.easeOutCubic,
+            switchOutCurve: Curves.easeInCubic,
+            transitionBuilder: (child, animation) {
+              return ClipRect(
+                child: SizeTransition(
+                  sizeFactor: CurvedAnimation(
+                    parent: animation,
+                    curve: Curves.easeOutCubic,
+                  ),
+                  axisAlignment: -1,
+                  child: FadeTransition(
+                    opacity: CurvedAnimation(
+                      parent: animation,
+                      curve: const Interval(0.0, 0.8, curve: Curves.easeOut),
+                    ),
+                    child: child,
+                  ),
+                ),
+              );
+            },
+            child: isExpanded
+                ? Column(
+                    key: const ValueKey<String>('expanded_extra_metrics'),
+                    children: List.generate(extraMetrics.length, (index) {
+                      final globalIndex = index + 2;
+                      return Padding(
+                        padding: EdgeInsets.only(top: index == 0 ? 0 : 12),
+                        child: _StaggeredMetricCard(
+                          staggerController: _staggerController,
+                          index: globalIndex,
+                          child: _buildMetricCard(
+                            context,
+                            extraMetrics[index],
+                            globalIndex,
+                            isLast: globalIndex == metrics.length - 1,
+                          ),
+                        ),
+                      );
+                    }),
+                  )
+                : const SizedBox(
+                    key: ValueKey<String>('collapsed_extra_metrics'),
+                  ),
+          ),
+        ],
       ],
+    );
+  }
+
+  Widget _buildMetricCard(
+    BuildContext context,
+    UserMetric metric,
+    int index, {
+    bool isLast = false,
+  }) {
+    final badgeColor = metric.bmiBadgeColor;
+    final pc = ProductColor.instance;
+
+    return DecoratedBox(
+      decoration: BoxDecoration(
+        gradient: LinearGradient(
+          begin: Alignment.topLeft,
+          end: Alignment.bottomRight,
+          colors: [pc.seedColor.withAlpha(185), pc.lightPurple.withAlpha(165)],
+        ),
+        borderRadius: const ProductRadius.fourteen(),
+        border: Border.all(color: pc.cardBorder),
+        boxShadow: [
+          BoxShadow(
+            color: pc.chartGradientEnd.withAlpha(45),
+            blurRadius: 14,
+            spreadRadius: 1,
+            offset: const Offset(0, 6),
+          ),
+        ],
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
+            decoration: BoxDecoration(
+              color: badgeColor.withAlpha(55),
+              borderRadius: const BorderRadius.vertical(
+                top: Radius.circular(14),
+              ),
+              border: Border(
+                bottom: BorderSide(color: badgeColor.withAlpha(80), width: 1),
+              ),
+            ),
+            child: Row(
+              children: [
+                Container(
+                  width: 8,
+                  height: 8,
+                  decoration: BoxDecoration(
+                    color: badgeColor,
+                    shape: BoxShape.circle,
+                    boxShadow: [
+                      BoxShadow(
+                        color: badgeColor.withAlpha(180),
+                        blurRadius: 6,
+                        spreadRadius: 1,
+                      ),
+                    ],
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Text(
+                  metric.userMetric?.result.tr() ?? '-',
+                  style: context.textTheme.labelLarge?.copyWith(
+                    color: badgeColor,
+                    fontWeight: FontWeight.w800,
+                    letterSpacing: 0.4,
+                  ),
+                ),
+                const Spacer(),
+                Icon(
+                  ProductIcon.calendar.icon,
+                  size: 13,
+                  color: pc.whiteAlpha80,
+                ),
+                const SizedBox(width: 5),
+                Text(
+                  metric.displayDate,
+                  style: context.textTheme.labelSmall?.copyWith(
+                    color: pc.whiteAlpha80,
+                    fontWeight: FontWeight.w500,
+                  ),
+                ),
+              ],
+            ),
+          ),
+
+          Padding(
+            padding: const EdgeInsets.fromLTRB(12, 12, 12, 12),
+            child: Column(
+              children: [
+                Row(
+                  children: [
+                    Expanded(
+                      child: _MetricChip(
+                        icon: ProductIcon.weight.icon,
+                        label: LocaleKeys.home_weight.tr(),
+                        value: metric.weight != null
+                            ? '${metric.weight!.toStringAsFixed(1)} kg'
+                            : '-',
+                        accentColor: pc.teal,
+                      ),
+                    ),
+                    const SizedBox(width: 10),
+                    Expanded(
+                      child: _MetricChip(
+                        icon: ProductIcon.chart.icon,
+                        label: LocaleKeys.home_bmi.tr(),
+                        value: metric.bmi?.toStringAsFixed(2) ?? '-',
+                        accentColor: badgeColor,
+                      ),
+                    ),
+                  ],
+                ),
+
+                if (!isLast) ...[
+                  const SizedBox(height: 10),
+                  Container(
+                    width: double.infinity,
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 8,
+                    ),
+                    decoration: BoxDecoration(
+                      color: metric.weightDiffColor.withAlpha(25),
+                      borderRadius: BorderRadius.circular(10),
+                      border: Border.all(
+                        color: metric.weightDiffColor.withAlpha(60),
+                      ),
+                    ),
+                    child: Row(
+                      children: [
+                        Icon(
+                          metric.resultIcon,
+                          size: 15,
+                          color: metric.weightDiffColor,
+                        ),
+                        const SizedBox(width: 6),
+                        Text(
+                          LocaleKeys.home_weight_change.tr(),
+                          style: context.textTheme.labelSmall?.copyWith(
+                            color: pc.whiteAlpha80,
+                            fontWeight: FontWeight.w500,
+                          ),
+                        ),
+                        const Spacer(),
+                        Text(
+                          metric.weightDiffLabel,
+                          style: context.textTheme.labelMedium?.copyWith(
+                            color: metric.weightDiffColor,
+                            fontWeight: FontWeight.w800,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ],
+
+                const SizedBox(height: 10),
+                _BmiRangeIndicator(bmi: metric.bmi, result: metric.userMetric),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+@immutable
+final class _MetricChip extends StatelessWidget {
+  const _MetricChip({
+    required this.icon,
+    required this.label,
+    required this.value,
+    required this.accentColor,
+  });
+
+  final IconData icon;
+  final String label;
+  final String value;
+  final Color accentColor;
+
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 10),
+      decoration: BoxDecoration(
+        color: ProductColor.instance.whiteAlpha20,
+        borderRadius: BorderRadius.circular(12),
+        border: Border.all(color: accentColor.withAlpha(60)),
+      ),
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Row(
+            children: [
+              Icon(icon, size: 13, color: accentColor),
+              const SizedBox(width: 5),
+              Text(
+                label,
+                style: context.textTheme.labelSmall?.copyWith(
+                  color: ProductColor.instance.whiteEightTenths,
+                  fontWeight: FontWeight.w500,
+                  fontSize: 10,
+                ),
+              ),
+            ],
+          ),
+          const SizedBox(height: 4),
+          Text(
+            value,
+            style: context.textTheme.titleMedium?.copyWith(
+              color: ProductColor.instance.white,
+              fontWeight: FontWeight.w800,
+              fontSize: 18,
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class _StaggeredMetricCard extends StatelessWidget {
+  const _StaggeredMetricCard({
+    required this.staggerController,
+    required this.index,
+    required this.child,
+  });
+
+  final AnimationController staggerController;
+  final int index;
+  final Widget child;
+
+  @override
+  Widget build(BuildContext context) {
+    final start = (index * 0.15).clamp(0.0, 0.85);
+    final end = (start + 0.5).clamp(0.0, 1.0);
+
+    final fadeAnim = CurvedAnimation(
+      parent: staggerController,
+      curve: Interval(start, end, curve: Curves.easeOut),
+    );
+
+    final slideAnim =
+        Tween<Offset>(begin: const Offset(0, 0.12), end: Offset.zero).animate(
+          CurvedAnimation(
+            parent: staggerController,
+            curve: Interval(start, end, curve: Curves.easeOutCubic),
+          ),
+        );
+
+    return FadeTransition(
+      opacity: fadeAnim,
+      child: SlideTransition(position: slideAnim, child: child),
     );
   }
 }

@@ -8,7 +8,7 @@ final class AppLocalization extends EasyLocalization {
     required super.child,
     super.key,
   }) : super(
-          startLocale: Lang.tr.locale,
+          startLocale: _startLocale,
           supportedLocales: _supportedItems,
           path: AssetPath.language,
           useOnlyLangCode: true,
@@ -19,6 +19,10 @@ final class AppLocalization extends EasyLocalization {
     Lang.en.locale,
     Lang.de.locale,
   ];
+  static Locale get _startLocale {
+    final systemLocale = WidgetsBinding.instance.platformDispatcher.locale;
+    return Lang.fromLocale(systemLocale).locale;
+  }
 
   Future<void> updateLanguage({
     required BuildContext context,

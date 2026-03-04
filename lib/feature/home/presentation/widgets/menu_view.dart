@@ -27,6 +27,7 @@ final class _MenuView extends StatelessWidget {
             ),
           ),
           content: Column(
+            spacing: SpaceValues.s.value,
             mainAxisSize: MainAxisSize.min,
             children: Lang.values.map((lang) {
               return RadioListTile<Lang>(
@@ -89,17 +90,6 @@ final class _MenuView extends StatelessWidget {
               );
             }).toList(),
           ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.of(dialogContext).pop(),
-              child: Text(
-                LocaleKeys.dialog_cancel.tr(),
-                style: dialogContext.textTheme.labelLarge?.copyWith(
-                  color: ProductColor.instance.white,
-                ),
-              ),
-            ),
-          ],
         );
       },
     );
@@ -122,12 +112,7 @@ final class _MenuView extends StatelessWidget {
                       padding: ProductPadding.four(),
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
-                        gradient: LinearGradient(
-                          colors: [
-                            ProductColor.instance.chartGradientStart,
-                            ProductColor.instance.chartGradientEnd,
-                          ],
-                        ),
+                        color: ProductColor.instance.chartGradientEnd,
                       ),
                       child: CircleAvatar(
                         backgroundImage: image.isNotEmpty

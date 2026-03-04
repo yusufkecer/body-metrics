@@ -38,51 +38,124 @@ final class _GenderView extends StatefulWidget {
   State<_GenderView> createState() => __GenderViewState();
 }
 
-class __GenderViewState extends State<_GenderView> with DialogUtil<_GenderView>, SaveAppMixin, _GenderModel {
+class __GenderViewState extends State<_GenderView>
+    with DialogUtil<_GenderView>, SaveAppMixin, _GenderModel {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
-      appBar: CustomAppBar(
-        title: LocaleKeys.gender_gender_name,
-        action: buildAction(),
-      ),
-      body: Center(
-        child: Padding(
-          padding: ProductPadding.ten(),
-          child: Column(
-            mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-            children: [
-              _GenderAsset(
-                value: context.watch<GenderCubit>().state is GenderSelected &&
-                    (context.watch<GenderCubit>().state as GenderSelected).genderValue == GenderValue.female,
-                onChanged: (value) => onChange(GenderValue.female),
-                asset: AssetValue.female.value.lottie,
-                gender: LocaleKeys.gender_fm,
-                color: ProductColor.instance.pink,
-                icon: ProductIcon.venus.icon,
+      body: SafeArea(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Padding(
+              padding: const ProductPadding.authForm(),
+              child: Row(
+                children: [
+                  GestureDetector(
+                    onTap: () => context.router.maybePop(),
+                    child: Container(
+                      width: 40,
+                      height: 40,
+                      decoration: BoxDecoration(
+                        color: ProductColor.instance.whiteAlpha20,
+                        borderRadius: const ProductRadius.twelve(),
+                        border: Border.all(
+                          color: ProductColor.instance.whiteAlpha40,
+                        ),
+                      ),
+                      child: Icon(
+                        ProductIcon.backArrow.icon,
+                        color: ProductColor.instance.white,
+                        size: 16,
+                      ),
+                    ),
+                  ),
+                  const Spacer(),
+                  Text(
+                    AppUtil.appName,
+                    style: context.textTheme.titleLarge?.copyWith(
+                      color: ProductColor.instance.white,
+                      fontSize: 20,
+                      fontWeight: FontWeight.w800,
+                      letterSpacing: -0.5,
+                    ),
+                  ),
+                  HorizontalSpace.s(),
+                  Container(
+                    width: 40,
+                    height: 40,
+                    decoration: BoxDecoration(
+                      shape: BoxShape.circle,
+                      color: ProductColor.instance.whiteAlpha20,
+                      border: Border.all(
+                        color: ProductColor.instance.whiteAlpha50,
+                      ),
+                    ),
+                    child: Icon(
+                      ProductIcon.heartMonitor.icon,
+                      color: ProductColor.instance.white,
+                      size: 22,
+                    ),
+                  ),
+                ],
               ),
-              _GenderAsset(
-                value: context.watch<GenderCubit>().state is GenderSelected &&
-                    (context.watch<GenderCubit>().state as GenderSelected).genderValue == GenderValue.male,
-                onChanged: (value) => onChange(GenderValue.male),
-                asset: AssetValue.male.value.lottie,
-                gender: LocaleKeys.gender_ml,
-                color: ProductColor.instance.blue,
-                icon: ProductIcon.mars.icon,
+            ),
+            VerticalSpace.l(),
+            Expanded(
+              child: Padding(
+                padding: ProductPadding.horizontalTwentyFour(),
+                child: AuthFormLayout(
+                  title: LocaleKeys.gender_gender_name.tr(),
+                  child: BlocBuilder<GenderCubit, GenderState>(
+                    builder: (context, state) {
+                      final isFemale =
+                          state is GenderSelected &&
+                          state.genderValue == GenderValue.female;
+                      final isMale =
+                          state is GenderSelected &&
+                          state.genderValue == GenderValue.male;
+
+                      return Column(
+                        crossAxisAlignment: CrossAxisAlignment.stretch,
+                        children: [
+                          _GenderAsset(
+                            value: isFemale,
+                            onChanged: (value) => onChange(GenderValue.female),
+                            asset: AssetValue.female.value.lottie,
+                            gender: LocaleKeys.gender_fm,
+                            color: ProductColor.instance.pink,
+                            icon: ProductIcon.venus.icon,
+                          ),
+                          VerticalSpace.m(),
+                          _GenderAsset(
+                            value: isMale,
+                            onChanged: (value) => onChange(GenderValue.male),
+                            asset: AssetValue.male.value.lottie,
+                            gender: LocaleKeys.gender_ml,
+                            color: ProductColor.instance.blue,
+                            icon: ProductIcon.mars.icon,
+                          ),
+                          VerticalSpace.l(),
+                          Opacity(
+                            opacity: selectedGender.isNotNull ? 1 : 0.45,
+                            child: IgnorePointer(
+                              ignoring: selectedGender.isNull,
+                              child: CustomFilled(
+                                text: LocaleKeys.cont,
+                                onPressed: _pushToHeight,
+                              ),
+                            ),
+                          ),
+                        ],
+                      );
+                    },
+                  ),
+                ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );
-  }
-
-  Widget buildAction() {
-    return selectedGender.isNotNull
-        ? ColorfulTextButton(
-            text: LocaleKeys.cont,
-            onTap: _pushToHeight,
-          )
-        : const SizedBox.shrink();
   }
 }

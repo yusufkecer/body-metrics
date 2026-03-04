@@ -7,18 +7,20 @@ final class _Ruler extends StatelessWidget with _HeightCalculate {
     required this.maxValue,
     required this.minValue,
     required this.selectedHeight,
+    required this.height,
   });
 
   final PageController pageController;
   final int maxValue;
   final int minValue;
   final int selectedHeight;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 80,
-      height: context.height,
+      height: height,
       child: RepaintBoundary(
         child: PageView.builder(
           clipBehavior: Clip.antiAlias,

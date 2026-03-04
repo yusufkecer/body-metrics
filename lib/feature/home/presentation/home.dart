@@ -1,7 +1,6 @@
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
-import 'package:bodymetrics/core/widgets/rich_text_widgets/custom_rich_text.dart';
-import 'package:bodymetrics/core/widgets/space_column.dart';
+
 import 'package:bodymetrics/feature/auth/presentation/cubit/auth_session_cubit.dart';
 import 'package:bodymetrics/feature/home/presentation/cubit/home_card_cubit/home_card_cubit.dart';
 import 'package:bodymetrics/feature/home/presentation/cubit/user_cubit/user_cubit.dart';
@@ -85,20 +84,19 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, _HomeModel {
             onPressed: () {
               _zoomDrawerController.toggle!();
             },
-            icon: Icon(ProductIcon.menu.icon),
-          ),
-          action: Container(
-            margin: ProductPadding.rightXs(),
-            decoration: BoxDecoration(
-              shape: BoxShape.circle,
-              color: ProductColor.instance.white.withAlpha(30),
-              border: Border.all(color: ProductColor.instance.cardBorder),
-            ),
-            child: IconButton(
-              onPressed: () async {
-                await context.router.push(const WeightView());
-              },
-              icon: Icon(ProductIcon.addRounded.icon, color: ProductColor.instance.white),
+            icon: Container(
+              width: 40,
+              height: 40,
+              decoration: BoxDecoration(
+                color: ProductColor.instance.whiteAlpha20,
+                borderRadius: const ProductRadius.twelve(),
+                border: Border.all(color: ProductColor.instance.whiteAlpha40),
+              ),
+              child: Icon(
+                ProductIcon.menu.icon,
+                color: ProductColor.instance.white,
+                size: 20,
+              ),
             ),
           ),
         ),
@@ -281,6 +279,7 @@ final class _HomeBody extends StatelessWidget {
           padding: ProductPadding.ten().copyWith(bottom: 0),
           child: SingleChildScrollView(
             child: Column(
+              spacing: SpaceValues.s.value,
               children: [
                 _DataList(
                   animatedController: animatedListController,
@@ -288,7 +287,6 @@ final class _HomeBody extends StatelessWidget {
                   onPressed: dataListOnPressed,
                   expandedCard: expandedCard,
                 ),
-                VerticalSpace.s(),
                 _LineChartCard(
                   animatedController: animatedLineChartController,
                   onPressed: lineChartOnPressed,
@@ -296,7 +294,6 @@ final class _HomeBody extends StatelessWidget {
                   leftTitles: lineLeftTitles,
                   bottomTitles: bottomTitle,
                 ),
-                VerticalSpace.s(),
                 _BarChartCard(
                   animatedController: animatedBarChartController,
                   onPressed: barChartOnPressed,
@@ -304,6 +301,7 @@ final class _HomeBody extends StatelessWidget {
                   leftTitles: barLeftTitles,
                   bottomTitles: bottomTitle,
                 ),
+                VerticalSpace.s(),
               ],
             ),
           ),

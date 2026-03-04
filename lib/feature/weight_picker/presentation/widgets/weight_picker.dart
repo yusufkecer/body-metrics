@@ -8,6 +8,7 @@ final class _WeightPickerWidget extends StatelessWidget {
     required this.minVal,
     required this.maxVal,
     this.isDisabled = false,
+    this.height = 56,
   });
 
   final int selectedWeight;
@@ -15,12 +16,13 @@ final class _WeightPickerWidget extends StatelessWidget {
   final double minVal;
   final double maxVal;
   final bool isDisabled;
+  final double height;
 
   @override
   Widget build(BuildContext context) {
     return RepaintBoundary(
       child: SizedBox(
-        height: context.height * .08,
+        height: height,
         child: PageView.builder(
           physics: isDisabled
               ? const NeverScrollableScrollPhysics()
