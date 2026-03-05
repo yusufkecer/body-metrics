@@ -1,6 +1,16 @@
-# CLAUDE.md — BodyMetrics Project
+# AGENTS.md — BodyMetrics Project
 
-> This file is auto-read by Claude Code at session start. It provides AI agents with everything needed to understand, navigate, and contribute to this repository.
+> This file is designed for general AI coding agents. It provides everything needed to understand, navigate, and contribute to this repository.
+
+---
+
+## Mandatory Agent Rule
+
+Before making any Flutter/Dart code, test, architecture, UI, localization, DI, routing, or cache/API decision in this repository, **read and follow** [`flutter_rules.md`](flutter_rules.md).
+
+- Treat `flutter_rules.md` as the primary implementation convention guide for this codebase.
+- If a generated suggestion conflicts with repo conventions, prefer `flutter_rules.md`.
+- Re-check `flutter_rules.md` before major refactors and before writing new feature code.
 
 ---
 
@@ -130,6 +140,8 @@ Splash reads `AppModel.page` (enum `Pages`) and `AppModel.isCompleteOnboard` to 
 | `lib/feature/auth/presentation/cubit/auth_session_cubit.dart` | App-level session state (authenticated/unauthenticated) |
 | `lib/feature/auth/presentation/cubit/login_cubit.dart` | Login flow states |
 | `lib/feature/auth/presentation/cubit/register_cubit.dart` | Registration flow states |
+| `lib/feature/auth/presentation/user_operations.dart` | Login/Register host view (tab switcher, form validation, forgot-password entry point) |
+| `lib/domain/repository/sync_data_repository.dart` | Offline-first sync orchestration (mark pending, restore local/server profile, startup sync retry support) |
 
 ---
 
@@ -563,3 +575,5 @@ blocTest<OnboardCubit, OnboardState>(
 9. **API key** must never be hardcoded — always use `--dart-define=API_KEY=...` at compile time.
 10. **Cache-first, API-fallback** pattern: write to local cache first, sync to API in background.
 11. All API services must be `@lazySingleton` and injected via constructor — never instantiate directly.
+
+

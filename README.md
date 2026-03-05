@@ -1,182 +1,321 @@
-# BodyMetrics — BMI & Vücut Metrik Takip Uygulaması
+# BodyMetrics
 
-Flutter ile geliştirilmiş, bulut destekli sağlık metrik takip uygulaması. Kullanıcılar BMI hesaplayabilir, geçmiş ölçümlerini takip edebilir ve verilerini buluta yedekleyebilir.
+## TR
 
-## Özellikler
+BodyMetrics, Flutter ile geliştirilmiş offline-öncelikli bir sağlık metrik takip uygulamasıdır.
 
-- **BMI Hesaplama** — Boy ve kiloya göre anlık hesaplama
-- **Geçmiş Takibi** — Tüm ölçümler tarih sırasıyla listelenir
-- **Grafikler** — BMI ve kilo değişim grafikleri (fl_chart)
-- **Çoklu Profil** — Aynı cihazda birden fazla kullanıcı
-- **Bulut Yedekleme** — Hesap oluşturarak verileri buluta senkronize et
-- **Şifremi Unuttum** — E-posta ile 6 haneli OTP ile şifre sıfırlama
-- **Çevrimdışı Destek** — SQLite cache ile internet olmadan çalışır; sync bekleyen veriler uygulama yeniden açıldığında otomatik olarak sunucuya gönderilir
-- **Hesap Restore** — Mevcut hesapla giriş yapıldığında profil ve geçmiş ölçümler otomatik indirilir
-- **Çoklu Dil** — Türkçe, İngilizce ve Almanca
+Uygulama; onboarding, profil oluşturma, kilo/boy verisi ile BMI hesaplama, geçmiş ölçümleri listeleme/grafikleme ve yerel veriyi API ile senkron etme akışlarını içerir.
 
-## Teknolojiler
+### Backend Repository
 
-- **Flutter** + **Dart**
-- **BLoC/Cubit** — State management
-- **auto_route** — Type-safe navigasyon
-- **injectable/get_it** — Dependency injection
-- **sqflite** — Yerel SQLite önbellek
-- **Dio** — HTTP client
-- **easy_localization** — i18n (tr + en + de)
-- **fl_chart** — Grafik bileşenleri
+- Backend (Go): https://github.com/yusufkecer/body-metrics-backend.git
 
-## Proje Yapısı
+### Özellikler
 
+- BMI hesaplama ve sınıflandırma
+- Ölçüm geçmişini kart + grafik olarak gösterme
+- Çoklu profil desteği
+- Login / Register / Şifremi unuttum akışları
+- Offline çalışma (SQLite cache)
+- Uygulama açılışında otomatik pending-sync denemesi
+- Türkçe, İngilizce, Almanca dil desteği
+
+### Teknoloji Yığını
+
+- Flutter + Dart
+- flutter_bloc / Cubit
+- auto_route
+- injectable + get_it
+- sqflite
+- dio
+- easy_localization
+- fl_chart
+
+### Mimari
+
+Proje, Clean Architecture + feature-first yaklaşımını takip eder:
+
+- `lib/core`: Ortak altyapı (router, theme, extension, widget, base sınıflar)
+- `lib/data`: API + cache + DB katmanı
+- `lib/domain`: Entity, repository sözleşmeleri, use-case’ler
+- `lib/feature`: Modül bazlı presentation/domain katmanları
+- `lib/injection`: DI konfigürasyonu
+
+### Uygulama Akışı
+
+Ana akış:
+
+`Splash -> Onboard -> AvatarPicker -> UserGeneralInfo -> Gender -> Height -> Weight -> Home`
+
+Auth rotaları:
+
+- `UserOperationsView` (login/register tab ekranı)
+- `ForgotPasswordView`
+
+### Auth ve Senkronizasyon
+
+Auth tarafı:
+
+- `AuthService`: register/login/session/forgot-password işlemleri
+- `AuthSessionCubit`: oturum durum yönetimi
+- `LoginCubit`: login sonrası restore + sync tetikler
+- `RegisterCubit`: register sonrası pending işaretler
+- `UserOperationsView`: auth UI giriş noktası
+
+Senkronizasyon tarafı:
+
+- `SyncDataRepository` (`lib/domain/repository/sync_data_repository.dart`)
+- `SyncLocalDataUseCase`
+
+Temel prensip:
+
+1. Veri önce local cache’e yazılır
+2. API senkronizasyonu arka planda denenir
+3. Başarısızsa `sync_pending` kalır
+4. Splash açılışında pending durum geri yüklenip tekrar denenir
+
+### Proje Yapısı (Özet)
+
+```text
+body-metrics/
+├─ android/
+├─ assets/
+├─ lib/
+│  ├─ core/
+│  ├─ data/
+│  ├─ domain/
+│  ├─ feature/
+│  └─ injection/
+├─ scripts/
+├─ test/
+├─ AGENTS.md
+├─ flutter_rules.md
+└─ README.md
 ```
-lib/
-├── core/          # Paylaşımlı altyapı (router, tema, widget'lar, extension'lar)
-├── data/          # SQLite önbellek + REST API (Dio client, servisler, interceptor'lar)
-├── domain/        # Global entity'ler, use case'ler, repository contract'ları
-├── feature/       # Feature modülleri (her biri kendi presentation/cubit/state'ine sahip)
-│   ├── auth/      # Login, Register, Şifremi Unuttum
-│   ├── splash/
-│   ├── onboard/
-│   ├── home/
-│   └── ...
-└── injection/     # GetIt + Injectable DI (locator.dart, locator.config.dart)
-```
 
-## Navigasyon Akışı
+Test dizini ana başlıkları:
 
-```
-Splash → Onboard → AvatarPicker → UserGeneralInfo → Gender → Height → Weight → Home
-```
+- `test/core`
+- `test/data`
+- `test/domain`
+- `test/feature`
 
-Login/Register ve Şifremi Unuttum `UserOperations` ekranından erişilir.
-
-AvatarPicker ekranında "Giriş Yap / Kayıt Ol" butonuna basıldığında:
-- **Login:** Mevcut profil ve ölçümler sunucudan indirilip local cache'e yazılır → Home'a yönlendirilir
-- **Register:** `syncPending` flag SQLite'a kaydedilir → onboarding offline tamamlanabilir → internet geldiğinde uygulama açılışında otomatik sync yapılır
-
-## API Entegrasyonu
-
-Backend: `body-metrics-backend/` (Go 1.23 + MySQL)
-
-### Offline Sync Mekanizması
-
-Kayıt sonrası internet yoksa veriler kaybolmaz:
-
-1. Kayıt → `sync_pending = 1` SQLite'a yazılır
-2. Onboarding + ölçüm → tüm veri local SQLite'a kaydedilir
-3. İnternet yoksa sync başarısız olur, flag kalır
-4. **Uygulama yeniden açıldığında** Splash ekranı `sync_pending` flag'ini okur → internet varsa otomatik sync başlatır
-5. Sync tamamlanınca `sync_pending = 0` yazılır
-
-### İki Katmanlı Güvenlik
-
-**Katman 1 — API Key:**
-- Her istekte `X-API-Key` header'ı
-- `.env` dosyasında saklanır, `envied` ile XOR-obfuscated derlenir
-- `dart run build_runner build` ile `env.g.dart` yenilenir
-
-**Katman 2 — JWT Token:**
-- Login/Register sonrası alınan token SQLite'a kaydedilir
-- `AuthInterceptor` her istekte `Authorization: Bearer <token>` ekler
-- 401 gelirse session temizlenir
-
-### Auth Endpoint'leri
-
-| Method | Path | Açıklama |
-|--------|------|----------|
-| POST | `/auth/register` | Kayıt ol → JWT |
-| POST | `/auth/login` | Giriş yap → JWT |
-| POST | `/auth/forgot-password` | 6 haneli OTP e-posta gönder |
-| POST | `/auth/reset-password` | OTP + yeni şifre ile sıfırla |
-
-## Kurulum & Çalıştırma
+### Kurulum
 
 ```bash
-# 1. .env dosyası oluştur (API key için)
-echo "API_KEY=your-api-key" > .env
+flutter pub get
+```
 
-# 2. Kod üretimi (route, DI, env)
+`.env` oluştur:
+
+```bash
+API_KEY=your-api-key-here
+```
+
+### Çalıştırma (Flavor)
+
+- `local` (varsayılan): `http://10.0.2.2:8080/api/v1`
+- `local_ios`: `http://localhost:8080/api/v1`
+- `local` + `LOCAL_IP`: `http://<LOCAL_IP>:8080/api/v1`
+- `production`: `https://api.bodymetrics.life/api/v1`
+
+```bash
+flutter run
+flutter run --dart-define=FLAVOR=local_ios
+flutter run --dart-define=FLAVOR=local --dart-define=LOCAL_IP=192.168.1.20
+flutter build apk --dart-define=FLAVOR=production
+```
+
+### Kod Üretimi
+
+```bash
 dart run build_runner build --delete-conflicting-outputs
-
-# 3. Çalıştır (Android emülatör)
-flutter run
-
-# iOS simülatör
-flutter run --dart-define=FLAVOR=local_ios
-
-# Production build (imzalı APK için önce android/key.properties doldur)
-flutter build apk --release --dart-define=FLAVOR=production
 ```
 
-## Flavor Desteği
+### Testler
 
-Uygulama `--dart-define=FLAVOR=...` ile farklı backend URL'lerine bağlanır.
+- Toplam test dosyası: `33`
+- Test dosyası (`*_test.dart`): `21`
+- Mock dosyası (`*.mocks.dart`): `12`
 
-| Flavor | Base URL | Kullanım |
-|--------|----------|----------|
-| `local` (default) | `http://10.0.2.2:8080/api/v1` | Android emülatör |
-| `local` + `LOCAL_IP` | `http://<LOCAL_IP>:8080/api/v1` | Fiziksel cihaz / aynı ağ |
-| `local_ios` | `http://localhost:8080/api/v1` | iOS simülatör |
-| `production` | `https://api.bodymetrics.life/api/v1` | Production |
-
-Örnek:
 ```bash
-# Android emülatör (default local)
-flutter run
-
-# Fiziksel cihaz
-flutter run --dart-define=LOCAL_IP=192.168.1.20
-
-# iOS simülatör
-flutter run --dart-define=FLAVOR=local_ios
-
-# Production
-flutter run --dart-define=FLAVOR=production
+flutter test
+# veya
+bash scripts/run_tests.sh
 ```
 
-## Android Release Signing
+### Android Release Signing
 
-`android/key.properties` dosyasını doldur (gitignored):
+`android/key.properties` (git’e eklenmemeli):
 
 ```properties
-storePassword=<keystore-şifresi>
-keyPassword=<key-şifresi>
+storePassword=<şifre>
+keyPassword=<şifre>
 keyAlias=bodymetrics
 storeFile=../bodymetrics.keystore
 ```
 
-Keystore oluşturmak için:
 ```bash
-keytool -genkey -v -keystore android/bodymetrics.keystore \
-  -alias bodymetrics -keyalg RSA -keysize 2048 -validity 10000
+flutter build apk --release --dart-define=FLAVOR=production
 ```
 
-## Lokalizasyon
+---
 
-Dil dosyaları: `assets/language/tr.json`, `assets/language/en.json`, `assets/language/de.json`
+## EN
 
-Yeni key eklemek:
-1. Her iki JSON dosyasına key-value çifti ekle
-2. `lib/core/init/language/locale_keys.g.dart` dosyasına `static const` ekle
-3. Kodda `LocaleKeys.namespace_key.tr()` ile kullan
+BodyMetrics is an offline-first health metrics tracking app built with Flutter.
 
-## Kod Üretimi
+It covers onboarding, profile creation, BMI calculation from weight/height, historical metric list/chart rendering, and local-to-remote API sync.
 
-Aşağıdaki değişikliklerden sonra `build_runner` çalıştır:
-- Model ekleme/değiştirme (`@JsonSerializable`)
-- Yeni route ekleme (`@RoutePage`)
-- Yeni DI kaydı (`@injectable`, `@lazySingleton`)
-- `.env` dosyası değişikliği
+### Backend Repository
+
+- Backend (Go): https://github.com/yusufkecer/body-metrics-backend.git
+
+### Features
+
+- BMI calculation and classification
+- Historical metrics as cards + charts
+- Multi-profile support
+- Login / Register / Forgot password flows
+- Offline support with SQLite cache
+- Automatic pending-sync retry at app startup
+- Localization support: Turkish, English, German
+
+### Tech Stack
+
+- Flutter + Dart
+- flutter_bloc / Cubit
+- auto_route
+- injectable + get_it
+- sqflite
+- dio
+- easy_localization
+- fl_chart
+
+### Architecture
+
+The project follows Clean Architecture + feature-first structure:
+
+- `lib/core`: shared infrastructure (router, theme, extensions, widgets, base classes)
+- `lib/data`: API + cache + DB layer
+- `lib/domain`: entities, repository contracts, use-cases
+- `lib/feature`: module-based presentation/domain layers
+- `lib/injection`: DI setup
+
+### App Flow
+
+Main flow:
+
+`Splash -> Onboard -> AvatarPicker -> UserGeneralInfo -> Gender -> Height -> Weight -> Home`
+
+Auth routes:
+
+- `UserOperationsView` (login/register tabs)
+- `ForgotPasswordView`
+
+### Auth and Sync
+
+Auth layer:
+
+- `AuthService`: register/login/session/forgot-password operations
+- `AuthSessionCubit`: session state management
+- `LoginCubit`: triggers restore + sync after login
+- `RegisterCubit`: marks pending sync after register
+- `UserOperationsView`: auth UI entry point
+
+Sync layer:
+
+- `SyncDataRepository` (`lib/domain/repository/sync_data_repository.dart`)
+- `SyncLocalDataUseCase`
+
+Core principle:
+
+1. Persist data to local cache first
+2. Attempt API sync in background
+3. Keep `sync_pending` when sync fails
+4. Retry on Splash startup after pending-state restore
+
+### Project Structure (Summary)
+
+```text
+body-metrics/
+├─ android/
+├─ assets/
+├─ lib/
+│  ├─ core/
+│  ├─ data/
+│  ├─ domain/
+│  ├─ feature/
+│  └─ injection/
+├─ scripts/
+├─ test/
+├─ AGENTS.md
+├─ flutter_rules.md
+└─ README.md
+```
+
+Main test folders:
+
+- `test/core`
+- `test/data`
+- `test/domain`
+- `test/feature`
+
+### Setup
+
+```bash
+flutter pub get
+```
+
+Create `.env`:
+
+```bash
+API_KEY=your-api-key-here
+```
+
+### Run (Flavor)
+
+- `local` (default): `http://10.0.2.2:8080/api/v1`
+- `local_ios`: `http://localhost:8080/api/v1`
+- `local` + `LOCAL_IP`: `http://<LOCAL_IP>:8080/api/v1`
+- `production`: `https://api.bodymetrics.life/api/v1`
+
+```bash
+flutter run
+flutter run --dart-define=FLAVOR=local_ios
+flutter run --dart-define=FLAVOR=local --dart-define=LOCAL_IP=192.168.1.20
+flutter build apk --dart-define=FLAVOR=production
+```
+
+### Code Generation
 
 ```bash
 dart run build_runner build --delete-conflicting-outputs
 ```
 
-## Ekran Görüntüleri
+### Tests
 
-![Screenshot_1727416538](https://github.com/user-attachments/assets/3dc7c29a-31e6-4b2e-a9dd-997ae97a02b5)
-![Screenshot_1727416541](https://github.com/user-attachments/assets/05de34dd-4bed-4e0e-a5bb-dc48eb1bbc87)
-![Screenshot_1727416544](https://github.com/user-attachments/assets/daf551b3-94ec-4901-af0e-f25e7793db4a)
-![Screenshot_1727416546](https://github.com/user-attachments/assets/ae4e844e-d60b-4852-829e-48038004606f)
-![Screenshot_1727416549](https://github.com/user-attachments/assets/8a30f988-3539-445c-9c32-4dedfba5ea4c)
-![Screenshot_1727416555](https://github.com/user-attachments/assets/41da5a87-6f06-4337-be12-14ae903116d9)
-![Screenshot_1727416568](https://github.com/user-attachments/assets/e084c199-4e18-4bfe-a972-0b70a5fdbcc3)
+- Total test files: `33`
+- Test files (`*_test.dart`): `21`
+- Mock files (`*.mocks.dart`): `12`
+
+```bash
+flutter test
+# or
+bash scripts/run_tests.sh
+```
+
+### Android Release Signing
+
+`android/key.properties` (must not be committed):
+
+```properties
+storePassword=<password>
+keyPassword=<password>
+keyAlias=bodymetrics
+storeFile=../bodymetrics.keystore
+```
+
+```bash
+flutter build apk --release --dart-define=FLAVOR=production
+```
