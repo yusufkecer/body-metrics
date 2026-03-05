@@ -142,6 +142,8 @@ Splash reads `AppModel.page` (enum `Pages`) and `AppModel.isCompleteOnboard` to 
 | `lib/feature/auth/presentation/cubit/register_cubit.dart` | Registration flow states |
 | `lib/feature/auth/presentation/user_operations.dart` | Login/Register host view (tab switcher, form validation, forgot-password entry point) |
 | `lib/domain/repository/sync_data_repository.dart` | Offline-first sync orchestration (mark pending, restore local/server profile, startup sync retry support) |
+| `lib/data/api/services/secure_token_service.dart` | JWT token + email storage in flutter_secure_storage (implements SecureTokenServiceBase) |
+| `lib/core/base/secure_token_service_base.dart` | Abstract interface for token storage; use this for DI and mocking |
 
 ---
 
@@ -272,8 +274,8 @@ class FeatureCubit extends Cubit<FeatureState> {
 **Layer 2 — JWT Token (User-Level)**
 - Header: `Authorization: Bearer <token>`
 - Injected automatically by `AuthInterceptor` on every request
-- Token stored in SQLite `app_cache` table (`jwt_token` column)
-- On 401 response, `AuthInterceptor` clears session from cache
+- Token stored in **flutter_secure_storage** via `SecureTokenService` (NOT plaintext SQLite)
+- On 401 response, `AuthInterceptor` calls `SecureTokenServiceBase.clearSession()`
 - Token TTL: 30 days
 
 ### API Endpoints
@@ -310,10 +312,10 @@ When a user logs in from `AvatarPickerView` (no local profile):
 
 ### Auth Flow
 1. User registers/logs in → API returns JWT token
-2. Token saved to `app_cache.jwt_token` via `AuthService._saveSession()`
-3. `AuthSessionCubit.loadSession()` checks session on app startup
-4. `AuthInterceptor` adds Bearer token to all subsequent requests
-5. On 401 → tokens cleared, user redirected to login
+2. Token saved to **flutter_secure_storage** via `SecureTokenService.saveSession()` (NOT SQLite)
+3. `AuthSessionCubit.loadSession()` checks session on app startup via `SecureTokenServiceBase.getToken()`
+4. `AuthInterceptor` reads token from `SecureTokenServiceBase` and adds Bearer token to all subsequent requests
+5. On 401 → `SecureTokenServiceBase.clearSession()` called, user redirected to login
 
 ### Setup API Key
 ```bash

@@ -39,13 +39,10 @@ final class SyncDataRepository implements SyncDataRepositoryBase {
         return;
       }
 
-      final serverUserJson = await _userApiService.createUser(
-        _buildUserPayload(localUser),
-      );
-      final serverUserId = (serverUserJson['id'] as num?)?.toInt();
+      final serverUserId = await _resolveServerUserId(localUser);
 
       if (serverUserId == null) {
-        'SyncDataRepository: server returned no user ID'.e();
+        'SyncDataRepository: could not resolve server user ID'.e();
         return;
       }
 
@@ -70,7 +67,7 @@ final class SyncDataRepository implements SyncDataRepositoryBase {
           );
         } catch (e) {
           allUploaded = false;
-          'SyncDataRepository: upload failed id=${metric.id}: $e'.e();
+          'SyncDataRepository: upload failed id=${metric.id}'.e();
         }
       }
 
@@ -157,7 +154,8 @@ final class SyncDataRepository implements SyncDataRepositoryBase {
             );
         if (localUser?.id != null) {
           AppUtil.currentUserId = localUser!.id;
-          'SyncDataRepository.restore: found existing local user id=${localUser.id}'.log();
+          'SyncDataRepository.restore: found existing local user id=${localUser.id}'
+              .log();
           await _persistSession(localUser.id!);
           return;
         }
@@ -193,13 +191,19 @@ final class SyncDataRepository implements SyncDataRepositoryBase {
       await _persistSession(localId);
       'SyncDataRepository.restore: restored user id=$localId from server'.log();
 
-      final serverMetrics = await _metricsApiService.getMetricsByUserId(serverId);
-      'SyncDataRepository.restore: downloading ${serverMetrics.length} metrics'.log();
+      final serverMetrics = await _metricsApiService.getMetricsByUserId(
+        serverId,
+      );
+      'SyncDataRepository.restore: downloading ${serverMetrics.length} metrics'
+          .log();
       for (final json in serverMetrics) {
         try {
           final payload = _buildLocalPayload(json, localId);
           final metricsDb = await _userMetricsCache.initializeDatabase();
-          await _userMetricsCache.insert(metricsDb, UserMetric.fromJson(payload));
+          await _userMetricsCache.insert(
+            metricsDb,
+            UserMetric.fromJson(payload),
+          );
         } catch (e) {
           'SyncDataRepository.restore: metric write failed: $e'.e();
         }
@@ -283,6 +287,24 @@ final class SyncDataRepository implements SyncDataRepositoryBase {
           .w();
     }
     return fallbackUser;
+  }
+
+  Future<int?> _resolveServerUserId(User localUser) async {
+    try {
+      final json = await _userApiService.createUser(
+        _buildUserPayload(localUser),
+      );
+      return (json['id'] as num?)?.toInt();
+    } on ApiException catch (e) {
+      if (e.statusCode == 409) {
+        'SyncDataRepository: user already exists on server, fetching existing'
+            .w();
+        final existing = await _userApiService.getAllUsers();
+        if (existing.isEmpty) return null;
+        return (existing.first['id'] as num?)?.toInt();
+      }
+      rethrow;
+    }
   }
 
   Json _buildUserPayload(User user) => {

@@ -10,20 +10,19 @@ class AuthService implements AuthServiceBase {
     this._appCache,
     this._userCache,
     this._userMetricsCache,
+    this._secureTokenService,
   );
 
   final ApiClient _apiClient;
   final AppCache _appCache;
   final UserCache _userCache;
   final UserMetricsCache _userMetricsCache;
+  final SecureTokenServiceBase _secureTokenService;
 
   @override
   Future<bool> hasSession() async {
-    final db = await _appCache.initializeDatabase();
-    final data = await _appCache.selectAll(db);
-
-    final token = data[AppCacheColumns.jwtToken.value] as String?;
-    final email = data[AppCacheColumns.email.value] as String?;
+    final token = await _secureTokenService.getToken();
+    final email = await _secureTokenService.getEmail();
 
     final result = (token?.isNotEmpty ?? false) && (email?.isNotEmpty ?? false);
     AppUtil.hasSession = result;
@@ -110,12 +109,11 @@ class AuthService implements AuthServiceBase {
     await db.rawUpdate(
       'UPDATE ${_appCache.table} '
       'SET ${AppCacheColumns.activeUser.value} = NULL, '
-      '${AppCacheColumns.page.value} = NULL, '
-      '${AppCacheColumns.jwtToken.value} = NULL, '
-      '${AppCacheColumns.email.value} = NULL',
+      '${AppCacheColumns.page.value} = NULL',
     );
 
     await _appCache.closeDb();
+    await _secureTokenService.clearSession();
 
     AppUtil.currentUserId = null;
     AppUtil.lastPage = null;
@@ -126,18 +124,7 @@ class AuthService implements AuthServiceBase {
     required String email,
     required String token,
   }) async {
-    final db = await _appCache.initializeDatabase();
-    final updated = await _appCache.update(db, {
-      AppCacheColumns.jwtToken.value: token,
-      AppCacheColumns.email.value: email,
-    });
+    await _secureTokenService.saveSession(token: token, email: email);
     AppUtil.hasSession = true;
-    if (updated > 0) return;
-
-    final db2 = await _appCache.initializeDatabase();
-    await _appCache.insert(db2, {
-      AppCacheColumns.jwtToken.value: token,
-      AppCacheColumns.email.value: email,
-    });
   }
 }

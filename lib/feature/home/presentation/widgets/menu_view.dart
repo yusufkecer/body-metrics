@@ -29,66 +29,76 @@ final class _MenuView extends StatelessWidget {
           content: Column(
             spacing: SpaceValues.s.value,
             mainAxisSize: MainAxisSize.min,
-            children: Lang.values.map((lang) {
-              return RadioListTile<Lang>(
-                value: lang,
+            children: [
+              RadioGroup<Lang>(
                 groupValue: currentLang,
-                activeColor: ProductColor.instance.white,
-                tileColor: ProductColor.instance.white.withAlpha(20),
-                shape: const RoundedRectangleBorder(
-                  borderRadius: ProductRadius.ten(),
-                ),
-                title: Text(
-                  lang.displayName,
-                  style: dialogContext.textTheme.bodyLarge?.copyWith(
-                    color: ProductColor.instance.white,
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                secondary: Container(
-                  width: 52,
-                  height: 36,
-                  padding: const EdgeInsets.symmetric(horizontal: 6),
-                  decoration: BoxDecoration(
-                    color: ProductColor.instance.white.withAlpha(25),
-                    borderRadius: const ProductRadius.ten(),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      ClipRRect(
-                        borderRadius: const ProductRadius.four(),
-                        child: Image.asset(
-                          lang.flag,
-                          width: 18,
-                          height: 18,
-                          fit: BoxFit.cover,
-                        ),
-                      ),
-                      Text(
-                        lang.code,
-                        style: dialogContext.textTheme.labelLarge?.copyWith(
-                          color: ProductColor.instance.white,
-                          fontWeight: FontWeight.w700,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                contentPadding: EdgeInsets.zero,
-                visualDensity: const VisualDensity(
-                  horizontal: -4,
-                  vertical: -3,
-                ),
-                onChanged: (selected) async {
+                onChanged: (selected) {
                   if (selected == null) return;
-                  await context.setLocale(selected.locale);
-                  if (dialogContext.mounted) {
-                    Navigator.of(dialogContext).pop();
-                  }
+                  context.setLocale(selected.locale).then((_) {
+                    if (dialogContext.mounted) {
+                      Navigator.of(dialogContext).pop();
+                    }
+                  });
                 },
-              );
-            }).toList(),
+                child: Column(
+                  spacing: SpaceValues.s.value,
+                  mainAxisSize: MainAxisSize.min,
+                  children: Lang.values.map((lang) {
+                    return RadioListTile<Lang>(
+                      value: lang,
+                      activeColor: ProductColor.instance.white,
+                      tileColor: ProductColor.instance.white.withAlpha(20),
+                      shape: const RoundedRectangleBorder(
+                        borderRadius: ProductRadius.ten(),
+                      ),
+                      title: Text(
+                        lang.displayName,
+                        style: dialogContext.textTheme.bodyLarge?.copyWith(
+                          color: ProductColor.instance.white,
+                          fontWeight: FontWeight.w600,
+                        ),
+                      ),
+                      secondary: Container(
+                        width: 52,
+                        height: 36,
+                        padding: const EdgeInsets.symmetric(horizontal: 6),
+                        decoration: BoxDecoration(
+                          color: ProductColor.instance.white.withAlpha(25),
+                          borderRadius: const ProductRadius.ten(),
+                        ),
+                        child: Row(
+                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                          children: [
+                            ClipRRect(
+                              borderRadius: const ProductRadius.four(),
+                              child: Image.asset(
+                                lang.flag,
+                                width: 18,
+                                height: 18,
+                                fit: BoxFit.cover,
+                              ),
+                            ),
+                            Text(
+                              lang.code,
+                              style: dialogContext.textTheme.labelLarge
+                                  ?.copyWith(
+                                    color: ProductColor.instance.white,
+                                    fontWeight: FontWeight.w700,
+                                  ),
+                            ),
+                          ],
+                        ),
+                      ),
+                      contentPadding: EdgeInsets.zero,
+                      visualDensity: const VisualDensity(
+                        horizontal: -4,
+                        vertical: -3,
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ],
           ),
         );
       },

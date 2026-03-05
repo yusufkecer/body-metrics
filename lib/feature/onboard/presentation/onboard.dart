@@ -75,7 +75,6 @@ class __OnboardBodyState extends State<_OnboardBody>
   Widget buildColorfulButton() {
     return _isEnd
         ? ColorfulTextButton(
-            text: LocaleKeys.onboard_skip,
             onTap: _skip,
           )
         : const SizedBox.shrink();

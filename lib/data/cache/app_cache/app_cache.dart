@@ -38,6 +38,15 @@ final class AppCache extends ImpCache
         'ALTER TABLE $table ADD COLUMN ${AppCacheColumns.syncPending.value} INTEGER DEFAULT 0',
       );
     }
+
+    final count =
+        Sqflite.firstIntValue(
+          await db.rawQuery('SELECT COUNT(*) FROM $table'),
+        ) ??
+        0;
+    if (count == 0) {
+      await db.insert(table, {AppCacheColumns.syncPending.value: 0});
+    }
   }
 
   final List<String> _columns = [
@@ -59,7 +68,14 @@ final class AppCache extends ImpCache
       return 0;
     }
 
-    final result = await db!.insert(table, value);
+    final existing =
+        Sqflite.firstIntValue(
+          await db!.rawQuery('SELECT COUNT(*) FROM $table'),
+        ) ??
+        0;
+    if (existing > 0) return update(db, value);
+
+    final result = await db.insert(table, value);
 
     'value inserted'.log();
 
@@ -106,7 +122,6 @@ final class AppCache extends ImpCache
     );
 
     await closeDb();
-    'value: $value'.log();
     if (value.isNullOrEmpty) return {};
 
     return value.first;
@@ -118,7 +133,7 @@ final class AppCache extends ImpCache
       'Value is empty'.e();
       return 0;
     }
-    'value: $value'.log();
+    'app_cache: update called'.log();
     final filteredValue = value.entries
         .where((entry) => entry.value != null)
         .toList();
@@ -129,8 +144,6 @@ final class AppCache extends ImpCache
     }
 
     final columns = filteredValue.map((e) => '${e.key} = ?').join(', ');
-
-    'columns: $columns'.log();
 
     final values = filteredValue.map((e) => e.value).toList();
 

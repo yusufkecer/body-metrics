@@ -1,38 +1,27 @@
-import 'package:animated_text_kit/animated_text_kit.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 
 @immutable
 final class ColorfulTextButton extends StatelessWidget {
-  const ColorfulTextButton({
-    required this.text,
-    required this.onTap,
-    this.speed = Durations.long3,
-    this.colors,
-    super.key,
-  });
+  const ColorfulTextButton({required this.onTap, super.key});
 
-  final List<Color>? colors;
-  final String text;
-  final Duration speed;
   final void Function() onTap;
 
   @override
   Widget build(BuildContext context) {
     return Padding(
       padding: ProductPadding.ten(),
-      child: AnimatedTextKit(
-        repeatForever: true,
-        animatedTexts: [
-          ColorizeAnimatedText(
-            text.tr(),
-            speed: speed,
-            colors: colors ?? ProductColor.instance.colorfulList,
-            textStyle: context.textTheme.titleMedium!,
+      child: TextButton(
+        onPressed: onTap,
+        style: TextButton.styleFrom(minimumSize: Size.zero),
+        child: Text(
+          LocaleKeys.cont.tr(),
+          style: context.textTheme.titleMedium?.copyWith(
+            color: ProductColor.instance.white,
+            fontWeight: FontWeight.w700,
           ),
-        ],
-        onTap: onTap,
+        ),
       ),
     );
   }

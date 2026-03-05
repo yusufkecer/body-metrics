@@ -366,6 +366,8 @@ group('WeightPickerCubit', () {
 - Sanitize all user inputs before inserting into SQLite
 - Do not log sensitive health data (weight, BMI) at info level in production builds
 - Use parameterized queries — never string-concatenate SQL
+- **JWT token and email must be stored in `flutter_secure_storage` via `SecureTokenService`** — NEVER write them to SQLite or logs
+- `AuthInterceptor` reads the token from `SecureTokenServiceBase.getToken()` — do not read from AppCache
 - Never expose JWT token in logs — `AuthInterceptor` adds it silently
 - `android/key.properties` is gitignored — never commit keystore passwords
 
@@ -442,10 +444,11 @@ final class ApiClient {
 - After changing `.env`, run `dart run build_runner build --delete-conflicting-outputs` to regenerate `env.g.dart`
 
 **Layer 2 — JWT Token (User-Level):**
-- `AuthInterceptor` reads token from SQLite `app_cache.jwt_token`
+- `AuthInterceptor` reads token from `SecureTokenServiceBase.getToken()` (flutter_secure_storage)
 - Sends `Authorization: Bearer <token>` header on every request
-- On 401 response → clears session, user must re-authenticate
+- On 401 response → `SecureTokenServiceBase.clearSession()`, user must re-authenticate
 - Token TTL: 30 days (set by backend)
+- **NEVER** store JWT token or email in SQLite — use `SecureTokenService` only
 
 **Rules:**
 - Never hardcode API keys in source code — always use `--dart-define`

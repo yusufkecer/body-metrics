@@ -28,6 +28,7 @@ import 'package:mockito/mockito.dart' as _i1;
 /// A class which mocks [SaveHeightUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
+// ignore: duplicate_ignore
 // ignore: must_be_immutable
 class MockSaveHeightUseCase extends _i1.Mock implements _i2.SaveHeightUseCase {
   @override

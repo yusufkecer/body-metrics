@@ -1,4 +1,4 @@
-import 'package:bodymetrics/data/index.dart';
+import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/injection/locator.dart';
 import 'package:dio/dio.dart';
 
@@ -14,11 +14,8 @@ final class AuthInterceptor extends Interceptor {
       return handler.next(options);
     }
 
-    final appCache = Locator.sl<AppCache>();
-    final db = await appCache.initializeDatabase();
-    final data = await appCache.selectAll(db);
-
-    final token = data[AppCacheColumns.jwtToken.value] as String?;
+    final tokenService = Locator.sl<SecureTokenServiceBase>();
+    final token = await tokenService.getToken();
 
     if (token == null || token.isEmpty) {
       return handler.reject(
@@ -46,14 +43,7 @@ final class AuthInterceptor extends Interceptor {
   }
 
   Future<void> _clearSession() async {
-    final appCache = Locator.sl<AppCache>();
-    final db = await appCache.initializeDatabase();
-    if (db == null) return;
-    await db.rawUpdate(
-      'UPDATE ${appCache.table} '
-      'SET ${AppCacheColumns.jwtToken.value} = NULL, '
-      '${AppCacheColumns.email.value} = NULL',
-    );
-    await appCache.closeDb();
+    final tokenService = Locator.sl<SecureTokenServiceBase>();
+    await tokenService.clearSession();
   }
 }

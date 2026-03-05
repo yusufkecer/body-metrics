@@ -28,6 +28,7 @@ import 'package:mockito/mockito.dart' as _i1;
 /// A class which mocks [OnboardUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
+// ignore: duplicate_ignore
 // ignore: must_be_immutable
 class MockOnboardUseCase extends _i1.Mock implements _i2.OnboardUseCase {
   @override

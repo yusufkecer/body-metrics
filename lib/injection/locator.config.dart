@@ -16,6 +16,8 @@ import 'package:bodymetrics/data/api/api_client.dart' as _i260;
 import 'package:bodymetrics/data/api/services/auth_service.dart' as _i631;
 import 'package:bodymetrics/data/api/services/metrics_api_service.dart'
     as _i821;
+import 'package:bodymetrics/data/api/services/secure_token_service.dart'
+    as _i60;
 import 'package:bodymetrics/data/api/services/user_api_service.dart' as _i440;
 import 'package:bodymetrics/data/cache/app_cache/app_cache.dart' as _i458;
 import 'package:bodymetrics/data/cache/user_cache/user_cache.dart' as _i981;
@@ -164,16 +166,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i406.SaveAvatarUseCase>(
       () => _i406.SaveAvatarUseCase(gh<_i388.SaveAvatarRepository>()),
     );
+    gh.lazySingleton<_i243.SecureTokenServiceBase>(
+      () => _i60.SecureTokenService(),
+    );
     gh.factory<_i78.SaveAppUseCase>(
       () => _i78.SaveAppUseCase(gh<_i395.SaveAppRepository>()),
-    );
-    gh.lazySingleton<_i631.AuthService>(
-      () => _i631.AuthService(
-        gh<_i101.ApiClient>(),
-        gh<_i101.AppCache>(),
-        gh<_i101.UserCache>(),
-        gh<_i101.UserMetricsCache>(),
-      ),
     );
     gh.lazySingleton<_i243.UserApiServiceBase>(
       () => _i440.UserApiService(gh<_i260.ApiClient>()),
@@ -226,14 +223,17 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i792.AppInfoUseCase>(
       () => _i792.AppInfoUseCase(gh<_i34.AppInfoRepository>()),
     );
-    gh.factory<_i276.AuthSessionCubit>(
-      () => _i276.AuthSessionCubit(gh<_i101.AuthService>()),
-    );
-    gh.factory<_i1032.ForgotPasswordCubit>(
-      () => _i1032.ForgotPasswordCubit(gh<_i101.AuthService>()),
-    );
     gh.factory<_i293.OnboardUseCase>(
       () => _i293.OnboardUseCase(gh<_i85.OnboardRepository>()),
+    );
+    gh.lazySingleton<_i631.AuthService>(
+      () => _i631.AuthService(
+        gh<_i101.ApiClient>(),
+        gh<_i101.AppCache>(),
+        gh<_i101.UserCache>(),
+        gh<_i101.UserMetricsCache>(),
+        gh<_i243.SecureTokenServiceBase>(),
+      ),
     );
     gh.factory<_i30.GenderCubit>(
       () => _i30.GenderCubit(gh<_i708.SaveGenderUseCase>()),
@@ -265,6 +265,12 @@ extension GetItInjectableX on _i174.GetIt {
         gh<_i101.AuthService>(),
         gh<_i34.SyncLocalDataUseCase>(),
       ),
+    );
+    gh.factory<_i276.AuthSessionCubit>(
+      () => _i276.AuthSessionCubit(gh<_i101.AuthService>()),
+    );
+    gh.factory<_i1032.ForgotPasswordCubit>(
+      () => _i1032.ForgotPasswordCubit(gh<_i101.AuthService>()),
     );
     gh.factory<_i978.WeightPickerCubit>(
       () => _i978.WeightPickerCubit(

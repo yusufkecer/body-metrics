@@ -33,6 +33,7 @@ import 'package:mockito/mockito.dart' as _i1;
 /// A class which mocks [UserUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
+// ignore: duplicate_ignore
 // ignore: must_be_immutable
 class MockUserUseCase extends _i1.Mock implements _i2.UserUseCase {
   @override
@@ -75,6 +76,7 @@ class MockUserUseCase extends _i1.Mock implements _i2.UserUseCase {
 /// A class which mocks [SaveWeightUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
+// ignore: duplicate_ignore
 // ignore: must_be_immutable
 class MockSaveWeightUseCase extends _i1.Mock implements _i5.SaveWeightUseCase {
   @override
@@ -90,6 +92,7 @@ class MockSaveWeightUseCase extends _i1.Mock implements _i5.SaveWeightUseCase {
 /// A class which mocks [CalculateBmiUseCase].
 ///
 /// See the documentation for Mockito's code generation for more information.
+// ignore: duplicate_ignore
 // ignore: must_be_immutable
 class MockCalculateBmiUseCase extends _i1.Mock
     implements _i6.CalculateBmiUseCase {
