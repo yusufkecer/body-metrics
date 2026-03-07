@@ -30,6 +30,7 @@ Uygulama; onboarding, profil oluşturma, kilo/boy verisi ile BMI hesaplama, geç
 - dio
 - easy_localization
 - fl_chart
+- flutter_secure_storage
 
 ### Mimari
 
@@ -61,6 +62,7 @@ Auth tarafı:
 - `LoginCubit`: login sonrası restore + sync tetikler
 - `RegisterCubit`: register sonrası pending işaretler
 - `UserOperationsView`: auth UI giriş noktası
+- `SecureTokenService`: JWT token ve email `flutter_secure_storage`'da şifreli saklanır (SQLite'a yazılmaz)
 
 Senkronizasyon tarafı:
 
@@ -134,9 +136,9 @@ dart run build_runner build --delete-conflicting-outputs
 
 ### Testler
 
-- Toplam test dosyası: `33`
-- Test dosyası (`*_test.dart`): `21`
-- Mock dosyası (`*.mocks.dart`): `12`
+- Toplam test dosyası: `35`
+- Test dosyası (`*_test.dart`): `23`
+- Mock dosyası (`*.mocks.dart`): `14`
 
 ```bash
 flutter test
@@ -191,6 +193,7 @@ It covers onboarding, profile creation, BMI calculation from weight/height, hist
 - dio
 - easy_localization
 - fl_chart
+- flutter_secure_storage
 
 ### Architecture
 
@@ -222,6 +225,7 @@ Auth layer:
 - `LoginCubit`: triggers restore + sync after login
 - `RegisterCubit`: marks pending sync after register
 - `UserOperationsView`: auth UI entry point
+- `SecureTokenService`: JWT token and email stored encrypted in `flutter_secure_storage` (not in SQLite)
 
 Sync layer:
 
@@ -295,9 +299,9 @@ dart run build_runner build --delete-conflicting-outputs
 
 ### Tests
 
-- Total test files: `33`
-- Test files (`*_test.dart`): `21`
-- Mock files (`*.mocks.dart`): `12`
+- Total test files: `35`
+- Test files (`*_test.dart`): `23`
+- Mock files (`*.mocks.dart`): `14`
 
 ```bash
 flutter test
