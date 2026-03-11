@@ -18,19 +18,8 @@ final class UserMetric extends Equatable implements BaseModel<UserMetric> {
     this.userId,
     this.height,
     this.createdAt,
+    this.synced,
   });
-
-  UserMetric.copyWith(UserMetric userMetric)
-      : this(
-          weightDiff: userMetric.weightDiff,
-          bmi: userMetric.bmi,
-          id: userMetric.id,
-          date: userMetric.date,
-          weight: userMetric.weight,
-          userMetric: userMetric.userMetric,
-          height: userMetric.height,
-          createdAt: userMetric.createdAt,
-        );
 
   @override
   factory UserMetric.fromJson(Json json) => _$UserMetricFromJson(json);
@@ -48,6 +37,7 @@ final class UserMetric extends Equatable implements BaseModel<UserMetric> {
     BodyMetricResult? userMetric,
     int? height,
     String? createdAt,
+    int? synced,
   }) {
     return UserMetric(
       weightDiff: weightDiff ?? this.weightDiff,
@@ -59,6 +49,7 @@ final class UserMetric extends Equatable implements BaseModel<UserMetric> {
       userMetric: userMetric ?? this.userMetric,
       height: height ?? this.height,
       createdAt: createdAt ?? this.createdAt,
+      synced: synced ?? this.synced,
     );
   }
 
@@ -77,7 +68,20 @@ final class UserMetric extends Equatable implements BaseModel<UserMetric> {
   @JsonKey(name: 'created_at')
   final String? createdAt;
 
+  /// 0 = not yet synced to server, 1 = synced. Local-only field.
+  final int? synced;
+
   @override
-  List<Object?> get props =>
-      [id, date, weight, userMetric, bmi, weightDiff, userId, height, createdAt];
+  List<Object?> get props => [
+    id,
+    date,
+    weight,
+    userMetric,
+    bmi,
+    weightDiff,
+    userId,
+    height,
+    createdAt,
+    synced,
+  ];
 }

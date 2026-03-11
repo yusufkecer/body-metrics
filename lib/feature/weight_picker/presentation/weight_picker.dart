@@ -33,8 +33,8 @@ class _WeightPickerState extends State<WeightPicker>
       create: (context) => Locator.sl<WeightPickerCubit>(),
       builder: (context, weightPickerCubit) {
         _cubit = weightPickerCubit;
-        final indicatorHeight = (context.height * 0.46).clamp(320.0, 420.0);
-        final indicatorWidth = (context.width * 0.74).clamp(250.0, 340.0);
+        final indicatorHeight = (context.height * 0.56).clamp(380.0, 520.0);
+        final indicatorWidth = context.width - 48;
 
         return GradientScaffold(
           body: SafeArea(
@@ -133,7 +133,7 @@ class _WeightPickerState extends State<WeightPicker>
                                         selectedWeight: _selectedWeight,
                                         maxVal: _maxWeight,
                                         isDisabled: _isFocused,
-                                        height: 58,
+                                        height: 72,
                                       ),
                                       _WeightPickerWidget(
                                         weightPickerController:
@@ -142,7 +142,7 @@ class _WeightPickerState extends State<WeightPicker>
                                         selectedWeight: _selectedDecimalWeight,
                                         maxVal: _decimalMaxWeight,
                                         isDisabled: _isFocused,
-                                        height: 50,
+                                        height: 64,
                                       ),
                                     ],
                                   ),

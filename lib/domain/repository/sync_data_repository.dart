@@ -50,13 +50,19 @@ final class SyncDataRepository implements SyncDataRepositoryBase {
 
       final metricsDb = await _userMetricsCache.initializeDatabase();
       final localMetrics =
-          (await _userMetricsCache.select(metricsDb, {
-            UserMetricsColumns.userId.value: userId,
-          }))?.userMetrics ??
+          (await _userMetricsCache.selectUnsynced(metricsDb, userId))
+              ?.userMetrics ??
           [];
 
-      'SyncDataRepository: uploading ${localMetrics.length} local metrics'
+      'SyncDataRepository: uploading ${localMetrics.length} unsynced metrics'
           .log();
+
+      if (localMetrics.isEmpty) {
+        AppUtil.syncPending = false;
+        await _persistSyncPending(false);
+        'SyncDataRepository: nothing to upload'.log();
+        return;
+      }
 
       var allUploaded = true;
       for (final metric in localMetrics) {
@@ -72,31 +78,17 @@ final class SyncDataRepository implements SyncDataRepositoryBase {
       }
 
       if (!allUploaded) {
-        'SyncDataRepository: upload incomplete, keeping local data'.w();
+        'SyncDataRepository: upload incomplete, will retry later'.w();
+        await _userMetricsCache.closeDb();
         return;
       }
 
-      final wipeDb = await _userMetricsCache.initializeDatabase();
-      await _userMetricsCache.deleteAllByUserId(wipeDb, userId);
-      'SyncDataRepository: local metrics wiped'.log();
-
-      final serverMetrics = await _metricsApiService.getMetricsByUserId(
-        serverUserId,
-      );
-
-      for (final json in serverMetrics) {
-        try {
-          final payload = _buildLocalPayload(json, userId);
-          final db = await _userMetricsCache.initializeDatabase();
-          await _userMetricsCache.insert(db, UserMetric.fromJson(payload));
-        } catch (e) {
-          'SyncDataRepository: local write failed: $e'.e();
-        }
-      }
+      await _userMetricsCache.markAllSynced(metricsDb, userId);
+      await _userMetricsCache.closeDb();
 
       AppUtil.syncPending = false;
       await _persistSyncPending(false);
-      'SyncDataRepository: sync complete — ${serverMetrics.length} metrics cached'
+      'SyncDataRepository: sync complete — ${localMetrics.length} metrics uploaded'
           .log();
     } catch (e) {
       'SyncDataRepository error: $e'.e();
@@ -326,9 +318,10 @@ final class SyncDataRepository implements SyncDataRepositoryBase {
     'created_at': metric.createdAt,
   };
 
-  /// Payload written to local SQLite after re-fetch.
+  /// Payload written to local SQLite when restoring data from server (login).
   /// - id omitted → SQLite auto-increments (no server id collision)
   /// - user_id mapped to local userId (home screen queries by local id)
+  /// - synced = 1 → already on server, no re-upload needed
   Json _buildLocalPayload(Json serverJson, int localUserId) => {
     'user_id': localUserId,
     'date': serverJson['date'] ?? '',
@@ -338,5 +331,6 @@ final class SyncDataRepository implements SyncDataRepositoryBase {
     'weight_diff': serverJson['weight_diff'],
     'body_metric': serverJson['body_metric'],
     'created_at': serverJson['created_at'],
+    'synced': 1,
   };
 }

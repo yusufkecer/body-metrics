@@ -18,6 +18,7 @@ final class AppLocalization extends EasyLocalization {
     Lang.tr.locale,
     Lang.en.locale,
     Lang.de.locale,
+    Lang.ar.locale,
   ];
   static Locale get _startLocale {
     final systemLocale = WidgetsBinding.instance.platformDispatcher.locale;

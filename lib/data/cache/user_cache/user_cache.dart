@@ -48,8 +48,6 @@ final class UserCache extends ImpCache
       return 0;
     }
 
-    final result1 = await db.query(table);
-    'result $result1'.log();
     final result = await db.insert(table, value);
     'result $result'.log();
     await closeDb();

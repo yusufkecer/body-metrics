@@ -21,19 +21,42 @@ final class _WeightPickerWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RepaintBoundary(
-      child: SizedBox(
-        height: height,
-        child: PageView.builder(
-          physics: isDisabled
-              ? const NeverScrollableScrollPhysics()
-              : const PageScrollPhysics(),
-          controller: weightPickerController,
-          itemCount: (maxVal - minVal).toInt(),
-          pageSnapping: false,
-          itemBuilder: (context, index) {
-            return _buildWeightText(index + minVal.toInt(), context);
-          },
-        ),
+      child: Stack(
+        alignment: Alignment.center,
+        children: [
+          SizedBox(
+            height: height,
+            child: PageView.builder(
+              physics: isDisabled
+                  ? const NeverScrollableScrollPhysics()
+                  : const PageScrollPhysics(),
+              controller: weightPickerController,
+              itemCount: (maxVal - minVal).toInt(),
+              pageSnapping: false,
+              itemBuilder: (context, index) {
+                return _buildWeightText(index + minVal.toInt(), context);
+              },
+            ),
+          ),
+          IgnorePointer(
+            child: Container(
+              height: height,
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  begin: Alignment.topCenter,
+                  end: Alignment.bottomCenter,
+                  colors: [
+                    ProductColor.instance.seedColor,
+                    ProductColor.instance.seedColor.withAlpha(0),
+                    ProductColor.instance.seedColor.withAlpha(0),
+                    ProductColor.instance.seedColor,
+                  ],
+                  stops: const [0.0, 0.28, 0.72, 1.0],
+                ),
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

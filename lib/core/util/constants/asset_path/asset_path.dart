@@ -42,6 +42,7 @@ enum AssetValue {
   countryTr('tr.png'),
   countryUk('uk.png'),
   countryDe('de.png'),
+  countrySa('sa.png'),
   ;
 
   final String value;

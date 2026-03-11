@@ -14,10 +14,7 @@ final class AppInfoUseCase implements UseCase<Pages, EmptyModel> {
     if (params == null) throw ArgumentError.notNull();
 
     final result = await _repository.executeWithParams();
-    if (result.isNullOrEmpty) {
-      return Pages.avatarPage;
-    }
-    if (result == null) return Pages.onboardPage;
-    return result;
+    if (result.isNullOrEmpty) return Pages.avatarPage;
+    return result!;
   }
 }

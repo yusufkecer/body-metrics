@@ -207,13 +207,13 @@ class _DataListState extends State<_DataList>
                 Icon(
                   ProductIcon.calendar.icon,
                   size: 13,
-                  color: pc.whiteAlpha80,
+                  color: pc.white,
                 ),
                 const SizedBox(width: 5),
                 Text(
                   metric.displayDate,
                   style: context.textTheme.labelSmall?.copyWith(
-                    color: pc.whiteAlpha80,
+                    color: pc.white,
                     fontWeight: FontWeight.w500,
                   ),
                 ),
@@ -275,7 +275,7 @@ class _DataListState extends State<_DataList>
                         Text(
                           LocaleKeys.home_weight_change.tr(),
                           style: context.textTheme.labelSmall?.copyWith(
-                            color: pc.whiteAlpha80,
+                            color: pc.white,
                             fontWeight: FontWeight.w500,
                           ),
                         ),
@@ -336,7 +336,7 @@ final class _MetricChip extends StatelessWidget {
               Text(
                 label,
                 style: context.textTheme.labelSmall?.copyWith(
-                  color: ProductColor.instance.whiteEightTenths,
+                  color: ProductColor.instance.white,
                   fontWeight: FontWeight.w500,
                   fontSize: 10,
                 ),
@@ -429,7 +429,7 @@ final class _BmiRangeIndicator extends StatelessWidget {
               Text(
                 LocaleKeys.home_bmi_zone.tr(),
                 style: context.textTheme.labelSmall?.copyWith(
-                  color: pc.whiteEightTenths,
+                  color: pc.white,
                   fontWeight: FontWeight.w600,
                 ),
               ),

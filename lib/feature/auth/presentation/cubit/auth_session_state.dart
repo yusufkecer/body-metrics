@@ -15,3 +15,11 @@ final class AuthSessionAuthenticated extends AuthSessionState {
 final class AuthSessionUnauthenticated extends AuthSessionState {
   const AuthSessionUnauthenticated();
 }
+
+final class AuthSessionDeleting extends AuthSessionState {
+  const AuthSessionDeleting();
+}
+
+final class AuthSessionDeleted extends AuthSessionState {
+  const AuthSessionDeleted();
+}

@@ -1,0 +1,147 @@
+{
+    "calculator": "حاسبة BodyMetrics",
+    "cont": "متابعة",
+    "save": "حفظ",
+    "back": "رجوع",
+    "try_again": "حاول مرة أخرى",
+    "gender": {
+        "gender_name": "الجنس",
+        "select_gender": "اختر جنسك",
+        "fm": "أنثى",
+        "ml": "ذكر",
+        "gender_is_null": "لم يتم اختيار الجنس. يرجى اختيار الجنس."
+    },
+    "height": {
+        "height_name": "الطول",
+        "select_height": "اختر طولك",
+        "cm": "سم"
+    },
+    "register": {
+        "name": "الاسم",
+        "surname": "الكنية",
+        "birth_of_date": "تاريخ الميلاد",
+        "complete": "إكمال التسجيل",
+        "or": "أو",
+        "select_profile_picture": "اختر الصورة الرمزية",
+        "information_is_empty": "لإكمال التسجيل، يجب إدخال الاسم وتاريخ الميلاد.",
+        "avatar_select_failed": "حدثت مشكلة أثناء اختيار الصورة الرمزية. هل تريد المتابعة إلى خطوة الحساب؟",
+        "name_required": "لا يمكن أن يكون الاسم فارغًا ويجب أن لا يقل عن 3 أحرف.",
+        "surname_required": "لا يمكن أن تكون الكنية فارغة ويجب أن لا تقل عن 3 أحرف.",
+        "birth_of_date_required": "لا يمكن أن يكون تاريخ الميلاد فارغًا."
+    },
+    "weight": {
+        "weight_name": "الوزن",
+        "select_weight": "اختر وزنك",
+        "kg": "كغ",
+        "weight_empty": "للمتابعة، يجب إدخال وزنك.",
+        "weight_invalid": "يرجى إدخال وزن صالح.",
+        "enter_range": "يرجى إدخال وزن صالح ضمن النطاق 25-635."
+    },
+    "bmi_result": {
+        "under_weight": "نقص الوزن",
+        "normal": "طبيعي",
+        "over_weight": "زيادة الوزن",
+        "obese": "سمنة",
+        "severely_obese": "سمنة شديدة",
+        "very_severely_obese": "سمنة شديدة جدًا",
+        "unknown": "غير معروف"
+    },
+    "dialog": {
+        "progress_lost": "هل أنت متأكد؟ سيتم فقدان كل تقدمك.",
+        "general_error": "حدث خطأ. يرجى المحاولة مرة أخرى.",
+        "cancel": "إلغاء",
+        "ok": "موافق",
+        "close": "إغلاق",
+        "yes": "نعم",
+        "page_not_saved": "لم يتم حفظ الصفحة. يرجى إكمال التسجيل."
+    },
+    "onboard": {
+        "welcome": "مرحبًا!",
+        "onboarding_1_title": "مرحبًا بك في BodyMetrics! ⚖️",
+        "onboarding_1": "تم تصميم هذا التطبيق لحساب مؤشر كتلة الجسم (BMI) ومساعدتك على تتبع الوزن وقيم BMI الخاصة بك.",
+        "onboarding_2_title": "تخزين محلي وسحابي 🛡️",
+        "onboarding_2": "يتم حفظ بياناتك بأمان على جهازك أولًا. ويمكنك اختياريًا إنشاء حساب لنسخها احتياطيًا إلى السحابة أيضًا.",
+        "onboarding_3_title": "السجل والمخططات 📈",
+        "onboarding_3": "يتم عرض جميع قياساتك بترتيب زمني. يمكنك متابعة تغيرات الوزن وBMI بسهولة عبر المخططات التفاعلية.",
+        "onboarding_4_title": "نسخ احتياطي سحابي 💾",
+        "onboarding_4": "أنشئ حسابًا لمزامنة جميع قياساتك تلقائيًا مع السحابة. ستبقى بياناتك آمنة حتى عند تغيير جهازك.",
+        "onboarding_5": "لنبدأ! 🚀",
+        "skip": "تخطي"
+    },
+    "home": {
+        "home": "الصفحة الرئيسية",
+        "yearly": "سنوي",
+        "monthly": "شهري",
+        "weekly": "أسبوعي",
+        "see_more": "عرض المزيد",
+        "see_less": "عرض أقل",
+        "bmi": "BMI",
+        "weight": "الوزن",
+        "situation": "الحالة",
+        "date": "التاريخ",
+        "weight_change": "التغيير",
+        "report": "التقرير",
+        "chart": "المخطط",
+        "line_chart": "مخطط BMI",
+        "bar_chart": "مخطط الوزن",
+        "bmi_zone": "نطاق BMI",
+        "menu": {
+            "change_profile": "تغيير الملف الشخصي",
+            "add_profile": "إضافة ملف شخصي",
+            "calculate_bmi": "حساب BMI",
+            "user_operations": "عمليات المستخدم",
+            "logout": "تسجيل الخروج",
+            "change_language": "تغيير اللغة"
+        }
+    },
+    "auth": {
+        "login": "تسجيل الدخول",
+        "register": "إنشاء حساب",
+        "email": "البريد الإلكتروني",
+        "password": "كلمة المرور",
+        "invalid_email": "يرجى إدخال بريد إلكتروني صالح.",
+        "password_min": "يجب أن تتكون كلمة المرور من 6 أحرف على الأقل.",
+        "forgot_password": "نسيت كلمة المرور",
+        "forgot_password_link": "هل نسيت كلمة المرور؟",
+        "forgot_password_title": "إعادة تعيين كلمة المرور",
+        "forgot_password_send_code": "إرسال الرمز",
+        "forgot_password_code": "رمز التحقق",
+        "forgot_password_new_password": "كلمة المرور الجديدة",
+        "forgot_password_confirm_password": "تأكيد كلمة المرور",
+        "forgot_password_reset": "إعادة تعيين كلمة المرور",
+        "forgot_password_code_sent": "تم إرسال الرمز إلى بريدك الإلكتروني",
+        "forgot_password_success": "تمت إعادة تعيين كلمة المرور بنجاح",
+        "forgot_password_passwords_not_match": "كلمتا المرور غير متطابقتين",
+        "forgot_password_code_hint": "أدخل الرمز المكون من 6 أرقام"
+    },
+    "change_profile": {
+        "change_profile": "تغيير الملف الشخصي",
+        "select_profile": "اختر الملف الشخصي",
+        "delete_profile": "حذف الملف الشخصي",
+        "delete_profile_confirm": "هل أنت متأكد من أنك تريد حذف ملفك الشخصي؟",
+        "delete": "حذف",
+        "profile_deleted": "تم حذف الملف الشخصي بنجاح.",
+        "profile_not_deleted": "تعذر حذف الملف الشخصي. يرجى المحاولة مرة أخرى.",
+        "profile_changed": "تم تغيير الملف الشخصي بنجاح.",
+        "profile_not_changed": "تعذر تغيير الملف الشخصي. يرجى المحاولة مرة أخرى."
+    },
+    "account": {
+        "delete_account": "حذف الحساب",
+        "delete_confirm_title": "حذف الحساب",
+        "delete_confirm_message": "هذا الإجراء دائم ولا يمكن التراجع عنه. سيتم حذف جميع بياناتك وقياساتك وسجلك نهائيًا. هل أنت متأكد من المتابعة؟",
+        "delete_success": "تم حذف حسابك نهائيًا.",
+        "delete_error": "تعذر حذف الحساب. يرجى المحاولة مرة أخرى.",
+        "delete_type_to_confirm": "احذف حسابي",
+        "delete_type_hint": "اكتب العبارة أعلاه للتأكيد"
+    },
+    "exception": {
+        "generic_error": "حدث خطأ غير متوقع. يرجى المحاولة مرة أخرى لاحقًا.",
+        "gender_not_found": "لم يتم العثور على الجنس. يرجى اختيار جنس صالح.",
+        "user_not_found": "المستخدم غير موجود.",
+        "user_metrics_not_found": "لم يتم العثور على قياسات المستخدم.",
+        "context_not_found": "لم يتم العثور على السياق. يرجى التأكد من تهيئة التطبيق بشكل صحيح.",
+        "weight_and_height_must_be_positive_values": "يجب أن تكون قيم الوزن والطول موجبة.",
+        "user_not_created": "تعذر إنشاء المستخدم. يرجى المحاولة مرة أخرى.",
+        "height_not_saved": "تعذر حفظ الطول. يرجى المحاولة مرة أخرى."
+    }
+}

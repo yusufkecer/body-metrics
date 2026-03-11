@@ -9,6 +9,8 @@ mixin _HomeModel on TickerProviderStateMixin<Home> {
 
   @override
   void initState() {
+    super.initState();
+
     _animatedListController = AnimationController(
       vsync: this,
       duration: Durations.long2,
@@ -27,7 +29,6 @@ mixin _HomeModel on TickerProviderStateMixin<Home> {
     _animatedLineChartController.forward();
     _animatedBarChartController.forward();
     _animatedListController.forward();
-    super.initState();
   }
 
   @override
@@ -35,7 +36,7 @@ mixin _HomeModel on TickerProviderStateMixin<Home> {
     _animatedListController.dispose();
     _animatedLineChartController.dispose();
     _animatedBarChartController.dispose();
-    _zoomDrawerController.close!();
+    _zoomDrawerController.close?.call();
     super.dispose();
   }
 

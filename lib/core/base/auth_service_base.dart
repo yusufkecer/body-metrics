@@ -7,6 +7,7 @@ abstract interface class AuthServiceBase {
   Future<void> register({required String email, required String password});
   Future<void> login({required String email, required String password});
   Future<void> logoutLocal();
+  Future<void> deleteAccount();
   Future<void> forgotPassword({required String email});
   Future<void> resetPassword({
     required String email,

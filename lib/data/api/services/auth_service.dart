@@ -30,6 +30,8 @@ class AuthService implements AuthServiceBase {
   }
 
   @override
+  /// Checks whether a valid JWT token and email exist in secure storage.
+  /// Updates [AppUtil.hasSession] as a side-effect.
   Future<void> restoreSessionFromCache() async {
     await hasSession();
   }
@@ -44,11 +46,7 @@ class AuthService implements AuthServiceBase {
         '/auth/register',
         data: {'email': email, 'password': password},
       );
-      final token = response.data?['token'] as String?;
-      if (token == null || token.isEmpty) {
-        throw const ApiException(message: 'Token is missing');
-      }
-      await _saveSession(email: email, token: token);
+      await _handleAuthResponse(response, email);
     } on DioException catch (e) {
       throw ApiException.fromDioException(e);
     }
@@ -61,14 +59,21 @@ class AuthService implements AuthServiceBase {
         '/auth/login',
         data: {'email': email, 'password': password},
       );
-      final token = response.data?['token'] as String?;
-      if (token == null || token.isEmpty) {
-        throw const ApiException(message: 'Token is missing');
-      }
-      await _saveSession(email: email, token: token);
+      await _handleAuthResponse(response, email);
     } on DioException catch (e) {
       throw ApiException.fromDioException(e);
     }
+  }
+
+  Future<void> _handleAuthResponse(
+    Response<Map<String, dynamic>> response,
+    String email,
+  ) async {
+    final token = response.data?['token'] as String?;
+    if (token == null || token.isEmpty) {
+      throw const ApiException(message: 'Token is missing');
+    }
+    await _saveSession(email: email, token: token);
   }
 
   @override
@@ -97,6 +102,21 @@ class AuthService implements AuthServiceBase {
     } on DioException catch (e) {
       throw ApiException.fromDioException(e);
     }
+  }
+
+  @override
+  Future<void> deleteAccount() async {
+    try {
+      await _apiClient.dio.delete<Map<String, dynamic>>('/account');
+    } on DioException catch (e) {
+      final apiException = ApiException.fromDioException(e);
+      if (apiException.statusCode == 401 || apiException.statusCode == 404) {
+        await logoutLocal();
+        return;
+      }
+      throw apiException;
+    }
+    await logoutLocal();
   }
 
   @override

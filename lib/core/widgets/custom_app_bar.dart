@@ -9,17 +9,24 @@ final class CustomAppBar extends StatelessWidget implements PreferredSizeWidget 
     super.key,
     this.leading,
     this.action,
+    this.titleWidget,
+    this.translate = true,
   });
 
   final IconButton? leading;
   final Widget? action;
   final String? title;
+  final Widget? titleWidget;
+  final bool translate;
 
   @override
   Widget build(BuildContext context) {
     return AppBar(
       leading: leading,
-      title: title.isNullOrEmpty ? null : Text(title!.tr()),
+      title: titleWidget ??
+          (title.isNullOrEmpty
+              ? null
+              : Text(translate ? title!.tr() : title!)),
       actions: [action ?? const SizedBox.shrink()],
     );
   }

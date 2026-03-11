@@ -88,6 +88,7 @@ final class WeightPickerCubit extends Cubit<WeightPickerState> {
       date: DateFormat('dd-MM-yyyy').format(createdAt),
       createdAt: createdAt.toIso8601String(),
       weightDiff: weight - oldWeight,
+      synced: 0,
     );
 
     'Saving weight: $metricsEntity'.log();
@@ -100,12 +101,11 @@ final class WeightPickerCubit extends Cubit<WeightPickerState> {
       return false;
     }
 
-    if (AppUtil.syncPending) {
-      try {
-        await _syncLocalDataUseCase.execute();
-      } catch (e) {
-        'WeightPickerCubit: sync failed: $e'.e();
-      }
+    try {
+      await _syncLocalDataUseCase.markPending();
+      await _syncLocalDataUseCase.execute();
+    } catch (e) {
+      'WeightPickerCubit: sync failed: $e'.e();
     }
 
     emit(WeightPickerSuccess(user: currentUser));

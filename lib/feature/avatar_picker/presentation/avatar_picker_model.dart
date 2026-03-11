@@ -4,6 +4,7 @@ mixin _AvatarPickerModel
     on State<AvatarPicker>, DialogUtil<AvatarPicker>, SaveAppMixin {
   final List<String> avatarList = AssetValue.values.profileImageList;
   bool _isAuthCompleted = false;
+
   Future<void> _addNewProfile(int index) async {
     final user = UserFilters(avatar: avatarList[index]);
 
@@ -30,13 +31,17 @@ mixin _AvatarPickerModel
 
     final result = await _setValues(appModel);
 
-    if (result.isNotNull && mounted) {
-      await context.router.pushAndPopUntil(
-        UserGeneralInfoView(avatar: avatarList[index]),
-        predicate: (route) => false,
-      );
+    if (result.isNotNull) {
+      if (mounted) {
+        await context.router.pushAndPopUntil(
+          UserGeneralInfoView(avatar: avatarList[index]),
+          predicate: (route) => false,
+        );
+      }
     } else {
-      showLottieError(LocaleKeys.register_avatar_select_failed);
+      if (mounted) {
+        showLottieError(LocaleKeys.register_avatar_select_failed);
+      }
     }
   }
 
@@ -48,7 +53,7 @@ mixin _AvatarPickerModel
     return result;
   }
 
-  void _tappedAvatar(int index) {
-    _addNewProfile(index);
+  Future<void> _tappedAvatar(int index) async {
+    await _addNewProfile(index);
   }
 }

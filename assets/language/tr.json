@@ -149,6 +149,15 @@
         "profile_changed": "Profil başarıyla değiştirildi.",
         "profile_not_changed": "Profil değiştirilemedi. Lütfen tekrar deneyin."
     },
+    "account": {
+        "delete_account": "Hesabı Sil",
+        "delete_confirm_title": "Hesabı Sil",
+        "delete_confirm_message": "Bu işlem kalıcıdır ve geri alınamaz. Tüm verileriniz, ölçümleriniz ve geçmişiniz kalıcı olarak silinecektir. Devam etmek istediğinizden emin misiniz?",
+        "delete_success": "Hesabınız kalıcı olarak silindi.",
+        "delete_error": "Hesap silinemedi. Lütfen tekrar deneyin.",
+        "delete_type_to_confirm": "hesabımı sil",
+        "delete_type_hint": "Onaylamak için yukarıdaki ifadeyi yazın"
+    },
     "exception": {
         "generic_error": "Beklenmedik bir hata oluştu. Lütfen daha sonra tekrar deneyin.",
         "gender_not_found": "Cinsiyet bulunamadı. Lütfen geçerli bir cinsiyet seçin.",

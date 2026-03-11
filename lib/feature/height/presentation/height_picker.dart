@@ -111,7 +111,7 @@ class _HeightBodyState extends State<_HeightBody>
                 ],
               ),
             ),
-            VerticalSpace.l(),
+            VerticalSpace.s(),
             Expanded(
               child: Padding(
                 padding: ProductPadding.horizontalTwentyFour(),
@@ -121,17 +121,31 @@ class _HeightBodyState extends State<_HeightBody>
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       Center(
-                        child: Text(
-                          '$selectedHeight cm',
-                          style: context.textTheme.headlineSmall?.copyWith(
-                            color: ProductColor.instance.white,
-                            fontWeight: FontWeight.w800,
+                        child: Container(
+                          padding: const EdgeInsets.symmetric(
+                            horizontal: 24,
+                            vertical: 10,
+                          ),
+                          decoration: BoxDecoration(
+                            color: ProductColor.instance.whiteAlpha20,
+                            borderRadius: const ProductRadius.twelve(),
+                            border: Border.all(
+                              color: ProductColor.instance.whiteAlpha40,
+                            ),
+                          ),
+                          child: Text(
+                            '$selectedHeight cm',
+                            style: context.textTheme.displaySmall?.copyWith(
+                              color: ProductColor.instance.white,
+                              fontWeight: FontWeight.w800,
+                              letterSpacing: -1,
+                            ),
                           ),
                         ),
                       ),
-                      VerticalSpace.m(),
+                      VerticalSpace.s(),
                       SizedBox(
-                        height: 360,
+                        height: context.height * 0.44,
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -149,12 +163,12 @@ class _HeightBodyState extends State<_HeightBody>
                               maxValue: _maxValue,
                               minValue: _minValue,
                               selectedHeight: selectedHeight,
-                              height: 340,
+                              height: context.height * 0.42,
                             ),
                           ],
                         ),
                       ),
-                      VerticalSpace.l(),
+                      VerticalSpace.m(),
                       CustomFilled(text: LocaleKeys.cont, onPressed: _onSaved),
                     ],
                   ),

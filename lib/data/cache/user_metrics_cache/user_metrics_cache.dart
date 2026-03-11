@@ -24,9 +24,20 @@ final class UserMetricsCache extends ImpCache
           ${UserMetricsColumns.diff.value} REAL NULL,
           body_metric TEXT NULL,
           ${UserMetricsColumns.createdAt.value} TEXT NULL,
+          ${UserMetricsColumns.synced.value} INTEGER DEFAULT 0,
           FOREIGN KEY (${UserMetricsColumns.userId.value}) REFERENCES user(id)
         )
       ''');
+
+    final colNames = (await db.rawQuery('PRAGMA table_info($table)'))
+        .map((e) => e['name'] as String?)
+        .toList();
+    if (!colNames.contains(UserMetricsColumns.synced.value as String?)) {
+      await db.execute(
+        'ALTER TABLE $table ADD COLUMN ${UserMetricsColumns.synced.value} INTEGER DEFAULT 0',
+      );
+      'UserMetricsCache: migrated — added synced column'.log();
+    }
 
     'init database'.log();
   }
@@ -36,17 +47,38 @@ final class UserMetricsCache extends ImpCache
     throw UnimplementedError();
   }
 
-  Future<int> deleteAllByUserId(Database? db, int userId) async {
+  /// Returns only records that have not been uploaded to the server yet.
+  Future<UserMetrics?> selectUnsynced(Database? db, int userId) async {
+    if (db.isNullOrEmpty) {
+      'Database is null'.w();
+      return null;
+    }
+    final result = await db!.query(
+      table,
+      where:
+          '${UserMetricsColumns.userId.value} = ? AND (${UserMetricsColumns.synced.value} IS NULL OR ${UserMetricsColumns.synced.value} = 0)',
+      whereArgs: [userId],
+      orderBy:
+          '${UserMetricsColumns.createdAt.value} ASC, ${UserMetricsColumns.id.value} ASC',
+    );
+    'UserMetricsCache: selectUnsynced found ${result.length} rows'.log();
+    if (result.isEmpty) return null;
+    return UserMetrics(userMetrics: result.map(UserMetric.fromJson).toList());
+  }
+
+  /// Marks all metrics of a user as synced (uploaded to server).
+  Future<int> markAllSynced(Database? db, int userId) async {
     if (db == null) {
       'Database is null'.e();
       return 0;
     }
-    final count = await db.delete(
+    final count = await db.update(
       table,
+      {UserMetricsColumns.synced.value: 1},
       where: '${UserMetricsColumns.userId.value} = ?',
       whereArgs: [userId],
     );
-    'UserMetricsCache: deleted $count rows for userId=$userId'.log();
+    'UserMetricsCache: marked $count rows as synced for userId=$userId'.log();
     return count;
   }
 
@@ -57,8 +89,6 @@ final class UserMetricsCache extends ImpCache
       return 0;
     }
 
-    final result1 = await db.query(table);
-    'result $result1'.log();
     final result = await db.insert(table, value.toJson());
     'result $result'.log();
     await closeDb();

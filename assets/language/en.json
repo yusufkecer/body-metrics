@@ -125,6 +125,15 @@
         "profile_changed": "Profile successfully changed.",
         "profile_not_changed": "Profile could not be changed. Please try again."
     },
+    "account": {
+        "delete_account": "Delete Account",
+        "delete_confirm_title": "Delete Account",
+        "delete_confirm_message": "This action is permanent and cannot be undone. All your data, measurements and history will be permanently deleted. Are you sure you want to continue?",
+        "delete_success": "Your account has been permanently deleted.",
+        "delete_error": "Account could not be deleted. Please try again.",
+        "delete_type_to_confirm": "delete my account",
+        "delete_type_hint": "Type the phrase above to confirm"
+    },
     "exception": {
         "generic_error": "An unexpected error occurred. Please try again later.",
         "gender_not_found": "Gender not found. Please select a valid gender.",

@@ -102,7 +102,7 @@ class _HomeCardState extends State<HomeCard>
                           alignment: Alignment.centerLeft,
                           child: Icon(
                             widget.icon,
-                            color: ProductColor.instance.whiteEightTenths,
+                            color: ProductColor.instance.white,
                           ),
                         ),
                       ),
@@ -110,6 +110,7 @@ class _HomeCardState extends State<HomeCard>
                         child: Text(
                           widget.title.tr(),
                           style: context.textTheme.titleMedium?.copyWith(
+                            color: ProductColor.instance.white,
                             fontWeight: FontWeight.bold,
                           ),
                         ),

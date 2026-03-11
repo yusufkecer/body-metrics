@@ -33,7 +33,7 @@ final class _LineChartCard extends StatelessWidget {
           child: Text(
             LocaleKeys.home_bmi.tr(),
             style: context.textTheme.bodySmall?.copyWith(
-              color: ProductColor.instance.white.withAlpha(190),
+              color: ProductColor.instance.white,
               letterSpacing: 0.3,
             ),
           ),
@@ -87,7 +87,7 @@ final class _BarChartCard extends StatelessWidget {
           child: Text(
             LocaleKeys.home_weight.tr(),
             style: context.textTheme.bodySmall?.copyWith(
-              color: ProductColor.instance.white.withAlpha(190),
+              color: ProductColor.instance.white,
               letterSpacing: 0.3,
             ),
           ),

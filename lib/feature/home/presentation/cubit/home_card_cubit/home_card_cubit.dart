@@ -64,9 +64,6 @@ class HomeCardCubit extends Cubit<HomeCardState> {
     );
   }
 
-  int adjustLength(int length) {
-    return length >= 2 ? 2 : length;
-  }
 }
 
 enum ExpandedCard {

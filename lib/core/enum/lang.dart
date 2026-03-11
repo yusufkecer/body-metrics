@@ -4,7 +4,8 @@ import 'package:flutter/material.dart';
 enum Lang {
   tr(Locale('tr', 'TR')),
   en(Locale('en', 'US')),
-  de(Locale('de', 'DE'));
+  de(Locale('de', 'DE')),
+  ar(Locale('ar', 'SA'));
 
   final Locale locale;
   // ignore: sort_constructors_first
@@ -14,18 +15,21 @@ enum Lang {
     Lang.tr => 'TR',
     Lang.en => 'EN',
     Lang.de => 'DE',
+    Lang.ar => 'AR',
   };
 
   String get displayName => switch (this) {
     Lang.tr => 'Türkçe',
     Lang.en => 'English',
     Lang.de => 'Deutsch',
+    Lang.ar => 'العربية',
   };
 
   String get flag => switch (this) {
     Lang.tr => AssetValue.countryTr.value.country,
     Lang.en => AssetValue.countryUk.value.country,
     Lang.de => AssetValue.countryDe.value.country,
+    Lang.ar => AssetValue.countrySa.value.country,
   };
 
   static Lang fromLocale(Locale locale) {

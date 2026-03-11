@@ -34,6 +34,7 @@ migrate_working_dir/
 .pub-cache/
 .pub/
 /build/
+/.claude/
 
 # Symbolication related
 app.*.symbols

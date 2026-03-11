@@ -8,6 +8,27 @@ final class _MenuView extends StatelessWidget {
   final String surname;
   final String image;
 
+  Future<void> _handleDeleteAccount(BuildContext context) async {
+    final confirmed = await showDialog<bool>(
+      context: context,
+      barrierDismissible: false,
+      builder: (_) => const DeleteAccountDialog(),
+    );
+    if (!(confirmed ?? false) || !context.mounted) return;
+
+    final success =
+        await context.read<AuthSessionCubit>().deleteAccount();
+
+    if (!success && context.mounted) {
+      ScaffoldMessenger.of(context).showSnackBar(
+        SnackBar(
+          content: Text(LocaleKeys.account_delete_error.tr()),
+          backgroundColor: ProductColor.instance.bmiMorbidlyObese,
+        ),
+      );
+    }
+  }
+
   Future<void> _showLanguageDialog(BuildContext context) async {
     final currentLang = Lang.fromLocale(context.locale);
 
@@ -152,23 +173,47 @@ final class _MenuView extends StatelessWidget {
                     ),
                   ),
                   VerticalSpace.s(),
-                  BlocBuilder<AuthSessionCubit, AuthSessionState>(
+                  BlocConsumer<AuthSessionCubit, AuthSessionState>(
+                    listener: (context, state) async {
+                      if (state is AuthSessionDeleted) {
+                        ScaffoldMessenger.of(context).showSnackBar(
+                          SnackBar(
+                            content: Text(
+                              LocaleKeys.account_delete_success.tr(),
+                            ),
+                            backgroundColor: ProductColor.instance.bmiNormal,
+                          ),
+                        );
+                        await context.router.pushAndPopUntil(
+                          const AvatarPickerView(),
+                          predicate: (_) => false,
+                        );
+                      }
+                    },
                     builder: (context, state) {
-                      final isAuthenticated = state is AuthSessionAuthenticated;
+                      final isAuthenticated =
+                          state is AuthSessionAuthenticated ||
+                              state is AuthSessionDeleting;
+                      final isDeleting = state is AuthSessionDeleting;
+
                       if (isAuthenticated) {
                         return _MenuTileWrapper(
                           child: CustomListTile(
                             Icons.logout,
                             LocaleKeys.home_menu_logout,
-                            () async {
-                              await context.read<AuthSessionCubit>().logout();
-                              if (context.mounted) {
-                                await context.router.pushAndPopUntil(
-                                  const AvatarPickerView(),
-                                  predicate: (_) => false,
-                                );
-                              }
-                            },
+                            isDeleting
+                                ? null
+                                : () async {
+                                    await context
+                                        .read<AuthSessionCubit>()
+                                        .logout();
+                                    if (context.mounted) {
+                                      await context.router.pushAndPopUntil(
+                                        const AvatarPickerView(),
+                                        predicate: (_) => false,
+                                      );
+                                    }
+                                  },
                           ),
                         );
                       }
@@ -202,6 +247,49 @@ final class _MenuView extends StatelessWidget {
                 ],
               ),
               const Spacer(),
+              BlocBuilder<AuthSessionCubit, AuthSessionState>(
+                builder: (context, state) {
+                  if (state is! AuthSessionAuthenticated &&
+                      state is! AuthSessionDeleting) {
+                    return const SizedBox.shrink();
+                  }
+                  final isDeleting = state is AuthSessionDeleting;
+                  return GestureDetector(
+                    onTap: isDeleting
+                        ? null
+                        : () => _handleDeleteAccount(context),
+                    child: Padding(
+                      padding: const ProductPadding.bottomM(),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          if (isDeleting) ...[
+                            SizedBox(
+                              width: 12,
+                              height: 12,
+                              child: CircularProgressIndicator(
+                                strokeWidth: 1.5,
+                                color: ProductColor.instance.bmiObese
+                                    .withAlpha(100),
+                              ),
+                            ),
+                            HorizontalSpace.s(),
+                          ],
+                          Text(
+                            LocaleKeys.account_delete_account.tr(),
+                            style: context.textTheme.bodySmall?.copyWith(
+                              color: ProductColor.instance.bmiObese.withAlpha(
+                                isDeleting ? 60 : 130,
+                              ),
+                              fontWeight: FontWeight.w500,
+                            ),
+                          ),
+                        ],
+                      ),
+                    ),
+                  );
+                },
+              ),
             ],
           ),
         ),
@@ -218,14 +306,18 @@ final class _MenuTileWrapper extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: ProductPadding.horizontalEight(),
-      decoration: BoxDecoration(
-        color: ProductColor.instance.white.withAlpha(24),
-        borderRadius: const ProductRadius.ten(),
-        border: Border.all(color: ProductColor.instance.cardBorder),
+    return Material(
+      color: ProductColor.instance.transparent,
+      borderRadius: const ProductRadius.ten(),
+      clipBehavior: Clip.antiAlias,
+      child: Ink(
+        decoration: BoxDecoration(
+          color: ProductColor.instance.white.withAlpha(24),
+          borderRadius: const ProductRadius.ten(),
+          border: Border.all(color: ProductColor.instance.cardBorder),
+        ),
+        child: child,
       ),
-      child: child,
     );
   }
 }

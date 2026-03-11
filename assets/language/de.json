@@ -150,6 +150,15 @@
         "profile_changed": "Profil wurde erfolgreich gewechselt.",
         "profile_not_changed": "Profil konnte nicht gewechselt werden. Bitte versuchen Sie es erneut."
     },
+    "account": {
+        "delete_account": "Konto Loeschen",
+        "delete_confirm_title": "Konto Loeschen",
+        "delete_confirm_message": "Diese Aktion ist dauerhaft und kann nicht rueckgaengig gemacht werden. Alle Ihre Daten, Messungen und der Verlauf werden dauerhaft geloescht. Moechten Sie wirklich fortfahren?",
+        "delete_success": "Ihr Konto wurde dauerhaft geloescht.",
+        "delete_error": "Konto konnte nicht geloescht werden. Bitte versuchen Sie es erneut.",
+        "delete_type_to_confirm": "konto loeschen",
+        "delete_type_hint": "Tippen Sie den obigen Ausdruck zur Bestaetigung"
+    },
     "exception": {
         "generic_error": "Ein unerwarteter Fehler ist aufgetreten. Bitte versuchen Sie es spaeter erneut.",
         "gender_not_found": "Geschlecht nicht gefunden. Bitte waehlen Sie ein gueltiges Geschlecht.",

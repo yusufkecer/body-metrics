@@ -79,7 +79,15 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, _HomeModel {
       ),
       mainScreen: GradientScaffold(
         appBar: CustomAppBar(
-          title: AppUtil.appName,
+          titleWidget: Text(
+            AppUtil.appName,
+            style: context.textTheme.titleLarge?.copyWith(
+              color: ProductColor.instance.white,
+              fontSize: 20,
+              fontWeight: FontWeight.w800,
+              letterSpacing: -0.5,
+            ),
+          ),
           leading: IconButton(
             onPressed: () {
               _zoomDrawerController.toggle!();
@@ -97,6 +105,21 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, _HomeModel {
                 color: ProductColor.instance.white,
                 size: 20,
               ),
+            ),
+          ),
+          action: Container(
+            width: 40,
+            height: 40,
+            margin: const EdgeInsets.only(right: 16),
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: ProductColor.instance.whiteAlpha20,
+              border: Border.all(color: ProductColor.instance.whiteAlpha50),
+            ),
+            child: Icon(
+              ProductIcon.heartMonitor.icon,
+              color: ProductColor.instance.white,
+              size: 22,
             ),
           ),
         ),
