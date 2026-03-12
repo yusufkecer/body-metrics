@@ -99,7 +99,7 @@ class _HomeCardState extends State<HomeCard>
                       SizedBox(
                         width: const CustomSize.dashboardTitle().width,
                         child: Align(
-                          alignment: Alignment.centerLeft,
+                          alignment: AlignmentDirectional.centerStart,
                           child: Icon(
                             widget.icon,
                             color: ProductColor.instance.white,
@@ -119,7 +119,7 @@ class _HomeCardState extends State<HomeCard>
                         width: const CustomSize.dashboardTitle().width,
                         child: widget.showButton
                             ? Align(
-                                alignment: Alignment.centerRight,
+                                alignment: AlignmentDirectional.centerEnd,
                                 child: _AnimatedExpandButton(
                                   buttonTitle: widget.buttonTitle,
                                   onTap: _handleButtonTap,

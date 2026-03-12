@@ -35,14 +35,17 @@ class _BarChartWidgetState extends State<BarChartWidget> {
         final chartWidth = dynamicWidth.clamp(availableWidth, double.infinity);
         final chartHeight = availableWidth / 1.7;
 
-        return SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: SizedBox(
-            width: chartWidth,
-            height: chartHeight,
-            child: Padding(
-              padding: ProductPadding.ten(),
-              child: BarChart(mainBarData()),
+        return Directionality(
+          textDirection: TextDirection.ltr,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: SizedBox(
+              width: chartWidth,
+              height: chartHeight,
+              child: Padding(
+                padding: ProductPadding.ten(),
+                child: BarChart(mainBarData()),
+              ),
             ),
           ),
         );
@@ -60,7 +63,10 @@ class _BarChartWidgetState extends State<BarChartWidget> {
 
     for (final element in widget.bottomTitles) {
       if (element.containsKey(value.toInt())) {
-        text = Text(element[value.toInt()]!, style: style);
+        text = Text(
+          context.localizeDigits(element[value.toInt()]!),
+          style: style,
+        );
       }
     }
 
@@ -77,7 +83,7 @@ class _BarChartWidgetState extends State<BarChartWidget> {
     for (final element in widget.leftTitles) {
       if (element.containsKey(value.toInt())) {
         text = Text(
-          element[value.toInt()]!,
+          context.localizeDigits(element[value.toInt()]!),
           style: context.textTheme.bodySmall?.copyWith(
             fontWeight: FontWeight.w600,
             color: ProductColor.instance.whiteEightTenths,
@@ -102,7 +108,11 @@ class _BarChartWidgetState extends State<BarChartWidget> {
           fitInsideVertically: true,
           getTooltipItem: (group, groupIndex, rod, rodIndex) {
             return BarTooltipItem(
-              rod.toY.toString(),
+              context.formatDecimal(
+                rod.toY,
+                fractionDigits: 1,
+                useGrouping: false,
+              ),
               context.textTheme.bodySmall?.copyWith(color: ProductColor.instance.white, fontWeight: FontWeight.bold) ?? const TextStyle(),
             );
           },

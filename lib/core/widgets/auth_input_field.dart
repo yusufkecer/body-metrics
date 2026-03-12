@@ -105,7 +105,7 @@ class _AuthInputFieldState extends State<AuthInputField> {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const ProductPadding.left2Bottom8(),
+          padding: const EdgeInsetsDirectional.only(start: 2, bottom: 8),
           child: Text(
             widget.labelText,
             style: context.textTheme.labelSmall?.copyWith(
@@ -137,7 +137,7 @@ class _AuthInputFieldState extends State<AuthInputField> {
           decoration: InputDecoration(
             hintText: widget.labelText,
             prefixIcon: Padding(
-              padding: const ProductPadding.left16Right12(),
+              padding: const EdgeInsetsDirectional.only(start: 16, end: 12),
               child: Icon(widget.icon, size: 20),
             ),
             suffixIcon: widget.obscureText
@@ -149,7 +149,7 @@ class _AuthInputFieldState extends State<AuthInputField> {
                           : ProductIcon.eyeClosed.icon,
                       size: 18,
                     ),
-                    padding: const ProductPadding.right14(),
+                    padding: const EdgeInsetsDirectional.only(end: 14),
                   )
                 : null,
           ),

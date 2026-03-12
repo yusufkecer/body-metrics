@@ -36,6 +36,7 @@ mixin _UserGeneralInfoModel
   }
 
   void _openDatePicker() {
+    final localeCode = context.locale.languageCode;
     showDatePicker(
       barrierColor: ProductColor.instance.seedFourTenths,
       context: context,
@@ -44,7 +45,10 @@ mixin _UserGeneralInfoModel
       lastDate: ProductDateTime.now(),
     ).then((value) {
       if (value == null) return;
-      _birthOfDateController.setDate(value);
+      _birthOfDateController.setDate(
+        value,
+        localeCode: localeCode,
+      );
     });
   }
 

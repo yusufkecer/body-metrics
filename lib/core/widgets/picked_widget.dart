@@ -33,7 +33,7 @@ final class PickedWidget extends StatelessWidget {
             ),
           ),
           Text(
-            '$selectedValue',
+            context.localizeDigits('$selectedValue'),
             style: context.textTheme.titleMedium?.copyWith(
               color: ProductColor.instance.deepPurple,
             ),

@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/feature/weight_picker/presentation/cubit/weight_picker_cubit.dart';
@@ -41,59 +43,7 @@ class _WeightPickerState extends State<WeightPicker>
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Padding(
-                  padding: const ProductPadding.authForm(),
-                  child: Row(
-                    children: [
-                      GestureDetector(
-                        onTap: () => context.router.maybePop(),
-                        child: Container(
-                          width: 40,
-                          height: 40,
-                          decoration: BoxDecoration(
-                            color: ProductColor.instance.whiteAlpha20,
-                            borderRadius: const ProductRadius.twelve(),
-                            border: Border.all(
-                              color: ProductColor.instance.whiteAlpha40,
-                            ),
-                          ),
-                          child: Icon(
-                            ProductIcon.backArrow.icon,
-                            color: ProductColor.instance.white,
-                            size: 16,
-                          ),
-                        ),
-                      ),
-                      const Spacer(),
-                      Text(
-                        AppUtil.appName,
-                        style: context.textTheme.titleLarge?.copyWith(
-                          color: ProductColor.instance.white,
-                          fontSize: 20,
-                          fontWeight: FontWeight.w800,
-                          letterSpacing: -0.5,
-                        ),
-                      ),
-                      HorizontalSpace.s(),
-                      Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          shape: BoxShape.circle,
-                          color: ProductColor.instance.whiteAlpha20,
-                          border: Border.all(
-                            color: ProductColor.instance.whiteAlpha50,
-                          ),
-                        ),
-                        child: Icon(
-                          ProductIcon.heartMonitor.icon,
-                          color: ProductColor.instance.white,
-                          size: 22,
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                const AppBrandHeader(),
                 VerticalSpace.l(),
                 Expanded(
                   child: Padding(
@@ -103,48 +53,52 @@ class _WeightPickerState extends State<WeightPicker>
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.stretch,
                         children: [
-                          Center(
-                            child: ClipPath(
-                              clipper: _IndicatorClipper(),
-                              child: ClipRRect(
-                                child: Container(
-                                  height: indicatorHeight,
-                                  width: indicatorWidth,
-                                  padding: ProductPadding.ten(),
-                                  decoration: BoxDecoration(
-                                    color: ProductColor.instance.seedColor,
-                                    borderRadius: const ProductRadius.ten(),
-                                  ),
-                                  child: Column(
-                                    mainAxisAlignment:
-                                        MainAxisAlignment.spaceEvenly,
-                                    children: [
-                                      _WeightIndicator(
-                                        weightTextController:
-                                            _weightTextController,
-                                        fieldFocus: ({bool? value}) =>
-                                            _fieldFocus(value ?? false),
-                                        textFieldChange: _textFieldChange,
-                                      ),
-                                      _WeightPickerWidget(
-                                        weightPickerController:
-                                            _weightController,
-                                        minVal: _minWeight,
-                                        selectedWeight: _selectedWeight,
-                                        maxVal: _maxWeight,
-                                        isDisabled: _isFocused,
-                                        height: 72,
-                                      ),
-                                      _WeightPickerWidget(
-                                        weightPickerController:
-                                            _decimalWeightController,
-                                        minVal: _minVal,
-                                        selectedWeight: _selectedDecimalWeight,
-                                        maxVal: _decimalMaxWeight,
-                                        isDisabled: _isFocused,
-                                        height: 64,
-                                      ),
-                                    ],
+                          Directionality(
+                            textDirection: ui.TextDirection.ltr,
+                            child: Center(
+                              child: ClipPath(
+                                clipper: _IndicatorClipper(),
+                                child: ClipRRect(
+                                  child: Container(
+                                    height: indicatorHeight,
+                                    width: indicatorWidth,
+                                    padding: ProductPadding.ten(),
+                                    decoration: BoxDecoration(
+                                      color: ProductColor.instance.seedColor,
+                                      borderRadius: const ProductRadius.ten(),
+                                    ),
+                                    child: Column(
+                                      mainAxisAlignment:
+                                          MainAxisAlignment.spaceEvenly,
+                                      children: [
+                                        _WeightIndicator(
+                                          weightTextController:
+                                              _weightTextController,
+                                          fieldFocus: ({bool? value}) =>
+                                              _fieldFocus(value ?? false),
+                                          textFieldChange: _textFieldChange,
+                                        ),
+                                        _WeightPickerWidget(
+                                          weightPickerController:
+                                              _weightController,
+                                          minVal: _minWeight,
+                                          selectedWeight: _selectedWeight,
+                                          maxVal: _maxWeight,
+                                          isDisabled: _isFocused,
+                                          height: 72,
+                                        ),
+                                        _WeightPickerWidget(
+                                          weightPickerController:
+                                              _decimalWeightController,
+                                          minVal: _minVal,
+                                          selectedWeight:
+                                              _selectedDecimalWeight,
+                                          maxVal: _decimalMaxWeight,
+                                          isDisabled: _isFocused,
+                                          height: 64,
+                                        ),
+                                      ],
+                                    ),
                                   ),
                                 ),
                               ),

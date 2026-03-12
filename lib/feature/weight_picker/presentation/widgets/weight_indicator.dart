@@ -48,7 +48,7 @@ final class _WeightIndicator extends StatelessWidget {
             ),
           ),
           Text(
-            LocaleKeys.weight_kg.tr(),
+            context.localizedWeightUnit,
             textAlign: TextAlign.center,
             style: context.textTheme.titleLarge!.copyWith(
               color: ProductColor.instance.seedColor,

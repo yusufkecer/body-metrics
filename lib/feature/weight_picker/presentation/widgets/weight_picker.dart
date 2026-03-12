@@ -68,7 +68,7 @@ final class _WeightPickerWidget extends StatelessWidget {
 
     return Align(
       child: Text(
-        '$weight',
+        context.localizeDigits('$weight'),
         style: context.textTheme.headlineMedium?.copyWith(
           fontWeight: isActive ? FontWeight.normal : null,
           color: ProductColor.instance.white.withAlpha(opacity),

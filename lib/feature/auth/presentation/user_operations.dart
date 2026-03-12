@@ -54,59 +54,7 @@ final class _UserOperationsBody extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Padding(
-                padding: const ProductPadding.authForm(),
-                child: Row(
-                  children: [
-                    GestureDetector(
-                      onTap: () => context.router.maybePop(),
-                      child: Container(
-                        width: 40,
-                        height: 40,
-                        decoration: BoxDecoration(
-                          color: ProductColor.instance.whiteAlpha20,
-                          borderRadius: const ProductRadius.twelve(),
-                          border: Border.all(
-                            color: ProductColor.instance.whiteAlpha40,
-                          ),
-                        ),
-                        child: Icon(
-                          ProductIcon.backArrow.icon,
-                          color: ProductColor.instance.white,
-                          size: 16,
-                        ),
-                      ),
-                    ),
-                    const Spacer(),
-                    Text(
-                      'BodyMetrics',
-                      style: context.textTheme.titleLarge?.copyWith(
-                        color: ProductColor.instance.white,
-                        fontSize: 20,
-                        fontWeight: FontWeight.w800,
-                        letterSpacing: -0.5,
-                      ),
-                    ),
-                    HorizontalSpace.s(),
-                    Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        shape: BoxShape.circle,
-                        color: ProductColor.instance.whiteAlpha20,
-                        border: Border.all(
-                          color: ProductColor.instance.whiteAlpha50,
-                        ),
-                      ),
-                      child: Icon(
-                        ProductIcon.heartMonitor.icon,
-                        color: ProductColor.instance.white,
-                        size: 22,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
+              const AppBrandHeader(),
               VerticalSpace.l(),
               Padding(
                 padding: ProductPadding.horizontalTwentyFour(),
@@ -188,7 +136,7 @@ final class _LoginTabState extends State<_LoginTab> {
                   validator: _validateAuthPassword,
                 ),
                 Align(
-                  alignment: Alignment.centerRight,
+                  alignment: AlignmentDirectional.centerEnd,
                   child: TextButton(
                     onPressed: () =>
                         context.router.push(const ForgotPasswordView()),

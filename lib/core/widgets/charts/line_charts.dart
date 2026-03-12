@@ -36,14 +36,17 @@ class _LineChartWidgetState extends State<LineChartWidget> {
         final chartWidth = dynamicWidth.clamp(availableWidth, double.infinity);
         final chartHeight = availableWidth / 1.7;
 
-        return SingleChildScrollView(
-          scrollDirection: Axis.horizontal,
-          child: SizedBox(
-            width: chartWidth,
-            height: chartHeight,
-            child: Padding(
-              padding: ProductPadding.ten(),
-              child: LineChart(avgData()),
+        return Directionality(
+          textDirection: TextDirection.ltr,
+          child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: SizedBox(
+              width: chartWidth,
+              height: chartHeight,
+              child: Padding(
+                padding: ProductPadding.ten(),
+                child: LineChart(avgData()),
+              ),
             ),
           ),
         );
@@ -67,7 +70,10 @@ class _LineChartWidgetState extends State<LineChartWidget> {
 
     for (final element in widget.bottomTitles) {
       if (element.containsKey(value.toInt())) {
-        text = Text(element[value.toInt()]!, style: style);
+        text = Text(
+          context.localizeDigits(element[value.toInt()]!),
+          style: style,
+        );
       }
     }
 
@@ -80,7 +86,7 @@ class _LineChartWidgetState extends State<LineChartWidget> {
     for (final element in widget.leftTitles) {
       if (element.containsKey(value.toInt())) {
         text = Text(
-          element[value.toInt()]!,
+          context.localizeDigits(element[value.toInt()]!),
           style: context.textTheme.bodySmall?.copyWith(
             fontWeight: FontWeight.w600,
             color: ProductColor.instance.whiteEightTenths,
@@ -115,7 +121,11 @@ class _LineChartWidgetState extends State<LineChartWidget> {
           getTooltipItems: (List<LineBarSpot> touchedBarSpots) {
             return touchedBarSpots.map((barSpot) {
               return LineTooltipItem(
-                barSpot.y.toString(),
+                context.formatDecimal(
+                  barSpot.y,
+                  fractionDigits: 2,
+                  useGrouping: false,
+                ),
                 context.textTheme.bodySmall?.copyWith(
                       color: ProductColor.instance.white,
                       fontWeight: FontWeight.bold,

@@ -1,4 +1,5 @@
 export 'package:bodymetrics/core/widgets/animated_image.dart';
+export 'package:bodymetrics/core/widgets/app_brand_header.dart';
 export 'package:bodymetrics/core/widgets/auth_input_field.dart';
 export 'package:bodymetrics/core/widgets/bloc/bloc_wrapper.dart';
 export 'package:bodymetrics/core/widgets/buttons/colorful_text_button.dart';

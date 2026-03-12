@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
 import 'package:bodymetrics/feature/height/presentation/cubit/height_selector_cubit/height_picker_cubit.dart';
@@ -58,59 +60,7 @@ class _HeightBodyState extends State<_HeightBody>
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
-            Padding(
-              padding: const ProductPadding.authForm(),
-              child: Row(
-                children: [
-                  GestureDetector(
-                    onTap: () => context.router.maybePop(),
-                    child: Container(
-                      width: 40,
-                      height: 40,
-                      decoration: BoxDecoration(
-                        color: ProductColor.instance.whiteAlpha20,
-                        borderRadius: const ProductRadius.twelve(),
-                        border: Border.all(
-                          color: ProductColor.instance.whiteAlpha40,
-                        ),
-                      ),
-                      child: Icon(
-                        ProductIcon.backArrow.icon,
-                        color: ProductColor.instance.white,
-                        size: 16,
-                      ),
-                    ),
-                  ),
-                  const Spacer(),
-                  Text(
-                    AppUtil.appName,
-                    style: context.textTheme.titleLarge?.copyWith(
-                      color: ProductColor.instance.white,
-                      fontSize: 20,
-                      fontWeight: FontWeight.w800,
-                      letterSpacing: -0.5,
-                    ),
-                  ),
-                  HorizontalSpace.s(),
-                  Container(
-                    width: 40,
-                    height: 40,
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: ProductColor.instance.whiteAlpha20,
-                      border: Border.all(
-                        color: ProductColor.instance.whiteAlpha50,
-                      ),
-                    ),
-                    child: Icon(
-                      ProductIcon.heartMonitor.icon,
-                      color: ProductColor.instance.white,
-                      size: 22,
-                    ),
-                  ),
-                ],
-              ),
-            ),
+            const AppBrandHeader(),
             VerticalSpace.s(),
             Expanded(
               child: Padding(
@@ -134,7 +84,7 @@ class _HeightBodyState extends State<_HeightBody>
                             ),
                           ),
                           child: Text(
-                            '$selectedHeight cm',
+                            context.formatHeight(selectedHeight),
                             style: context.textTheme.displaySmall?.copyWith(
                               color: ProductColor.instance.white,
                               fontWeight: FontWeight.w800,
@@ -144,28 +94,31 @@ class _HeightBodyState extends State<_HeightBody>
                         ),
                       ),
                       VerticalSpace.s(),
-                      SizedBox(
-                        height: context.height * 0.44,
-                        child: Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            const SizedBox(width: 8),
-                            Expanded(
-                              child: RepaintBoundary(
-                                child: Lottie.asset(
-                                  _lottie!.lottie,
-                                  height: cubit!.state.height,
+                      Directionality(
+                        textDirection: ui.TextDirection.ltr,
+                        child: SizedBox(
+                          height: context.height * 0.44,
+                          child: Row(
+                            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                            children: [
+                              const SizedBox(width: 8),
+                              Expanded(
+                                child: RepaintBoundary(
+                                  child: Lottie.asset(
+                                    _lottie!.lottie,
+                                    height: cubit!.state.height,
+                                  ),
                                 ),
                               ),
-                            ),
-                            _Ruler(
-                              pageController: _pageController,
-                              maxValue: _maxValue,
-                              minValue: _minValue,
-                              selectedHeight: selectedHeight,
-                              height: context.height * 0.42,
-                            ),
-                          ],
+                              _Ruler(
+                                pageController: _pageController,
+                                maxValue: _maxValue,
+                                minValue: _minValue,
+                                selectedHeight: selectedHeight,
+                                height: context.height * 0.42,
+                              ),
+                            ],
+                          ),
                         ),
                       ),
                       VerticalSpace.m(),

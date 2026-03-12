@@ -2,9 +2,10 @@ part of '../weight_picker.dart';
 
 extension _DecimalAdjustment on String {
   int converter() {
-    if (!contains('.')) return 0;
+    final normalized = normalizedDigits;
+    if (!normalized.contains('.')) return 0;
 
-    final splitValue = split('.');
+    final splitValue = normalized.split('.');
 
     if (splitValue.isEmpty || splitValue.length <= 1) return 0;
 

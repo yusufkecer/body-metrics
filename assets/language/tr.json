@@ -14,7 +14,7 @@
     "height": {
         "height_name": "Boy",
         "select_height": "Boyunuzu Seçin",
-        "cm": "Cm"
+        "cm": "cm"
     },
     "register": {
         "name": "İsim",
@@ -32,7 +32,7 @@
     "weight": {
         "weight_name": "Kilo",
         "select_weight": "Kilonuzu Seçin",
-        "kg": "Kg",
+        "kg": "kg",
         "weight_empty": "Devam etmek için kilonuzu girmeniz gerekiyor.",
         "weight_invalid": "Lütfen geçerli bir kilo girin.",
         "enter_range": "Lütfen 25-635 aralığında geçerli bir kilo girin."

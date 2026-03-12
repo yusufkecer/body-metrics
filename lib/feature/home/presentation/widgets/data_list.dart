@@ -211,7 +211,7 @@ class _DataListState extends State<_DataList>
                 ),
                 const SizedBox(width: 5),
                 Text(
-                  metric.displayDate,
+                  _displayDate(context, metric),
                   style: context.textTheme.labelSmall?.copyWith(
                     color: pc.white,
                     fontWeight: FontWeight.w500,
@@ -222,7 +222,7 @@ class _DataListState extends State<_DataList>
           ),
 
           Padding(
-            padding: const EdgeInsets.fromLTRB(12, 12, 12, 12),
+            padding: const EdgeInsets.all(12),
             child: Column(
               children: [
                 Row(
@@ -231,9 +231,7 @@ class _DataListState extends State<_DataList>
                       child: _MetricChip(
                         icon: ProductIcon.weight.icon,
                         label: LocaleKeys.home_weight.tr(),
-                        value: metric.weight != null
-                            ? '${metric.weight!.toStringAsFixed(1)} kg'
-                            : '-',
+                        value: context.formatWeight(metric.weight),
                         accentColor: pc.teal,
                       ),
                     ),
@@ -242,7 +240,13 @@ class _DataListState extends State<_DataList>
                       child: _MetricChip(
                         icon: ProductIcon.chart.icon,
                         label: LocaleKeys.home_bmi.tr(),
-                        value: metric.bmi?.toStringAsFixed(2) ?? '-',
+                        value: metric.bmi == null
+                            ? '-'
+                            : context.formatDecimal(
+                                metric.bmi!,
+                                fractionDigits: 2,
+                                useGrouping: false,
+                              ),
                         accentColor: badgeColor,
                       ),
                     ),
@@ -281,7 +285,9 @@ class _DataListState extends State<_DataList>
                         ),
                         const Spacer(),
                         Text(
-                          metric.weightDiffLabel,
+                          context.formatSignedDecimal(
+                            metric.weightDiff,
+                          ),
                           style: context.textTheme.labelMedium?.copyWith(
                             color: metric.weightDiffColor,
                             fontWeight: FontWeight.w800,
@@ -299,6 +305,20 @@ class _DataListState extends State<_DataList>
           ),
         ],
       ),
+    );
+  }
+
+  String _displayDate(BuildContext context, UserMetric metric) {
+    final formattedIso = context.formatIsoDate(
+      metric.createdAt,
+      pattern: 'dd-MM-yyyy',
+    );
+    if (formattedIso.isNotEmpty) return formattedIso;
+
+    return context.formatPatternDate(
+      metric.date,
+      inputPattern: 'dd-MM-yyyy',
+      outputPattern: 'dd-MM-yyyy',
     );
   }
 }
@@ -434,7 +454,7 @@ final class _BmiRangeIndicator extends StatelessWidget {
                 ),
               ),
               Text(
-                _proximityText(v),
+                _proximityText(context, v),
                 style: context.textTheme.labelSmall?.copyWith(
                   color: _zoneColor(result, pc).withAlpha(230),
                   fontWeight: FontWeight.w700,
@@ -443,70 +463,73 @@ final class _BmiRangeIndicator extends StatelessWidget {
             ],
           ),
           const SizedBox(height: 6),
-          LayoutBuilder(
-            builder: (ctx, box) {
-              final w = box.maxWidth;
-              final frac = (v - _min) / (_max - _min);
-              final markerLeft = (frac * (w - 10)).clamp(0.0, w - 10.0);
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  SizedBox(
-                    width: w,
-                    height: 20,
-                    child: Stack(
-                      children: [
-                        Positioned(
-                          top: 6,
-                          left: 0,
-                          right: 0,
-                          child: ClipRRect(
-                            borderRadius: BorderRadius.circular(4),
-                            child: SizedBox(
-                              height: 8,
-                              child: Row(
-                                children: [
-                                  _seg(w, _min, _t1, pc.bmiUnderweight),
-                                  _seg(w, _t1, _t2, pc.bmiNormal),
-                                  _seg(w, _t2, _t3, pc.bmiOverweight),
-                                  _seg(w, _t3, _t4, pc.bmiObese),
-                                  _seg(w, _t4, _max, pc.bmiMorbidlyObese),
+          Directionality(
+            textDirection: ui.TextDirection.ltr,
+            child: LayoutBuilder(
+              builder: (ctx, box) {
+                final w = box.maxWidth;
+                final frac = (v - _min) / (_max - _min);
+                final markerLeft = (frac * (w - 10)).clamp(0.0, w - 10.0);
+                return Column(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    SizedBox(
+                      width: w,
+                      height: 20,
+                      child: Stack(
+                        children: [
+                          Positioned(
+                            top: 6,
+                            left: 0,
+                            right: 0,
+                            child: ClipRRect(
+                              borderRadius: BorderRadius.circular(4),
+                              child: SizedBox(
+                                height: 8,
+                                child: Row(
+                                  children: [
+                                    _seg(w, _min, _t1, pc.bmiUnderweight),
+                                    _seg(w, _t1, _t2, pc.bmiNormal),
+                                    _seg(w, _t2, _t3, pc.bmiOverweight),
+                                    _seg(w, _t3, _t4, pc.bmiObese),
+                                    _seg(w, _t4, _max, pc.bmiMorbidlyObese),
+                                  ],
+                                ),
+                              ),
+                            ),
+                          ),
+                          Positioned(
+                            top: 0,
+                            left: markerLeft,
+                            child: Container(
+                              width: 10,
+                              height: 20,
+                              decoration: BoxDecoration(
+                                color: pc.white,
+                                borderRadius: BorderRadius.circular(3),
+                                boxShadow: [
+                                  BoxShadow(
+                                    color: _zoneColor(result, pc).withAlpha(200),
+                                    blurRadius: 6,
+                                    spreadRadius: 1,
+                                  ),
                                 ],
                               ),
                             ),
                           ),
-                        ),
-                        Positioned(
-                          top: 0,
-                          left: markerLeft,
-                          child: Container(
-                            width: 10,
-                            height: 20,
-                            decoration: BoxDecoration(
-                              color: pc.white,
-                              borderRadius: BorderRadius.circular(3),
-                              boxShadow: [
-                                BoxShadow(
-                                  color: _zoneColor(result, pc).withAlpha(200),
-                                  blurRadius: 6,
-                                  spreadRadius: 1,
-                                ),
-                              ],
-                            ),
-                          ),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
-                  ),
-                  const SizedBox(height: 3),
-                  SizedBox(
-                    width: w,
-                    height: 12,
-                    child: Stack(children: _thresholdLabels(context, w)),
-                  ),
-                ],
-              );
-            },
+                    const SizedBox(height: 3),
+                    SizedBox(
+                      width: w,
+                      height: 12,
+                      child: Stack(children: _thresholdLabels(context, w)),
+                    ),
+                  ],
+                );
+              },
+            ),
           ),
         ],
       ),
@@ -534,7 +557,7 @@ final class _BmiRangeIndicator extends StatelessWidget {
       return Positioned(
         left: left,
         top: 0,
-        child: Text(ls[i], style: style),
+        child: Text(context.localizeDigits(ls[i]), style: style),
       );
     });
   }
@@ -557,17 +580,17 @@ final class _BmiRangeIndicator extends StatelessWidget {
     }
   }
 
-  static String _proximityText(double v) {
+  String _proximityText(BuildContext context, double v) {
     if (v < _t1) {
-      return '→ ${BodyMetricResult.normal.result.tr()}: ${(_t1 - v).toStringAsFixed(1)}';
+      return '→ ${BodyMetricResult.normal.result.tr()}: ${context.formatDecimal(_t1 - v, fractionDigits: 1, useGrouping: false)}';
     } else if (v < _t2) {
-      return '→ ${BodyMetricResult.overweight.result.tr()}: ${(_t2 - v).toStringAsFixed(1)}';
+      return '→ ${BodyMetricResult.overweight.result.tr()}: ${context.formatDecimal(_t2 - v, fractionDigits: 1, useGrouping: false)}';
     } else if (v < _t3) {
-      return '← ${BodyMetricResult.normal.result.tr()}: ${(v - _t2).toStringAsFixed(1)}';
+      return '← ${BodyMetricResult.normal.result.tr()}: ${context.formatDecimal(v - _t2, fractionDigits: 1, useGrouping: false)}';
     } else if (v < _t4) {
-      return '← ${BodyMetricResult.overweight.result.tr()}: ${(v - _t3).toStringAsFixed(1)}';
+      return '← ${BodyMetricResult.overweight.result.tr()}: ${context.formatDecimal(v - _t3, fractionDigits: 1, useGrouping: false)}';
     } else {
-      return '← ${BodyMetricResult.obese.result.tr()}: ${(v - _t4).toStringAsFixed(1)}';
+      return '← ${BodyMetricResult.obese.result.tr()}: ${context.formatDecimal(v - _t4, fractionDigits: 1, useGrouping: false)}';
     }
   }
 }
@@ -604,22 +627,5 @@ extension _ResultIconExtension on UserMetric {
     }
     if (weightDiff! > 0) return ProductColor.instance.bmiObese;
     return ProductColor.instance.bmiNormal;
-  }
-
-  String get weightDiffLabel {
-    if (weightDiff == null || weightDiff == 0) return '-';
-    final prefix = weightDiff! > 0 ? '+' : '';
-    return '$prefix${weightDiff!.toStringAsFixed(1)}';
-  }
-}
-
-extension _MetricDateExtension on UserMetric {
-  String get displayDate {
-    if (createdAt.isNullOrEmpty) return date ?? '';
-
-    final parsed = DateTime.tryParse(createdAt!);
-    if (parsed == null) return date ?? '';
-
-    return DateFormat('dd-MM-yyyy').format(parsed);
   }
 }

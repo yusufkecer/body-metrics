@@ -91,7 +91,7 @@ final class _ForgotPasswordBodyState extends State<_ForgotPasswordBody> {
                 Padding(
                   padding: const ProductPadding.backButton(),
                   child: Align(
-                    alignment: Alignment.centerLeft,
+                    alignment: AlignmentDirectional.centerStart,
                     child: GestureDetector(
                       onTap: () => context.router.maybePop(),
                       child: Container(

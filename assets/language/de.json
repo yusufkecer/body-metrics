@@ -14,7 +14,7 @@
     "height": {
         "height_name": "Groesse",
         "select_height": "Waehlen Sie Ihre Groesse",
-        "cm": "Cm"
+        "cm": "cm"
     },
     "register": {
         "name": "Vorname",
@@ -32,7 +32,7 @@
     "weight": {
         "weight_name": "Gewicht",
         "select_weight": "Waehlen Sie Ihr Gewicht",
-        "kg": "Kg",
+        "kg": "kg",
         "weight_empty": "Um fortzufahren, muessen Sie Ihr Gewicht eingeben.",
         "weight_invalid": "Bitte geben Sie ein gueltiges Gewicht ein.",
         "enter_range": "Bitte geben Sie ein gueltiges Gewicht im Bereich 25-635 ein."

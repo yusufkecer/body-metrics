@@ -21,7 +21,9 @@ mixin _WeightPickerModel
   void initState() {
     super.initState();
 
-    _weightTextController.text = _selectedWeight.toString();
+    _weightTextController.text = context.localizeDigits(
+      _selectedWeight.toString(),
+    );
     _weightController = PageController(
       initialPage: _selectedWeight - _minWeight.toInt(),
       viewportFraction: 0.20,
@@ -68,10 +70,12 @@ mixin _WeightPickerModel
 
   void _trackAndSetWeight() {
     if (_selectedDecimalWeight > 0) {
-      _weightTextController.text = '$_selectedWeight.$_selectedDecimalWeight';
+      _weightTextController.text = context.localizeDigits(
+        '$_selectedWeight.$_selectedDecimalWeight',
+      );
       return;
     }
-    _weightTextController.text = '$_selectedWeight';
+    _weightTextController.text = context.localizeDigits('$_selectedWeight');
   }
 
   void _fieldFocus(bool hasFocus) {
@@ -102,16 +106,26 @@ mixin _WeightPickerModel
   }
 
   void _handleTextEditing(String text) {
-    final lastValue = text.isNotEmpty ? text[text.length - 1] : '';
-    final lastSecondValue = text.length > 1 ? text[text.length - 2] : '';
+    final normalized = text.normalizedDigits;
+    final lastValue = normalized.isNotEmpty
+        ? normalized[normalized.length - 1]
+        : '';
+    final lastSecondValue = normalized.length > 1
+        ? normalized[normalized.length - 2]
+        : '';
 
     if (lastValue == '.') {
-      _weightTextController.text = text.substring(0, text.length - 1);
+      _weightTextController.text = context.localizeDigits(
+        normalized.substring(0, normalized.length - 1),
+      );
     } else if (lastSecondValue == '.' && lastValue == '0') {
-      _weightTextController.text = text.substring(0, text.length - 2);
+      _weightTextController.text = context.localizeDigits(
+        normalized.substring(0, normalized.length - 2),
+      );
     }
 
-    final parsedWeight = double.tryParse(_weightTextController.text) ?? 0;
+    final parsedWeight =
+        double.tryParse(_weightTextController.text.normalizedDigits) ?? 0;
 
     if (parsedWeight > _maxWeight || parsedWeight < _minWeight) {
       _handleWeightOutOfRange();
@@ -154,15 +168,17 @@ mixin _WeightPickerModel
 
   void _setWeightText(double weight, {bool isDecimal = false}) {
     if (!isDecimal) {
-      _weightTextController.text = weight.toStringAsFixed(0);
+      _weightTextController.text = context.localizeDigits(
+        weight.toStringAsFixed(0),
+      );
       return;
     }
-    _weightTextController.text = weight.toString();
+    _weightTextController.text = context.localizeDigits(weight.toString());
   }
 
   void _textFieldChange(String value) {
     if (!value.isValidNumber) {
-      _weightTextController.text = '$_selectedWeight';
+      _weightTextController.text = context.localizeDigits('$_selectedWeight');
     }
   }
 
@@ -170,7 +186,7 @@ mixin _WeightPickerModel
     if (_cubit?.state is WeightPickerLoading) return;
 
     await GlobalLoadingController.contract.track(() async {
-      final weight = double.parse(_weightTextController.text);
+      final weight = double.parse(_weightTextController.text.normalizedDigits);
       final success = await _cubit?.saveBodyMetrics(weight: weight) ?? false;
 
       if (success) {

@@ -1,3 +1,5 @@
+import 'dart:ui' as ui;
+
 import 'package:auto_route/auto_route.dart';
 import 'package:bodymetrics/core/index.dart';
 
@@ -80,7 +82,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, _HomeModel {
       mainScreen: GradientScaffold(
         appBar: CustomAppBar(
           titleWidget: Text(
-            AppUtil.appName,
+            context.localizedAppName,
             style: context.textTheme.titleLarge?.copyWith(
               color: ProductColor.instance.white,
               fontSize: 20,
@@ -110,7 +112,7 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, _HomeModel {
           action: Container(
             width: 40,
             height: 40,
-            margin: const EdgeInsets.only(right: 16),
+            margin: const EdgeInsetsDirectional.only(end: 16),
             decoration: BoxDecoration(
               shape: BoxShape.circle,
               color: ProductColor.instance.whiteAlpha20,
@@ -249,15 +251,25 @@ class _HomeState extends State<Home> with TickerProviderStateMixin, _HomeModel {
   String _toChartDateLabel(UserMetric metric, {required String fallback}) {
     final createdAt = metric.createdAt;
     if (createdAt.isNullOrEmpty) {
-      return metric.date?.split('-').take(2).join('/') ?? fallback;
+      return context.formatPatternDate(
+        metric.date,
+        inputPattern: 'dd-MM-yyyy',
+        outputPattern: 'dd/MM',
+        fallback: context.localizeDigits(fallback),
+      );
     }
 
     final parsed = DateTime.tryParse(createdAt!);
     if (parsed == null) {
-      return metric.date?.split('-').take(2).join('/') ?? fallback;
+      return context.formatPatternDate(
+        metric.date,
+        inputPattern: 'dd-MM-yyyy',
+        outputPattern: 'dd/MM',
+        fallback: context.localizeDigits(fallback),
+      );
     }
 
-    return DateFormat('dd/MM').format(parsed);
+    return context.formatDate(parsed, pattern: 'dd/MM');
   }
 }
 

@@ -17,6 +17,7 @@ class CustomTheme implements BaseTheme {
       filledButtonTheme: _filledButtonTheme,
       inputDecorationTheme: _inputDecorationTheme,
       brightness: Brightness.dark,
+      fontFamilyFallback: const ['Noto Naskh Arabic', 'Noto Sans Arabic'],
       scaffoldBackgroundColor: ProductColor.instance.transparent,
       checkboxTheme: _checkboxTheme,
       datePickerTheme: _datePickerTheme,
