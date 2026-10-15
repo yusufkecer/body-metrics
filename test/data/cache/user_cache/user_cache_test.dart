@@ -1,13 +1,17 @@
-import 'package:bodymetrics/data/cache/user_cache/user_cache.dart';
+import 'dart:io';
+
+import 'package:bodymetrics/data/index.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:sqflite_common_ffi/sqflite_ffi.dart';
 
 void main() {
   late UserCache userCache;
 
-  setUpAll(() {
+  setUpAll(() async {
     sqfliteFfiInit();
     databaseFactory = databaseFactoryFfi;
+    final tempDir = await Directory.systemTemp.createTemp('user_cache_test');
+    await databaseFactory.setDatabasesPath(tempDir.path);
   });
 
   setUp(() {
@@ -59,4 +63,30 @@ void main() {
 
     await userCache.closeDb();
   });
+
+  test(
+    'UserCache deleteIncomplete removes only users without metrics',
+    () async {
+      final db = await userCache.initializeDatabase();
+      await UserMetricsCache().initializeTable(db!, 1);
+      await db.delete(userCache.table);
+      await db.delete(UserMetricsColumns.table.value);
+
+      final completedId = await db.insert(userCache.table, {'name': 'Done'});
+      await db.insert(userCache.table, {'name': 'Abandoned'});
+      await db.insert(UserMetricsColumns.table.value, {
+        'user_id': completedId,
+        'date': '01-01-2026',
+        'height': 175,
+        'bmi': 22.86,
+      });
+
+      final deleted = await userCache.deleteIncomplete(db);
+      expect(deleted, 1);
+
+      final db2 = await userCache.initializeDatabase();
+      final users = await userCache.selectAll(db2);
+      expect(users!.users!.map((user) => user.id), [completedId]);
+    },
+  );
 }

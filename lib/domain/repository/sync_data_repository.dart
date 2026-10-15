@@ -210,7 +210,6 @@ final class SyncDataRepository implements SyncDataRepositoryBase {
       final appDb = await _appCache.initializeDatabase();
       await _appCache.update(appDb, {
         AppCacheColumns.activeUser.value: localId,
-        AppCacheColumns.page.value: 'homePage',
         AppCacheColumns.isCompletedOnboard.value: 1,
       });
     } catch (e) {

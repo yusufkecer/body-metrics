@@ -28,7 +28,7 @@ final class WeightPicker extends StatefulWidget {
 }
 
 class _WeightPickerState extends State<WeightPicker>
-    with SaveAppMixin, DialogUtil, _WeightPickerModel {
+    with DialogUtil, _WeightPickerModel {
   @override
   Widget build(BuildContext context) {
     return BlocWrapper<WeightPickerCubit, WeightPickerState>(

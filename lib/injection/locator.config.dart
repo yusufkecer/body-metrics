@@ -26,15 +26,12 @@ import 'package:bodymetrics/data/cache/user_metrics_cache/user_metrics_cache.dar
 import 'package:bodymetrics/data/db/imp_cache.dart' as _i46;
 import 'package:bodymetrics/data/index.dart' as _i101;
 import 'package:bodymetrics/domain/index.dart' as _i34;
-import 'package:bodymetrics/domain/repository/app_info_repository.dart'
-    as _i728;
 import 'package:bodymetrics/domain/repository/save_app_repository.dart'
     as _i395;
 import 'package:bodymetrics/domain/repository/sync_data_repository.dart'
     as _i121;
 import 'package:bodymetrics/domain/repository/user_repository_impl.dart'
     as _i302;
-import 'package:bodymetrics/domain/use_case/app_info_use_case.dart' as _i792;
 import 'package:bodymetrics/domain/use_case/save_app_use_case.dart' as _i78;
 import 'package:bodymetrics/domain/use_case/set_id_use_case.dart' as _i830;
 import 'package:bodymetrics/domain/use_case/sync_local_data_use_case.dart'
@@ -85,12 +82,8 @@ import 'package:bodymetrics/feature/onboard/presentation/cubit/onboard_cubit.dar
     as _i578;
 import 'package:bodymetrics/feature/splash/domain/repository/splash_app_repository.dart'
     as _i437;
-import 'package:bodymetrics/feature/splash/domain/repository/splash_user_repository.dart'
-    as _i288;
 import 'package:bodymetrics/feature/splash/domain/use_case/splash_app_use_case.dart'
     as _i31;
-import 'package:bodymetrics/feature/splash/domain/use_case/splash_user_use_case.dart'
-    as _i193;
 import 'package:bodymetrics/feature/user_general_info/domain/index.dart'
     as _i171;
 import 'package:bodymetrics/feature/user_general_info/domain/repository/create_profile_repository.dart'
@@ -130,9 +123,6 @@ extension GetItInjectableX on _i174.GetIt {
     gh.lazySingleton<_i981.UserCache>(() => _i981.UserCache());
     gh.lazySingleton<_i35.UserMetricsCache>(() => _i35.UserMetricsCache());
     gh.lazySingleton<_i46.ImpCache>(() => _i46.ImpCache());
-    gh.factory<_i728.AppInfoRepository>(
-      () => _i728.AppInfoRepository(gh<_i101.AppCache>()),
-    );
     gh.factory<_i395.SaveAppRepository>(
       () => _i395.SaveAppRepository(gh<_i101.AppCache>()),
     );
@@ -153,9 +143,6 @@ extension GetItInjectableX on _i174.GetIt {
     );
     gh.factory<_i218.SaveGenderRepository>(
       () => _i218.SaveGenderRepository(gh<_i101.UserCache>()),
-    );
-    gh.factory<_i288.SplashUserRepository>(
-      () => _i288.SplashUserRepository(gh<_i101.UserCache>()),
     );
     gh.factory<_i1073.CreateProfileRepository>(
       () => _i1073.CreateProfileRepository(gh<_i101.UserCache>()),
@@ -211,17 +198,11 @@ extension GetItInjectableX on _i174.GetIt {
     gh.factory<_i681.SaveHeightUseCase>(
       () => _i681.SaveHeightUseCase(gh<_i896.SaveHeightRepository>()),
     );
-    gh.factory<_i193.SplashUserUseCase>(
-      () => _i193.SplashUserUseCase(gh<_i288.SplashUserRepository>()),
-    );
     gh.factory<_i243.UserRepository>(
       () => _i302.UserRepositoryImpl(
         gh<_i101.UserCache>(),
         gh<_i243.UserApiServiceBase>(),
       ),
-    );
-    gh.factory<_i792.AppInfoUseCase>(
-      () => _i792.AppInfoUseCase(gh<_i34.AppInfoRepository>()),
     );
     gh.factory<_i293.OnboardUseCase>(
       () => _i293.OnboardUseCase(gh<_i85.OnboardRepository>()),

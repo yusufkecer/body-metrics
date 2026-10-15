@@ -3,7 +3,6 @@ part of 'app_cache.dart';
 enum AppCacheColumns {
   isCompletedOnboard,
   activeUser,
-  page,
   jwtToken,
   email,
   syncPending,
@@ -15,8 +14,6 @@ enum AppCacheColumns {
         return 'is_completed_onboard';
       case AppCacheColumns.activeUser:
         return 'active_user';
-      case AppCacheColumns.page:
-        return 'page';
       case AppCacheColumns.jwtToken:
         return 'jwt_token';
       case AppCacheColumns.email:

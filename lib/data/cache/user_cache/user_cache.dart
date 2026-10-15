@@ -66,6 +66,27 @@ final class UserCache extends ImpCache
     throw UnimplementedError();
   }
 
+  /// Deletes users without any metric, i.e. profiles whose registration was
+  /// abandoned before the weight step.
+  Future<int> deleteIncomplete(Database? db) async {
+    if (db == null) {
+      'Database is null'.w();
+      return 0;
+    }
+
+    final metricsTable = UserMetricsColumns.table.value;
+    final result = await db.rawDelete(
+      'DELETE FROM $table WHERE NOT EXISTS '
+      '(SELECT 1 FROM $metricsTable '
+      'WHERE $metricsTable.${UserMetricsColumns.userId.value} = '
+      '$table.${UserCacheColumns.id.value})',
+    );
+    'Incomplete users deleted: $result'.log();
+    await closeDb();
+
+    return result;
+  }
+
   @override
   Future<Users?> select(
     Database? db,

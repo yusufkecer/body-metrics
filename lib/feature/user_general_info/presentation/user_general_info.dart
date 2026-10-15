@@ -44,7 +44,7 @@ final class _UserInfoFormBody extends StatefulWidget {
 }
 
 class _UserInfoFormBodyState extends State<_UserInfoFormBody>
-    with DialogUtil, SaveAppMixin, _UserGeneralInfoModel {
+    with DialogUtil, _UserGeneralInfoModel {
   @override
   Widget build(BuildContext context) {
     return SafeArea(
@@ -70,11 +70,6 @@ class _UserInfoFormBodyState extends State<_UserInfoFormBody>
                   if (state is UserInfoFormCubitError) {
                     showLottieError(state.error ?? LocaleKeys.dialog_general_error);
                   } else if (state is UserInfoFormCubitSuccess) {
-                    final pageResult = await saveApp(Pages.genderPage);
-                    if (pageResult != true) {
-                      showLottieError(LocaleKeys.dialog_page_not_saved);
-                      return;
-                    }
                     await _pushToGender();
                   }
                 },

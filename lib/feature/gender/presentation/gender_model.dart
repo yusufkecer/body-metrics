@@ -1,6 +1,6 @@
 part of 'gender.dart';
 
-mixin _GenderModel on State<_GenderView>, SaveAppMixin, DialogUtil<_GenderView> {
+mixin _GenderModel on State<_GenderView>, DialogUtil<_GenderView> {
   GenderValue? selectedGender;
 
   void onChange(GenderValue gender) {
@@ -28,8 +28,6 @@ mixin _GenderModel on State<_GenderView>, SaveAppMixin, DialogUtil<_GenderView> 
       showLottieError(LocaleKeys.dialog_general_error);
       return;
     }
-
-    await saveApp(Pages.heightPage);
 
     if (!mounted) return;
 

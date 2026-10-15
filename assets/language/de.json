@@ -52,8 +52,7 @@
         "cancel": "Abbrechen",
         "ok": "OK",
         "close": "Schliessen",
-        "yes": "Ja",
-        "page_not_saved": "Seite wurde nicht gespeichert. Bitte schliessen Sie die Registrierung ab."
+        "yes": "Ja"
     },
     "onboard": {
         "welcome": "Willkommen!",

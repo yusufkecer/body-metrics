@@ -1,6 +1,6 @@
 part of 'onboard.dart';
 
-mixin _OnboardModel on State<_OnboardBody>, _PageViewMixin, SaveAppMixin {
+mixin _OnboardModel on State<_OnboardBody>, _PageViewMixin {
   final IntroKey _pageController = IntroKey();
   int get _pageListCount => _pageViewList.length - 1;
 
@@ -25,7 +25,6 @@ mixin _OnboardModel on State<_OnboardBody>, _PageViewMixin, SaveAppMixin {
   Future<void> _onDone() async {
     const entity = AppModel(isCompleteOnboard: true);
     final result = await context.read<OnboardCubit>().done(entity);
-    await saveApp(Pages.avatarPage);
     if (result && mounted) {
       await context.router.pushAndPopUntil(
         const AvatarPickerView(),

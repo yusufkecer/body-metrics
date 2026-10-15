@@ -1,7 +1,7 @@
 part of 'user_general_info.dart';
 
 mixin _UserGeneralInfoModel
-    on State<_UserInfoFormBody>, DialogUtil<_UserInfoFormBody>, SaveAppMixin {
+    on State<_UserInfoFormBody>, DialogUtil<_UserInfoFormBody> {
   final TextEditingController _nameController = TextEditingController();
   final TextEditingController _surnameController = TextEditingController();
   final DateController _birthOfDateController = DateController();

@@ -37,7 +37,7 @@ void main() {
     );
 
     test('done returns true when use case returns true', () async {
-      const tModel = AppModel(activeUser: 1, page: Pages.userGeneralInfo);
+      const tModel = AppModel(isCompleteOnboard: true);
       when(
         mockOnboardUseCase.executeWithParams(params: tModel),
       ).thenAnswer((_) async => true);
@@ -49,7 +49,7 @@ void main() {
     });
 
     test('done returns false when use case returns null', () async {
-      const tModel = AppModel(activeUser: 1, page: Pages.userGeneralInfo);
+      const tModel = AppModel(isCompleteOnboard: true);
       when(
         mockOnboardUseCase.executeWithParams(params: tModel),
       ).thenAnswer((_) async => null);

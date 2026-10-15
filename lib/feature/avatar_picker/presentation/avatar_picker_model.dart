@@ -1,7 +1,6 @@
 part of 'avatar_picker.dart';
 
-mixin _AvatarPickerModel
-    on State<AvatarPicker>, DialogUtil<AvatarPicker>, SaveAppMixin {
+mixin _AvatarPickerModel on State<AvatarPicker>, DialogUtil<AvatarPicker> {
   final List<String> avatarList = AssetValue.values.profileImageList;
   bool _isAuthCompleted = false;
 
@@ -24,10 +23,7 @@ mixin _AvatarPickerModel
 
     await Locator.sl<SetIdUseCase>().executeWithParams(params: insertId);
 
-    final appModel = AppModel(
-      activeUser: insertId,
-      page: Pages.userGeneralInfo,
-    );
+    final appModel = AppModel(activeUser: insertId);
 
     final result = await _setValues(appModel);
 

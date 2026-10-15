@@ -9,7 +9,6 @@ part 'app_model.g.dart';
 final class AppModel extends Equatable implements BaseModel<AppModel> {
   const AppModel({
     this.isCompleteOnboard,
-    this.page,
     this.activeUser,
   });
   @override
@@ -19,15 +18,12 @@ final class AppModel extends Equatable implements BaseModel<AppModel> {
     String? theme,
     String? language,
     bool? isCompleteOnboard,
-    Pages? page,
     int? activeUser,
   }) =>
       AppModel(
         isCompleteOnboard: isCompleteOnboard ?? this.isCompleteOnboard,
-        page: page ?? this.page,
         activeUser: activeUser ?? this.activeUser,
       );
-  final Pages? page;
   @JsonKey(
     name: 'is_completed_onboard',
     fromJson: _boolFromDb,
@@ -38,7 +34,7 @@ final class AppModel extends Equatable implements BaseModel<AppModel> {
   final int? activeUser;
 
   @override
-  List<Object?> get props => [isCompleteOnboard, page, activeUser];
+  List<Object?> get props => [isCompleteOnboard, activeUser];
   @override
   Json toJson() => _$AppModelToJson(this);
 

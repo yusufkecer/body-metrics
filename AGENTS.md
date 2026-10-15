@@ -60,9 +60,10 @@ SplashView → OnboardView → AvatarPickerView → UserGeneralInfoView
           → GenderView → HeightView → WeightView → HomeView
 ```
 
-Splash reads `AppModel.page` (enum `Pages`) and `AppModel.isCompleteOnboard` to decide which screen to show.
-
-`Pages` enum values: `onboardPage, avatarPage, userGeneralInfo, genderPage, heightPage, weightPage, homePage`
+Onboarding progress is **not** persisted. A profile counts as completed once it has at least one metric. On every start `SplashAppRepository` deletes users without metrics (abandoned registrations), then Splash routes:
+- completed profile exists → `HomeView`
+- `AppModel.isCompleteOnboard` (intro already seen) → `AvatarPickerView` (registration restarts from scratch)
+- otherwise → `OnboardView`
 
 ---
 
@@ -74,16 +75,17 @@ Splash reads `AppModel.page` (enum `Pages`) and `AppModel.isCompleteOnboard` to 
 | `lib/main.dart` | Entry: `InitApp.init()` → `runApp` |
 | `lib/core/init/app_init.dart` | WidgetsFlutterBinding + DB + DI init |
 | `lib/feature/splash/presentation/splash.dart` | Reads AppModel → routes user |
-| `lib/feature/splash/presentation/splash_model.dart` | Page switch logic |
+| `lib/feature/splash/presentation/splash_model.dart` | Start-up routing (Home / AvatarPicker / Onboard) |
+| `lib/feature/splash/domain/repository/splash_app_repository.dart` | Deletes incomplete users, resolves active completed user |
 | `lib/core/router/app_router.dart` | Route definitions |
 | `lib/core/router/app_router.gr.dart` | Generated routes (do not edit) |
 
 ### State & user session
 | File | Role |
 |------|------|
-| `lib/core/util/models/app_model/app_model.dart` | App-wide state: lastPage, activeUser, isCompleteOnboard |
+| `lib/core/util/models/app_model/app_model.dart` | App-wide state: activeUser, isCompleteOnboard |
 | `lib/core/util/models/user/user.dart` | User entity (id, name, surname, avatar, gender, height, birthOfDate) |
-| `lib/core/util/constants/app_util.dart` | Static: `currentUserId`, `lastPage`, `databaseVersion` |
+| `lib/core/util/app_util.dart` | Static: `currentUserId`, `databaseVersion` |
 | `lib/domain/use_case/save_app_use_case.dart` | Persist AppModel to AppCache |
 | `lib/domain/use_case/set_id_use_case.dart` | Set AppUtil.currentUserId |
 
@@ -185,7 +187,7 @@ CREATE TABLE user_metrics (
 **Migrations (idempotent):** use `PRAGMA table_info` + `ALTER TABLE` to add new columns.
 
 ### `app_cache` table
-Stores: `is_complete_onboard`, `active_user`, `page` (current Pages enum value), `jwt_token` (JWT), `email` (user email), `sync_pending` (0/1 — persisted across restarts)
+Stores: `is_completed_onboard` (intro slides seen), `active_user`, `jwt_token` (JWT), `email` (user email), `sync_pending` (0/1 — persisted across restarts)
 
 > **Migration:** `sync_pending INTEGER DEFAULT 0` is added via idempotent `PRAGMA table_info` + `ALTER TABLE` in `AppCache.initializeTable()`.
 
@@ -307,7 +309,7 @@ class FeatureCubit extends Cubit<FeatureState> {
 When a user logs in from `AvatarPickerView` (no local profile):
 1. `LoginCubit` → `_syncLocalDataUseCase.restore()` → checks local SQLite first
 2. If no local user: calls `GET /users` → downloads profile + metrics from server
-3. Saves locally, sets `AppUtil.currentUserId`, updates `app_cache.active_user + page=homePage`
+3. Saves locally, sets `AppUtil.currentUserId`, updates `app_cache.active_user + is_completed_onboard=1`
 4. Navigation to `HomeView` succeeds
 
 ### Auth Flow
@@ -377,8 +379,7 @@ class UserMetric extends Equatable {
 
 // AppModel
 class AppModel extends Equatable {
-  final Pages? page;
-  @JsonKey(name: 'is_complete_onboard') final bool? isCompleteOnboard;
+  @JsonKey(name: 'is_completed_onboard') final bool? isCompleteOnboard;
   @JsonKey(name: 'active_user') final int? activeUser;
 }
 ```
@@ -393,9 +394,8 @@ class AppModel extends Equatable {
 - **Check:** `.isNullOrEmpty`, `.isNotNull`, `.isNull`, `.convertBoolResult`
 - **Logger:** `.log()` (info), `.w()` (warn), `.e()` (error)
 
-### Mixins (`lib/core/mixin/`)
-- **SaveAppMixin:** `saveApp(Pages)` → persists current page to AppCache
-- **DialogUtil:** `showLottieError()`, `showLottieConfirm()` — Lottie-animated dialogs
+### Mixins
+- **DialogUtil** (`lib/core/util/dialogs/`): `showLottieError()`, `showLottieConfirm()` — Lottie-animated dialogs
 - **TitleMixin:** Home screen title based on expanded card section
 
 ### Constants
@@ -404,7 +404,7 @@ class AppModel extends Equatable {
 - **ProductRadius:** ten(), fifTeen(), twentyFive()…
 - **SpaceValues:** xxs, xs, s, m, l
 - **AssetValue enum:** all asset paths (profiles pr1–pr6, onboards ob1–ob5, lotties)
-- **AppUtil:** `currentUserId`, `lastPage`, `appName = 'BodyMetrics'`, `databasePath`
+- **AppUtil:** `currentUserId`, `appName = 'BodyMetrics'`, `databasePath`
 
 ### Base Classes (`lib/core/base/`)
 ```dart
@@ -523,8 +523,8 @@ blocTest<OnboardCubit, OnboardState>(
 2. `SetIdUseCase` + `AppModel(activeUser)` update flow
 
 ### "Page navigation flow broken"
-1. `splash_model.dart` → `Pages` switch logic
-2. `SaveAppUseCase` → last page persistence check
+1. `splash_model.dart` → `_navigateToAppropriatePage` (Home / AvatarPicker / Onboard)
+2. `splash_app_repository.dart` → incomplete user cleanup + active user resolution
 
 ### "Database migration issue"
 1. `user_metrics_cache.dart` → `initializeTable` migration section

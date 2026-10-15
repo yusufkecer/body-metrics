@@ -1,6 +1,6 @@
 part of 'height_picker.dart';
 
-mixin _HeightModel on State<_HeightBody>, DialogUtil<_HeightBody>, SaveAppMixin {
+mixin _HeightModel on State<_HeightBody>, DialogUtil<_HeightBody> {
   late PageController _pageController;
 
   HeightSelectorCubit? cubit;
@@ -54,7 +54,6 @@ mixin _HeightModel on State<_HeightBody>, DialogUtil<_HeightBody>, SaveAppMixin 
       showLottieError(error);
       return;
     }
-    await saveApp(Pages.weightPage);
     if (!mounted) return;
     _pushToWeight();
   }

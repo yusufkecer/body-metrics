@@ -39,7 +39,7 @@ final class _GenderView extends StatefulWidget {
 }
 
 class __GenderViewState extends State<_GenderView>
-    with DialogUtil<_GenderView>, SaveAppMixin, _GenderModel {
+    with DialogUtil<_GenderView>, _GenderModel {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(
