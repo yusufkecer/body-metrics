@@ -79,7 +79,9 @@ void main() {
   test('keeps the active user when the profile is completed', () async {
     await insertUser(withMetric: true);
     final active = await insertUser(withMetric: true);
-    await persistAppModel(AppModel(isCompleteOnboard: true, activeUser: active));
+    await persistAppModel(
+      AppModel(isCompleteOnboard: true, activeUser: active),
+    );
 
     final result = await repository.executeWithParams();
 
@@ -91,7 +93,9 @@ void main() {
     () async {
       final completed = await insertUser(withMetric: true);
       final incomplete = await insertUser();
-      await persistAppModel(AppModel(isCompleteOnboard: true, activeUser: incomplete));
+      await persistAppModel(
+        AppModel(isCompleteOnboard: true, activeUser: incomplete),
+      );
 
       final result = await repository.executeWithParams();
 
@@ -101,7 +105,9 @@ void main() {
 
   test('returns no active user when registration was abandoned', () async {
     final incomplete = await insertUser();
-    await persistAppModel(AppModel(isCompleteOnboard: true, activeUser: incomplete));
+    await persistAppModel(
+      AppModel(isCompleteOnboard: true, activeUser: incomplete),
+    );
 
     final result = await repository.executeWithParams();
 
