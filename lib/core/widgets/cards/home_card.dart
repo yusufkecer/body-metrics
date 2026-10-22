@@ -58,6 +58,10 @@ class _HomeCardState extends State<HomeCard>
     super.dispose();
   }
 
+  double get _headerSideWidth => widget.showButton
+      ? const CustomSize.dashboardTitle().width
+      : const CustomSize.dashboardIcon().width;
+
   void _handleButtonTap() {
     _buttonAnimController.forward().then((_) {
       _buttonAnimController.reverse();
@@ -94,10 +98,9 @@ class _HomeCardState extends State<HomeCard>
               child: Column(
                 children: [
                   Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       SizedBox(
-                        width: const CustomSize.dashboardTitle().width,
+                        width: _headerSideWidth,
                         child: Align(
                           alignment: AlignmentDirectional.centerStart,
                           child: Icon(
@@ -106,17 +109,20 @@ class _HomeCardState extends State<HomeCard>
                           ),
                         ),
                       ),
-                      Center(
-                        child: Text(
-                          widget.title.tr(),
-                          style: context.textTheme.titleMedium?.copyWith(
-                            color: ProductColor.instance.white,
-                            fontWeight: FontWeight.bold,
+                      Expanded(
+                        child: FittedBox(
+                          fit: BoxFit.scaleDown,
+                          child: Text(
+                            widget.title.tr(),
+                            style: context.textTheme.titleMedium?.copyWith(
+                              color: ProductColor.instance.white,
+                              fontWeight: FontWeight.bold,
+                            ),
                           ),
                         ),
                       ),
                       SizedBox(
-                        width: const CustomSize.dashboardTitle().width,
+                        width: _headerSideWidth,
                         child: widget.showButton
                             ? Align(
                                 alignment: AlignmentDirectional.centerEnd,
@@ -202,29 +208,31 @@ class _AnimatedExpandButton extends StatelessWidget {
               child: Row(
                 mainAxisSize: MainAxisSize.min,
                 children: [
-                  AnimatedSwitcher(
-                    duration: const Duration(milliseconds: 300),
-                    switchInCurve: Curves.easeOutBack,
-                    switchOutCurve: Curves.easeIn,
-                    transitionBuilder: (child, animation) {
-                      final slide = Tween<Offset>(
-                        begin: const Offset(0, 0.5),
-                        end: Offset.zero,
-                      ).animate(animation);
-                      return FadeTransition(
-                        opacity: animation,
-                        child: SlideTransition(position: slide, child: child),
-                      );
-                    },
-                    child: Text(
-                      buttonTitle.tr(),
-                      key: ValueKey<String>(buttonTitle),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: context.textTheme.titleMedium?.copyWith(
-                        color: ProductColor.instance.white,
-                        fontWeight: FontWeight.w600,
-                        fontSize: 13,
+                  Flexible(
+                    child: AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 300),
+                      switchInCurve: Curves.easeOutBack,
+                      switchOutCurve: Curves.easeIn,
+                      transitionBuilder: (child, animation) {
+                        final slide = Tween<Offset>(
+                          begin: const Offset(0, 0.5),
+                          end: Offset.zero,
+                        ).animate(animation);
+                        return FadeTransition(
+                          opacity: animation,
+                          child: SlideTransition(position: slide, child: child),
+                        );
+                      },
+                      child: Text(
+                        buttonTitle.tr(),
+                        key: ValueKey<String>(buttonTitle),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: context.textTheme.titleMedium?.copyWith(
+                          color: ProductColor.instance.white,
+                          fontWeight: FontWeight.w600,
+                          fontSize: 13,
+                        ),
                       ),
                     ),
                   ),

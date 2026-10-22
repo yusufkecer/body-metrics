@@ -45,7 +45,7 @@ final class _HeightBody extends StatefulWidget {
 }
 
 class _HeightBodyState extends State<_HeightBody>
-    with SaveAppMixin, DialogUtil<_HeightBody>, _HeightModel {
+    with DialogUtil<_HeightBody>, _HeightModel {
   @override
   Widget build(BuildContext context) {
     cubit = context.watch<HeightSelectorCubit>();

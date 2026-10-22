@@ -1,11 +1,9 @@
-import 'package:bodymetrics/core/enum/pages.dart';
 import 'package:flutter/material.dart';
 
 @immutable
 final class AppUtil {
   // Application configuration
   static late int? currentUserId;
-  static late Pages? lastPage;
   static bool hasSession = false;
   static bool syncPending = false;
   // Application constants

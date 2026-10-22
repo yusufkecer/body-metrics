@@ -39,7 +39,7 @@ class _OnboardBody extends StatefulWidget {
 }
 
 class __OnboardBodyState extends State<_OnboardBody>
-    with _PageViewMixin, SaveAppMixin, _OnboardModel {
+    with _PageViewMixin, _OnboardModel {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(

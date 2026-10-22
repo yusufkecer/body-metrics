@@ -1,7 +1,6 @@
 part of 'weight_picker.dart';
 
-mixin _WeightPickerModel
-    on State<WeightPicker>, DialogUtil<WeightPicker>, SaveAppMixin {
+mixin _WeightPickerModel on State<WeightPicker>, DialogUtil<WeightPicker> {
   late final PageController _weightController;
   late final PageController _decimalWeightController;
   final TextEditingController _weightTextController = TextEditingController();
@@ -190,7 +189,6 @@ mixin _WeightPickerModel
       final success = await _cubit?.saveBodyMetrics(weight: weight) ?? false;
 
       if (success) {
-        await saveApp(Pages.homePage);
         if (mounted) _goToHomeView();
       } else {
         showLottieError(LocaleKeys.exception_user_not_found);

@@ -128,15 +128,13 @@ class AuthService implements AuthServiceBase {
 
     await db.rawUpdate(
       'UPDATE ${_appCache.table} '
-      'SET ${AppCacheColumns.activeUser.value} = NULL, '
-      '${AppCacheColumns.page.value} = NULL',
+      'SET ${AppCacheColumns.activeUser.value} = NULL',
     );
 
     await _appCache.closeDb();
     await _secureTokenService.clearSession();
 
     AppUtil.currentUserId = null;
-    AppUtil.lastPage = null;
     AppUtil.hasSession = false;
   }
 

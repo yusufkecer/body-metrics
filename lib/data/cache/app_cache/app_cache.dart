@@ -24,7 +24,6 @@ final class AppCache extends ImpCache
     CREATE TABLE IF NOT EXISTS $table (
       ${AppCacheColumns.isCompletedOnboard.value} INTEGER NULL,
       ${AppCacheColumns.activeUser.value} INTEGER NULL,
-      ${AppCacheColumns.page.value} TEXT NULL,
       ${AppCacheColumns.jwtToken.value} TEXT NULL,
       ${AppCacheColumns.email.value} TEXT NULL,
       ${AppCacheColumns.syncPending.value} INTEGER DEFAULT 0
@@ -52,7 +51,6 @@ final class AppCache extends ImpCache
   final List<String> _columns = [
     AppCacheColumns.isCompletedOnboard.value,
     AppCacheColumns.activeUser.value,
-    AppCacheColumns.page.value,
     AppCacheColumns.jwtToken.value,
     AppCacheColumns.email.value,
     AppCacheColumns.syncPending.value,

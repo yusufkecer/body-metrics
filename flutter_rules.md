@@ -150,8 +150,8 @@ class AppRouter extends RootStackRouter {
 **Rules:**
 - Use `auto_route` only — do not use go_router or Navigator.push directly
 - Route file is `lib/core/router/app_router.dart`; generated file is `app_router.gr.dart` (never edit)
-- Track the last visited page by saving a `Pages` enum value via `SaveAppUseCase`
-- Use `SaveAppMixin.saveApp(Pages page)` for consistent page persistence across features
+- Do not persist onboarding progress (last visited page). An abandoned registration restarts from `AvatarPickerView`
+- A profile is completed once it has at least one metric; `SplashAppRepository` deletes users without metrics on start-up
 
 ---
 

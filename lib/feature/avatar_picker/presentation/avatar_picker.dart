@@ -19,7 +19,7 @@ final class AvatarPicker extends StatefulWidget {
 }
 
 class _AvatarPickerState extends State<AvatarPicker>
-    with DialogUtil, SaveAppMixin, _AvatarPickerModel {
+    with DialogUtil, _AvatarPickerModel {
   @override
   Widget build(BuildContext context) {
     return GradientScaffold(

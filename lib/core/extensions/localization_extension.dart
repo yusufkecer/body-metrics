@@ -31,7 +31,7 @@ extension LocalizationContextExtension on BuildContext {
       formatter.turnOffGrouping();
     }
 
-    return formatter.format(value);
+    return localizeDigits(formatter.format(value));
   }
 
   String formatSignedDecimal(num? value, {int fractionDigits = 1}) {
